@@ -7,39 +7,40 @@
                 <section class="login_content">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
-                        <h1>Login</h1>
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <input  id="email" type="email" class="form-control" placeholder="email" required name="email" value="{{ old('email') }}"/>
-                            @if ($errors->has('email'))
-                                <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                            @endif
+                        <h1>后台系统登录</h1>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            {{--帐号密码和ciook--}}
+                            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
+                                <input type="email" id="email" class="form-control has-feedback-left"  placeholder="email" required name="email" value="{{ old('email') }}">
+                                <span class="fa fa-user form-control-feedback left" ></span>
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                @endif
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
+                                <input type="password" id="password" class="form-control has-feedback-left"  placeholder="Password"  name="password" >
+                                <span class="fa fa-lock form-control-feedback left" ></span>
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                @endif
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12  checkbox">
+                                <label class="left">
+                                    <input type="checkbox"  name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <input id="password" type="password" class="form-control" name="password" placeholder="Password" >
-
-                            @if ($errors->has('password'))
-                                <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                            @endif
-                        </div>
-                        <div class="form-group checkbox">
-                            <label class="pull-left">
-                                <input type="checkbox"  name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                            </label>
-                        </div>
-                        <br>
-                        <div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 ">
                             <button class="btn btn-default submit" type="submit" >Login</button>
                             <a class="reset_pass" href="{{ route('password.request') }}">
                                 Lost your password?
                             </a>
                         </div>
-
                         <div class="clearfix"></div>
-
                         <div class="separator">
                             <p class="change_link">New to site?
                                 <a class="to_register" href="{{ route('register') }}">Create Account</a>
