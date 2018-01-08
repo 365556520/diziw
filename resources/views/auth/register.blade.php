@@ -24,8 +24,8 @@
                             </div>
 
                             <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('username') ? ' has-error' : '' }}">
-                                <input id="username" type="text" class="form-control has-feedback-left" name="username" value="{{ old('username') }}"  required  >
-                                <span class="fa fa-envelope form-control-feedback left" ></span>
+                                <input id="username" type="text" class="form-control has-feedback-left" name="username" value="{{ old('username') }}" placeholder="userid" required  >
+                                <span class="fa fa-user-secret form-control-feedback left" ></span>
                                 @if ($errors->has('username'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('username') }}</strong>
