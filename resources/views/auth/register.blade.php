@@ -12,6 +12,7 @@
                         {{ csrf_field() }}
                         {{--用户名--}}
                         <div class="form-group">
+
                             <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('name') ? ' has-error' : '' }}">
                                 <input  id="name" type="text" class="form-control has-feedback-left"  name="name" value="{{ old('name') }}"  placeholder="name" required autofocus>
                                 <span class="fa fa-user form-control-feedback left" ></span>
@@ -21,6 +22,17 @@
                                     </span>
                                 @endif
                             </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('username') ? ' has-error' : '' }}">
+                                <input id="username" type="text" class="form-control has-feedback-left" name="username" value="{{ old('username') }}"  required  >
+                                <span class="fa fa-envelope form-control-feedback left" ></span>
+                                @if ($errors->has('username'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
                             <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
                                 <input id="email" type="email" class="form-control has-feedback-left" name="email" value="{{ old('email') }}"  placeholder="Email" required  >
                                 <span class="fa fa-envelope form-control-feedback left" ></span>
@@ -30,6 +42,7 @@
                                     </span>
                                 @endif
                             </div>
+
                             <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
                                <input id="password" type="password" class="form-control has-feedback-left" name="password"  placeholder="Password" required>
                                 <span class="fa fa-lock form-control-feedback left" ></span>
@@ -39,12 +52,15 @@
                                 </span>
                                 @endif
                             </div>
+
                             <div class="col-md-12 col-sm-12 col-xs-12  has-feedback">
                                 <input id="password-confirm" type="password" class="form-control has-feedback-left"  placeholder="Confirm Password"  name="password_confirmation" required>
                                 <span class="fa fa fa-unlock-alt form-control-feedback left" ></span>
                             </div>
                         </div>
+
                         <div class="ln_solid"></div>
+
                         <div class="form-group">
                             <div class="col-md-12 col-sm-12 col-xs-12 ">
                                 <button type="submit" class="btn btn-success">Submit</button>

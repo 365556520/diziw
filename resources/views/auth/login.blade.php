@@ -10,13 +10,13 @@
                         <h1>后台系统登录</h1>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                             {{--帐号密码和ciook--}}
-                            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                                <input type="email" id="email" class="form-control has-feedback-left"  placeholder="email" required name="email" value="{{ old('email') }}">
+                            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('username') ? ' has-error' : '' }}">
+                                <input type="username" id="username" class="form-control has-feedback-left"  placeholder="username" required name="username" value="{{ old('username') }}">
                                 <span class="fa fa-user form-control-feedback left" ></span>
-                                @if ($errors->has('email'))
+                                @if ($errors->has('username'))
                                     <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
+                                            <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
