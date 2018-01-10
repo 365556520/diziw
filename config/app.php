@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'zh-CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        //ÑéÖ¤ÂëµÄÀ©Õ¹°ü
+        //éªŒè¯ç çš„æ‰©å±•åŒ…
         Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
@@ -226,7 +226,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        //ÑéÖ¤ÂëµÄÀ©Õ¹°üÔÚÃÅÃæÀïÃæ¼ÓÉÏÕâ¸ö
+        //éªŒè¯ç çš„æ‰©å±•åŒ…åœ¨é—¨é¢é‡Œé¢åŠ ä¸Šè¿™ä¸ª
         'Captcha' => 'Mews\Captcha\Facades\Captcha',
     ],
 

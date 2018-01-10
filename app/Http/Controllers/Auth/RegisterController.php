@@ -49,10 +49,16 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            //ÕâÀïÊÇÌí¼Ó×Ô¶¨Òå×Ö¶Î¹æÔò
+            //è¿™é‡Œæ˜¯æ·»åŠ è‡ªå®šä¹‰å­—æ®µè§„åˆ™
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            //captchaæ˜¯æ‰©å±•éªŒè¯ç é‡Œé¢çš„ä»–è‡ªå®šä¹‰çš„éªŒè¯éªŒè¯ç çš„éªŒè¯è§„åˆ™
+            'captcha' => 'required|captcha'
+        ],[
+            //å®šä¹‰éªŒè¯ç çš„è¯­è¨€requiredä¸ºç©ºcaptchaå¡«å†™é”™è¯¯
+            'captcha.required' => trans('validation.required'),
+            'captcha.captcha' => trans('validation.captcha'),
         ]);
     }
 
@@ -66,7 +72,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            //ÕâÀïÊÇÌí¼Ó×Ô¶¨Òå×Ö¶Î
+            //è¿™é‡Œæ˜¯æ·»åŠ è‡ªå®šä¹‰å­—æ®µ
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),

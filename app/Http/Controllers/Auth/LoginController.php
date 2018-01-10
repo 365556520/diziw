@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -34,10 +35,24 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    //»Ø×Ô¶¨ÒåÓÃ»§µÇÂ¼×Ö¶Î
+    //å›žè‡ªå®šä¹‰ç”¨æˆ·ç™»å½•å­—æ®µ
     public function username()
     {
-        //ÕâÀïÕâÀïÌîÐ´Êý¾Ý¿âÓÃÀ´µÇÂ¼µÄ×Ö¶Î¿ÉÒÔÉèÖÃÈçidµÈºóÔÙloginÒ³ÃæÒªÉèÖÃÕâ¸öµÇÂ¼×Ö¶Î
+        //è¿™é‡Œè¿™é‡Œå¡«å†™æ•°æ®åº“ç”¨æ¥ç™»å½•çš„å­—æ®µå¯ä»¥è®¾ç½®å¦‚idç­‰åŽå†loginé¡µé¢è¦è®¾ç½®è¿™ä¸ªç™»å½•å­—æ®µ
         return 'username';
+    }
+    //éªŒè¯ç é‡å†™AuthenticatesUsersç±»é‡Œé¢çš„è¿™ä¸ªvalidateLoginæ–¹æ³•ï¼Œå¢žåŠ éªŒè¯ç åˆ¤æ–­
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+            //captchaæ˜¯æ‰©å±•éªŒè¯ç é‡Œé¢çš„ä»–è‡ªå®šä¹‰çš„éªŒè¯éªŒè¯ç çš„éªŒè¯è§„åˆ™
+            'captcha' => 'required|captcha'
+        ],[
+            //å®šä¹‰éªŒè¯ç çš„è¯­è¨€requiredä¸ºç©ºcaptchaå¡«å†™é”™è¯¯
+            'captcha.required' => trans('validation.required'),
+            'captcha.captcha' => trans('validation.captcha'),
+        ]);
     }
 }

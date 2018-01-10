@@ -7,7 +7,7 @@
                     <h2>用户注册</h2>
                     <div class="clearfix"></div>
                 </div>
-                <div class="login_content">
+                <div class="row login_content">
                     <form id="demo-form2" method="POST" action="{{ route('register') }}" class="form-horizontal form-label-left" >
                         {{ csrf_field() }}
                         {{--用户名--}}
@@ -57,6 +57,20 @@
                                 <input id="password-confirm" type="password" class="form-control has-feedback-left"  placeholder="Confirm Password"  name="password_confirmation" required>
                                 <span class="fa fa fa-unlock-alt form-control-feedback left" ></span>
                             </div>
+
+
+                                <div class="col-md-6 col-sm-6 col-xs-6 {{ $errors->has('captcha') ? ' has-error' : '' }} ">
+                                    <input type="text" id="captcha" class="form-control "  placeholder="captcha"  name="captcha" >
+                                    @if ($errors->has('captcha'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('captcha') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <img src="{{captcha_src()}}" style="cursor: pointer;" onclick="this.src='{{captcha_src()}}'+Math.random()">
+                                </div>
+
                         </div>
 
                         <div class="ln_solid"></div>
