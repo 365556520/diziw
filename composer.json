@@ -9,7 +9,8 @@
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "mews/captcha": "^2.1"
+        "mews/captcha": "^2.1",
+        "zizaco/entrust": " dev-master"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -34,6 +35,14 @@
     },
     "extra": {
         "laravel": {
+            "providers": [
+                "Mews\\Captcha\\CaptchaServiceProvider",
+                "Zizaco\\Entrust\\EntrustServiceProvider"
+            ],
+            "aliases": {
+                "Captcha": "Mews\\Captcha\\Facades\\Captcha",
+                "Entrust": "Zizaco\\Entrust\\EntrustFacade"
+            },
             "dont-discover": [
             ]
         }

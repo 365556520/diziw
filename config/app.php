@@ -176,8 +176,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        //验证码的扩展包
+        //在这个里面添加这个配置
         Mews\Captcha\CaptchaServiceProvider::class,
+        //Entrust扩展包
+        Zizaco\Entrust\EntrustServiceProvider::class,
+
     ],
 
     /*
@@ -226,8 +229,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        //验证码的扩展包在门面里面加上这个
-        'Captcha' => 'Mews\Captcha\Facades\Captcha',
+        //门面里面加上这个
+         'Captcha'=>Mews\Captcha\Facades\Captcha::class,
+        //Entrust扩展包
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];
