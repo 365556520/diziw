@@ -16,6 +16,19 @@
                         </div>
                     @endif
                         You are logged in!
+                        @role('admin')
+                        <p>我是管理员 Gets translated to
+                            \Entrust::role('admin')</p>
+                        @endrole
+
+                        @permission('create users')
+                        <p>我是普通用户</p>
+                        @endpermission
+
+                        @ability('admin,user','edit users,create users')
+                        <p>判断角色能力
+                            \Entrust::ability(('admin,user','edit users,create users')</p>
+                        @endability
 
                 </div>
             </div>
