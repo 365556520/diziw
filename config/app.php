@@ -180,6 +180,8 @@ return [
         Mews\Captcha\CaptchaServiceProvider::class,
         //Entrust扩展包
         Zizaco\Entrust\EntrustServiceProvider::class,
+        //自定义服务
+        App\Providers\RepositoryServiceProvider::class,
 
     ],
 
@@ -233,6 +235,7 @@ return [
          'Captcha'=>Mews\Captcha\Facades\Captcha::class,
         //Entrust扩展包
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+
     ],
 
 ];
