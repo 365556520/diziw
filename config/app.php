@@ -235,6 +235,8 @@ return [
          'Captcha'=>Mews\Captcha\Facades\Captcha::class,
         //Entrust扩展包
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+//        自定义门面
+        'UserRepository' => App\Facades\UserFacade::class,
 
     ],
 

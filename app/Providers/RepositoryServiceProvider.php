@@ -22,12 +22,17 @@ class RepositoryServiceProvider extends ServiceProvider
      * @return void
      */
     public function register()
-    {
+    {   /*服务注册*/
 //         单例绑定:第一个接口的第二个是实现类
 //         $this->app->singleton('App\Repositories\Contracts\UserInterface', function ($app) {
 //             return new \App\Repositories\Eloquent\UserServiceRepository();
 //         });
 //        // 绑定:第一个接口的第二个是实现类
         $this->app->bind('App\Repositories\Contracts\UserInterface', 'App\Repositories\Eloquent\UserServiceRepository');
+    /*门面注册*/
+        // 单例
+        $this->app->singleton('UserFacadeRepository', function ($app) {
+            return new \App\Repositories\Eloquent\UserFacadeRepository();
+        });
     }
 }

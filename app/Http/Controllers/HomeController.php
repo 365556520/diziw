@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\UserInterface; //引入自定义服务
+use UserRepository;//引入门面
+use App\Repositories\Eloquent\UserRepository as UserPepo; //仓库模式引入因为和门面名字相同重复了所以as UserPepo起一个别名
 class HomeController extends Controller
-{
-    private $user;
-    //把接口进行依赖注入
-    public function __construct(UserInterface $user)
+{   private $user;
+    private $userPepo;
+    //服务把接口进行依赖注入
+    public function __construct(UserInterface $user,UserPepo $userPepo)
     {   $this->user = $user;
+        $this->userPepo = $userPepo;
         $this->middleware('auth');
     }
-    public function index()
-    {
+    public function index(){
 /*//        判断当前用户有没有管理权限
         dd(auth()->user()->hasRole('admin'));
 //        判断用户是否有相应的权限
@@ -37,8 +39,12 @@ class HomeController extends Controller
             'validate_all' => true,
              'return_type'  =>  'both'
         ]));*/
-       //这里用实现类里面的那个方法
-        dd($this->user->findBy(2)->toArray());
+       //服务使用这里用实现类里面的那个方法
+//        dd($this->user->findBy(2)->toArray());
+//        使用门面
+//        dd(UserRepository::findBy(1)->toArray());
+        //仓库模式使用
+        dd($this->userPepo->findBy(1));
         return view('home');
     }
 }
