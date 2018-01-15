@@ -20,6 +20,7 @@ abstract class Repository implements UserInterface{
     public function findBy($id){
         return $this->model->find($id);
     }
+    //返回一个实例的model
     public function makeModel(){
         $model = $this->app->make($this->model());
         /*是否是Model实例*/

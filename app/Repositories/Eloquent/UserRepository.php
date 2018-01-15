@@ -7,13 +7,12 @@ use App\User;
  * 仓库模式继承抽象类
  */
 class UserRepository extends Repository {
-    public function model()
-    {
+    //重写父类的抽象方法
+    public function model(){
         return User::class;
     }
-    //重写findBy
-    public function findBy($id)
-    {
+    //重写接口findBy
+    public function findBy($id){
         return $this->model->where('id',$id)->first()->toArray();
     }
 }

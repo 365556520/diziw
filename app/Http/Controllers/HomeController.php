@@ -10,8 +10,8 @@ class HomeController extends Controller
 {   private $user;
     private $userPepo;
     //服务把接口进行依赖注入
-    public function __construct(UserInterface $user,UserPepo $userPepo)
-    {   $this->user = $user;
+    public function __construct(UserInterface $user,UserPepo $userPepo){
+        $this->user = $user;
         $this->userPepo = $userPepo;
         $this->middleware('auth');
     }
