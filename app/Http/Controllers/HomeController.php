@@ -44,7 +44,7 @@ class HomeController extends Controller
 //        使用门面
 //        dd(UserRepository::findBy(1)->toArray());
         //仓库模式使用
-       dd($this->userPepo->findBy(1));
-        return view('home');
+//       dd($this->userPepo->findBy(1));
+        return view('admin.home.index');
     }
 }
