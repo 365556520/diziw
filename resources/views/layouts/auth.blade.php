@@ -11,15 +11,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Bootstrap -->
-    <link href="{{asset('/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{asset('/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <!-- NProgress -->
-    <link href="{{asset('/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+    <link href="{{asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
     <!-- Animate.css -->
-    <link href="{{asset('/vendors/animate/animate.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/backend/vendors/animate/animate.min.css')}}" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="{{asset('/vendors/build/css/custom.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
 
 </head>
 <body>
@@ -28,8 +28,8 @@
 
     @yield('content')
 </div>
-<script src="{{ asset('/vendors/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ asset('/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('/backend/vendors/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{asset('/backend/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
 </body>
 </html>
