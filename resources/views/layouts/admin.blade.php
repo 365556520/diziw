@@ -15,28 +15,38 @@
         <link href="{{ asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
         <!-- NProgress -->
         <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+          @yield('css')
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
-        @yield('css')
+
     </head>
     <body class="nav-md">
         <div class="container body">
-        <div class="main_container">
-            @include('layouts.sidebar')
-            <!-- page content 主页内容-->
-            <div class="right_col" role="main" style="min-height: 934px;">
-                @yield('content')
-            </div>
-            <!-- footer content 主要内容页脚 -->
-            <footer>
-                <div class="pull-right">
-                    内容页脚 <a href="#">内容页脚</a>
+            <div class="main_container">
+                @include('layouts.sidebar')
+                <!-- page content 主页内容-->
+                <div class="right_col" role="main" style="min-height: 934px; ">
+                    <div class="">
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    @yield('content')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
+                <!-- footer content 主要内容页脚 -->
+                <footer>
+                    <div class="pull-right">
+                        内容页脚 <a href="#">内容页脚</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </footer>
+                <!-- /footer content -->
+            </div>
         </div>
-    </div>
         <!-- jQuery -->
         <script src="{{ asset('/backend/vendors/jquery/dist/jquery.min.js')}}"></script>
         <!-- Bootstrap -->
