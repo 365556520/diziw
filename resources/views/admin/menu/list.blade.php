@@ -83,7 +83,7 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Form Basic Elements <small>different form elements</small></h2>
+                        <h2>菜单数据 <small>添加菜单项</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -103,49 +103,71 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form class="form-horizontal form-label-left">
-
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @include('flash::message')
+                        <br/>
+                        <form class="form-horizontal form-label-left" id="menuForm" action="{{url('admin/menu')}}" method="post">
+                            {!!csrf_field()!!}
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单名称</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control" placeholder="Default Input">
+                                    <input type="text" class="form-control" name="name" value="{{old('name')}}" placeholder="请输入菜单名称">
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Custom</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单图标</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="select2_single form-control" tabindex="-1">
+                                    <input type="text" class="form-control" name="icon" value="{{old('icon')}}" placeholder="请输入菜单图标">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">父级菜单</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="select2_single form-control" name="parent_id"  tabindex="-1">
                                         <option></option>
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                        <option value="CA">California</option>
-                                        <option value="NV">Nevada</option>
-                                        <option value="OR">Oregon</option>
-                                        <option value="WA">Washington</option>
-                                        <option value="AZ">Arizona</option>
-                                        <option value="CO">Colorado</option>
-                                        <option value="ID">Idaho</option>
-                                        <option value="MT">Montana</option>
-                                        <option value="NE">Nebraska</option>
-                                        <option value="NM">New Mexico</option>
-                                        <option value="ND">North Dakota</option>
-                                        <option value="UT">Utah</option>
-                                        <option value="WY">Wyoming</option>
-                                        <option value="AR">Arkansas</option>
-                                        <option value="IL">Illinois</option>
-                                        <option value="IA">Iowa</option>
-                                        <option value="KS">Kansas</option>
-                                        <option value="KY">Kentucky</option>
-                                        <option value="LA">Louisiana</option>
-                                        <option value="MN">Minnesota</option>
-                                        <option value="MS">Mississippi</option>
-                                        <option value="MO">Missouri</option>
-                                        <option value="OK">Oklahoma</option>
-                                        <option value="SD">South Dakota</option>
-                                        <option value="TX">Texas</option>
+                                        <option value="0">顶级</option>
+                                        <option value="1">Hawaii</option>
+                                        <option value="2">California</option>
+                                        <option value="3">Nevada</option>
+                                        <option value="4">Oregon</option>
+                                        <option value="5">Washington</option>
+                                        <option value="6">Arizona</option>
+                                        <option value="7">Colorado</option>
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单高亮</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="heightlight_url" value="{{old('heightlight_url')}}" placeholder="请输入菜单高亮">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单连接</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="url" value="{{old('url')}}" placeholder="请输入菜单连接">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">排序</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="sort" value="{{old('sort')}}" placeholder="排序">
+                                </div>
+                            </div>
+
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
