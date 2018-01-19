@@ -182,7 +182,8 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         //自定义服务
         App\Providers\RepositoryServiceProvider::class,
-
+        //flash插件
+        Laracasts\Flash\FlashServiceProvider::class,
     ],
 
     /*
