@@ -26,16 +26,7 @@
                 @include('layouts.sidebar')
                 <!-- page content 主页内容-->
                 <div class="right_col" role="main" style="min-height: 934px; ">
-                    <div class="">
-                        <div class="clearfix"></div>
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="x_panel">
-                                    @yield('content')
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @yield('content')
                 </div>
                 <!-- footer content 主要内容页脚 -->
                 <footer>
