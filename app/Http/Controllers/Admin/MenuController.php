@@ -13,7 +13,8 @@ class MenuController extends Controller
     }
 
     public function index(){
-        return view('admin.menu.list');
+        $menu = $this->menu->findByField('parent_id',0);
+        return view('admin.menu.list')->with(compact('menu'));
     }
     /*添加菜单
      * */

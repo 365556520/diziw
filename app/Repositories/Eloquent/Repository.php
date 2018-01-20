@@ -43,7 +43,8 @@ abstract class Repository implements RepositoryInterface{
          * @return mixed
          */
         public function findByField($field, $value, $columns = ['*']){
-
+            $model = new $this->model;
+            return $model->where($field,$value)->get();
         }
         /**
          * Find data by multiple fields

@@ -129,20 +129,13 @@
                                     <input type="text" class="form-control" name="icon" value="{{old('icon')}}" placeholder="请输入菜单图标">
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">父级菜单</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <select class="select2_single form-control" name="parent_id"  tabindex="-1">
-                                        <option></option>
-                                        <option value="0">顶级</option>
-                                        <option value="1">Hawaii</option>
-                                        <option value="2">California</option>
-                                        <option value="3">Nevada</option>
-                                        <option value="4">Oregon</option>
-                                        <option value="5">Washington</option>
-                                        <option value="6">Arizona</option>
-                                        <option value="7">Colorado</option>
+
+                                        @inject('menus','App\Repositories\Presenter\MenuPresenter')
+                                        {!! $menus->getMenu($menu) !!}
                                     </select>
                                 </div>
                             </div>
