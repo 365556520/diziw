@@ -17,8 +17,9 @@ abstract class Repository implements RepositoryInterface{
     abstract function model();
     //返回一个实例的model
     public function makeModel(){
+        //Container类中 $this->app->make 方法来代替 new model()的Class:
         $model = $this->app->make($this->model());
-        /*是否是Model实例*/
+        /*是否是Model实例不是抛出异常*/
         if (!$model instanceof Model){
             throw new RepositoryException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
         }
@@ -27,12 +28,13 @@ abstract class Repository implements RepositoryInterface{
 
 
     public function all($columns = ['*']){
+        $model = new $this->model;
+        return $model->all();
+    }
 
-        }
+    public function find($id, $columns = ['*']){
 
-        public function find($id, $columns = ['*']){
-
-        }
+    }
         /**
          * Find data by field and value
          *

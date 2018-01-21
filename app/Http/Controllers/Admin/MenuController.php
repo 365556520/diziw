@@ -13,7 +13,11 @@ class MenuController extends Controller
     }
 
     public function index(){
+        //查出顶级菜单
         $menu = $this->menu->findByField('parent_id',0);
+        //按照层级关系得到所有菜单
+        $menus = $this->menu->sortMenus($this->menu->all()->toArray());
+        dd($menus);
         return view('admin.menu.list')->with(compact('menu'));
     }
     /*添加菜单

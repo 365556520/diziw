@@ -14,4 +14,18 @@ class  MenuRepository extends Repository{
     public function model(){
         return Menu::class;
     }
+    /*递归菜单层级关系*/
+    public function sortMenus($menus,$pid = 0){
+        $arr = [];
+        if (empty($menus)){
+            return '';
+        }
+        foreach ($menus as  $key => $v){
+            if($v['parent_id'] == $pid ){
+                $arr[$key] = $v;
+                $arr[$key]['child'] = self::sortMenus($menus,$v['id']);
+            }
+        }
+        return $arr;
+    }
 }
