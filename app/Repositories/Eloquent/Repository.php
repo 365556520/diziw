@@ -14,6 +14,7 @@ abstract class Repository implements RepositoryInterface{
         $this->app = $app;
         $this->makeModel();
     }
+    //抽象方法（实现类必须重写这个抽象方法）
     abstract function model();
     //返回一个实例的model
     public function makeModel(){
@@ -28,8 +29,7 @@ abstract class Repository implements RepositoryInterface{
 
 
     public function all($columns = ['*']){
-        $model = new $this->model;
-        return $model->all();
+        return $this->model->all($columns);
     }
 
     public function find($id, $columns = ['*']){

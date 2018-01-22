@@ -1,12 +1,16 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: ×Ô¶¨ÒåÅäÖÃÎÄ¼þ
+ * User:
  * Date: 2018/1/8
  * Time: 15:49
- * ÕâÀïÊÇ×Ô¼ºµÄÅäÖÃÎÄ¼þ
+ *
  */
 return[
-    //×Ô¶¨ÒåµÇÂ¼×Ö¶Î
-    'username' => 'username'
+    //è‡ªå®šä¹‰é…ç½® ç™»å½•åå­—
+    'username' => 'username',
+    //ç¼“å­˜çš„é”®å€¼
+    'cache' => [
+        'menusList' => 'menusList',
+    ],
 ];
