@@ -31,7 +31,7 @@ class  MenuRepository extends Repository{
         return $arr;
     }
     /*查出菜单并排序子菜单*/
-    public function  sortMenuSetCahche(){
+    public function  sortMenuSetCache(){
         //从查出菜单数据得到数组
         $menus = $this->model->orderBy('sort','desc')->get()->toArray();
         if ($menus){
@@ -58,6 +58,6 @@ class  MenuRepository extends Repository{
         if(Cache::has(config('admin.globals.cache.menusList'))){
             return Cache::get(config('admin.globals.cache.menusList'));
         }
-        return $this->sortMenuSetCahche();
+        return $this->sortMenuSetCache();
     }
 }

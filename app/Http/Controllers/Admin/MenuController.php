@@ -23,6 +23,8 @@ class MenuController extends Controller
      * */
     public function store(MenuRequest $request){
         $request = $this->menu->create($request->all());
+        // 刷新缓存
+        $this->menu->sortMenuSetCache();
         if($request){
             flash('菜单添加成功')->success();
 

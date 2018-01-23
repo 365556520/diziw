@@ -11,7 +11,7 @@
     <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>菜单管理</h3>
+            <h3>菜单系统</h3>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -21,7 +21,7 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Pop Overs <small>Sessions</small></h2>
+                        <h2>菜单管理 <small>菜单排序、添加、删除、分组</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -153,16 +153,11 @@
     <script src="{{ asset('/backend/vendors/select2/dist/js/select2.full.min.js')}}"></script>
     <!-- nestable 后台拖拽菜单js-->
     <script src="{{ asset('/backend/vendors/jquery-nestable/jquery.nestable.js')}}"></script>
+    {{--菜单添加、修改、删除的js--}}
+    <script src="{{ asset('/backend/css/menu/menu-list.js')}}"></script>
     <script>
         $(document).ready(function() {
-            // Select2
-            $(".select2_single").select2({
-                placeholder: "Select a state",
-                allowClear: true
-            });
-
-            // nestable
-            $('#nestable_list_3').nestable();
+            MenuList.init();
         });
     </script>
     <!-- nestable end 后台拖拽菜单js-->
