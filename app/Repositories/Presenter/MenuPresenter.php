@@ -63,9 +63,9 @@ class MenuPresenter {
      * 判断是否有子集
      * @author 晚黎
      * @date   2016-08-10
-     * @param  [type]     $id    [description]
-     * @param  [type]     $name  [description]
-     * @param  [type]     $child [description]
+     * @param  [type]     $id    [id]
+     * @param  [type]     $name  [菜单名称]
+     * @param  [type]     $child [菜单级别]
      * @return [type]            [description]
      */
     protected function getHandleList($id,$name,$child)
