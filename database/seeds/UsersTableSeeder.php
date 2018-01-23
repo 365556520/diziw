@@ -3,14 +3,12 @@
 use Illuminate\Database\Seeder;
 use App\Models\Role;
 class UsersTableSeeder extends Seeder
-{
-    /**
+{   /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run(){
         //查找出来管理员和user
         $adminRole = Role::where('name','admin')->first();
         $userRole = Role::where('name','user')->first();
