@@ -11,12 +11,12 @@
                             <div class="row">
                                 <div class="row form-group">
                                     {{--帐号密码和ciook--}}
-                                    <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('username') ? ' has-error' : '' }}">
-                                        <input type="text" id="username" class="form-control has-feedback-left "  placeholder="username" required name="username" value="{{ old('username') }}">
+                                    <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has(config('admin.globals.username')) ? ' has-error' : '' }}">
+                                        <input type="text" id="config('admin.globals.username')" class="form-control has-feedback-left "  placeholder="{{config('admin.globals.username')}}" required name="{{config('admin.globals.username')}}" value="{{ old(config('admin.globals.username')) }}">
                                         <span class="fa fa-user form-control-feedback left" ></span>
-                                        @if ($errors->has('username'))
+                                        @if ($errors->has(config('admin.globals.username')))
                                             <span class="help-block">
-                                                    <strong>{{ $errors->first('username') }}</strong>
+                                                    <strong>{{ $errors->first(config('admin.globals.username')) }}</strong>
                                             </span>
                                         @endif
                                     </div>

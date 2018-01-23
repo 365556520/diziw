@@ -24,39 +24,91 @@ class MenuPresenter {
         if($menus){
             $item ='';
             foreach ($menus as $v){
-                $item .= $this->getNestableItem($v['id'],$v['name'],$v['child']);
+                $item .= $this->getNestableItem($v);
             }
             return $item;
         }
         return '暂无菜单';
     }
-
     /**
      * 返回菜单HTML代码
      * @author 晚黎
      * @date   2016-08-10
+     * @param  [type]     $id    [description]
+     * @param  [type]     $name  [description]
+     * @param  [type]     $child [description]
+     * @return [type]            [description]
      */
-    protected function getNestableItem($id,$name,$child)
-    {//            判断是否有子集
-        if ($child) {
-            return $this->getHandleList($id,$name,$child);
+    protected function getNestableItem($menu)
+    {
+        if ($menu['child']) {
+            //如果有菜单就去得到子菜单
+            return $this->getHandleList($menu['id'],$menu['name'],$menu['child']);
         }
-        return '<li class="dd-item dd3-item" data-id="'.$id.'"><div class="dd-handle dd3-handle"> </div><div class="dd3-content"> '.$name.' </div></li>';
+        if ($menu['parent_id'] == 0) {
+//            没有子菜单的顶级菜单
+            return '<li class="dd-item dd3-item" data-id="'.$menu['id'].'">
+                    <div class="dd-handle dd3-handle"> </div>
+                    <div class="dd3-content"> '.$menu['name'].$this->getActionButtons($menu['id']).' </div>
+                    </li>';
+        }
+//        返回子菜单
+        return '<li class="dd-item dd3-item" data-id="'.$menu['id'].'">
+                    <div class="dd-handle dd3-handle"> </div>
+                    <div class="dd3-content"> '.$menu['name'].$this->getActionButtons($menu['id'],false).' </div>
+               </li>';
     }
+
     /**
-     * 得到有子集菜单
+     * 判断是否有子集
      * @author 晚黎
      * @date   2016-08-10
+     * @param  [type]     $id    [description]
+     * @param  [type]     $name  [description]
+     * @param  [type]     $child [description]
+     * @return [type]            [description]
      */
     protected function getHandleList($id,$name,$child)
-    {   //这是父级
-        $handle = '<li class="dd-item dd3-item" data-id="'.$id.'"><div class="dd-handle dd3-handle"> </div><div class="dd3-content"> '.$name.' </div><ol class="dd-list">';
-        //遍历子集调用了上面的方法
-        foreach ($child as $v) {
-            $handle .= $this->getNestableItem($v['id'],$v['name'],$v['child']);
+    {
+        $handle = '<li class="dd-item dd3-item" data-id="'.$id.'">
+                        <div class="dd-handle dd3-handle"> </div>
+                        <div class="dd3-content"> '.$name.$this->getActionButtons($id).' </div>
+                        <ol class="dd-list">';
+        if ($child) {
+            foreach ($child as $v) {
+                $handle .= $this->getNestableItem($v);
+            }
         }
         $handle .= '</ol></li>';
         return $handle;
+    }
+    /**
+     * 菜单按钮
+     * @author 晚黎
+     * @date   2016-08-12
+     * @return [type]     [description]
+     */
+    protected function getActionButtons($id,$bool = true)
+    {
+        $action = '<div class="pull-right action-buttons">';
+        if (auth()->user()->can(config('admin.permissions.menu.add')) && $bool) {
+            $action .= '<a href="javascript:;" data-pid="'.$id.'" class="btn-xs createMenu" data-toggle="tooltip"data-original-title="添加"  data-placement="top"> <i class="fa fa-plus"></i></a>';
+        }
+
+        if (auth()->user()->can(config('admin.permissions.menu.edit'))) {
+            $action .= '<a href="javascript:;" data-href="'.url('admin/menu/'.$id.'/edit').'" class="btn-xs editMenu" data-toggle="tooltip"data-original-title="修改"  data-placement="top"><i class="fa fa-pencil"></i></a>';
+        }
+
+        if (auth()->user()->can(config('admin.permissions.menu.delete'))) {
+            $action .= '<a href="javascript:;" class="btn-xs destoryMenu" data-id="'.$id.'" data-original-title="删除"data-toggle="tooltip"  data-placement="top">
+                            <i class="fa fa-trash"></i>
+                            <form action="'.url('admin/menu',[$id]).'" method="POST" name="delete_item'.$id.'" style="display:none">
+                                <input type="hidden"name="_method" value="delete"><input type="hidden" name="_token" value="'.csrf_token().'">
+                            </form>
+                        </a>';
+        }
+        $action .= '</div>';
+        return $action;
     }
 
 }

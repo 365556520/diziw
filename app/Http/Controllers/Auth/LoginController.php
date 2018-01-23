@@ -35,11 +35,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    //回自定义用户登录字段
+    //自定义用户登录字段
     public function username()
     {
         //这里这里填写数据库用来登录的字段可以设置如id等后再login页面要设置这个登录字段
-        return 'username';
+        return config('admin.globals.username');
     }
     //验证码重写AuthenticatesUsers类里面的这个validateLogin方法，增加验证码判断
     protected function validateLogin(Request $request)
