@@ -31,9 +31,11 @@ class RolesTableSeeder extends Seeder
         /*普通用户
         第二种方法 把创建用户权限给查找出来
         */
-        $sreateUser = Permission::where('display_name','创建用户')->first();
+        // 普通管理 增加2个权限一个登陆和添加权限
+        $createUser = Permission::where('display_name','添加菜单')->first();
+        $loginBackend = Permission::where('name','admin.system.login')->first();
         //然后通过attachPermissions()把角色绑定这个权限
-        $owner->attachPermission($sreateUser);
+        $owner->attachPermission($createUser,$loginBackend);
 
     }
 }

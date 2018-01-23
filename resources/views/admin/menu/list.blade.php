@@ -60,7 +60,8 @@
                 </div>
             </div>
             <!-- end left panel -->
-            <!-- right panel -->
+            <!-- right panel添加菜单 -->
+            @permission('admin.menus.add')
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
@@ -152,6 +153,7 @@
                     </div>
                 </div>
             </div>
+            @endpermission
             <!-- end right panel -->
         </div>
     </div>
