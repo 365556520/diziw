@@ -46,6 +46,8 @@
         <script src="{{ asset('/backend/vendors/fastclick/lib/fastclick.js')}}"></script>
         <!-- NProgress -->
         <script src="{{ asset('/backend/vendors/nprogress/nprogress.js')}}"></script>
+        {{--layer--}}
+        <script src="{{asset('/backend/vendors/layer/layer.js')}}"></script>
         <!-- Custom Theme Scripts -->
         <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
         @yield('js')

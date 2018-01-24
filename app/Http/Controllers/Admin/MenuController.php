@@ -33,5 +33,18 @@ class MenuController extends Controller
         }
         return redirect('admin/menu');
     }
+    /*修改菜单*/
+    public function edit($id){
+        $menu = $this->menu->editMenu($id);
+        return response()->json($menu);
+    }
 
+    /**
+     * 修改菜单数据
+     */
+    public function update(MenuRequest $request)
+    {
+        $this->menu->updateMenu($request);
+        return redirect('admin/menu');
+    }
 }

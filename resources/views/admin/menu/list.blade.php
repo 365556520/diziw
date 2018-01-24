@@ -137,7 +137,6 @@
                                     <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -154,7 +153,7 @@
     <!-- nestable 后台拖拽菜单js-->
     <script src="{{ asset('/backend/vendors/jquery-nestable/jquery.nestable.js')}}"></script>
     {{--菜单添加、修改、删除的js--}}
-    <script src="{{ asset('/backend/css/menu/menu-list.js')}}"></script>
+    <script src="{{ asset('/backend/js/menu/menu-list.js')}}"></script>
     <script>
         $(document).ready(function() {
             MenuList.init();
