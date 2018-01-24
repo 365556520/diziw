@@ -103,7 +103,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">父级菜单</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="select2_single form-control" name="parent_id"  tabindex="-1">
+                                    <select class="select2_single form-control" name="parent_id"  tabindex="-1"  >
                                         {!! $menus->getMenu($menu) !!}
                                     </select>
                                 </div>
