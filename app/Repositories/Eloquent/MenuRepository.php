@@ -103,7 +103,10 @@ class  MenuRepository extends Repository{
      * @return [type]                       [description]
      */
     public function destroyMenu($id){
-        $isDelete = $this->model->destroy($id);
+        //删除
+        $isDelete = $this->model->where('id',$id)->delete();
+        //查看这个菜单如果有就把子菜单就把pid改成顶级菜单
+        $this->model->where('parent_id',$id)->update(['parent_id'=>0]);
         if ($isDelete) {
             // 更新缓存数据
             $this->sortMenuSetCache();
