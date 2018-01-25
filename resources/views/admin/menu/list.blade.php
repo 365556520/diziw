@@ -17,6 +17,7 @@
     <div class="clearfix"></div>
     <div class="row ">
         <div class="col-md-12 col-sm-12 col-xs-12">
+        @include('flash::message')
             <!-- left panel -->
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -83,7 +84,6 @@
                                 </ul>
                             </div>
                         @endif
-                        @include('flash::message')
                         <br/>
                         <form class="form-horizontal form-label-left" id="menuForm" action="{{url('admin/menu')}}" method="post">
                             {!!csrf_field()!!}
