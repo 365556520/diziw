@@ -52,10 +52,6 @@ class MenuController extends Controller
 
     /**
      * 删除菜单
-     * @author 晚黎
-     * @date   2016-08-22T07:23:20+0800
-     * @param  [type]                   $id [description]
-     * @return [type]                       [description]
      */
     public function destroy($id){
         $this->menu->destroyMenu($id);
