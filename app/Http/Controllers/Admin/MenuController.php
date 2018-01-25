@@ -17,6 +17,8 @@ class MenuController extends Controller
         $menu = $this->menu->findByField('parent_id',0);
         //按照层级关系得到所有菜单
         $menuList = $this->menu->getMenuList();
+        //进入的时候更新缓存
+        $this->menu->sortMenuSetCache();
         return view('admin.menu.list')->with(compact('menu','menuList'));
     }
     /*添加菜单
