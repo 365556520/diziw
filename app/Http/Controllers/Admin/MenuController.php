@@ -29,7 +29,6 @@ class MenuController extends Controller
         $this->menu->sortMenuSetCache();
         if($request){
             flash('菜单添加成功')->success();
-
         }else{
             flash('菜单添加失败')->error();
         }
