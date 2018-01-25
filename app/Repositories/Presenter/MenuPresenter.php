@@ -92,14 +92,17 @@ class MenuPresenter {
     {
         $action = '<div class="pull-right action-buttons">';
         if (auth()->user()->can(config('admin.permissions.menu.add')) && $bool) {
+            //添加按钮
             $action .= '<a href="javascript:;" data-pid="'.$id.'" class="btn-xs createMenu" data-toggle="tooltip"data-original-title="添加"  data-placement="top"> <i class="fa fa-plus"></i></a>';
         }
 
         if (auth()->user()->can(config('admin.permissions.menu.edit'))) {
+            //修改按钮
             $action .= '<a href="javascript:;" data-href="'.url('admin/menu/'.$id.'/edit').'" class="btn-xs editMenu" data-toggle="tooltip"data-original-title="修改"  data-placement="top"><i class="fa fa-pencil"></i></a>';
         }
 
         if (auth()->user()->can(config('admin.permissions.menu.delete'))) {
+            //删除按钮
             $action .= '<a href="javascript:;" class="btn-xs destoryMenu" data-id="'.$id.'" data-original-title="删除"data-toggle="tooltip"  data-placement="top">
                             <i class="fa fa-trash"></i>
                             <form action="'.url('admin/menu',[$id]).'" method="POST" name="delete_item'.$id.'" style="display:none">
