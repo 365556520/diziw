@@ -13,32 +13,49 @@ class MenusTableSeeder extends Seeder
         $backend = Menu::create([
             'name' => '控制台',
             'parent_id' => '0',
-            'url' => 'diziw.dev',
+            'slug' => 'system.login',
+            'url' => 'admin',
+            'heightlight_url' => 'admin',
         ]);
+
         $system = Menu::create([
             'name' => '系统管理',
             'parent_id' => '0',
-            'url' => 'diziw.dev',
+            'slug' => 'system.manage',
+            'url' => 'admin/menu',
+            'heightlight_url' => 'admin/menu*,admin/user*,admin/role*,admin/permission*',
         ]);
+
         Menu::create([
             'name' => '菜单管理',
             'parent_id' => $system->id,
-            'url' => 'diziw.dev',
+            'slug' => 'menu.list',
+            'url' => 'admin/menu',
+            'heightlight_url' => 'admin/menu*',
         ]);
+
         Menu::create([
             'name' => '用户管理',
             'parent_id' => $system->id,
-            'url' => 'diziw.dev',
+            'slug' => 'user.list',
+            'url' => 'admin/user',
+            'heightlight_url' => 'admin/user*',
         ]);
+
         Menu::create([
             'name' => '权限管理',
             'parent_id' => $system->id,
-            'url' => 'diziw.dev',
+            'slug' => 'permission.list',
+            'url' => 'admin/permission',
+            'heightlight_url' => 'admin/permission*',
         ]);
+
         Menu::create([
             'name' => '角色管理',
             'parent_id' => $system->id,
-            'url' => 'diziw.dev',
+            'slug' => 'role.list',
+            'url' => 'admin/role',
+            'heightlight_url' => 'admin/role*',
         ]);
         $html = Menu::create([
             'name' => 'web前端',

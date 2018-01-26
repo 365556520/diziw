@@ -18,6 +18,7 @@ class CreateMenusTable extends Migration
             $table->string('name')->default('')->comment('菜单名称');
             $table->string('icon')->default('')->comment('菜单图标');
             $table->string('parent_id')->default('')->comment('父级菜单');
+            $table->string('slug')->default('')->comment('菜单权限');
             $table->string('url')->default('')->comment('菜单连接');
             $table->string('heightlight_url')->default('')->comment('菜单高亮');
             $table->tinyInteger('sort')->unsigned()->default(0)->comment('菜单排序');

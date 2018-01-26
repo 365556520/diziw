@@ -9,13 +9,10 @@
 # 测试!
 @endif
 @endif
-
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)
 {{ $line }}
-
 @endforeach
-
 {{-- Action Button --}}
 @isset($actionText)
 <?php
@@ -34,25 +31,20 @@
 {{ $actionText }}
 @endcomponent
 @endisset
-
 {{-- Outro Lines --}}
 @foreach ($outroLines as $line)
 {{ $line }}
-
 @endforeach
-
 {{-- Salutation --}}
 @if (! empty($salutation))
 {{ $salutation }}
 @else
 Regards,<br>{{ config('app.name') }}
 @endif
-
 {{-- Subcopy --}}
 @isset($actionText)
 @component('mail::subcopy')
-If you’re having trouble clicking the "{{ $actionText }}" button, copy and paste the URL below
-into your web browser: [{{ $actionUrl }}]({{ $actionUrl }})
+如果想修改密码点 "{{ $actionText }}" 这个按钮, 或者拷贝下面这个 URL进行修改密码: [{{ $actionUrl }}]({{ $actionUrl }})
 @endcomponent
 @endisset
 @endcomponent
