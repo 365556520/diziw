@@ -32,12 +32,6 @@ class MenuPresenter {
     }
     /**
      * 返回菜单HTML代码
-     * @author 晚黎
-     * @date   2016-08-10
-     * @param  [type]     $id    [description]
-     * @param  [type]     $name  [description]
-     * @param  [type]     $child [description]
-     * @return [type]            [description]
      */
     protected function getNestableItem($menu)
     {
@@ -60,9 +54,7 @@ class MenuPresenter {
     }
 
     /**
-     * 判断是否有子集
-     * @author 晚黎
-     * @date   2016-08-10
+     * 获取子集
      * @param  [type]     $id    [id]
      * @param  [type]     $name  [菜单名称]
      * @param  [type]     $child [菜单级别]
@@ -84,9 +76,6 @@ class MenuPresenter {
     }
     /**
      * 菜单按钮
-     * @author 晚黎
-     * @date   2016-08-12
-     * @return [type]     [description]
      */
     protected function getActionButtons($id,$bool = true)
     {
@@ -114,4 +103,47 @@ class MenuPresenter {
         return $action;
     }
 
+    /**
+     * 左侧菜单渲染
+     * @param  string     $value [description]
+     * @return [type]            [description]
+     */
+    public function sidebarMenus($menus){
+        $html = '';
+        if ($menus) {
+            $html = '<li>';
+            foreach ($menus as $v) {
+                if ($v['child']) {
+                    //有子菜单
+                    $html .= '<li class="">
+                                    <a><i class="'.$v['icon'].'"></i> '.$v['name'].'<span class="fa fa-chevron-down"></span></a>'
+                                    .$this->getSidebarChildMenu($v['child']).
+                             '</li>';
+                }else{
+                    //无子菜单
+                    $html .= '<li class="">
+                               <a href="'.$v['url'].'"><i class="'.url($v['url']).'"></i> '.$v['name'].'</a>
+                               </li>';
+                }
+            }
+            $html .= '</li>';
+        }
+        return $html;
+    }
+    /**
+     * 左侧菜单子菜单渲染
+     * @param  string     $childMenu [description]
+     * @return [type]                [description]
+     */
+    public function getSidebarChildMenu($childMenu=''){
+        $html = '';
+        if ($childMenu) {
+            $html = '<ul class="nav child_menu">';
+            foreach ($childMenu as $v) {
+                $html .= '<li><a href="'.url($v['url']).'">'.$v['name'].'</a></li>';
+            }
+            $html .= '</ul>';
+        }
+        return $html;
+    }
 }
