@@ -26,8 +26,10 @@ class MenuRequest extends FormRequest
         $rule = [
             'parent_id' => 'required',
             'url' => 'required',
+            'slug' => 'required',
             'sort' => 'integer',
         ];
+        //解决修改菜单栏重复名字提示
         if (request('id','')) {
             $rule['name'] = 'required|unique:menus,name,'.$this->id;
         }else{
@@ -41,6 +43,7 @@ class MenuRequest extends FormRequest
             'name.unique'  => '菜单名称唯一',
             'parent_id.required' => '菜单层级不能为空',
             'url.required' => '菜单url不能为空',
+            'slug.required' => '菜单权限不能为空',
             'sort.integer' => '排序必须为整数'
         ];
     }
