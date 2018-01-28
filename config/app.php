@@ -184,6 +184,9 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         //flash插件
         Laracasts\Flash\FlashServiceProvider::class,
+        //高亮插件
+        HieuLe\Active\ActiveServiceProvider::class,
+
     ],
 
     /*
@@ -238,7 +241,8 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 //        自定义门面
         'UserRepository' => App\Facades\UserFacade::class,
-
+//     菜单高亮门面
+        'Active' => HieuLe\Active\Facades\Active::class,
     ],
 
 ];

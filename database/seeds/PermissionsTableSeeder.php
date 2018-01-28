@@ -12,7 +12,7 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         Permission::create([
-            'name' => 'admin.system.login',
+            'name' => 'system.login',
             'display_name' => '登录后台',
             'description' => '登录后台',
         ]);
@@ -20,22 +20,22 @@ class PermissionsTableSeeder extends Seeder
          * 菜单权限
          */
         Permission::create([
-            'name' => 'admin.menus.list',
+            'name' => 'menu.list',
             'display_name' => '菜单列表',
             'description' => '菜单列表',
         ]);
         Permission::create([
-            'name' => 'admin.menus.add',
+            'name' => 'menu.add',
             'display_name' => '添加菜单',
             'description' => '添加菜单',
         ]);
         Permission::create([
-            'name' => 'admin.menus.edit',
+            'name' => 'menu.edit',
             'display_name' => '修改菜单',
             'description' => '修改菜单',
         ]);
         Permission::create([
-            'name' => 'admin.menus.delete',
+            'name' => 'menu.delete',
             'display_name' => '删除菜单',
             'description' => '删除菜单',
         ]);

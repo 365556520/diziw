@@ -1,9 +1,9 @@
 <?php
 return [
 	'menu' => [
-		'add' => 'admin.menus.add',
-		'edit' => 'admin.menus.edit',
-		'delete' => 'admin.menus.delete',
+		'add' => 'menu.add',
+		'edit' => 'menu.edit',
+		'delete' => 'menu.delete',
 	],
 	'permission' => [
 		'list' => 'permission.list',
