@@ -22,5 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => ['auth']],function (){
         //后台页面__DIR__表示当前目录
         require(__DIR__.'/Routes/HomeRoute.php');
+        //菜单路由
         require(__DIR__.'/Routes/MenuRoute.php');
+        //权限路由
+        require(__DIR__.'/Routes/PermissionRoute.php');
 });

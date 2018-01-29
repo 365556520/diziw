@@ -133,7 +133,7 @@ class MenuPresenter {
     public function getSidebarChildMenu($childMenu=''){
         $html = '';
         if ($childMenu) {
-            $html = '<ul class="nav child_menu" style="display:'.active_class(if_uri_pattern(['admin/menu*']),'block','none').'">';
+            $html = '<ul class="nav child_menu" style="display:'.active_class(if_uri_pattern(['admin']),'block','none').'">';
             foreach ($childMenu as $v) {
                 if (auth()->user()->can($v['slug'])) {
                     $html .= '<li class="'.active_class(if_uri_pattern([$v['heightlight_url']]),'current-page').'"><a href="'.url($v['url']).'">'.$v['name'].'</a></li>';
