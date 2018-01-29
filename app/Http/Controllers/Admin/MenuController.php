@@ -24,11 +24,7 @@ class MenuController extends Controller
     /*添加菜单
      * */
     public function store(MenuRequest $request){
-        $r = $request->all();
-        //把得的数组转换成以逗号分割的字符串
-        $r['slug'] = implode(",",$r['slug']);
-        //添加到数据库
-        $request = $this->menu->create($r);
+        $request = $this->menu->create($request->all());
         // 刷新缓存
         $this->menu->sortMenuSetCache();
         if($request){

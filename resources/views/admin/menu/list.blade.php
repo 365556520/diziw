@@ -112,13 +112,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单权限</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="select2_multiple form-control" name="slug[]" multiple="multiple" size="4">
-                                        <option>option</option>
-                                        <option>one</option>
-                                        <option>two</option>
-                                        <option>three</option>
-                                        <option>four</option>
-                                    </select>
+                                    <input type="text" class="form-control" name="slug" value="{{old('slug')}}" placeholder="请输入菜单权限">
                                 </div>
                             </div>
 
@@ -128,6 +122,7 @@
                                     <input type="text" class="form-control" name="heightlight_url" value="{{old('heightlight_url')}}" placeholder="请输入菜单高亮">
                                 </div>
                             </div>
+
 
 
                             <div class="form-group">
@@ -147,6 +142,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                    <button type="submit" class="btn btn-default">Cancel</button>
                                     <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
@@ -165,19 +161,12 @@
     <script src="{{ asset('/backend/vendors/select2/dist/js/select2.full.min.js')}}"></script>
     <!-- nestable 后台拖拽菜单js-->
     <script src="{{ asset('/backend/vendors/jquery-nestable/jquery.nestable.js')}}"></script>
-    <!-- nestable end 后台拖拽菜单js-->
     {{--菜单添加、修改、删除的js--}}
     <script src="{{ asset('/backend/js/menu/menu-list.js')}}"></script>
     <script>
         $(document).ready(function() {
             MenuList.init();
-            //初始化select2
-            $(".select2_multiple").select2({
-                maximumSelectionLength: 4,
-                placeholder: "最多能添加4个",
-                allowClear: true
-            });
         });
     </script>
-
+    <!-- nestable end 后台拖拽菜单js-->
 @endsection
