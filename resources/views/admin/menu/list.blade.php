@@ -112,7 +112,13 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单权限</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control" name="slug" value="{{old('slug')}}" placeholder="请输入菜单权限">
+                                    <select class="select2_multiple form-control" name="slug[]" multiple="multiple" size="4">
+                                        <option>option</option>
+                                        <option>one</option>
+                                        <option>two</option>
+                                        <option>three</option>
+                                        <option>four</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -123,20 +129,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">多属性选择框</label>
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="select2_multiple form-control" multiple="multiple">
-                                        <option>Choose option</option>
-                                        <option>Option one</option>
-                                        <option>Option two</option>
-                                        <option>Option three</option>
-                                        <option>Option four</option>
-                                        <option>Option five</option>
-                                        <option>Option six</option>
-                                    </select>
-                                </div>
-                            </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单连接</label>
@@ -155,7 +147,6 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                    <button type="submit" class="btn btn-default">Cancel</button>
                                     <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
@@ -174,17 +165,19 @@
     <script src="{{ asset('/backend/vendors/select2/dist/js/select2.full.min.js')}}"></script>
     <!-- nestable 后台拖拽菜单js-->
     <script src="{{ asset('/backend/vendors/jquery-nestable/jquery.nestable.js')}}"></script>
+    <!-- nestable end 后台拖拽菜单js-->
     {{--菜单添加、修改、删除的js--}}
     <script src="{{ asset('/backend/js/menu/menu-list.js')}}"></script>
     <script>
         $(document).ready(function() {
             MenuList.init();
+            //初始化select2
             $(".select2_multiple").select2({
-                maximumSelectionLength: 5,
-                placeholder: "最多能添加5个",
+                maximumSelectionLength: 4,
+                placeholder: "最多能添加4个",
                 allowClear: true
             });
         });
     </script>
-    <!-- nestable end 后台拖拽菜单js-->
+
 @endsection
