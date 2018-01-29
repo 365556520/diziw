@@ -124,6 +124,21 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">多属性选择框</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="select2_multiple form-control" multiple="multiple">
+                                        <option>Choose option</option>
+                                        <option>Option one</option>
+                                        <option>Option two</option>
+                                        <option>Option three</option>
+                                        <option>Option four</option>
+                                        <option>Option five</option>
+                                        <option>Option six</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单连接</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="text" class="form-control" name="url" value="{{old('url')}}" placeholder="请输入菜单连接">
@@ -164,6 +179,11 @@
     <script>
         $(document).ready(function() {
             MenuList.init();
+            $(".select2_multiple").select2({
+                maximumSelectionLength: 5,
+                placeholder: "最多能添加5个",
+                allowClear: true
+            });
         });
     </script>
     <!-- nestable end 后台拖拽菜单js-->
