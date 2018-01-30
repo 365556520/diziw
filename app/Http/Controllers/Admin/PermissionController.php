@@ -17,6 +17,24 @@ class PermissionController extends Controller
        return view('admin.permission.list');
     }
 
+    public function ajaxIndex(){
+        $draw = request('draw',1);
+        $permissions=[];
+        for($i=0;$i < 20; $i++){
+            $permissions[$i]['zhang'] = 'zhang'.rand(1,10);
+            $permissions[$i]['li'] = 'li'.rand(1,10);
+            $permissions[$i]['wang'] = 'wang'.rand(1,10);
+            $permissions[$i]['zhao'] = 'zhao'.rand(1,10);
+            $permissions[$i]['age'] = rand(1,10);
+        }
+        return response()->json([
+            'draw' => $draw,
+            'recordsTotal' => 10,
+            'recordsFiltered' => 10,
+            'data' => $permissions,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
