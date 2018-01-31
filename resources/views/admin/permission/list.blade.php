@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 @section('css')
-    <link href="{{asset('backend/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    {{--datatables 插件--}}
+    <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+    {{--导出excel插件cs--}}
+    <link href="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.min.css')}}" rel="stylesheet">
+    {{--导出excel插件csend--}}
+    <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
     <div class="">
@@ -18,7 +23,7 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">添加权限</a>
                                     </li>
-                                    <li><a href="#">刷新</a>
+                                    <li><a class="excelButton" href="#">刷新</a>
                                     </li>
                                 </ul>
                             </li>
@@ -53,8 +58,15 @@
     </div>
 @endsection
 @section('js')
-    <script src="{{asset('backend/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('backend/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    {{--datatables 插件--}}
+    <script src="{{asset('backend/vendors/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>
+    {{--导出excel插件js--}}
+    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('backend/js/permission/jszip.min.js')}}"></script>
+    {{--导出excel插件jsend--}}
+
+
     <script src="{{asset('backend/js/permission/permission-list.js')}}"></script>
     <script >
         $(function () {

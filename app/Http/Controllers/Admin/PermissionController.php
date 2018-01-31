@@ -21,16 +21,16 @@ class PermissionController extends Controller
         $draw = request('draw',1);
         $permissions=[];
         for($i=0;$i < 20; $i++){
-            $permissions[$i]['zhang'] = 'zhang'.rand(1,10);
-            $permissions[$i]['li'] = 'li'.rand(1,10);
-            $permissions[$i]['wang'] = 'wang'.rand(1,10);
-            $permissions[$i]['zhao'] = 'zhao'.rand(1,10);
-            $permissions[$i]['age'] = rand(1,10);
+            $permissions[$i]['zhang'] = 'zhang'.rand(0,9);
+            $permissions[$i]['li'] = 'li'.rand(0,9);
+            $permissions[$i]['wang'] = 'wang'.rand(0,9);
+            $permissions[$i]['zhao'] = 'zhao'.rand(0,9);
+            $permissions[$i]['age'] = rand(0,9);
         }
         return response()->json([
             'draw' => $draw,
-            'recordsTotal' => 10,
-            'recordsFiltered' => 10,
+            'recordsTotal' => 20,
+            'recordsFiltered' => 20,
             'data' => $permissions,
         ]);
     }
