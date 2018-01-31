@@ -75,13 +75,11 @@ var PermissionList = function() {
                     },
                 }
             },
-            //页面顺序设置
-            'dom': 'lBfrtip',
-            //按钮设置
+            dom: 'lfrtiBp',
             "buttons": [
                 {
                     'extend': 'excel',
-                    'text': 'excel格式导出',//定义导出excel按钮的文字
+                    'text': '导出excel格式',//定义导出excel按钮的文字
                     'exportOptions': {
                         'modifier': {
                             'page': 'current'
@@ -90,7 +88,7 @@ var PermissionList = function() {
                 },
                 {
                     'extend': 'csv',
-                    'text': 'csv格式导出',
+                    'text': '导出csv格式导出',
                     'exportOptions': {
                         'modifier': {
                             'search': 'none'
@@ -105,7 +103,7 @@ var PermissionList = function() {
                             'page': 'current'
                         }
                     }
-                },
+                }
             ],
         });
     };
