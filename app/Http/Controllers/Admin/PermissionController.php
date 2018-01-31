@@ -16,7 +16,7 @@ class PermissionController extends Controller
     {
        return view('admin.permission.list');
     }
-
+//权限表DataTables
     public function ajaxIndex(){
         $draw = request('draw',1);
         $permissions=[];

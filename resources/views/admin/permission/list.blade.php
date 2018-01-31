@@ -65,9 +65,11 @@
     <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('backend/js/permission/jszip.min.js')}}"></script>
     {{--导出excel插件jsend--}}
-
-
+    {{--打印 js--}}
+    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js')}}"></script>
+    {{--打印 jsend--}}
     <script src="{{asset('backend/js/permission/permission-list.js')}}"></script>
+
     <script >
         $(function () {
             PermissionList.init();
