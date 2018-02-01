@@ -76,7 +76,7 @@ var PermissionList = function() {
                 }
             },
             //按钮顺序
-            dom: 'lfrBtip',
+            dom: 'B<"clearfix">lfrtip',
             "buttons": [
                 {
                     'extend': 'copy',

@@ -14,16 +14,18 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Responsive example <small>Users</small></h2>
+                        <h2>权限列表<small>Permission</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-plus"></i></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">添加权限</a>
-                                    </li>
-                                    <li><a class="excelButton" href="#">刷新</a>
+                                    @permission(config('admin.permissions.permission.add'))
+                                        <li><a href="{{url('admin/permission/create')}}"><i class="fa fa-sign-in"></i> 添加权限</a>
+                                        </li>
+                                    @endpermission
+                                    <li><a href="{{url('admin/permission')}}"><i class="fa fa-refresh"></i> 刷新</a>
                                     </li>
                                 </ul>
                             </li>
@@ -32,12 +34,8 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-
                     <div class="x_content">
-                        <p class="text-muted font-13 m-b-30">
-                            Responsive is an extension for DataTables that resolves that problem by optimising the table's layout for different screen sizes through the dynamic insertion and removal of columns from the table.
-                        </p>
-                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
                             <thead>
                             <tr>
                                 <th>First name</th>
