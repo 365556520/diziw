@@ -5,8 +5,11 @@ var PermissionList = function() {
     var permissionInit = function(){
         $('#datatable-responsive').DataTable({
             "processing": true,
+            //开启服务模式
             "serverSide": true,
+            //搜索请求延迟1秒
             "searchDelay": 1000,
+            //regex:true开启模糊查新
             "search":{
                 regex:true,
             },
