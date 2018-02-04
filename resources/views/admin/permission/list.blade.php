@@ -45,11 +45,13 @@
                         <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
+                                <th>ID</th>
+                                <th>权限名称</th>
+                                <th>权限</th>
+                                <th>描述</th>
+                                <th>创建时间</th>
+                                <th>修改时间</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>

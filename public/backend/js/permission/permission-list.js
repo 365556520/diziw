@@ -4,45 +4,61 @@
 var PermissionList = function() {
     var permissionInit = function(){
         $('#datatable-responsive').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "searchDelay": 1000,
+            "search":{
+                regex:true,
+            },
             "ajax":{
                 //ajax请求
                 'url' : '/admin/permission/ajaxIndex',
                 //传递额外的参数
-                "data" : function ( d ) {
-                    d.name = '';
-                }
+                // "data" : function ( d ) {
+                //     d.name = '';
+                // }
             },
-            //注意：这里列的数量必须和页面th标签数据量一致，否则会报错
-           //orderable: 排序 默认为true 第一列不用设置默认是带有排序
-            //render可以给这列的每个数据都添加一样的数据
+            /* 注意：这里列的数量必须和页面th标签数据量一致，否则会报错
+            orderable: 排序 默认为true 第一列不用设置默认是带有排序
+            render可以给这列的每个数据都添加一样的数据
+            render : function (data) {
+                return '前缀+'+data+'+后缀+render';
+            }*/
             "columns":[
                 {
-                    "data" : "zhang",
-                    "name" : "zhang",
-                    render : function (data) {
-                        return '前缀+'+data+'+后缀+render';
-                    }
+                    "data": "id",
+                    "name" : "id"
                 },
                 {
-                    "data" : "li",
-                    "name" : "l1",
+                    "data": "display_name",
+                    "name" : "display_name",
                     "orderable" : false,
                 },
                 {
-                    "data" : "wang",
-                    "name" : "wang",
+                    "data": "name",
+                    "name": "name",
+                    "orderable" : true,
+                },
+                {
+                    "data": "description",
+                    "name": "description",
                     "orderable" : false,
                 },
                 {
-                    "data" : "zhao",
-                    "name" : "zhao",
+                    "data": "created_at",
+                    "name": "created_at",
                     "orderable" : true,
                 },
                 {
-                    "data" : "age",
-                    "name" : "age",
+                    "data": "updated_at",
+                    "name": "updated_at",
                     "orderable" : true,
                 },
+                {
+                    "data": "name",
+                    "name": "name",
+                    "orderable" : false,
+                }
             ],
             //中文设置
             language: {

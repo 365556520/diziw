@@ -25,21 +25,8 @@ class PermissionController extends Controller
     }
 //权限表DataTables
     public function ajaxIndex(){
-        $draw = request('draw',1);
-        $permissions=[];
-        for($i=0;$i < 20; $i++){
-            $permissions[$i]['zhang'] = 'zhang'.rand(0,9);
-            $permissions[$i]['li'] = 'li'.rand(0,9);
-            $permissions[$i]['wang'] = 'wang'.rand(0,9);
-            $permissions[$i]['zhao'] = 'zhao'.rand(0,9);
-            $permissions[$i]['age'] = rand(0,9);
-        }
-        return response()->json([
-            'draw' => $draw,
-            'recordsTotal' => 20,
-            'recordsFiltered' => 20,
-            'data' => $permissions,
-        ]);
+        $result = $this->permission->ajaxIndex();
+        return response()->json($result);
     }
 
     /**
