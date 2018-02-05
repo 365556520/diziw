@@ -17,7 +17,6 @@ class CheckPermission
      */
     public function handle($request, Closure $next,$model)
     {
-        dd($next);
         //获取当前用户路由名称
        $routeName = Route::currentRouteName();
         $permission = '';
