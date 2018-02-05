@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\User;
 use App\Http\Requests\PermissionRequest;
 use App\Repositories\Eloquent\PermissionRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 
 class PermissionController extends Controller
 {

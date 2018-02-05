@@ -33,7 +33,7 @@ class RolesTableSeeder extends Seeder
         */
         // 普通管理 增加2个权限一个登陆和添加权限
         $createUser = Permission::where('display_name','添加菜单')->first();
-        $loginBackend = Permission::where('name','admin.system.login')->first();
+        $loginBackend = Permission::where('display_name','登录后台')->first();
         //然后通过attachPermissions()把角色绑定这个权限
         $owner->attachPermission($createUser,$loginBackend);
 

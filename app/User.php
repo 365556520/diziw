@@ -9,7 +9,7 @@ use App\Notifications\RestPassword as RestPasswordNotification;  //修改密码�
 class User extends Authenticatable
 {
     use Notifiable;
-    use EntrustUserTrait;
+    use EntrustUserTrait; //entrust权限扩展
     /**
      * The attributes that are mass assignable.
      *

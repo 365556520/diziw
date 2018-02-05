@@ -28,7 +28,7 @@ class CheckPermission
 
             case $model.'.create':
             case $model.'.store':
-                $permission = config('admin.permissions.'.$model.'.create','');
+                $permission = config('admin.permissions.'.$model.'.add','');
                 break;
 
             case $model.'.edit':

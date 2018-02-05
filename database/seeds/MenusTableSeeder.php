@@ -57,30 +57,5 @@ class MenusTableSeeder extends Seeder
             'url' => 'admin/role',
             'heightlight_url' => 'admin/role*',
         ]);
-        $html = Menu::create([
-            'name' => 'web前端',
-            'parent_id' => '0',
-            'url' => 'diziw.dev',
-        ]);
-        Menu::create([
-            'name' => 'ReactJs',
-            'parent_id' => $html->id,
-            'url' => 'diziw.dev',
-        ]);
-        Menu::create([
-            'name' => 'JavaScript',
-            'parent_id' => $html->id,
-            'url' => 'diziw.dev',
-        ]);
-        Menu::create([
-            'name' => 'AngularJs',
-            'parent_id' => $html->id,
-            'url' => 'diziw.dev',
-        ]);
-        Menu::create([
-            'name' => 'NodeJs',
-            'parent_id' => $html->id,
-            'url' => 'diziw.dev',
-        ]);
     }
 }
