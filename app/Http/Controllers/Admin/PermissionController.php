@@ -12,6 +12,9 @@ class PermissionController extends Controller
     private $permission;
     function __construct(PermissionRepository $permission)
     {
+        //添加自定义的权限限制中间件
+        $this->middleware('check.permission:permission');
+        //注入permission的model
         $this->permission = $permission;
     }
     /**
