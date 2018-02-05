@@ -21,7 +21,6 @@ class CheckPermission
         //获取当前用户路由名称
        $routeName = Route::currentRouteName();
         $permission = '';
-
         switch ($routeName) {
             case $model.'.index':
             case $model.'.ajaxIndex':
