@@ -58,8 +58,9 @@ var PermissionList = function() {
                     "orderable" : true,
                 },
                 {
-                    "data": "name",
-                    "name": "name",
+                    "data": "actionButton",
+                    "name": "actionButton",
+                    "type": "html",
                     "orderable" : false,
                 }
             ],
