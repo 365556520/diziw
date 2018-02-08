@@ -91,7 +91,9 @@ abstract class Repository implements RepositoryInterface{
          * @return mixed
          */
         public function update(array $attributes, $id){
-
+            $model = $this->model->findOrFail($id);
+            $model->fill($attributes);
+            return $model->save();
         }
         /**
          * Update or Create an entity in repository

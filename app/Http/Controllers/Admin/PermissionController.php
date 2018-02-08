@@ -74,8 +74,8 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   $permission = $this->permission->editView($id);
+        return view('admin.permission.edit')->with(compact('permission'));
     }
 
     /**
@@ -87,7 +87,8 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->permission->updatePermission($request->all(),$id);
+        return redirect('admin/permission');
     }
 
     /**
