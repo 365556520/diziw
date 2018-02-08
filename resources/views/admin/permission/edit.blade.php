@@ -47,8 +47,8 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <a href="{{url()->previous()}}" class="btn btn-primary">Cancel</a>
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <a href="{{url()->previous()}}" class="btn btn-primary">取消</a>
+                                    <button type="submit" class="btn btn-success">修改</button>
                                 </div>
                             </div>
 

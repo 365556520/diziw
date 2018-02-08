@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Model\User;
 use App\Http\Requests\PermissionRequest;
 use App\Repositories\Eloquent\PermissionRepository;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 
@@ -85,7 +83,7 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
         $this->permission->updatePermission($request->all(),$id);
         return redirect('admin/permission');
@@ -99,6 +97,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->permission->destroyPermission($id);
+        return redirect('admin/permission');
     }
 }

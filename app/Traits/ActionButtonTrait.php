@@ -13,7 +13,12 @@ trait ActionButtonTrait{
     }
     /*公共的删除按钮*/
     public function getDestroyActionButtont(){
-        return '<a href="'.url('admin/'.$this->action.'/'.$this->id.'/destroy').'"><i class="fa fa-trash"></i> 删除 </a> &nbsp';
+        return '<a class="destroy_item" href="javascript:;"><i class="fa fa-trash"></i> 删除
+                    <form action="'.url('admin/'.$this->action.'/'.$this->id).'" method="POST" style="display:none">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="_token" value="'.csrf_token().'">
+                    </form>
+                </a> &nbsp';
     }
     //config('admin.permissions.menu.delete'))
     public function getActionButtont($editPermission = null ,$destroyPermission = null){

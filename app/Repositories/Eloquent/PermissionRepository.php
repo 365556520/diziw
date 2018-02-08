@@ -92,4 +92,15 @@ class  PermissionRepository extends Repository{
         }
         return $result;
     }
+    /*删除权限*/
+    public function destroyPermission($id)
+    {
+        $result = $this->delete($id);
+        if ($result) {
+            flash('删除权限成功');
+        } else {
+            flash('删除权限失败', 'error');
+        }
+        return $result;
+    }
 }

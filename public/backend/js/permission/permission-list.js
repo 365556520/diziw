@@ -137,6 +137,17 @@ var PermissionList = function() {
 
             ],
         });
+        // 删除按钮
+        $(document).on('click','.destroy_item',function() {
+            var _item = $(this);
+            layer.confirm('确定删除此数据？', {
+                btn: ['确定', '取消'],
+                icon: 5,
+            },function(index){
+                _item.children('form').submit();
+                layer.close(index);
+            });
+        });
     };
     return {
         init : permissionInit

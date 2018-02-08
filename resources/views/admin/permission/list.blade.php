@@ -10,20 +10,29 @@
 @endsection
 @section('content')
     <div class="">
+
+        <div class="page-title">
+            @permission(config('admin.permissions.permission.add'))
+            <div class="title">
+                <div class="col-md-12 col-sm-12 col-xs-12  pull-left top_search">
+                    <button class="btn btn-round btn-default" data-toggle="modal" data-target="#myModal" type="button">
+                        <i class="fa fa-plus"></i> 添加权限
+                    </button>
+                    <small>添加权限需要管理员身份，才有权限添加如果没有请联系管理员。</small>
+                </div>
+            </div>
+            @endpermission
+        </div>
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
 
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>权限列表<small>Permission</small></h2>
+                        <h2>权限列表<small>权限列表</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
-                            @permission(config('admin.permissions.permission.add'))
-                            <li><a href="#"  data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></a>
-                            </li>
-                            @endpermission
                             <li><a href="{{url('admin/permission')}}"><i class="fa fa-refresh"></i></a>
                             </li>
                             <li><a class="close-link"><i class="fa fa-close"></i></a>
