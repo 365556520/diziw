@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 @include('admin.permission.create')
+@section('title')
+    <title>{{ trans('admin/permission.title')}}</title>
+@endsection
 @section('css')
     {{--datatables 插件--}}
     <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
@@ -16,9 +19,9 @@
             <div class="title">
                 <div class="col-md-12 col-sm-12 col-xs-12  pull-left top_search">
                     <button class="btn btn-round btn-default" data-toggle="modal" data-target="#myModal" type="button">
-                        <i class="fa fa-plus"></i> 添加权限
+                        {!! trans('admin/permission.action.create') !!}
                     </button>
-                    <small>添加权限需要管理员身份，才有权限添加如果没有请联系管理员。</small>
+                    <small>{{ trans('admin/permission.action.createDescription')}}</small>
                 </div>
             </div>
             @endpermission
@@ -29,7 +32,7 @@
 
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>权限列表<small>权限列表</small></h2>
+                        <h2>{{ trans('admin/permission.desc')}}</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -54,13 +57,13 @@
                         <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>权限名称</th>
-                                <th>权限</th>
-                                <th>描述</th>
-                                <th>创建时间</th>
-                                <th>修改时间</th>
-                                <th>操作</th>
+                                <th>{{trans('admin/permission.model.id')}}</th>
+                                <th>{{trans('admin/permission.model.name')}}</th>
+                                <th>{{trans('admin/permission.model.display_name')}}</th>
+                                <th>{{trans('admin/permission.model.description')}}</th>
+                                <th>{{trans('admin/permission.model.created_at')}}</th>
+                                <th>{{trans('admin/permission.model.updated_at')}}</th>
+                                <th>{{trans('admin/permission.model.operate')}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -71,6 +74,22 @@
                 </div>
             </div>
         </div>
+    </div>
+    {{--修改模态框--}}
+    <div class="modal inmodal" id="eidtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                {{--内容在edit.balde中--}}
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    {{--查看模态框--}}
+    <div class="modal inmodal" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                {{--内容在show.balde中--}}
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
     </div>
 @endsection
 @section('js')

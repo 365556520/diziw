@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+    <title>{{ trans('admin/menu.title')}}</title>
+@endsection
 @section('css')
     <!-- Select2 -->
     <link href="{{ asset('/backend/vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
@@ -11,7 +14,7 @@
     <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>菜单系统</h3>
+            <h3>{{ trans('admin/menu.title')}}</h3>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -22,18 +25,9 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>菜单管理 <small>菜单排序、添加、删除、分组</small></h2>
+                        <h2>{{ trans('admin/menu.desc')}}</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Settings 1</a>
-                                    </li>
-                                    <li><a href="#">Settings 2</a>
-                                    </li>
-                                </ul>
                             </li>
                             <li><a class="close-link"><i class="fa fa-close"></i></a>
                             </li>
@@ -55,18 +49,9 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>菜单数据 <small>添加菜单项</small></h2>
+                        <h2>{{ trans('admin/menu.create')}}</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Settings 1</a>
-                                    </li>
-                                    <li><a href="#">Settings 2</a>
-                                    </li>
-                                </ul>
                             </li>
                             <li><a class="close-link"><i class="fa fa-close"></i></a>
                             </li>
@@ -88,20 +73,20 @@
                         <form class="form-horizontal form-label-left" id="menuForm" action="{{url('admin/menu')}}" method="post">
                             {!!csrf_field()!!}
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单名称</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('admin/menu.model.name')}}</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="text" class="form-control" name="name" value="{{old('name')}}" placeholder="请输入菜单名称">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单图标</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('admin/menu.model.icon')}}</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="text" class="form-control" name="icon" value="{{old('icon')}}" placeholder="请输入菜单图标">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">父级菜单</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('admin/menu.model.pid')}}</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <select class="select2_single form-control" name="parent_id"  tabindex="-1"  >
                                         {!! $menus->getMenu($menu) !!}
@@ -110,14 +95,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单权限</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('admin/menu.model.slug')}}</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="text" class="form-control" name="slug" value="{{old('slug')}}" placeholder="请输入菜单权限">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单高亮</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('admin/menu.model.active')}}</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="text" class="form-control" name="heightlight_url" value="{{old('heightlight_url')}}" placeholder="请输入菜单高亮">
                                 </div>
@@ -126,14 +111,14 @@
 
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">菜单连接</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('admin/menu.model.url')}}</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="text" class="form-control" name="url" value="{{old('url')}}" placeholder="请输入菜单连接">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">排序</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('admin/menu.model.sort')}}</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="text" class="form-control" name="sort" value="{{old('sort')}}" placeholder="排序">
                                 </div>
@@ -142,8 +127,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                    <button type="submit" class="btn btn-default">Cancel</button>
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="submit" class="btn btn-success">{{ trans('admin/menu.submit')}}</button>
                                 </div>
                             </div>
                         </form>

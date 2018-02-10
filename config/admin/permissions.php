@@ -10,5 +10,6 @@ return [
 		'add' => 'permission.add',
 		'edit' => 'permission.edit',
 		'delete' => 'permission.delete',
+        'show'   => 'permission.show',
 	],
 ];

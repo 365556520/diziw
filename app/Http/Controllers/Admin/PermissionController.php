@@ -39,7 +39,6 @@ class PermissionController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -60,9 +59,10 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
+
+        $permission = $this->permission->find($id);
+         return view('admin.permission.show')->with(compact('permission'));
     }
 
     /**
@@ -71,8 +71,8 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {   $permission = $this->permission->editView($id);
+    public function edit($id){
+        $permission = $this->permission->editView($id);
         return view('admin.permission.edit')->with(compact('permission'));
     }
 

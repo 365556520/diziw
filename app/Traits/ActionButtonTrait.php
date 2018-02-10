@@ -5,11 +5,11 @@ namespace App\Traits;
 trait ActionButtonTrait{
     /*公共的查看按钮*/
     public function getShowActionButtont(){
-        return '<a href="'.url('admin/'.$this->action.'/'.$this->id).'"><i class="fa fa-search"></i> 查看 </a>&nbsp ';
+        return '<a href="'.url('admin/'.$this->action.'/'.$this->id).'"  data-toggle="modal" data-target="#showModal"><i class="fa fa-search"></i> 查看 </a>&nbsp ';
     }
     /*公共的修改按钮*/
     public function getEditActionButtont(){
-        return '<a href="'.url('admin/'.$this->action.'/'.$this->id.'/edit').'"><i class="fa fa-edit"></i> 修改 </a>&nbsp ';
+        return '<a href="'.url('admin/'.$this->action.'/'.$this->id.'/edit').'"  data-toggle="modal" data-target="#eidtModal"><i class="fa fa-edit"></i> 修改 </a>&nbsp ';
     }
     /*公共的删除按钮*/
     public function getDestroyActionButtont(){
@@ -21,10 +21,18 @@ trait ActionButtonTrait{
                 </a> &nbsp';
     }
     //config('admin.permissions.menu.delete'))
-    public function getActionButtont($editPermission = null ,$destroyPermission = null){
-        $thml = $this->getShowActionButtont();
+    public function getActionButtont($showPermission = null,$editPermission = null ,$destroyPermission = null){
+        $thml = '';
+        if ($showPermission == null){
+            $thml .= '';
+        }else{
+            /*有编写权限才加入编写按钮*/
+            if(auth()->user()->can($showPermission)){
+                $thml .= $this->getShowActionButtont();
+            }
+        }
         if($editPermission == null){
-            $thml .= $this->getEditActionButtont();
+            $thml .= '';
         }else{
             /*有编写权限才加入编写按钮*/
             if(auth()->user()->can($editPermission)){
@@ -32,7 +40,7 @@ trait ActionButtonTrait{
             }
         }
         if($destroyPermission == null){
-            $thml .= $this->getDestroyActionButtont();
+            $thml .= '';
         }else{
             /*有删除全选才加入删除按钮*/
             if(auth()->user()->can($destroyPermission)){

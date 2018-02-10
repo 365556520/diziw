@@ -1,33 +1,33 @@
 
 {{--<!-- 添加全选模态框（Modal） -->--}}
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-content">
+		<div class="modal-content animated bounceInRight">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					&times;
 				</button>
-				<h4 class="modal-title" id="myModalLabel">添加权限</h4>
+				<h4 class="modal-title" id="myModalLabel">{{trans('admin/permission.create')}}</h4>
 			</div>
             <form id="demo-form2" class="form-horizontal form-label-left"  method="post" action="{{url('admin/permission')}}">
                 {{csrf_field()}}
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">权限 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">{{trans('admin/permission.model.name')}}<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" id="first-name" required="required" name="name" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">权限名字 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">{{trans('admin/permission.model.display_name')}}<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" id="last-name" name="display_name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">描述</label>
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('admin/permission.model.description')}}</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <textarea cols="30" rows="10" class="form-control col-md-7 col-xs-12" type="text" name="description"></textarea>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                             </button>
-                            <button type="submit" class="btn btn-success"> 添加</button>
+                            <button type="submit" class="btn btn-success">添加</button>
                         </div>
                     </div>
                 </div>
@@ -47,3 +47,4 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
 </div>
+

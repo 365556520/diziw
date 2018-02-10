@@ -77,6 +77,11 @@ class PermissionsTableSeeder extends Seeder
             'display_name' => '删除权限',
             'description' => '删除权限',
         ]);
+        Permission::create([
+            'name' => 'permission.show',
+            'display_name' => '查看权限',
+            'description' => '查看权限',
+        ]);
 
         /**
          * 角色
