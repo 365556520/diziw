@@ -42,7 +42,7 @@ class PermissionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 添加内容
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -54,7 +54,7 @@ class PermissionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 显示内容查看的
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -65,7 +65,7 @@ class PermissionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 点击修改获取要这条记录
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -76,7 +76,7 @@ class PermissionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 修改内容提交到数据库
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
