@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\PermissionRequest;
-use App\Repositories\Eloquent\PermissionRepository;
+use App\Http\Requests\RoleRequest;
+use App\Repositories\Eloquent\RoleRepository;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
-class PermissionController extends Controller
+class RoleController extends Controller
 {
-    private $permission;
-    function __construct(PermissionRepository $permission)
+    private $role;
+    function __construct(RoleRepository $role)
     {
         //添加自定义的权限限制中间件
         $this->middleware('check.permission:permission');
-        //注入permission的model
-        $this->permission = $permission;
+        //role
+        $this->role = $role;
     }
     /**
      * Display a listing of the resource.
@@ -24,11 +24,11 @@ class PermissionController extends Controller
      */
     public function index()
     {
-       return view('admin.permission.list');
+        return view('admin.role.list');
     }
 //权限表DataTables
     public function ajaxIndex(){
-        $result = $this->permission->ajaxIndex();
+        $result = $this->role->ajaxIndex();
         return response()->json($result);
     }
 
@@ -39,6 +39,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -47,10 +48,10 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PermissionRequest $request)
+    public function store(RoleRequest $request)
     {
-        $this->permission->createPermission($request->all());
-        return redirect(url('admin/permission'));
+        $this->role->createRole($request->all());
+        return redirect(url('admin/role'));
     }
 
     /**
@@ -59,9 +60,10 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
-        $permission = $this->permission->find($id);
-         return view('admin.permission.show')->with(compact('permission'));
+    public function show($id)
+    {
+        $role = $this->role->find($id);
+        return view('admin.role.show')->with(compact('role'));
     }
 
     /**
@@ -71,8 +73,8 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $permission = $this->permission->editView($id);
-        return view('admin.permission.edit')->with(compact('permission'));
+        $role = $this->role->editView($id);
+        return view('admin.role.edit')->with(compact('role'));
     }
 
     /**
@@ -82,10 +84,10 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PermissionRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $this->permission->updatePermission($request->all(),$id);
-        return redirect('admin/permission');
+        $this->role->updateRole($request->all(),$id);
+        return redirect('admin/role');
     }
 
     /**
@@ -94,9 +96,8 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $this->permission->destroyPermission($id);
-        return redirect('admin/permission');
+    public function destroy($id){
+        $this->role->destroyRole($id);
+        return redirect('admin/role');
     }
 }

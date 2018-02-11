@@ -12,4 +12,11 @@ return [
 		'delete' => 'permission.delete',
         'show'   => 'permission.show',
 	],
+    'role' => [
+        'list' => 'role.list',
+        'add' => 'role.add',
+        'edit' => 'role.edit',
+        'delete' => 'role.delete',
+        'show'   => 'role.show',
+    ],
 ];

@@ -17,9 +17,11 @@ class CheckPermission
      */
     public function handle($request, Closure $next,$model)
     {
+
         //获取当前用户路由名称
        $routeName = Route::currentRouteName();
         $permission = '';
+        //用switch获取链接对应的权限
         switch ($routeName) {
             case $model.'.index':
             case $model.'.ajaxIndex':
@@ -35,12 +37,14 @@ class CheckPermission
             case $model.'.update':
                 $permission = config('admin.permissions.'.$model.'.edit','');
                 break;
-
+            case $model.'.show':
+                $permission = config('admin.permissions.'.$model.'.show','');
+                break;
             default:
                 $permission = config('admin.permissions.'.$model,'');
                 break;
         }
-
+        //
         if (!$request->user()->can($permission)) {
             abort(500,trans('admin/errors.permissions'));
         }

@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2018/1/30.
  */
-var PermissionList = function() {
-    var permissionInit = function(){
+var RoleList = function() {
+    var roleInit = function(){
         $('#datatable-responsive').DataTable({
             "processing": true,
             //开启服务模式
@@ -15,7 +15,7 @@ var PermissionList = function() {
             },
             "ajax":{
                 //ajax请求
-                'url' : '/admin/permission/ajaxIndex',
+                'url' : '/admin/role/ajaxIndex',
                 //传递额外的参数
                 // "data" : function ( d ) {
                 //     d.name = '';
@@ -154,6 +154,6 @@ var PermissionList = function() {
         });
     };
     return {
-        init : permissionInit
+        init : roleInit
     }
 }();

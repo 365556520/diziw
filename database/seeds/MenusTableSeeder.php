@@ -12,6 +12,7 @@ class MenusTableSeeder extends Seeder
     {
         $backend = Menu::create([
             'name' => '控制台',
+            'icon' => 'fa fa-cog',
             'parent_id' => '0',
             'slug' => 'system.login',
             'url' => 'admin',
@@ -20,6 +21,7 @@ class MenusTableSeeder extends Seeder
 
         $system = Menu::create([
             'name' => '系统管理',
+            'icon' => 'fa fa-home',
             'parent_id' => '0',
             'slug' => 'system.manage',
             'url' => 'admin/menu',

@@ -23,9 +23,8 @@ class UsersTableSeeder extends Seeder
             $u->attachRole($adminRole);
         });
         //创建普通用户
-        $users = factory('App\User',1)->create([
+        $users = factory('App\User',50)->create([
             'name' => 'user',
-            'username' => '笑话',
             'password' => bcrypt('123456')
         ])->each(function ($u) use ($userRole){
             //添加角色和上面的一样都是添加角色上面是用对象，这里只能用id

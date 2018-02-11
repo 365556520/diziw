@@ -109,6 +109,11 @@ class PermissionsTableSeeder extends Seeder
             'display_name' => '修改角色',
             'description' => '修改角色',
         ]);
+        Permission::create([
+            'name' => 'role.show',
+            'display_name' => '查看角色',
+            'description' => '查看角色',
+        ]);
 
 
 
@@ -139,5 +144,12 @@ class PermissionsTableSeeder extends Seeder
             'display_name' => '删除用户',
             'description' => '删除用户',
         ]);
+        Permission::create([
+            'name' => 'user.show',
+            'display_name' => '查看用户',
+            'description' => '查看用户',
+        ]);
+
+
     }
 }
