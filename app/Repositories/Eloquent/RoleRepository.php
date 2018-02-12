@@ -7,6 +7,7 @@ namespace App\Repositories\Eloquent;
  * Time: 15:55
  * 说明：
  */
+use App\Models\Permission;
 use App\Models\Role;
 use App\Repositories\Eloquent\Repository;
 
@@ -62,6 +63,10 @@ class  RoleRepository extends Repository{
             'data' => $roles,
         ];
 
+    }
+    //获取权限
+    public function getAllPermissionList(){
+        return Permission::all();
     }
     //添加角色
     public function createRole($attributes){

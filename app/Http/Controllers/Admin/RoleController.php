@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\RoleRequest;
+use App\Models\Permission;
 use App\Repositories\Eloquent\RoleRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,8 +39,8 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   $permission =  $this->role->getAllPermissionList();
+        return view('admin.role.create')->with(compact('permission'));
     }
 
     /**
