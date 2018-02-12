@@ -70,13 +70,20 @@ class  RoleRepository extends Repository{
     }
     //添加角色
     public function createRole($attributes){
-        $result = $this->create($attributes);
-        if ($result){
+        //获权限数组
+        $permission = $attributes['permission'];
+        $role =  new Role();
+        $role->name =  $attributes['name'];
+        $role->display_name = $attributes['display_name'];
+        $role->description =  $attributes['description'];
+        $role->save();
+        $role->perms()->sync($permission);
+        if ($role){
             flash('角色添加成功', 'success');
         }else{
             flash('角色添加失败', 'error');
         }
-        return $result;
+        return $role;
     }
     public function destroyRole($id){
         $result = $this->delete($id);

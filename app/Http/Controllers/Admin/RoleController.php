@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\RoleRequest;
-use App\Models\Permission;
 use App\Repositories\Eloquent\RoleRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 
 class RoleController extends Controller
 {
@@ -34,7 +34,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 添加视图
      *
      * @return \Illuminate\Http\Response
      */
@@ -44,13 +44,12 @@ class RoleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 添加表单逻辑
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleRequest $request)
-    {
+    public function store(RoleRequest $request){
         $this->role->createRole($request->all());
         return redirect(url('admin/role'));
     }

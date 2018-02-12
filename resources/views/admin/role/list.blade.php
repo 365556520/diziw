@@ -3,6 +3,7 @@
     <title>{{ trans('admin/role.title')}}</title>
 @endsection
 @section('css')
+
     {{--datatables 插件--}}
     <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     {{--导出excel插件cs--}}
@@ -100,6 +101,7 @@
     </div>
 @endsection
 @section('js')
+
     {{--datatables 插件--}}
     <script src="{{asset('backend/vendors/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>
     {{--导出excel插件js--}}
