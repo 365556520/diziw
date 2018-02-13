@@ -74,7 +74,8 @@ class RoleController extends Controller
      */
     public function edit($id){
         $role = $this->role->editView($id);
-        return view('admin.role.edit')->with(compact('role'));
+        $permission =  $this->role->getAllPermissionList();
+        return view('admin.role.edit')->with(compact('role','permission'));
     }
 
     /**

@@ -8,6 +8,7 @@ namespace App\Repositories\Eloquent;
  * 说明：
  */
 use App\Models\Permission;
+use App\Models\Permission_Role;
 use App\Models\Role;
 use App\Repositories\Eloquent\Repository;
 
@@ -98,15 +99,26 @@ class  RoleRepository extends Repository{
     public function editView($id)
     {
         $role = $this->find($id);
+        //根据id获取角色所有权限
+        $permission_role = Permission_Role::where('role_id',$id)->get()->toArray();
+        $permission = [];
+        foreach ($permission_role as $key => $v){
+            $permission[$key] = $v['permission_id'];
+        }
+        $role['permission'] = $permission;
         if ($role) {
             return $role;
         }
         abort(404);
     }
     // 修改权限数据
-    public function updateRole($attributes,$id)
-    {
+    public function updateRole($attributes,$id){
         $result = $this->update($attributes,$id);
+       //获权限数组
+        $permission = $attributes['permission'];
+        /*添加权限*/
+        $role =  Role::where('id',$id)->first();
+        $role->perms()->sync($permission);
         if ($result) {
             flash('修改角色成功');
         }else{
@@ -114,5 +126,6 @@ class  RoleRepository extends Repository{
         }
         return $result;
     }
+
 
 }

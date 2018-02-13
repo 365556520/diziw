@@ -9,6 +9,7 @@ return [
         'id' 			=> 'ID',
         'name' 			=> '角色',
         'display_name' => '角色名称',
+        'permission' => '权限',
         'description' 	=> '描述',
         'created_at' 	=> '创建时间',
         'updated_at' 	=> '修改时间',
