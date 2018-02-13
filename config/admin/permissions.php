@@ -1,9 +1,11 @@
 <?php
 return [
 	'menu' => [
+        'list' => 'menu.list',
 		'add' => 'menu.add',
 		'edit' => 'menu.edit',
 		'delete' => 'menu.delete',
+        'show'   => 'menu.show',
 	],
 	'permission' => [
 		'list' => 'permission.list',

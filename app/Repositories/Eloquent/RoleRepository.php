@@ -86,6 +86,7 @@ class  RoleRepository extends Repository{
         }
         return $role;
     }
+    //删除角色
     public function destroyRole($id){
         $result = $this->delete($id);
         if ($result) {
@@ -100,31 +101,39 @@ class  RoleRepository extends Repository{
     {
         $role = $this->find($id);
         //根据id获取角色所有权限
-        $permission_role = Permission_Role::where('role_id',$id)->get()->toArray();
-        $permission = [];
-        foreach ($permission_role as $key => $v){
-            $permission[$key] = $v['permission_id'];
-        }
-        $role['permission'] = $permission;
+        $role['permission'] = $this->getRolePermission($id);
         if ($role) {
             return $role;
         }
         abort(404);
     }
-    // 修改权限数据
+    // 修改角色的权限数据
     public function updateRole($attributes,$id){
         $result = $this->update($attributes,$id);
        //获权限数组
         $permission = $attributes['permission'];
-        /*添加权限*/
+        /*获取角色*/
         $role =  Role::where('id',$id)->first();
+        /*添加权限*/
         $role->perms()->sync($permission);
         if ($result) {
-            flash('修改角色成功');
+            flash('修改权限成功');
         }else{
-            flash('修改角色失败','error');
+            flash('修改权限失败','error');
         }
         return $result;
+    }
+    /*获取角色数据*/
+    public function getRole($id){
+        $role = $this->model->find($id);
+        //根据id获取角色所有权限
+        $rolePermission =  $this->getRolePermission($id);
+        $role['permission'] = Permission::whereIn('id',$rolePermission)->get();
+        return $role;
+    }
+    //获取角色权限
+    public function getRolePermission($id){
+        return Permission_Role::where('role_id',$id)->pluck('permission_id');
     }
 
 

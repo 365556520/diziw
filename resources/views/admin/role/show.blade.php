@@ -9,13 +9,22 @@
 </div>
 <div class="modal-body ">
     <div class="row ">
-        <div class="control-label col-md-6 col-sm-6 col-xs-12 " >{{trans('admin/role.model.name')}}:{{$role->name}}<br>
+        <div class="control-label col-md-6 col-sm-6 col-xs-12 "> <h4>{{trans('admin/role.model.name')}}:{{$role->name}}</h4>
         </div>
     </div>
     <div class="row">
         <div class="control-label col-md-6 col-sm-6 col-xs-12 " >
             {{trans('admin/role.model.description')}}:
             <span class="text-danger">{{$role->description}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="control-label col-md-6 col-sm-6 col-xs-12 " >
+            <h4>{{trans('admin/role.model.permission')}}</h4>
+            @foreach($role->permission as $v)
+                {{trans('admin/permission.model.display_name')}}:{{$v->display_name}}→
+                {{trans('admin/permission.model.description')}}:<small class="text-danger">{{$v->description}}</small><br>
+            @endforeach
         </div>
     </div>
 </div>

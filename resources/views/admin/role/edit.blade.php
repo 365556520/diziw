@@ -66,8 +66,8 @@
     $(document).ready(function() {
         $(".select2_multiple").select2({
 
-            maximumSelectionLength: 6,
-            placeholder: "最多能添加6个",
+            maximumSelectionLength: 8,
+            placeholder: "最多能添加8个",
             allowClear: true
         });
         var v = [];

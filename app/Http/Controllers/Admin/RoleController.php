@@ -60,9 +60,8 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $role = $this->role->find($id);
+    public function show($id){
+        $role = $this->role->getRole($id);
         return view('admin.role.show')->with(compact('role'));
     }
 
