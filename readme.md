@@ -1,4 +1,5 @@
 本项目用很多扩展包主要学习扩展包使用和模式使用
+当前版本写到用户添加
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
