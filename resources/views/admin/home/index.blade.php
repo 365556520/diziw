@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+    <title>{{ trans('admin/menu.title')}}</title>
+@endsection
 @section('css')
 @endsection
 @section('content')

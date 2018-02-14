@@ -20,10 +20,13 @@ class CheckPermission
 
         //获取当前用户路由名称
        $routeName = Route::currentRouteName();
+
         $permission = '';
         //用switch获取链接对应的权限
         switch ($routeName) {
             case $model.'.index':
+                $permission = config('admin.permissions.'.$model.'.list','');
+                break;
             case $model.'.ajaxIndex':
                 $permission = config('admin.permissions.'.$model.'.list','');
                 break;

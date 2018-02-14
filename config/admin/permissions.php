@@ -21,4 +21,11 @@ return [
         'delete' => 'role.delete',
         'show'   => 'role.show',
     ],
+    'user' => [
+        'list' => 'user.list',
+        'add' => 'user.add',
+        'edit' => 'user.edit',
+        'delete' => 'user.delete',
+        'show'   => 'user.show',
+    ],
 ];

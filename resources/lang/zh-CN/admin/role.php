@@ -17,7 +17,7 @@ return [
     ],
     'action' => [
         'create' => '<i class="fa fa-plus"></i> 添加角色',
-        'createDescription' => '添加角色需要管理员身份，才有权限添加如果没有请联系管理员。',
+        'createDescription' => '添加角色需要管理员身份，才有权限添加。如果没有请联系管理员。',
     ],
 
 ];
