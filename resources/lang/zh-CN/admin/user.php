@@ -13,6 +13,7 @@ return [
         'name' 			=> '用户名',
         'username' 		=> '账号',
         'password' 		=> '密码',
+        'cpassword' 		=> '重置密码',
         'email' 		=> '邮箱',
         'created_at' 	=> '创建时间',
         'updated_at' 	=> '修改时间',
