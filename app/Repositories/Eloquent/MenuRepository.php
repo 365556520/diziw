@@ -86,10 +86,10 @@ class  MenuRepository extends Repository{
             $isUpdate = $menu->update($request->all());
             if ($isUpdate) {
                 $this->sortMenuSetCache();
-                flash('修改菜单成功', 'success');
+                flash(trans('admin/alert.menu.edit_success'),'success');
                 return true;
             }
-            flash('修改菜单失败', 'error');
+            flash(trans('admin/alert.menu.edit_error'),'error');
             return false;
         }
         abort(404,'菜单数据找不到');
@@ -110,10 +110,10 @@ class  MenuRepository extends Repository{
         if ($isDelete) {
             // 更新缓存数据
             $this->sortMenuSetCache();
-            flash('删除菜单成功', 'success');
+            flash(trans('admin/alert.menu.destroy_success'),'success');
             return true;
         }
-        flash('删除菜单失败', 'error');
+        flash(trans('admin/alert.menu.destroy_error'),'error');
         return false;
     }
 }

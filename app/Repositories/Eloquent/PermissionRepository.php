@@ -16,14 +16,14 @@ class  PermissionRepository extends Repository{
     public function model(){
         return Permission::class;
     }
-    /*添加全选*/
+    /*添加权限*/
     public function createPermission($attributes)
     {
       $result = $this->create($attributes);
       if ($result){
-          flash('权限添加成功', 'success');
+          flash(trans('admin/alert.permission.create_success'),'success');
       }else{
-          flash('权限添加失败', 'error');
+          flash(trans('admin/alert.permission.create_error'), 'error');
       }
       return $result;
     }
@@ -86,9 +86,9 @@ class  PermissionRepository extends Repository{
     {
         $result = $this->update($attributes,$id);
         if ($result) {
-            flash('修改权限成功');
+            flash(trans('admin/alert.permission.edit_success'),'success');
         }else{
-            flash('修改权限失败','error');
+            flash(trans('admin/alert.permission.edit_error'), 'error');
         }
         return $result;
     }
@@ -97,9 +97,9 @@ class  PermissionRepository extends Repository{
     {
         $result = $this->delete($id);
         if ($result) {
-            flash('删除权限成功');
-        } else {
-            flash('删除权限失败', 'error');
+            flash(trans('admin/alert.permission.destroy_success'),'success');
+        }else{
+            flash(trans('admin/alert.permission.destroy_error'), 'error');
         }
         return $result;
     }

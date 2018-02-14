@@ -30,9 +30,9 @@ class MenuController extends Controller
         // 刷新缓存
         $this->menu->sortMenuSetCache();
         if($request){
-            flash('菜单添加成功')->success();
+            flash(trans('admin/alert.menu.create_success'),'success');
         }else{
-            flash('菜单添加失败')->error();
+            flash(trans('admin/alert.menu.create_error'), 'error');
         }
         return redirect('admin/menu');
     }

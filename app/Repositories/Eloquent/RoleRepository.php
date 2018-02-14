@@ -77,9 +77,9 @@ class  RoleRepository extends Repository{
         $permission = $attributes['permission'];
         if ($role){
             $role->perms()->sync($permission);
-            flash('角色添加成功', 'success');
+            flash(trans('admin/alert.role.create_success'),'success');
         }else{
-            flash('角色添加失败', 'error');
+            flash(trans('admin/alert.role.create_error'), 'error');
         }
         return $role;
     }
@@ -87,9 +87,9 @@ class  RoleRepository extends Repository{
     public function destroyRole($id){
         $result = $this->delete($id);
         if ($result) {
-            flash('删除角色成功');
+            flash(trans('admin/alert.role.destroy_success'),'success');
         } else {
-            flash('删除角色失败', 'error');
+            flash(trans('admin/alert.role.destroy_error'), 'error');
         }
         return $result;
     }
@@ -114,9 +114,9 @@ class  RoleRepository extends Repository{
         /*添加权限*/
         $role->perms()->sync($permission);
         if ($result) {
-            flash('修改权限成功');
-        }else{
-            flash('修改权限失败','error');
+            flash(trans('admin/alert.role.edit_success'),'success');
+        } else {
+            flash(trans('admin/alert.role.edit_error'), 'error');
         }
         return $result;
     }
