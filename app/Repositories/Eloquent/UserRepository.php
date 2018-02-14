@@ -63,19 +63,31 @@ class UserRepository extends Repository {
     }
     /*添加用户*/
     public function createUser($formData){
-        $result = $this->model;
-        $result->name = $formData['name'];
-        $result->username = $formData['username'];
-        $result->email = $formData['email'];
-        $result->password = bcrypt($formData['password']);
-        $result->save();
+        $result = $this->model->create([
+            'name' => $formData['name'],
+            'username' => $formData['username'],
+            'email' => $formData['email'],
+            'password' => bcrypt($formData['password']),
+        ]);
         if ($result) {
             // 角色与用户关系
             if ($formData['role']) {
                 $result->roles()->sync($formData['role']);
             }
+            flash(trans('admin/alert.user.create_success'),'success');
+        }else{
+            flash(trans('admin/alert.user.create_error'),'error');
         }
-        flash_info($result,trans('admin/alert.user.create_success'),trans('admin/alert.user.create_error'));
+        return $result;
+    }
+    /*删除用户*/
+    public function destroyUser($id){
+        $result = $this->delete($id);
+        if ($result) {
+            flash(trans('admin/alert.user.destroy_success'),'success');
+        } else {
+            flash(trans('admin/alert.user.destroy_error'),'error');
+        }
         return $result;
     }
 }

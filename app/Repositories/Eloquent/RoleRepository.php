@@ -71,15 +71,12 @@ class  RoleRepository extends Repository{
     }
     //添加角色
     public function createRole($attributes){
+
+        $role = $this->model->create($attributes);
         //获权限数组
         $permission = $attributes['permission'];
-        $role =  new Role();
-        $role->name =  $attributes['name'];
-        $role->display_name = $attributes['display_name'];
-        $role->description =  $attributes['description'];
-        $role->save();
-        $role->perms()->sync($permission);
         if ($role){
+            $role->perms()->sync($permission);
             flash('角色添加成功', 'success');
         }else{
             flash('角色添加失败', 'error');
