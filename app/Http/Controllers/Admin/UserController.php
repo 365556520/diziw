@@ -95,7 +95,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 删除角色
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
