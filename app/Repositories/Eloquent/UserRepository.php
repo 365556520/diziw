@@ -61,4 +61,21 @@ class UserRepository extends Repository {
         ];
 
     }
+    /*添加用户*/
+    public function createUser($formData){
+        $result = $this->model;
+        $result->name = $formData['name'];
+        $result->username = $formData['username'];
+        $result->email = $formData['email'];
+        $result->password = bcrypt($formData['password']);
+        $result->save();
+        if ($result) {
+            // 角色与用户关系
+            if ($formData['role']) {
+                $result->roles()->sync($formData['role']);
+            }
+        }
+        flash_info($result,trans('admin/alert.user.create_success'),trans('admin/alert.user.create_error'));
+        return $result;
+    }
 }

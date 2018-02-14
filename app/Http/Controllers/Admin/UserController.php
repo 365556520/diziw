@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\UserRequest;
 use App\Repositories\Eloquent\PermissionRepository;
 use App\Repositories\Eloquent\RoleRepository;
 use App\Repositories\Eloquent\UserRepository;
@@ -38,25 +39,25 @@ class UserController extends Controller
         return response()->json($result);
     }
     /**
-     * Show the form for creating a new resource.
+     * 添加用户界面
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
+        //获取所有角色
         $role = $this->role->all();
         return view('admin.user.create')->with(compact('role'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 添加用户逻辑
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(UserRequest $request){
+        $this->user->createUser($request->all());
+        return redirect(url('admin/user'));
     }
 
     /**
