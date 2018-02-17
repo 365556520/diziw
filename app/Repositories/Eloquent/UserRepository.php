@@ -1,5 +1,7 @@
 <?php
 namespace App\Repositories\Eloquent;
+use App\Models\Role;
+use App\Models\Role_User;
 use App\Repositories\Eloquent\Repository;
 use App\User;
 
@@ -89,5 +91,17 @@ class UserRepository extends Repository {
             flash(trans('admin/alert.user.destroy_error'),'error');
         }
         return $result;
+    }
+    /*获取用户所有信息*/
+    public function getUser($id){
+       $user =  $this->model->where('id',$id)->first();
+       if ($user){
+           $user['role'] = Role::whereIn('id',$this->getRole($id))->get();
+       }
+       return $user;
+    }
+    /*得到用户角色*/
+    public function getRole($id){
+        return Role_User::where('user_id',$id)->pluck('role_id');
     }
 }

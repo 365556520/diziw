@@ -77,9 +77,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+        //获取这个账号信息
+        $user = $this->user->getUser($id);
+        return view('admin.user.edit')->with(compact('user'));
     }
 
     /**
@@ -89,9 +90,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+
     }
 
     /**
