@@ -80,7 +80,9 @@ class UserController extends Controller
     public function edit($id){
         //获取这个账号信息
         $user = $this->user->getUser($id);
-        return view('admin.user.edit')->with(compact('user'));
+        //获取所有角色
+        $role = $this->role->all();
+        return view('admin.user.edit')->with(compact('user','role'));
     }
 
     /**
