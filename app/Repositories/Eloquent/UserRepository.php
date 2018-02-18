@@ -73,7 +73,7 @@ class UserRepository extends Repository {
         ]);
         if ($result) {
             // 角色与用户关系
-            if ($formData['role']) {
+            if ($formData) {
                 $result->roles()->sync($formData['role']);
             }
             flash(trans('admin/alert.user.create_success'),'success');

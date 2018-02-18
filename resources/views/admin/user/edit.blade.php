@@ -74,8 +74,8 @@
     /*   下拉菜单*/
     $(document).ready(function() {
         $(".select2_multiple").select2({
-            maximumSelectionLength: 1,
-            placeholder: "最多能添加1个角色",
+            maximumSelectionLength: 5,
+            placeholder: "最多能添加5个角色",
             allowClear: true
         });
         var v = [];

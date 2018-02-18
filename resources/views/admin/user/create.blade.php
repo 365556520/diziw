@@ -65,7 +65,7 @@
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('admin/user.role')}}</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="select2_multiple form-control" name="role" multiple="multiple" size="4">
+                <select class="select2_multiple form-control" name="role[]" multiple="multiple" size="4">
                     @foreach($role as $v)
                         <option value="{{$v->id}}">{{$v->display_name}}</option>
                     @endforeach
@@ -88,8 +88,8 @@
     /*   下拉菜单*/
     $(document).ready(function() {
         $(".select2_multiple").select2({
-            maximumSelectionLength: 1,
-            placeholder: "最多能添加1个角色",
+            maximumSelectionLength: 5,
+            placeholder: "最多能添加5个角色",
             allowClear: true
         });
     });
