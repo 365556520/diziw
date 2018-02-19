@@ -73,10 +73,13 @@ class  RoleRepository extends Repository{
     public function createRole($attributes){
 
         $role = $this->model->create($attributes);
-        //获权限数组
-        $permission = $attributes['permission'];
         if ($role){
-            $role->perms()->sync($permission);
+            if (isset($attributes['permission'])) {
+                /*添加权限*/
+                $role->perms()->sync($attributes['permission']);
+            }else{
+                $role->perms()->sync([]);
+            }
             flash(trans('admin/alert.role.create_success'),'success');
         }else{
             flash(trans('admin/alert.role.create_error'), 'error');
@@ -106,14 +109,20 @@ class  RoleRepository extends Repository{
     }
     // 修改角色的权限数据
     public function updateRole($attributes,$id){
+        // 防止用户恶意修改表单id，如果id不一致直接跳转500
+        if ($attributes['id'] != $id) {
+            abort(500,trans('admin/errors.role_error'));
+        }
         $result = $this->update($attributes,$id);
-       //获权限数组
-        $permission = $attributes['permission'];
-        /*获取角色*/
-        $role =  Role::where('id',$id)->first();
-        /*添加权限*/
-        $role->perms()->sync($permission);
         if ($result) {
+            /*获取角色*/
+            $role =  Role::where('id',$id)->first();
+            if (isset($attributes['permission'])) {
+                /*添加权限*/
+                $role->perms()->sync($attributes['permission']);
+            }else{
+                $role->perms()->sync([]);
+            }
             flash(trans('admin/alert.role.edit_success'),'success');
         } else {
             flash(trans('admin/alert.role.edit_error'), 'error');

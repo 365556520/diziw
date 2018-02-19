@@ -83,7 +83,7 @@ abstract class Repository implements RepositoryInterface{
             return $model->fill($attributes)->save();
         }
         /**
-         * Update a entity in repository by id
+         * 根据id更新数组
          *
          * @param array $attributes
          * @param       $id
@@ -92,8 +92,7 @@ abstract class Repository implements RepositoryInterface{
          */
         public function update(array $attributes, $id){
             $model = $this->model->findOrFail($id);
-            $model->fill($attributes);
-            return $model->save();
+            return  $model->fill($attributes)->save();
         }
         /**
          * Update or Create an entity in repository

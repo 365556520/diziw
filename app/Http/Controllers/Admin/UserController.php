@@ -93,7 +93,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-
+        $this->user->updateUser($request->all(),$id);
+        return redirect('admin/user');
     }
 
     /**

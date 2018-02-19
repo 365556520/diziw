@@ -73,8 +73,10 @@ class UserRepository extends Repository {
         ]);
         if ($result) {
             // 角色与用户关系
-            if ($formData) {
+            if (isset($formData['role'])) {
                 $result->roles()->sync($formData['role']);
+            }else{
+                $result->roles()->sync([]);
             }
             flash(trans('admin/alert.user.create_success'),'success');
         }else{
@@ -92,6 +94,29 @@ class UserRepository extends Repository {
         }
         return $result;
     }
+    // 修改角色的权限数据
+    public function updateUser($attributes,$id){
+        // 防止用户恶意修改表单id，如果id不一致直接跳转500
+        if ($attributes['id'] != $id) {
+            abort(500,trans('admin/errors.user_error'));
+        }
+        //更新这个角色的数据
+        $result = $this->update($attributes,$id);
+        if ($result) {
+            // 更新用户角色关系
+            $user = User::where('id',$id)->first();
+            if (isset($attributes['role'])) {
+                $user->roles()->sync($attributes['role']);
+            }else{
+                $user->roles()->sync([]);
+            }
+            flash(trans('admin/alert.role.edit_success'),'success');
+        } else {
+            flash(trans('admin/alert.role.edit_error'), 'error');
+        }
+        return $result;
+    }
+
     /*获取用户所有信息*/
     public function getUser($id){
        $user =  $this->model->where('id',$id)->first();
