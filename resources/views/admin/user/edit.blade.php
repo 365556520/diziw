@@ -51,7 +51,7 @@
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('admin/user.role')}}</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="select2_multiple form-control" name="role" multiple="multiple" size="4">
+                <select class="select2_multiple form-control" name="role[]" multiple="multiple" size="4">
                     @foreach($role as $v)
                         <option value="{{$v->id}}">{{$v->display_name}}</option>
                     @endforeach

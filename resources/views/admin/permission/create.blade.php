@@ -1,8 +1,6 @@
 
 {{--<!-- 添加全选模态框（Modal） -->--}}
-<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content animated bounceInRight">
+
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					&times;
@@ -43,8 +41,4 @@
                     </div>
                 </div>
             </form>
-
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
 

@@ -83,7 +83,10 @@ class  PermissionRepository extends Repository{
     }
     // 修改权限数据
     public function updatePermission($attributes,$id)
-    {
+    {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
+        if ($attributes['id'] != $id) {
+            abort(500,trans('admin/errors.user_error'));
+        }
         $result = $this->update($attributes,$id);
         if ($result) {
             flash(trans('admin/alert.permission.edit_success'),'success');
@@ -103,4 +106,5 @@ class  PermissionRepository extends Repository{
         }
         return $result;
     }
+
 }

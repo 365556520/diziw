@@ -141,6 +141,12 @@ class  RoleRepository extends Repository{
     public function getRolePermission($id){
         return Permission_Role::where('role_id',$id)->pluck('permission_id');
     }
-
-
+    /*管理员获取全部权限*/
+    public function upadmin($name='name',$admin='admin'){
+        $role = Role::where($name,$admin)->first();
+        if ($role){
+            /*获取所有权限返回数组然后用array_column提取数组中id这列*/
+          $role->perms()->sync(array_column($this->getAllPermissionList()->toArray(),'id'));
+        }
+    }
 }

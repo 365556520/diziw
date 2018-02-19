@@ -5,17 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\PermissionRequest;
 use App\Repositories\Eloquent\PermissionRepository;
 use App\Http\Controllers\Controller;
+use App\Repositories\Eloquent\RoleRepository;
 
 
 class PermissionController extends Controller
 {
     private $permission;
-    function __construct(PermissionRepository $permission)
+    private $role;
+    function __construct(PermissionRepository $permission,RoleRepository $role)
     {
         //添加自定义的权限限制中间件
         $this->middleware('check.permission:permission');
+        $this->role = $role;
         //注入permission的model
         $this->permission = $permission;
+
     }
     /**
      * Display a listing of the resource.
@@ -33,12 +37,12 @@ class PermissionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 添加视图
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
+        return view('admin.permission.create');
     }
 
     /**
@@ -49,7 +53,11 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-        $this->permission->createPermission($request->all());
+        $permission = $this->permission->createPermission($request->all());
+        if ($permission){
+            /*添加成功后更新超级管理员的权限*/
+            $this->role->upadmin(config('admin.globals.upadmin.name'),config('admin.globals.upadmin.admin'));
+        }
         return redirect(url('admin/permission'));
     }
 
@@ -84,7 +92,11 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, $id)
     {
-        $this->permission->updatePermission($request->all(),$id);
+        $permission = $this->permission->updatePermission($request->all(),$id);
+        if ($permission){
+            /*修改成功后更新超级管理员的权限*/
+            $this->role->upadmin(config('admin.globals.upadmin.name'),config('admin.globals.upadmin.admin'));
+        }
         return redirect('admin/permission');
     }
 
@@ -96,7 +108,11 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        $this->permission->destroyPermission($id);
+        $permission = $this->permission->destroyPermission($id);
+        if ($permission){
+            /*删除成功后更新超级管理员的权限*/
+            $this->role->upadmin(config('admin.globals.upadmin.name'),config('admin.globals.upadmin.admin'));
+        }
         return redirect('admin/permission');
     }
 }

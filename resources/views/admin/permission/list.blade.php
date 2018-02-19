@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-@include('admin.permission.create')
 @section('title')
     <title>{{ trans('admin/permission.title')}}</title>
 @endsection
@@ -18,9 +17,9 @@
             @permission(config('admin.permissions.permission.add'))
             <div class="title">
                 <div class="col-md-12 col-sm-12 col-xs-12  pull-left top_search">
-                    <button class="btn btn-round btn-default" data-toggle="modal" data-target="#myModal" type="button">
+                    <a class="btn btn-round btn-default" data-toggle="modal" data-target="#createModal" href="{{url('admin/permission/create')}}">
                         {!! trans('admin/permission.action.create') !!}
-                    </button>
+                    </a>
                     <small>{{ trans('admin/permission.action.createDescription')}}</small>
                 </div>
             </div>
@@ -69,11 +68,18 @@
                             <tbody>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    {{--添加模态框--}}
+    <div class="modal inmodal" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                {{--内容在show.balde中--}}
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
     </div>
     {{--修改模态框--}}
     <div class="modal inmodal" id="eidtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

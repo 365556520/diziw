@@ -11,8 +11,7 @@ use App\Http\Controllers\Controller;
 class RoleController extends Controller
 {
     private $role;
-    function __construct(RoleRepository $role)
-    {
+    function __construct(RoleRepository $role){
         //添加自定义的权限限制中间件
         $this->middleware('check.permission:permission');
         //role
@@ -25,6 +24,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        /*更新管理员权限*/
+//      $this->role->upadmin();
         return view('admin.role.list');
     }
 //权限表DataTables

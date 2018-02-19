@@ -13,8 +13,14 @@ return[
     'cache' => [
         'menusList' => 'menusList',
     ],
+    //列表开始表长度
     'list' => [
         'start' => 0,
         'length' => 10,
+    ],
+    //默认管理员更新
+    'upadmin' =>[
+        'name' => 'name',
+        'admin' => 'admin',
     ],
 ];
