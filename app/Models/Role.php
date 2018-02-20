@@ -16,4 +16,8 @@ class Role extends EntrustRole
         'display_name',
         'description',
     ];
+    //默认超级管理员角色
+    public function is_admin(){
+        return $this->name == 'admin'?true:false;
+    }
 }
