@@ -117,6 +117,7 @@ class  RoleRepository extends Repository{
         if ($result) {
             /*获取角色*/
             $role =  Role::where('id',$id)->first();
+
             if (isset($attributes['permission'])) {
                 /*添加权限*/
                 $role->perms()->sync($attributes['permission']);

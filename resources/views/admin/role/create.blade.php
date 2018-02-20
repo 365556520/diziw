@@ -32,7 +32,6 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('admin/role.model.permission')}}</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="select2_multiple form-control" name="permission[]" multiple="multiple" size="4">
-                    <option value="0">超级管理员</option>
                     @foreach($permission as $v)
                         <option value="{{$v->id}}">{{$v->display_name}}</option>
                     @endforeach

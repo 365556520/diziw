@@ -28,4 +28,7 @@ return [
         'delete' => 'user.delete',
         'show'   => 'user.show',
     ],
+    'system' => [
+        'list' => 'system.index'
+    ]
 ];
