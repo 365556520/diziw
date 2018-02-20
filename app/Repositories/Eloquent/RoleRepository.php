@@ -88,6 +88,8 @@ class  RoleRepository extends Repository{
     }
     //删除角色
     public function destroyRole($id){
+        //删除排除超级管理员
+        $this->isRoleAdmin($id);
         $result = $this->delete($id);
         if ($result) {
             flash(trans('admin/alert.role.destroy_success'),'success');
@@ -109,6 +111,8 @@ class  RoleRepository extends Repository{
     }
     // 修改角色的权限数据
     public function updateRole($attributes,$id){
+        //修改排除超级管理员
+        $this->isRoleAdmin($id);
         // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.role_error'));
@@ -148,6 +152,13 @@ class  RoleRepository extends Repository{
         if ($role){
             /*获取所有权限返回数组然后用array_column提取数组中id这列*/
           $role->perms()->sync(array_column($this->getAllPermissionList()->toArray(),'id'));
+        }
+    }
+    /*超级管理员拦截*/
+    public function isRoleAdmin($id){
+        //超级管理不能修改数据
+        if ($this->model->where('id',$id)->first()->is_admin()){
+            abort(500,trans('admin/errors.role_error'));
         }
     }
 }

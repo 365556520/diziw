@@ -37,28 +37,28 @@ trait ActionButtonTrait{
             /*有编写权限才加入编写按钮*/
             if(auth()->user()->can($editPermission)){
                 if ($this->is_Role_admin()){
-                    $thml .= '<small class="text-danger">超级角色不可修改、';
+                   $thml .= '<small class="text-danger">不可修改和';
                 }else{
                     $thml .= $this->getEditActionButtont();
                 }
             }
         }
+
         if($destroyPermission == null){
-            $thml .= '';
-        }else{
-            /*有删除全选才加入删除按钮*/
+                $thml .= '';
+        } else{
+                /*有删除全选才加入删除按钮*/
             if(auth()->user()->can($destroyPermission)){
-                if ($this->is_Role_admin()){
+                 if ($this->is_Role_admin()){
                     $thml .= '删除</small>';
-                }else{
+                 }else{
                     $thml .= $this->getDestroyActionButtont();
-                }
-
-            }
+                 }
+             }
         }
-
         return $thml;
     }
+//    判断是否椒超级管理员角色
     public function is_Role_admin(){
         if($this->action=='role'){
             if($this->is_admin()){
