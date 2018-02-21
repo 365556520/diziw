@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Eloquent;
+namespace App\Repositories\Eloquent\Admin;
 /**
  * Created by
  * User: 小强

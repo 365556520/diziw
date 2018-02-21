@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Eloquent;
+namespace App\Repositories\Eloquent\Admin;
 use App\Models\Role;
 use App\Models\Role_User;
 use App\Repositories\Eloquent\Repository;

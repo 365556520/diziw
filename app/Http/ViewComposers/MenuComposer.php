@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\ViewComposers;
-use App\Repositories\Eloquent\MenuRepository;
+use App\Repositories\Eloquent\Admin\MenuRepository;
 use Illuminate\Contracts\View\View;
 
 

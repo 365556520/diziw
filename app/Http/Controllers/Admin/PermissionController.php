@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PermissionRequest;
-use App\Repositories\Eloquent\PermissionRepository;
+use App\Repositories\Eloquent\Admin\PermissionRepository;
 use App\Http\Controllers\Controller;
 use App\Repositories\Eloquent\RoleRepository;
 

@@ -4,7 +4,7 @@ namespace App\Repositories\Eloquent;
 use App\Repositories\Contracts\RepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Container\Container as Application;
-
+/*仓库实实现类接口*/
 abstract class Repository implements RepositoryInterface{
     /*App容器*/
     protected $app;

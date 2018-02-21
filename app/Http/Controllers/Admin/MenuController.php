@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MenuRequest;
-use App\Repositories\Eloquent\MenuRepository;
+use App\Repositories\Eloquent\Admin\MenuRepository;
 use App\Http\Controllers\Controller;
 
-class MenuController extends Controller
-{   private $menu;
+class MenuController extends Controller{
+    private $menu;
     public function __construct(MenuRepository $menuRepository){
         //添加自定义的权限限制中间件
              $this->middleware('check.permission:permission');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\RoleRequest;
-use App\Repositories\Eloquent\RoleRepository;
+use App\Repositories\Eloquent\Admin\RoleRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

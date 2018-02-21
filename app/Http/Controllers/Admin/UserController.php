@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserRequest;
-use App\Repositories\Eloquent\PermissionRepository;
-use App\Repositories\Eloquent\RoleRepository;
-use App\Repositories\Eloquent\UserRepository;
+use App\Repositories\Eloquent\Admin\PermissionRepository;
+use App\Repositories\Eloquent\Admin\RoleRepository;
+use App\Repositories\Eloquent\Admin\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
