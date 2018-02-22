@@ -66,11 +66,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
+
         //获取这个账号信息
         $user = $this->user->getUser($id);
-
         foreach ($user->role as $k =>$v){
             /*获取所有角色权限的数据*/
             $user->role[$k] = $this->role->getRole($v->id);

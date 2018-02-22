@@ -8,6 +8,7 @@
     </h4>
 </div>
 <div class="modal-body ">
+    {{--角色和权限--}}
     <div class="row">
         <div class="control-label col-md-12 col-sm-12 col-xs-12 " >
             <h4>{{trans('admin/user.role')}}:</h4>

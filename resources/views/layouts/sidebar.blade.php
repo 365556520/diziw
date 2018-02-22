@@ -14,7 +14,7 @@
             </div>
             <div class="profile_info">
                 <span>欢迎管理员:</span>
-                <h2>{{ Auth::user()->name }}</h2>
+                <h2>{{ Auth::user()->getUserData->nickname}}</h2>
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -68,7 +68,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="{{url('backend/images/img.jpg')}}" alt="">{{ Auth::user()->name }}
+                        <img src="{{url('backend/images/img.jpg')}}" alt="">{{Auth::user()->getUserData->nickname }}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">

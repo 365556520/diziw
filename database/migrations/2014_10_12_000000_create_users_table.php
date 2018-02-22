@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
         //用户信息表
         Schema::create('user_data', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->unique();
             $table->string('nickname');
             $table->integer('age');
             $table->string('sex');
