@@ -52,7 +52,7 @@
                             <div class="col-md-5 col-sm-5 col-xs-5">
                                 <img src="{{captcha_src()}}" style="cursor: pointer;" onclick="this.src='{{captcha_src()}}'+Math.random()">
                             </div>
-                            <div class="col-md-12 col-sm-12 col-xs-12  checkbox">
+                            <div class="col-md-12 col-sm-12 col-xs-12 checkbox">
                                 <label class="pull-left">
                                     <input type="checkbox"  name="remember" {{ old('remember') ? 'checked' : '' }}> {{trans('auth/login.loginform.rememberPassword')}}
                                 </label>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 col-sm-12 col-xs-12 ">
-                                <button class="btn btn-dar btn-sm submit" type="submit" >{{trans('auth/login.loginform.submit')}}</button>
+                                <button class="btn btn-dar btn-sm col-md-7 col-sm-7 col-xs-7 " type="submit" >{{trans('auth/login.loginform.submit')}}</button>
                                 <a class="reset_pass" data-toggle="modal" data-target="#resetModal" href="{{ route('password.request') }}">
                                     {{trans('auth/login.loginform.Lost_your_password')}}
                                 </a>

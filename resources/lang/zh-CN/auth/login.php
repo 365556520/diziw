@@ -15,7 +15,7 @@ return [
     'loginform' =>[
         'username' => '用户名',
         'password' => '密码',
-        'submit' => '登 录',
+        'submit' => '立 即 登 录',
         'rememberPassword' => '记住密码',
         'Lost_your_password' => '忘记密码？',
         'createAccount' => '注册新帐户',
