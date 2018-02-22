@@ -32,7 +32,11 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has(config('admin.globals.username')) ? ' has-error' : '' }}">
                                     <input type="text" id="config('admin.globals.username')" class="form-control has-feedback-left "  placeholder="{{trans('auth/login.loginform.username')}}" required name="{{config('admin.globals.username')}}" value="{{ old(config('admin.globals.username')) }}">
                                     <span class="fa fa-user form-control-feedback left" ></span>
-
+                               {{--     @if ($errors->has(config("admin.globals.username")))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first(config("admin.globals.username")) }}</strong>
+                                        </span>
+                                    @endif--}}
                                 </div>
                             </div>
 
@@ -40,14 +44,22 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
                                     <input type="password" id="password" class="form-control has-feedback-left "  placeholder="{{trans('auth/login.loginform.password')}}"  name="password" >
                                     <span class="fa fa-lock form-control-feedback left" ></span>
-
+                                    {{--@if ($errors->has('password'))--}}
+                                        {{--<span class="help-block">--}}
+                                            {{--<strong>{{ $errors->first('password') }}</strong>--}}
+                                        {{--</span>--}}
+                                    {{--@endif--}}
                                 </div>
                             </div>
 
                         <div class="form-group ">
                             <div class="col-md-7 col-sm-7 col-xs-7 {{ $errors->has('captcha') ? ' has-error' : '' }} ">
                                 <input type="text" id="captcha" class="form-control "  placeholder="{{trans('auth/login.captcha')}}"  name="captcha" >
-
+                                {{--@if ($errors->has('captcha'))--}}
+                                    {{--<span class="help-block">--}}
+                                            {{--<strong>{{ $errors->first('captcha') }}</strong>--}}
+                                        {{--</span>--}}
+                                {{--@endif--}}
                             </div>
                             <div class="col-md-5 col-sm-5 col-xs-5">
                                 <img src="{{captcha_src()}}" style="cursor: pointer;" onclick="this.src='{{captcha_src()}}'+Math.random()">
@@ -69,7 +81,7 @@
                         <div class="clearfix"></div>
                         <div class="separator">
                             <p class="change_link">
-                                <a class="to_register"  data-toggle="modal" data-target="#registerModal" href="{{ route('register') }}"> {!! trans('auth/login.loginform.createAccount') !!}</a>
+                                <a class="to_register"  data-toggle="modal"   data-target="#registerModal" href="{{ route('register') }}"> {!! trans('auth/login.loginform.createAccount') !!}</a>
                             </p>
 
                             <div class="clearfix"></div>
