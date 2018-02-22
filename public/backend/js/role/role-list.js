@@ -48,16 +48,6 @@ var RoleList = function() {
                     "orderable" : false,
                 },
                 {
-                    "data": "created_at",
-                    "name": "created_at",
-                    "orderable" : true,
-                },
-                {
-                    "data": "updated_at",
-                    "name": "updated_at",
-                    "orderable" : true,
-                },
-                {
                     "data": "actionButton",
                     "name": "actionButton",
                     "type": "html",

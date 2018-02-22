@@ -61,8 +61,6 @@
                                 <th>{{trans('admin/role.model.name')}}</th>
                                 <th>{{trans('admin/role.model.display_name')}}</th>
                                 <th>{{trans('admin/role.model.description')}}</th>
-                                <th>{{trans('admin/role.model.created_at')}}</th>
-                                <th>{{trans('admin/role.model.updated_at')}}</th>
                                 <th>{{trans('admin/role.model.operate')}}</th>
                             </tr>
                             </thead>

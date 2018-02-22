@@ -7,8 +7,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @yield('title')
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Bootstrap -->
     <link href="{{asset('/backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -24,8 +24,6 @@
 </head>
 <body>
 <div id="app">
-
-
     @yield('content')
 </div>
 <script src="{{asset('/backend/vendors/jquery/dist/jquery.min.js') }}"></script>

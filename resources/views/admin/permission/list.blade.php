@@ -60,8 +60,6 @@
                                 <th>{{trans('admin/permission.model.name')}}</th>
                                 <th>{{trans('admin/permission.model.display_name')}}</th>
                                 <th>{{trans('admin/permission.model.description')}}</th>
-                                <th>{{trans('admin/permission.model.created_at')}}</th>
-                                <th>{{trans('admin/permission.model.updated_at')}}</th>
                                 <th>{{trans('admin/permission.model.operate')}}</th>
                             </tr>
                             </thead>

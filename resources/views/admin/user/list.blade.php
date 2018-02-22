@@ -61,8 +61,6 @@
                                 <th>{{trans('admin/user.model.name')}}</th>
                                 <th>{{trans('admin/user.model.username')}}</th>
                                 <th>{{trans('admin/user.model.email')}}</th>
-                                <th>{{trans('admin/user.model.created_at')}}</th>
-                                <th>{{trans('admin/user.model.updated_at')}}</th>
                                 <th>{{trans('admin/user.model.operate')}}</th>
                             </tr>
                             </thead>
