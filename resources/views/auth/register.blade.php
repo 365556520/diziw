@@ -74,7 +74,7 @@
                 @endif
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6">
-                <img src="{{captcha_src()}}" style="cursor: pointer;" onclick="this.src='{{captcha_src()}}'+Math.random()">
+                <img src="{{captcha_src('flat')}}" style="cursor: pointer;" onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
             </div>
         </div>
     </div>

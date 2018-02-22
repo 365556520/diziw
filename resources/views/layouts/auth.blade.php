@@ -22,9 +22,8 @@
     <link href="{{asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
 
 </head>
-<body>
+<body class="login">
 <div id="app">
-
     @yield('content')
 </div>
 <script src="{{asset('/backend/vendors/jquery/dist/jquery.min.js') }}"></script>

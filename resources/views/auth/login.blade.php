@@ -4,6 +4,8 @@
 @endsection
 @section('content')
     <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
         <div class="login_wrapper">
             <div class="animate form login_form">
                  <section class="login_content">
@@ -11,7 +13,7 @@
                         {{ csrf_field() }}
                         <h1>{{trans('auth/login.title.admin')}}</h1>
 
-                            <div class="form-group">
+                            <div>
                                 {{--帐号密码和ciook--}}
                                 <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has(config('admin.globals.username')) ? ' has-error' : '' }}">
                                     <input type="text" id="config('admin.globals.username')" class="form-control has-feedback-left "  placeholder="{{trans('auth/login.loginform.username')}}" required name="{{config('admin.globals.username')}}" value="{{ old(config('admin.globals.username')) }}">
@@ -20,7 +22,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div>
                                 <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
                                     <input type="password" id="password" class="form-control has-feedback-left "  placeholder="{{trans('auth/login.loginform.password')}}"  name="password" >
                                     <span class="fa fa-lock form-control-feedback left" ></span>
@@ -28,19 +30,21 @@
                                 </div>
                             </div>
 
-                        <div class="form-group ">
+                        <div>
                             <div class="col-md-7 col-sm-7 col-xs-7 {{ $errors->has('captcha') ? ' has-error' : '' }} ">
                                 <input type="text" id="captcha" class="form-control "  placeholder="{{trans('auth/login.captcha')}}"  name="captcha" >
-
                             </div>
                             <div class="col-md-5 col-sm-5 col-xs-5">
-                                <img src="{{captcha_src()}}" style="cursor: pointer;" onclick="this.src='{{captcha_src()}}'+Math.random()">
+                                <img src="{{captcha_src('flat')}}" style="cursor: pointer;" onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
                             </div>
-                            <div class="col-md-12 col-sm-12 col-xs-12 checkbox">
-                                <label class="pull-left">
-                                    <input type="checkbox"  name="remember"  {{ old('remember') ? 'checked' : '' }}> {{trans('auth/login.loginform.rememberPassword')}}
-                                </label>
+                            <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                                <div class="heckbox">
+                                    <label class=" pull-left">
+                                        <input type="checkbox"  name="remember"  {{ old('remember') ? 'checked' : '' }}> {{trans('auth/login.loginform.rememberPassword')}}
+                                    </label>
+                                </div>
                             </div>
+
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 col-sm-12 col-xs-12 ">
