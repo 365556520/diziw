@@ -38,4 +38,11 @@ class User extends Authenticatable
     {
         $this->notify(new RestPasswordNotification($token));
     }
+    /**
+     * 获得与用户关联的个人信息。
+     */
+    public function getUserData()
+    {
+        return $this->hasOne('App\Models\UsersModel\User_Data');
+    }
 }

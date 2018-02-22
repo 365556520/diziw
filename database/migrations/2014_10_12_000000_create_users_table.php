@@ -11,8 +11,8 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
+        //用户表
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -22,6 +22,24 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+
+        //用户信息表
+        Schema::create('user_data', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->string('nickname');
+            $table->integer('age');
+            $table->string('sex');
+            $table->string('ipone');
+            $table->string('qq');
+            $table->string('headimg');
+            //外检约束更新和删除都绑定
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -32,5 +50,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('user_data');
     }
 }

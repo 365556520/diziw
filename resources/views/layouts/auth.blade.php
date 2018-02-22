@@ -24,10 +24,13 @@
 </head>
 <body>
 <div id="app">
+
     @yield('content')
 </div>
 <script src="{{asset('/backend/vendors/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{asset('/backend/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-
+{{--layer--}}
+<script src="{{asset('/backend/vendors/layer/layer.js')}}"></script>
+@yield('js')
 </body>
 </html>
