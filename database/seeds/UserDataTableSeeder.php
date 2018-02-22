@@ -9,6 +9,7 @@ class UserDataTableSeeder extends Seeder
      *
      * @return void
      */
+
     public function run(){
         User_Data::create([
             'user_id' =>1,
@@ -20,4 +21,5 @@ class UserDataTableSeeder extends Seeder
             'headimg' =>'222',
         ]);
     }
+
 }
