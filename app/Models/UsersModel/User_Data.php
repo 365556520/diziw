@@ -15,5 +15,8 @@ class User_Data extends Model{
         'ipone',
         'qq',
         'headimg' ,
+        'address',
+        'hobby',
+        'Readme',
     ];
 }

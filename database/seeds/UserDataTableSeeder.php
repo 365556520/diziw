@@ -12,7 +12,10 @@ class UserDataTableSeeder extends Seeder
             'sex' =>'男',
             'ipone' =>'18937737625',
             'qq' =>'365556520',
-            'headimg' =>'222',
+            'headimg' =>'backend/images/img.jpg',
+            'address' => '中国河南省南阳市',
+            'hobby' => '爱好、编程、玩游戏、听歌、吃',
+            'Readme' => '相信未来是美好的，再牛逼的梦想也抵不过，傻逼一样的坚持。',
         ]);
     }
 
