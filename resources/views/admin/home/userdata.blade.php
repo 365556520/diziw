@@ -29,6 +29,11 @@
                                         <input type="text" name="username" lay-verify="required" placeholder="请输入" value="{{Auth::user()->getUserData->nickname}}" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
+
+                                <div class="layui-form-item col-md-8 col-sm-12 col-xs-12">
+                                    <img style="max-width: 100%;" id="image" src="{{asset('/backend/images/xiaolongnv.jpg')}}">
+                                </div>
+
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">年龄</label>
                                     <div class="layui-input-inline">
@@ -69,6 +74,7 @@
                                     </div>
                                 </div>
 
+
                                 <div class="layui-form-item layui-form-text">
                                     <label class="layui-form-label">个性签名</label>
                                     <div class="layui-input-block">
@@ -89,6 +95,8 @@
 @endsection
 @section('js')
     <script>
+
+
         //Demo
         layui.use('form', function(){
             var form = layui.form;
@@ -98,6 +106,14 @@
                 return false;
             });
         });
-        $(function () { $("[data-toggle='tooltip']").tooltip();});
+        $(function () {
+            $("[data-toggle='tooltip']").tooltip();
+
+            var image = document.getElementById('image');
+            var cropper = new Cropper(image, {
+                aspectRatio: 16 / 9,
+
+            });
+        });
     </script>
 @endsection

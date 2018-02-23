@@ -15,12 +15,14 @@
         <!-- Font Awesome -->
         <link href="{{ asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
         {{--layui-v2.2.5--}}
-        <link href="{{ asset('/backend/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
+        <link href="{{ asset('/backend/myvebdors/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
         <!-- NProgress -->
         <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
           @yield('css')
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
+        {{--cropperjs--}}
+        <link  href="{{asset('/backend/myvebdors/cropperjs-master/dist/cropper.min.css')}}" rel="stylesheet">
 
 
     </head>
@@ -53,7 +55,9 @@
         {{--layer--}}
         <script src="{{asset('/backend/vendors/layer/layer.js')}}"></script>
         {{--layui-v2.2.5--}}
-        <script src="{{asset('/backend/layui-v2.2.5/layui/layui.js')}}"></script>
+        <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
+        {{--cropperjs--}}
+        <script src="{{asset('/backend/myvebdors/cropperjs-master/dist/cropper.min.js')}}"></script>
         <!-- Custom Theme Scripts -->
         <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
         @yield('js')
