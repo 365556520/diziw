@@ -20,62 +20,65 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <div class="col-md-3 col-xs-12 widget widget_tally_box">
-                            <div class="x_panel fixed_height_390">
-                                <div class="x_content">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <form class="layui-form layui-form-pane" action="">
 
-                                    <div class="flex">
-                                        <ul class="list-inline widget_profile_box">
-                                            <li>
-                                                <a  data-toggle="tooltip" data-placement="top" title="{{Auth::user()->getUserData->qq}}">
-                                                    <i class="fa fa-qq" ></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <img src="{{url(Auth::user()->getUserData->headimg)}}" alt="..." class="img-circle profile_img">
-                                            </li>
-                                            <li>
-                                                <a data-toggle="tooltip" data-placement="top" title="{{Auth::user()->getUserData->ipone}}">
-                                                    <i class="fa fa-mobile"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <h3 class="name">{{Auth::user()->getUserData->nickname}}</h3>
-
-                                    <div class="flex">
-                                        <ul class="list-inline count2">
-                                            <li>
-                                                <h3>账号</h3>
-                                                <span>{{Auth::user()->username}}</span>
-                                            </li>
-                                            <li>
-                                                <h3>性别</h3>
-                                                <span>{{Auth::user()->getUserData->sex}}</span>
-                                            </li>
-                                            <li>
-                                                <h3>年龄</h3>
-                                                <span>{{Auth::user()->getUserData->age}}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <div class="pull-left">角色:
-                                            @foreach($user->role as $v)
-                                                {{$v->display_name}}
-                                            @endforeach
-                                        </div><br>
-                                        <div class="pull-left">联系方式</div>
-                                        <div class="pull-left">手机: {{Auth::user()->getUserData->ipone}}</div><br>
-                                        <div class="pull-left">QQ: {{Auth::user()->getUserData->qq}}</div><br>
-                                        <div class="pull-left">住址: {{Auth::user()->getUserData->address}}</div><br>
-                                        <div class="pull-left">兴趣: {{Auth::user()->getUserData->hobby}}</div><br>
-                                        <div class="pull-left">个性签名: {{Auth::user()->getUserData->Readme}}</div><br>
-
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">昵称</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="username" lay-verify="required" placeholder="请输入" value="{{Auth::user()->getUserData->nickname}}" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
-                            </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">年龄</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="username" lay-verify="required" placeholder="请输入" value="{{Auth::user()->getUserData->age}}" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item" pane="">
+                                    <label class="layui-form-label">性别</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="sex" value="男" title="男" @if(Auth::user()->getUserData->sex == '男')checked=""@endif>
+                                        <input type="radio" name="sex" value="女" title="女"  @if(Auth::user()->getUserData->sex == '女')checked=""@endif>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">验证手机</label>
+                                    <div class="layui-input-block">
+                                        <input type="tel" name="phone" lay-verify="required|phone" value="{{Auth::user()->getUserData->ipone}}"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">QQ</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" lay-verify="title" autocomplete="off" value="{{Auth::user()->getUserData->qq}}"  placeholder="请输入QQ号码" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">联系地址</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="address"  placeholder="请输入联系地址" value="{{Auth::user()->getUserData->address}}" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">爱好</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="address"  placeholder="请输入联系地址" value="{{Auth::user()->getUserData->hobby}}" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">个性签名</label>
+                                    <div class="layui-input-block">
+                                        <textarea placeholder="请输入内容" class="layui-textarea">{{Auth::user()->getUserData->Readme}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <button class="layui-btn" lay-submit=""  lay-filter="demo2">修改信息</button>
+                                </div>
+                            </form>
                         </div>
 
                     </div>
@@ -86,6 +89,15 @@
 @endsection
 @section('js')
     <script>
-        $(function () { $("[data-toggle='tooltip']").tooltip(); });
+        //Demo
+        layui.use('form', function(){
+            var form = layui.form;
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+        });
+        $(function () { $("[data-toggle='tooltip']").tooltip();});
     </script>
 @endsection

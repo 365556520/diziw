@@ -14,11 +14,14 @@
         <link href="{{ asset('/backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
         <!-- Font Awesome -->
         <link href="{{ asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+        {{--layui-v2.2.5--}}
+        <link href="{{ asset('/backend/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
         <!-- NProgress -->
         <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
           @yield('css')
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
+
 
     </head>
     <body class="nav-md">
@@ -49,6 +52,8 @@
         <script src="{{ asset('/backend/vendors/nprogress/nprogress.js')}}"></script>
         {{--layer--}}
         <script src="{{asset('/backend/vendors/layer/layer.js')}}"></script>
+        {{--layui-v2.2.5--}}
+        <script src="{{asset('/backend/layui-v2.2.5/layui/layui.js')}}"></script>
         <!-- Custom Theme Scripts -->
         <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
         @yield('js')
