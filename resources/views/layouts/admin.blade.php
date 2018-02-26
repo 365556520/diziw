@@ -22,7 +22,7 @@
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
         {{--cropperjs--}}
-        <link  href="{{asset('/backend/myvebdors/cropperjs-master/dist/cropper.min.css')}}" rel="stylesheet">
+        <link  href="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.css')}}" rel="stylesheet">
 
 
     </head>
@@ -57,7 +57,7 @@
         {{--layui-v2.2.5--}}
         <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
         {{--cropperjs--}}
-        <script src="{{asset('/backend/myvebdors/cropperjs-master/dist/cropper.min.js')}}"></script>
+        <script src="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.js')}}"></script>
         <!-- Custom Theme Scripts -->
         <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
         @yield('js')

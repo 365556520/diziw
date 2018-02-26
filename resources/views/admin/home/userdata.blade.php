@@ -94,26 +94,12 @@
     </div>
 @endsection
 @section('js')
+    {{--菜单添加、修改、删除的js--}}
+    <script src="{{ asset('/backend/js/home/userdata.js')}}"></script>
     <script>
-
-
-        //Demo
-        layui.use('form', function(){
-            var form = layui.form;
-            //监听提交
-            form.on('submit(formDemo)', function(data){
-                layer.msg(JSON.stringify(data.field));
-                return false;
-            });
-        });
+        //            开始加载
         $(function () {
-            $("[data-toggle='tooltip']").tooltip();
-
-            var image = document.getElementById('image');
-            var cropper = new Cropper(image, {
-                aspectRatio: 16 / 9,
-
-            });
+            UserData.init();
         });
     </script>
 @endsection
