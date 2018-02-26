@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@include('component.headimg')
 @section('title')
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
@@ -30,12 +31,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                    <input type="file" id="imgBtn" name="imgCut">
-                                    <div class="box">
-                                        <img  src="{{asset('/backend/images/xiaolongnv.jpg')}}" id="previewyulan">
+                                <div class="layui-form-item col-md-2 col-sm-2 col-xs-5" id="crop-avatar">
+                                    <label class="layui-form-label">头像</label>
+                                    <div class="avatar-view" title="上传头像">
+                                        <a href="" class="layui-inline" data-toggle="modal"  data-target="#avatar-modal">
+                                            <img  class="layui-circle " alt="Avatar" src="{{asset('/backend/images/xiaolongnv.jpg')}}" >
+                                        </a>
                                     </div>
-                                    <input type="button" name="" value="上传" onclick="imgSubmit()">
                                 </div>
 
                                 <div class="layui-form-item">
