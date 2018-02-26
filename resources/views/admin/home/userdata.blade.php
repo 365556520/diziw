@@ -30,8 +30,12 @@
                                     </div>
                                 </div>
 
-                                <div class="layui-form-item col-md-8 col-sm-12 col-xs-12">
-                                    <img style="max-width: 100%;" id="image" src="{{asset('/backend/images/xiaolongnv.jpg')}}">
+                                <div class="col-md-2 col-sm-2 col-xs-12">
+                                    <input type="file" id="imgBtn" name="imgCut">
+                                    <div class="box">
+                                        <img  src="{{asset('/backend/images/xiaolongnv.jpg')}}" id="previewyulan">
+                                    </div>
+                                    <input type="button" name="" value="上传" onclick="imgSubmit()">
                                 </div>
 
                                 <div class="layui-form-item">
