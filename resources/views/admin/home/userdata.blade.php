@@ -31,11 +31,11 @@
                                     </div>
                                 </div>
 
-                                <div class="layui-form-item col-md-2 col-sm-2 col-xs-5" id="crop-avatar">
+                                <div class="layui-form-item " id="crop-avatar">
                                     <label class="layui-form-label">头像</label>
                                     <div class="avatar-view" title="上传头像">
-                                        <a href="" class="layui-inline" data-toggle="modal"  data-target="#avatar-modal">
-                                            <img  class="layui-circle " alt="Avatar" src="{{asset('/backend/images/xiaolongnv.jpg')}}" >
+                                        <a href="" class="layui-inline" data-toggle="modal"  data-target="#headimgModal">
+                                            <img  class="layui-circle col-md-2 col-sm-2 col-xs-5" alt="Avatar" src="{{asset('/backend/images/xiaolongnv.jpg')}}" >
                                         </a>
                                     </div>
                                 </div>
@@ -106,6 +106,7 @@
         //            开始加载
         $(function () {
             UserData.init();
+            headimg.init();
         });
     </script>
 @endsection
