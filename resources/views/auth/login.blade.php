@@ -30,7 +30,7 @@
                                 </div>
                             </div>
 
-                        <div>
+                        <div class="form-group">
                             <div class="col-md-7 col-sm-7 col-xs-7 {{ $errors->has('captcha') ? ' has-error' : '' }} ">
                                 <input type="text" id="captcha" class="form-control "  placeholder="{{trans('auth/login.captcha')}}"  name="captcha" >
                             </div>
