@@ -21,11 +21,11 @@ class HomeController extends Controller{
 
     }
 
-    public function userdata(Request $request){
-        //获取这个角色
-        $user = $this->user->getUser($request->input('id'));
-        return view('admin.home.userdata')->with(compact('user'));
+    public function headimg(){
+
+
     }
+
     public function index(){
         return view('admin.home.index');
     }
@@ -38,7 +38,9 @@ class HomeController extends Controller{
     }
     /**/
     public function edit($id){
-
+        //获取这个角色
+        $user = $this->user->getUser($id);
+        return view('admin.home.userdata')->with(compact('user'));
     }
 
     /**

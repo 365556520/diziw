@@ -13,6 +13,11 @@ var RoleList = function() {
             "search":{
                 regex:true,
             },
+            //定义xy出放不下的时候出现滚动条
+            "scrollY": true,
+            "scrollX": true,
+            //设置浏览数据的条数
+            "lengthMenu": [[5, 10, 15, 20], [5,10, 15, 20]],
             "ajax":{
                 //ajax请求
                 'url' : '/admin/role/ajaxIndex',

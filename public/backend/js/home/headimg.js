@@ -2,7 +2,7 @@
  * Created by Administrator on 2018/2/26.
  */
 var headimg = function () {
-    var headimgInit = function () {
+    var headimgInit = function (url) {
         //图片
         var $image = $('#image');
         // 打开图片按钮
@@ -99,6 +99,19 @@ var headimg = function () {
                 /*裁剪后得到这个图片*/
                 // 裁剪后将图片放到指定标签
                 $target.attr('src',URL.createObjectURL(blob));
+                //穿件一个FormData存
+                var formData = new FormData();
+                formData.append('files',blob);
+                $.ajax({
+                    method:"get",
+                    url: url, //用于文件上传的服务器端请求地址
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success:function(result){
+                        console.log(result);
+                    }
+                });
             });
         });
         //旋转按钮

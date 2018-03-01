@@ -22,8 +22,9 @@
                     </div>
                     <div class="x_content">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <form class="layui-form layui-form-pane" action="">
-
+                            <form class="layui-form layui-form-pane" action="{{url('admin/home',[Auth::user()->id])}}" method="post">
+                                {{csrf_field()}}
+                                {{method_field('PUT')}}
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">昵称</label>
                                     <div class="layui-input-inline">
@@ -106,7 +107,7 @@
         //            开始加载
         $(function () {
             UserData.init();
-            headimg.init();
+            headimg.init("{{route('headimg')}}");
         });
     </script>
 @endsection
