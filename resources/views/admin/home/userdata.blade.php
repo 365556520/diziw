@@ -35,7 +35,7 @@
                                     <label class="layui-form-label">头像</label>
                                     <div class="avatar-view" title="上传头像">
                                         <a href="" class="layui-inline" data-toggle="modal"  data-target="#headimgModal">
-                                            <img  class="layui-circle " style="height: 100px;width: 100px;" alt="Avatar" src="{{asset('/backend/images/img.jpg')}}" >
+                                            <img  class="layui-circle " style="height: 60px;width: 60px;" alt="Avatar" src="{{asset('/backend/images/img.jpg')}}" >
                                         </a>
                                     </div>
                                 </div>

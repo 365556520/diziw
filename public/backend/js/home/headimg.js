@@ -7,12 +7,11 @@ var headimg = function () {
         var $image = $('#image');
         // 打开图片按钮
         var $photoInput =   $('#photoInput');
-        // 修改自官方demo的js
+        // 这个核心方法修改自官方demo的js
         var initCropper = function (img, input){
             var $image = img;
             var options = {
-                aspectRatio: 5/5, // 纵横比
-                viewMode: 2,
+                aspectRatio: 1/1, // 纵横比
                 preview: '.img-preview', // 预览图的class名
                 minContainerWidth:500,
                 minContainerHeight:400,
@@ -90,19 +89,25 @@ var headimg = function () {
                 $inputImage.prop('disabled', true).addClass('disabled');
             }
         };
-        //裁剪按钮
+        //裁剪保存按钮
         $('#btnimg').on('click',function (){
             var $target = $('#result');
             $image.cropper('getCroppedCanvas',{
-                width:300, // 裁剪后的长宽
+                width:300, // 裁剪的长宽
                 height:300
             }).toBlob(function(blob){
+                /*裁剪后得到这个图片*/
                 // 裁剪后将图片放到指定标签
                 $target.attr('src',URL.createObjectURL(blob));
             });
         });
-
-
+        //旋转按钮
+        $('#rotate-Left').on('click',function (){
+            $image.cropper("rotate",-45);
+        });
+        $('#rotate-Right').on('click',function (){
+            $image.cropper("rotate",-45);
+        });
         initCropper($image,$photoInput);
 
     };

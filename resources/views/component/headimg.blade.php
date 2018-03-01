@@ -1,23 +1,21 @@
 
 {{--剪切头像模态框--}}
 <style>
-    .row{
-        margin-bottom: 5px;
-    }
-    #photo {
+
+    #image {
         max-width: 100%;
     }
-    .img-preview {
-        width: 100px;
-        height: 100px;
+    .img-preview{
+        width: 150px;
+        height: 150px;
         overflow: hidden;
     }
     button {
         margin-top:10px;
     }
     #result {
-        width: 150px;
-        height: 150px;
+        width: 80px;
+        height: 80px;
     }
 </style>
 <div class="modal inmodal" id="headimgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -30,30 +28,26 @@
                 <h4 class="modal-title" id="myModalLabel">头像剪切</h4>
             </div>
             <div class="modal-body">
-
+            {{--剪切图片核心--}}
                 <div class="row">
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <img id="image" src="{{asset('/backend/images/img.jpg')}}"  >
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-12">
-
-                            <div class="img-preview-box hidden">
-                                <hr>
-                                <span>150*150:</span>
-                                <div class="img-preview img-preview-lg">
-                                </div>
-                            </div>
-
-                        <br><br><div>
-                            <p>结果：</p>
-                            <img src="{{asset('/backend/images/img.jpg')}}" id="result">  </div>
+                        <p>预览效果:</p>
+                        <div class="docs-preview clearfix">
+                            <div class="img-preview  preview-xs layui-circle"></div>
+                        </div> <br>
+                       <div >
+                            <p>裁剪结果:</p>
+                            <img class="layui-circle" src="{{asset('/backend/images/img.jpg')}}" id="result">
+                        </div>
                         <br>
                         <div class="row">
                             <P>x:<small id="imgdatax"></small></P>
                             <P>y:<small id="imgdatay"></small></P>
                            <P>宽度:<small id="imgdatawidth"></small>px</P>
                            <P>高度:<small id="imgdataheight"></small>px</P>
-                           <P>测试:<small id="ceshi1"></small>px</P>
                         </div>
                     </div>
                 </div>
@@ -62,8 +56,11 @@
                         <input type="file" class="sr-only" id="photoInput" accept="image/*">
                         <span>打开图片</span>
                     </label>
-                    <button class="btn btn-danger"  id="btnimg">裁剪</button>
+                    <button class="btn btn-danger"  id="btnimg">保存裁剪</button>
+                    <button class="btn btn-danger" id="rotate-Left" ><i class="fa fa-rotate-left"></i>&nbsp;</button>
+                    <button class="btn btn-danger" id="rotate-Right" ><span class="fa fa-rotate-right"></span>&nbsp;</button>
                 </div>
+                {{--剪切图片核心end--}}
             </div>
             <div class="modal-footer">
                 <p>角落</p>
