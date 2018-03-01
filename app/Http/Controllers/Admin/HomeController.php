@@ -13,15 +13,14 @@ class HomeController extends Controller{
 
     function __construct(UserRepository $user)
     {
-        //添加自定义的权限限制中间件
-        $this->middleware('check.permission:permission');
+
         //user
         $this->user = $user;
 
 
     }
 
-    public function headimg(){
+    public function headimg(Request $request){
 
 
     }
