@@ -22,8 +22,8 @@ class HomeController extends Controller{
     public function headimg(Request $request){
         $imgname = $this->home->upimgage($request->all());
 //        更新数据库图片名称
-        User_Data::Where('id',$request->all()['user_data_img'])->update(["headimg" => $imgname]);
-        return view('admin.home.userdata');
+        User_Data::Where('user_id',$request->all()['user_data_img'])->update(["headimg" => $imgname]);
+        return  view('admin.home.userdata');
     }
 
     public function index(){
