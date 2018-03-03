@@ -2,6 +2,7 @@
 namespace App\Repositories\Eloquent\Admin;
 use App\Repositories\Eloquent\Repository;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * 仓库模式继承抽象类
@@ -19,7 +20,7 @@ class HomeRepository extends Repository {
         }else{
               header('Content-type:text/html;charset=utf-8');
              $base64_image_content = $img['icon'];
-            //将base64编码转换为图片保存
+            //将base64编码转换为图片保存、、
             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                 $type = $result[2];
                 //绝对路径
@@ -30,8 +31,12 @@ class HomeRepository extends Repository {
                 }
                 $imgname="img".time() . ".{$type}";
                 $new_file = $new_file . $imgname;
-                //将图片保存到指定的位置
-                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                //将图片保存到指定的位置base64_decode把base64进行解码file_put_contents把字符串新到文件里面没有文件就从新创建一个
+                if (file_put_contents($new_file, base64_decode(str_replace($result[1],'', $base64_image_content)))) {
+                     // 删除以前的图像用Storage::delete()修改了filesystems文件的默认路径
+                    if(Storage::delete($img['past_img'])){
+                        flash("上传成功",'success');
+                    }
                     flash("上传成功",'success');
                     //保存成功返回这个相对路径和图片名字
                     return '/backend/images/uploads/'.$imgname;

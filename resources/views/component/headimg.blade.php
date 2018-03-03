@@ -31,7 +31,7 @@
             {{--剪切图片核心--}}
                 <div class="row">
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <img id="image" src="{{asset('/backend/images/img.jpg')}}"  >
+                        <img id="image" src="{{Auth::user()->getUserData->headimg}}"  >
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-12">
                         <p>预览效果:</p>
@@ -62,6 +62,7 @@
                     <form id="submitForm" action="{{route('headimg')}}" method="post">
                         {{csrf_field()}}
                         <input type="hidden" name="user_data_img" id="user_data_img" value="{{Auth::user()->getUserData->id}}"/>
+                        <input type="hidden" name="past_img" id="past_img" value="{{Auth::user()->getUserData->headimg}}"/>
                         <input type="hidden" name="icon" id="icon"/>
                         <input  class="btn btn-danger" type="submit" id="submitbtn" value="上传图像">
                     </form>
