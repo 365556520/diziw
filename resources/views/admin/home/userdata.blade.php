@@ -7,16 +7,7 @@
 @endsection
 @section('content')
     <div class="">
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        @include('flash::message')
+
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -32,6 +23,16 @@
                     </div>
                     <div class="x_content">
                         <div class="col-md-12 col-sm-12 col-xs-12">
+                            @if (count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            @include('flash::message')
                             <form class="layui-form layui-form-pane" action="{{url('admin/home',[Auth::user()->id])}}" method="post">
                                 {{csrf_field()}}
                                 {{method_field('PUT')}}
