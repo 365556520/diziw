@@ -7,6 +7,16 @@
 @endsection
 @section('content')
     <div class="">
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @include('flash::message')
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -36,7 +46,7 @@
                                     <label class="layui-form-label">头像</label>
                                     <div class="avatar-view" title="上传头像">
                                         <a href="" class="layui-inline" data-toggle="modal"  data-target="#headimgModal">
-                                            <img  class="layui-circle " style="height: 60px;width: 60px;" alt="Avatar" src="{{asset('/backend/images/img.jpg')}}" >
+                                            <img  class="layui-circle " style="height: 60px;width: 60px;" alt="Avatar" src="{{Auth::user()->getUserData->headimg}}" >
                                         </a>
                                     </div>
                                 </div>
@@ -107,7 +117,9 @@
         //            开始加载
         $(function () {
             UserData.init();
-            headimg.init("{{route('headimg')}}");
+            headimg.init("{{route('headimg')}}","{{csrf_token()}}");
         });
+
+
     </script>
 @endsection

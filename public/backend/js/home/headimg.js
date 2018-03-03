@@ -2,11 +2,13 @@
  * Created by Administrator on 2018/2/26.
  */
 var headimg = function () {
-    var headimgInit = function (url) {
+    var headimgInit = function (url,token) {
         //图片
         var $image = $('#image');
         // 打开图片按钮
         var $photoInput =   $('#photoInput');
+        //裁剪后的图片
+        var $imageinfo ;
         // 这个核心方法修改自官方demo的js
         var initCropper = function (img, input){
             var $image = img;
@@ -89,6 +91,16 @@ var headimg = function () {
                 $inputImage.prop('disabled', true).addClass('disabled');
             }
         };
+
+        //上传提交
+        $('#submitbtn').on('click',function () {
+            //获取裁剪图片的
+            $imageinfo = $image.cropper('getCroppedCanvas',{width:300, height:300}).toDataURL( );
+            //把图片放到icon里面
+            $("#icon").val($imageinfo);
+        });
+
+
         //裁剪保存按钮
         $('#btnimg').on('click',function (){
             var $target = $('#result');
@@ -99,21 +111,10 @@ var headimg = function () {
                 /*裁剪后得到这个图片*/
                 // 裁剪后将图片放到指定标签
                 $target.attr('src',URL.createObjectURL(blob));
-
-                //穿件一个FormData存
-                var formData = new FormData();
-                formData.append('files',blob);
-                $.ajax({
-                    method:"post",
-                    url: url, //用于文件上传的服务器端请求地址
-                    data: {formData: formData, _token: "{{csrf_token()}}"},
-                    processData: false,
-                    contentType: false,
-                    success:function(result){
-                    }
-                });
             });
         });
+
+
         //旋转按钮
         $('#rotate-Left').on('click',function (){
             $image.cropper("rotate",-45);

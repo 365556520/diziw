@@ -52,13 +52,19 @@
                     </div>
                 </div>
                 <div class="btn btn-group">
+                    <button class="btn btn-danger" id="rotate-Left" ><i class="fa fa-rotate-left"></i>&nbsp;</button>
+                    <button class="btn btn-danger" id="rotate-Right" ><span class="fa fa-rotate-right"></span>&nbsp;</button>
                     <label class="btn btn-danger pull-left" for="photoInput">
                         <input type="file" class="sr-only" id="photoInput" accept="image/*">
                         <span>打开图片</span>
                     </label>
                     <button class="btn btn-danger"  id="btnimg">保存裁剪</button>
-                    <button class="btn btn-danger" id="rotate-Left" ><i class="fa fa-rotate-left"></i>&nbsp;</button>
-                    <button class="btn btn-danger" id="rotate-Right" ><span class="fa fa-rotate-right"></span>&nbsp;</button>
+                    <form id="submitForm" action="{{route('headimg')}}" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="user_data_img" id="user_data_img" value="{{Auth::user()->getUserData->id}}"/>
+                        <input type="hidden" name="icon" id="icon"/>
+                        <input  class="btn btn-danger" type="submit" id="submitbtn" value="上传图像">
+                    </form>
                 </div>
                 {{--剪切图片核心end--}}
             </div>

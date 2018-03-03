@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Models\UsersModel\User_Data;
+use App\Repositories\Eloquent\Admin\HomeRepository;
 use App\Repositories\Eloquent\Admin\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,19 +12,18 @@ use App\Http\Controllers\Controller;
 class HomeController extends Controller{
 
     private $user;
-
-    function __construct(UserRepository $user)
-    {
-
+    private $home;
+    function __construct(UserRepository $user,HomeRepository $home){
         //user
         $this->user = $user;
-
-
+        $this->home = $home;
     }
 
     public function headimg(Request $request){
-
-
+        $imgname = $this->home->upimgage($request->all());
+//        更新数据库图片名称
+        User_Data::Where('id',$request->all()['user_data_img'])->update(["headimg" => $imgname]);
+        return view('admin.home.userdata');
     }
 
     public function index(){
