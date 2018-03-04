@@ -18,11 +18,13 @@ class HomeController extends Controller{
         $this->user = $user;
         $this->home = $home;
     }
+    //头像图片渲染
     public function showheadimg(Request $request){
         //防止重复提交
         $request->session()->put('register',time());
         return view('component.headimg');
     }
+    //头像图片修改
     public function headimg(Request $request){
         if($request->session()->has('register')){
             //存在则表示是首次提交，清空session中的'register'

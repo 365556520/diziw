@@ -3,9 +3,8 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
-    {{--剪切头像--}}
+    {{--剪切头像css--}}
     <style>
-
         #image {
             max-width: 100%;
         }
@@ -73,10 +72,13 @@
                                     </div>
                                     <div class="col-md-7 col-sm-12 col-xs-12">
                                         <p>预览效果:</p>
-                                        {{--预览效果--}}
+                                        {{--预览效果这里的div必须是这样的样式才能显示--}}
                                         <div class="docs-preview clearfix">
                                             <div class="img-preview  preview-xs layui-circle"></div>
-                                        </div> <br>
+                                        </div>
+                                        <P>x:<small id="imgdatax"></small> y:<small id="imgdatay"></small></P>
+                                        <P>宽度:<small id="imgdatawidth"></small>px 高度:<small id="imgdataheight"></small>px</P>
+                                        <br>
                                         {{--预览效果end--}}
                                         <div >
                                             <p>裁剪结果:</p>
@@ -84,10 +86,7 @@
                                         </div>
                                         <br>
                                         <div class="row">
-                                            <P>x:<small id="imgdatax"></small></P>
-                                            <P>y:<small id="imgdatay"></small></P>
-                                            <P>宽度:<small id="imgdatawidth"></small>px</P>
-                                            <P>高度:<small id="imgdataheight"></small>px</P>
+
                                             <form id="submitForm" action="{{route('headimg')}}" method="post">
                                                 {{csrf_field()}}
                                                 <input type="hidden" name="user_data_img" id="user_data_img" value="{{Auth::user()->id}}"/>
@@ -98,8 +97,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                                 {{--剪切图片核心end--}}
                         </div>
 
@@ -114,7 +111,7 @@
     <script>
         //            开始加载
         $(function () {
-            headimg.init("{{route('headimg')}}","{{csrf_token()}}");
+            headimg.init();
         });
     </script>
 @endsection

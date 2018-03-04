@@ -2,7 +2,7 @@
  * 图片剪切js
  */
 var headimg = function () {
-    var headimgInit = function (url,token) {
+    var headimgInit = function () {
         //图片
         var $image = $('#image');
         // 打开图片按钮
@@ -15,8 +15,8 @@ var headimg = function () {
             var options = {
                 aspectRatio: 1/1, // 纵横比
                 preview: '.img-preview', // 预览图的class名
-                minContainerWidth:380,
-                minContainerHeight:380,
+                minContainerWidth:300,
+                minContainerHeight:350,
                 minCanvasWidth:50,
                 minCanvasHeight:50,
             };

@@ -10,7 +10,7 @@
         <!-- menu profile quick info 侧边导航头部 -->
         <div class="profile">
             <div class="profile_pic">
-                <img src="{{url('backend/images/img.jpg')}}" alt="..." class="img-circle profile_img">
+                <a  href="{{route('showheadimg') }}"><img src="{{Auth::user()->getUserData->headimg}}" alt="..." class="img-circle profile_img"></a>
             </div>
             <div class="profile_info">
                 <span>欢迎管理员:</span>
@@ -23,7 +23,7 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <br>
             <div class="menu_section" >
-                <h3>后台管理</h3>
+                <br><br>
                 <ul class="nav side-menu">
                     {!!$menu->sidebarMenus($sidebarMenus)!!}
                 </ul>
@@ -68,14 +68,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="{{url('backend/images/img.jpg')}}" alt="">{{Auth::user()->getUserData->nickname}}
+                        <img src="{{ Auth::user()->getUserData->headimg}}" alt="">{{Auth::user()->getUserData->nickname}}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
 
                         <li><a href="{{ url('/admin/home/'.Auth::user()->id.'/edit')}}">个人信息</a></li>
                         <li>
-                            <a href="{{route('showheadimg') }}">修改图像</a>
+                            <a href="{{route('showheadimg') }}">修改头像</a>
                         </li>
                         <li><a href="javascript:;">Help</a></li>
                         <li>
@@ -97,7 +97,7 @@
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>
                             <a>
-                                <span class="image"><img src="{{url('backend/images/img.jpg')}}" alt=""></span>
+                                <span class="image"><img src="{{Auth::user()->getUserData->headimg}}" alt=""></span>
                                 <span>
                                       <span>{{ Auth::user()->name }}</span>
                                       <span class="time">3分钟</span>

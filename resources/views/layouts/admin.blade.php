@@ -21,7 +21,7 @@
           @yield('css')
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
-        {{--cropperjs--}}
+        {{--cropper-cs--}}
         <link  href="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.css')}}" rel="stylesheet">
 
 
