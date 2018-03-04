@@ -18,12 +18,23 @@ class HomeController extends Controller{
         $this->user = $user;
         $this->home = $home;
     }
-
+    public function showheadimg(Request $request){
+        //防止重复提交
+        $request->session()->put('register',time());
+        return view('component.headimg');
+    }
     public function headimg(Request $request){
-        $imgname = $this->home->upimgage($request->all());
+        if($request->session()->has('register')){
+            //存在则表示是首次提交，清空session中的'register'
+            $request->session()->forget('register');
+            $imgname = $this->home->upimgage($request->all());
 //        更新数据库图片名称
-        User_Data::Where('user_id',$request->all()['user_data_img'])->update(["headimg" => $imgname]);
-        return  view('admin.home.userdata');
+            User_Data::Where('user_id',$request->all()['user_data_img'])->update(["headimg" => $imgname]);
+        }else{
+            //否则抛http异常，跳转到403页面
+            flash("不能重复提交",'error');
+        }
+        return view('component.headimg');
     }
 
     public function index(){
@@ -37,17 +48,26 @@ class HomeController extends Controller{
 
     }
     /**/
-    public function edit($id){
-        //获取这个角色
-        $user = $this->user->getUser($id);
-        return view('admin.home.userdata')->with(compact('user'));
+    public function edit(Request $request,$id){
+        //防止重复提交
+        $request->session()->put('register',time());
+        return view('admin.home.userdata');
     }
 
     /**
      *
      */
-    public function update(Request $request)
-    {
+    public function update(Request $request,$id){
+        if($request->session()->has('register')){
+            //存在则表示是首次提交，清空session中的'register'
+            $request->session()->forget('register');
+            //        修改信息
+            $this->home->updateUser($request->all(),$id);
+        }else{
+            //否则抛http异常，跳转到403页面
+            flash("不能重复提交",'error');
+        }
+        return view('admin.home.userdata');
     }
 
     /**

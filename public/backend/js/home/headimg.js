@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 2018/2/26.
+ * 图片剪切js
  */
 var headimg = function () {
     var headimgInit = function (url,token) {
@@ -9,14 +9,14 @@ var headimg = function () {
         var $photoInput =   $('#photoInput');
         //裁剪后的图片
         var $imageinfo ;
-        // 这个核心方法修改自官方demo的js
+        // 初始化这个核心方法修改自官方demo的js
         var initCropper = function (img, input){
             var $image = img;
             var options = {
                 aspectRatio: 1/1, // 纵横比
                 preview: '.img-preview', // 预览图的class名
-                minContainerWidth:500,
-                minContainerHeight:400,
+                minContainerWidth:380,
+                minContainerHeight:380,
                 minCanvasWidth:50,
                 minCanvasHeight:50,
             };

@@ -1,7 +1,8 @@
 <?php
 namespace App\Repositories\Eloquent\Admin;
+use App\Models\UsersModel\User_Data;
 use App\Repositories\Eloquent\Repository;
-use App\User;
+
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class HomeRepository extends Repository {
     //重写父类的抽象方法
     public function model(){
-        return User::class;
+        return User_Data::class;
     }
 //        上传图片
     public function upimgage($img){
@@ -37,7 +38,6 @@ class HomeRepository extends Repository {
                     if(Storage::delete($img['past_img'])){
                         flash("上传成功",'success');
                     }
-                    flash("上传成功",'success');
                     //保存成功返回这个相对路径和图片名字
                     return '/backend/images/uploads/'.$imgname;
                 }else{
@@ -49,5 +49,20 @@ class HomeRepository extends Repository {
         }
     }
 
+    // 修改用户信息
+    public function updateUser($attributes,$id){
+        // 防止用户恶意修改表单id，如果id不一致直接跳转500
+        if ($attributes['id'] != $id) {
+            abort(500,trans('admin/errors.user_error'));
+        }
+        //更新这个角色的数据
+        $result = $this->update($attributes,$id);
+        if ($result) {
+            flash(trans('admin/alert.role.edit_success'),'success');
+        } else {
+            flash(trans('admin/alert.role.edit_error'), 'error');
+        }
+        return $result;
+    }
 
 }

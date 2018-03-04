@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->integer('user_id')->unsigned()->unique();
             $table->string('nickname');
             $table->integer('age');
-            $table->string('sex');
+            $table->integer('sex');
             $table->string('ipone');
             $table->string('qq');
             $table->string('headimg');

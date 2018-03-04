@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-@include('component.headimg')
 @section('title')
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
@@ -33,49 +32,42 @@
                                 </div>
                             @endif
                             @include('flash::message')
-                            <form class="layui-form layui-form-pane" action="{{url('admin/home',[Auth::user()->id])}}" method="post">
+                            <form class="layui-form layui-form-pane" action="{{url('admin/home',[Auth::user()->getUserData->id])}}" method="post">
                                 {{csrf_field()}}
                                 {{method_field('PUT')}}
+                        {{--       防止用户恶意修改表单id，如果id不一致直接跳转500--}}
+                                <input type="hidden" name="id" value="{{Auth::user()->getUserData->id}}">
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">昵称</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="username" lay-verify="required" placeholder="请输入" value="{{Auth::user()->getUserData->nickname}}" autocomplete="off" class="layui-input">
-                                    </div>
-                                </div>
-
-                                <div class="" id="crop-avatar">
-                                    <label class="layui-form-label">头像</label>
-                                    <div class="avatar-view" title="上传头像">
-                                        <a href="" class="layui-inline" data-toggle="modal"  data-target="#headimgModal">
-                                            <img  class="layui-circle " style="height: 60px;width: 60px;" alt="Avatar" src="{{Auth::user()->getUserData->headimg}}" >
-                                        </a>
+                                        <input type="text" name="nickname" lay-verify="required" placeholder="请输入" value="{{Auth::user()->getUserData->nickname}}" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
 
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">年龄</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="username" lay-verify="required" placeholder="请输入" value="{{Auth::user()->getUserData->age}}" autocomplete="off" class="layui-input">
+                                        <input type="text" name="age" lay-verify="required" placeholder="请输入" value="{{Auth::user()->getUserData->age}}" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
 
                                 <div class="layui-form-item" pane="">
                                     <label class="layui-form-label">性别</label>
                                     <div class="layui-input-block">
-                                        <input type="radio" name="sex" value="男" title="男" @if(Auth::user()->getUserData->sex == '男')checked=""@endif>
-                                        <input type="radio" name="sex" value="女" title="女"  @if(Auth::user()->getUserData->sex == '女')checked=""@endif>
+                                        <input type="radio" name="sex" value=1 title="男" @if(Auth::user()->getUserData->sex == 1)checked=""@endif>
+                                        <input type="radio" name="sex" value=0 title="女"  @if(Auth::user()->getUserData->sex == 0)checked=""@endif>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">验证手机</label>
                                     <div class="layui-input-block">
-                                        <input type="tel" name="phone" lay-verify="required|phone" value="{{Auth::user()->getUserData->ipone}}"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                        <input type="tel" name="ipone" lay-verify="required|phone" value="{{Auth::user()->getUserData->ipone}}"  placeholder="请输入手机号" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">QQ</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="title" lay-verify="title" autocomplete="off" value="{{Auth::user()->getUserData->qq}}"  placeholder="请输入QQ号码" class="layui-input">
+                                        <input type="text" name="qq" lay-verify="title" autocomplete="off" value="{{Auth::user()->getUserData->qq}}"  placeholder="请输入QQ号码" class="layui-input">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
@@ -88,7 +80,7 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">爱好</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="address"  placeholder="请输入联系地址" value="{{Auth::user()->getUserData->hobby}}" autocomplete="off" class="layui-input">
+                                        <input type="text" name="hobby"  placeholder="请输入联系地址" value="{{Auth::user()->getUserData->hobby}}" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
 
@@ -96,7 +88,7 @@
                                 <div class="layui-form-item layui-form-text">
                                     <label class="layui-form-label">个性签名</label>
                                     <div class="layui-input-block">
-                                        <textarea placeholder="请输入内容" class="layui-textarea">{{Auth::user()->getUserData->Readme}}</textarea>
+                                        <textarea placeholder="请输入内容" name="Readme" class="layui-textarea">{{Auth::user()->getUserData->Readme}}</textarea>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
@@ -118,9 +110,6 @@
         //            开始加载
         $(function () {
             UserData.init();
-            headimg.init("{{route('headimg')}}","{{csrf_token()}}");
         });
-
-
     </script>
 @endsection
