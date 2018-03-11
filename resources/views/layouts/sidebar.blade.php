@@ -72,12 +72,12 @@
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-
+                        <li><a href="{{route('resetPas')}}">修改密码</a></li>
                         <li><a href="{{ url('/admin/home/'.Auth::user()->id.'/edit')}}">个人信息</a></li>
                         <li>
                             <a href="{{route('showheadimg') }}">修改头像</a>
                         </li>
-                        <li><a href="javascript:;">Help</a></li>
+
                         <li>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fa fa-sign-out pull-right"></i>

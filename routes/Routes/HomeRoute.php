@@ -7,4 +7,6 @@ Route::get('/','HomeController@index');
 Route::get('showheadimg','HomeController@showheadimg')->name('showheadimg');
 //上传图片
 Route::post('headimg','HomeController@headimg')->name('headimg');
+
+
 Route::resource('home','HomeController');

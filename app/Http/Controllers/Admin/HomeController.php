@@ -22,7 +22,7 @@ class HomeController extends Controller{
     public function showheadimg(Request $request){
         //防止重复提交
         $request->session()->put('register',time());
-        return view('component.headimg');
+        return view('auth.adminData.headimg');
     }
     //头像图片修改
     public function headimg(Request $request){
@@ -36,7 +36,7 @@ class HomeController extends Controller{
             //否则抛http异常，跳转到403页面
             flash("不能重复提交",'error');
         }
-        return view('component.headimg');
+        return view('auth.adminData.headimg');
     }
 
     public function index(){
@@ -53,7 +53,7 @@ class HomeController extends Controller{
     public function edit(Request $request,$id){
         //防止重复提交
         $request->session()->put('register',time());
-        return view('admin.home.userdata');
+        return view('auth.adminData.userdata');
     }
 
     /**
@@ -69,7 +69,7 @@ class HomeController extends Controller{
             //否则抛http异常，跳转到403页面
             flash("不能重复提交",'error');
         }
-        return view('admin.home.userdata');
+        return view('auth.adminData.userdata');
     }
 
     /**
