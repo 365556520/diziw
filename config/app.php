@@ -186,6 +186,8 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         //高亮插件
         HieuLe\Active\ActiveServiceProvider::class,
+        //代码提升增强
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
 
