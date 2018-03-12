@@ -5,12 +5,10 @@
 @section('css')
 @endsection
 @section('content')
-    {{--错误信息--}}
-    @include('component.errorsModal')
-    @include('flash::message')
     <div class="">
 
         <div class="row">
+
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
@@ -24,12 +22,13 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+                        @include('flash::message')
                         <div class="col-md-12 col-sm-12 col-xs-12">
 
                             <form class="layui-form layui-form-pane" action="{{route('resetPas')}}" method="post">
                                 {{csrf_field()}}
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">原始密码</label>
+                                    <label class="layui-form-label">旧密码</label>
                                     <div class="layui-input-inline">
                                         <input type="text" name="original_password" lay-verify="required" placeholder="请输入原始密码"  autocomplete="off" class="layui-input">
                                     </div>
@@ -38,14 +37,14 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">新密码</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="new_password" lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+                                        <input type="text" name="password" lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
 
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">确认密码</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="confirm_password" lay-verify="required" placeholder="请输入确认密码" autocomplete="off" class="layui-input">
+                                        <input type="text" name="password_confirmation" lay-verify="required" placeholder="请输入确认密码" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
 
@@ -62,9 +61,7 @@
     </div>
 @endsection
 @section('js')
-
     <script>
-
         //form提交
         layui.use('form', function(){
             var form = layui.form;
@@ -74,6 +71,8 @@
                 return false;
             });
         });
-
     </script>
+    {{--错误信息--}}
+    @include('component.errorsLayer')
+
 @endsection

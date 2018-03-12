@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Validator;
+use Auth;
+use Hash;
 class UserRequest extends FormRequest
 {
     /**
@@ -16,6 +18,19 @@ class UserRequest extends FormRequest
         return true;
     }
 
+
+    /**
+     * 自定义验证规则
+     *
+     * @return void
+     */
+    public function addValidator()
+    {   //验证用户原密码
+        Validator::extend('check_password', function ($attribute, $value, $parameters, $validator) {
+            return Hash::check($value,Auth::user()->password);
+        });
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,6 +39,7 @@ class UserRequest extends FormRequest
 
 
     public function rules(){
+        $this->addValidator();
         $rules = [
             //sometimes的意思数据中有改字段了才会验证 没有就不会验证
             'name' => 'sometimes|required|string|max:255',
@@ -31,10 +47,9 @@ class UserRequest extends FormRequest
             'password' => 'sometimes|required|string|min:6|confirmed',
             /*修改密码*/
             //原始密码
-            'original_password' => 'sometimes|required',
-            //新密码和确认新密码
-            'new_password' => 'sometimes|required',
-            'confirm_password' => 'sometimes|required',
+            'original_password' => 'sometimes|required|check_password',
+            //确认新密码
+            'password_confirmation' => 'sometimes|required',
         ];
         if (request('id','')) {
             //注意验证唯一unique:roles,name,中unique:后面的表名必须和数据库中的表名一样
@@ -54,6 +69,7 @@ class UserRequest extends FormRequest
         'unique'    => trans('validation.unique'),
         'numeric'   => trans('validation.numeric'),
         'email'     => trans('validation.email'),
+        'check_password'     => '旧密码不正确',
         ];
     }
 /**
@@ -69,6 +85,9 @@ public function attributes()
         'name'      => trans('admin/user.model.name'),
         'username'  => trans('admin/user.model.username'),
         'email'     => trans('admin/user.model.email'),
+
+        'original_password' => '原始密码',
+        'password_confirmation' => '确认密码',
     ];
 }
 }
