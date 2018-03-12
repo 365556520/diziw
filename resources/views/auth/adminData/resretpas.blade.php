@@ -5,6 +5,9 @@
 @section('css')
 @endsection
 @section('content')
+    {{--错误信息--}}
+    @include('component.errorsModal')
+    @include('flash::message')
     <div class="">
 
         <div class="row">
@@ -22,37 +25,27 @@
                     </div>
                     <div class="x_content">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            @if (count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            @include('flash::message')
-                            <form class="layui-form layui-form-pane" action="{{url('admin/home',[Auth::user()->getUserData->id])}}" method="post">
+
+                            <form class="layui-form layui-form-pane" action="{{route('resetPas')}}" method="post">
                                 {{csrf_field()}}
-                        {{--       防止用户恶意修改表单id，如果id不一致直接跳转500--}}
-                                <input type="hidden" name="id" value="{{Auth::user()->getUserData->id}}">
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">原始密码</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="password" lay-verify="required" placeholder="请输入原始密码"  autocomplete="off" class="layui-input">
+                                        <input type="text" name="original_password" lay-verify="required" placeholder="请输入原始密码"  autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
 
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">新密码</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="newPassword" lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+                                        <input type="text" name="new_password" lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
+
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">确认密码</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="cnewPassword" lay-verify="required" placeholder="请输入确认密码" autocomplete="off" class="layui-input">
+                                        <input type="text" name="confirm_password" lay-verify="required" placeholder="请输入确认密码" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
 
@@ -69,12 +62,18 @@
     </div>
 @endsection
 @section('js')
-    {{--菜单添加、修改、删除的js--}}
-    <script src="{{ asset('/backend/js/home/userdata.js')}}"></script>
+
     <script>
-        //            开始加载
-        $(function () {
-            UserData.init();
+
+        //form提交
+        layui.use('form', function(){
+            var form = layui.form;
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
         });
+
     </script>
 @endsection

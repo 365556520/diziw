@@ -25,17 +25,24 @@ class UserRequest extends FormRequest
 
     public function rules(){
         $rules = [
-            'name' => 'required|string|max:255',
+            //sometimes的意思数据中有改字段了才会验证 没有就不会验证
+            'name' => 'sometimes|required|string|max:255',
             //这里是添加自定义字段规则
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'sometimes|required|string|min:6|confirmed',
+            /*修改密码*/
+            //原始密码
+            'original_password' => 'sometimes|required',
+            //新密码和确认新密码
+            'new_password' => 'sometimes|required',
+            'confirm_password' => 'sometimes|required',
         ];
         if (request('id','')) {
             //注意验证唯一unique:roles,name,中unique:后面的表名必须和数据库中的表名一样
-            $rules['username'] = 'required|unique:users,username,'.$this->id;
-            $rules['email'] = 'required|string|email|max:255|unique:users,email'.$this->id;
+            $rules['username'] = 'sometimes|required|unique:users,username,'.$this->id;
+            $rules['email'] = 'sometimes|required|string|email|max:255|unique:users,email'.$this->id;
         }else{
-            $rules['username'] = 'required|unique:users,username';
-            $rules['email'] = 'required|unique:users,email';
+            $rules['username'] = 'sometimes|required|unique:users,username';
+            $rules['email'] = 'sometimes|required|unique:users,email';
         }
         return $rules;
     }
