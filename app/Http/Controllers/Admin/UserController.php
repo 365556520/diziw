@@ -7,17 +7,17 @@ use App\Repositories\Eloquent\Admin\PermissionRepository;
 use App\Repositories\Eloquent\Admin\RoleRepository;
 use App\Repositories\Eloquent\Admin\UserRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+
+class UserController extends CommonController
 {
     private $user;
     private $role;
     private $permisssion;
     function __construct(UserRepository $user,RoleRepository $role,PermissionRepository $permisssion)
     {
-        //添加自定义的权限限制中间件
-        $this->middleware('check.permission:permission');
+        //调用父累的构造方法
+        parent::__construct();
         //user
         $this->user = $user;
         $this->role = $role;

@@ -13,6 +13,7 @@ trait ActionButtonTrait{
     }
     /*公共的删除按钮*/
     public function getDestroyActionButtont(){
+        /*删除按钮里面添加个隐藏表单*/
         return '<a class="destroy_item btn btn-danger btn-xs" href="javascript:;"><i class="fa fa-trash"></i> 删除
                     <form action="'.url('admin/'.$this->action.'/'.$this->id).'" method="POST" style="display:none">
                         <input type="hidden" name="_method" value="delete">
@@ -22,7 +23,7 @@ trait ActionButtonTrait{
     }
     //得到三个按钮config('admin.permissions.menu.delete'))
     public function getActionButtont($showPermission = null,$editPermission = null ,$destroyPermission = null){
-        $thml = '';
+        $thml = '<div class="btn-group btn-group-sm">';
         if ($showPermission == null){
             $thml .= '';
         }else{
@@ -56,6 +57,7 @@ trait ActionButtonTrait{
                  }
              }
         }
+        $thml .= '</div>';
         return $thml;
     }
 //    判断是否椒超级管理员角色

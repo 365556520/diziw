@@ -24,7 +24,6 @@
         {{--cropper-cs--}}
         <link  href="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.css')}}" rel="stylesheet">
 
-
     </head>
     <body class="nav-md">
         <div class="container body">
@@ -60,6 +59,16 @@
         <script src="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.js')}}"></script>
         <!-- Custom Theme Scripts -->
         <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
+        <script>
+            $(function() {
+                //公共--自动为ajax请求自动添加csrf-token
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            });
+        </script>
         @yield('js')
     </body>
 </html>
