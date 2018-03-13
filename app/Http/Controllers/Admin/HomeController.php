@@ -7,9 +7,8 @@ use App\Models\UsersModel\User_Data;
 use App\Repositories\Eloquent\Admin\HomeRepository;
 use App\Repositories\Eloquent\Admin\UserRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class HomeController extends Controller{
+class HomeController extends CommonController{
 
     private $user;
     private $home;

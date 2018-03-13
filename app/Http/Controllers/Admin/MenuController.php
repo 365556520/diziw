@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MenuRequest;
 use App\Repositories\Eloquent\Admin\MenuRepository;
-use App\Http\Controllers\Controller;
 
-class MenuController extends Controller{
+class MenuController extends CommonController {
     private $menu;
     public function __construct(MenuRepository $menuRepository){
-        //添加自定义的权限限制中间件
-             $this->middleware('check.permission:permission');
+          //调用父类的构造方法传
+           parent::__construct('menu');
             $this->menu = $menuRepository;
     }
 

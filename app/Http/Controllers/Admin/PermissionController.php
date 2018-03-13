@@ -4,18 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PermissionRequest;
 use App\Repositories\Eloquent\Admin\PermissionRepository;
-use App\Http\Controllers\Controller;
 use App\Repositories\Eloquent\Admin\RoleRepository;
 
 
-class PermissionController extends Controller
+class PermissionController extends CommonController
 {
     private $permission;
     private $role;
     function __construct(PermissionRepository $permission,RoleRepository $role)
     {
-        //添加自定义的权限限制中间件
-        $this->middleware('check.permission:permission');
+        //调用父类的构造方法传
+        parent::__construct('permission');
         $this->role = $role;
         //注入permission的model
         $this->permission = $permission;

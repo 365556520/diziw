@@ -17,7 +17,7 @@ class UserController extends CommonController
     function __construct(UserRepository $user,RoleRepository $role,PermissionRepository $permisssion)
     {
         //调用父累的构造方法
-        parent::__construct();
+        parent::__construct('user');
         //user
         $this->user = $user;
         $this->role = $role;

@@ -47,7 +47,6 @@ class CheckPermission
                 break;
         }
         $this->check($request,$permission);
-
         return $next($request);
     }
     private function check($request,$permission){

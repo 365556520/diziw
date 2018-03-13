@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\RoleRequest;
 use App\Repositories\Eloquent\Admin\RoleRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 
-class RoleController extends Controller
+class RoleController extends CommonController
 {
     private $role;
     function __construct(RoleRepository $role){
-        //添加自定义的权限限制中间件
-        $this->middleware('check.permission:permission');
+        //调用父类的构造方法传
+        parent::__construct('role');
         //role
         $this->role = $role;
     }
