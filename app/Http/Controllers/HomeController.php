@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\UserInterface; //引入自定义服务
 use UserRepository;//引入门面
@@ -46,7 +47,10 @@ class HomeController extends Controller
         //仓库模式使用
 //       dd($this->userPepo->findBy(1));
 
+        /*判断用户是否有权限登录后台*/
+        if(Auth::user()->can(config('admin.permissions.system.login'))){
             return view('admin.home.index');
-
+        };
+            return '没有权限';
     }
 }

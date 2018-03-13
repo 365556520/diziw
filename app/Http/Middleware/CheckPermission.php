@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 class CheckPermission
 {
     /**
-     * 自定义中间件
+     * 后台自定义中间件
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -50,6 +50,7 @@ class CheckPermission
         return $next($request);
     }
     private function check($request,$permission){
+        //判断有没有登录后台权限
         if (!$request->user()->can($permission)) {
             abort(500,trans('admin/errors.permissions'));
         }

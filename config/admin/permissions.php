@@ -29,6 +29,7 @@ return [
         'show'   => 'user.show',
     ],
     'system' => [
-        'list' => 'system.index'
+        'list' => 'system.index',
+        'login' => 'system.login'
     ]
 ];

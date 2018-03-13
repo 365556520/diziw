@@ -13,6 +13,8 @@ class HomeController extends CommonController{
     private $user;
     private $home;
     function __construct(UserRepository $user,HomeRepository $home){
+        //调用父类的构造方法传
+        parent::__construct('system.login');
         //user
         $this->user = $user;
         $this->home = $home;
