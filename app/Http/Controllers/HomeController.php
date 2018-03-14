@@ -48,9 +48,7 @@ class HomeController extends Controller
 //       dd($this->userPepo->findBy(1));
 
         /*判断用户是否有权限登录后台*/
-        if(Auth::user()->can(config('admin.permissions.system.login'))){
-            return view('admin.home.index');
-        };
-            return '没有权限';
+
+            return '这是前台页面正在建设中';
     }
 }

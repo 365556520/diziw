@@ -28,18 +28,18 @@ class CreateUsersTable extends Migration
         Schema::create('user_data', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->unique();
-            $table->string('nickname');
-            $table->integer('age');
-            $table->integer('sex');
-            $table->string('ipone');
-            $table->string('qq');
-            $table->string('headimg');
+            $table->string('nickname')->nullable();
+            $table->integer('age')->nullable();
+            $table->integer('sex')->nullable();
+            $table->string('ipone')->nullable();
+            $table->string('qq')->nullable();
+            $table->string('headimg')->nullable();
             /*家庭住址*/
-            $table->string('address');
+            $table->string('address')->nullable();
 //            个人爱好
-            $table->string('hobby');
+            $table->string('hobby')->nullable();
 //            自述
-            $table->string('Readme');
+            $table->string('Readme')->nullable();
             //外检约束更新和删除都绑定
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');

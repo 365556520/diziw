@@ -10,7 +10,7 @@ return [
 	'permission' => [
 		'list' => 'permission.list',
 		'add' => 'permission.add',
-		'edit' => 'permission.edit1',
+		'edit' => 'permission.edit',
 		'delete' => 'permission.delete',
         'show'   => 'permission.show',
 	],

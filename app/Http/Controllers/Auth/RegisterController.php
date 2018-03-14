@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Role;
+use App\Models\UsersModel\User_Data;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -28,7 +31,21 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
-
+    //返回主页逻辑 这里优先级大于变量
+    protected function redirectTo(){
+        /*添加权限和关联用户数据*/
+        //默认添加普通用户的权限
+        $userRole = Role::where('name','user')->first();
+        Auth::user()->roles()->attach($userRole->id);
+        //关联用户数据
+        $auth =  Auth::user();
+        $auth->getUserData()->save( new User_Data(['user_id' => Auth::user()->id]));
+//        如果有后台权限就登录到后台没有就登录到前台
+        if(Auth::user()->can(config('admin.permissions.system.login'))){
+            return 'admin/home';
+        }
+        return 'home';
+    }
     /**
      * Create a new controller instance.
      *

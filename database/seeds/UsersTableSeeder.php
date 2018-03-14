@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Role;
+use App\Models\UsersModel\User_Data;
 class UsersTableSeeder extends Seeder
 {   /**
      * Run the database seeds.
@@ -27,6 +28,8 @@ class UsersTableSeeder extends Seeder
             'name' => 'user',
             'password' => bcrypt('123456')
         ])->each(function ($u) use ($userRole){
+            //关联用户数据
+            $u->getUserData()->save( new User_Data(['user_id' => $u->id]));
             //添加角色和上面的一样都是添加角色上面是用对象，这里只能用id
             $u->roles()->attach($userRole->id);
         });
