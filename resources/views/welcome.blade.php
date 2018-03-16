@@ -18,8 +18,6 @@
         <p>@{{ ceshi }}</p>
         <button v-on:click="reverseMessage">逆转消息</button>
         <input v-model="message">
-
-
             <ol>
                 <!--
                   现在我们为每个 todo-item 提供 todo 对象
@@ -33,6 +31,28 @@
                         v-bind:key="item.id">
                 </todo-item>
             </ol>
+
+
+            <div class="page-header" v-for="(v,k) in videos">
+                <div class="form-group">
+                    <label class="layui-form-label">标题</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="password_confirmation" v-model="v.ti"   class="layui-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="layui-form-label">label
+                    <div class="layui-input-inline">
+                        <input type="text" name="password_confirmation" v-model="v.pa"  class="layui-input">
+                    </div>
+                </div>
+                <button class="layui-btn" @click ="del(k)">删除</button>
+            </div>
+
+            <div class="layui-form-item">
+                <button class="layui-btn"  @click ="add">添加</button>
+            </div>
+        <textarea> @{{videos}}</textarea>
 
     </div>
 
@@ -54,11 +74,18 @@
                     { id: 0, text: '蔬菜' },
                     { id: 1, text: '奶酪' },
                     { id: 2, text: '随便其它什么人吃的东西' }
-                ]
+                ],
+                videos: [{ti:'',pa:''}]
             },
             methods: {
                 reverseMessage: function () {
                     this.ceshi = this.ceshi.split('').reverse().join('')
+                },
+                add:function () {
+                    this.videos.push({ti:'',pa:''});
+                },
+                del:function (k) {
+                    this.videos.splice(k,1);
                 }
             }
         })
