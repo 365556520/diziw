@@ -41,15 +41,6 @@
                     </div>
                     <div class="x_content">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            @if (count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
                             @include('flash::message')
                                 <div class="row">
                                    <div class="col-md-12 col-sm-12 col-xs-12">
@@ -108,6 +99,8 @@
 @endsection
 @section('js')
     <script src="{{ asset('/backend/js/home/headimg.js')}}"></script>
+    {{--提示代码--}}
+    @include('component.errorsLayer')
     <script>
         //            开始加载
         $(function () {

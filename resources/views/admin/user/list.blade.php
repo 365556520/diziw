@@ -15,16 +15,7 @@
     <div class="">
 
         <div class="page-title">
-            @permission(config('admin.permissions.user.add'))
-            <div class="title">
-                <div class="col-md-12 col-sm-12 col-xs-12  pull-left top_search">
-                    <a class="btn btn-round btn-default" data-toggle="modal" data-target="#createModal" href="{{url('admin/user/create')}}">
-                        {!! trans('admin/user.action.create') !!}
-                    </a>
-                    <small>{{ trans('admin/user.action.createDescription')}}</small>
-                </div>
-            </div>
-            @endpermission
+
         </div>
         <div class="clearfix"></div>
         <div class="row">
@@ -32,26 +23,22 @@
 
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>{{ trans('admin/user.desc')}}</h2>
+                        <h2>{{ trans('admin/user.desc')}}<small>{{ trans('admin/user.action.createDescription')}}</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li><a href="{{url('admin/user')}}"><i class="fa fa-refresh"></i></a>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            <li>
+                                @permission(config('admin.permissions.user.add'))
+                                <div class="title">
+                                    <div class="col-md-12 col-sm-12 col-xs-12  pull-left top_search">
+                                        <a class="btn btn-round btn-warning" data-toggle="modal" data-target="#createModal" href="{{url('admin/user/create')}}">
+                                            {!! trans('admin/user.action.create') !!}
+                                        </a>
+                                    </div>
+                                </div>
+                                @endpermission
                             </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     @include('flash::message')
                     <div class="x_content">
                         <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
@@ -111,7 +98,8 @@
     <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js')}}"></script>
     {{--打印 jsend--}}
     <script src="{{asset('backend/js/user/user-list.js')}}"></script>
-
+    {{--提示代码--}}
+    @include('component.errorsLayer')
     <script >
         $(function () {
             UserList.init();

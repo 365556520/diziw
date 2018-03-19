@@ -60,15 +60,6 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
                         <br/>
                         <form class="form-horizontal form-label-left" id="menuForm" action="{{url('admin/menu')}}" method="post">
                             {!!csrf_field()!!}
@@ -147,6 +138,8 @@
     <script src="{{ asset('/backend/vendors/jquery-nestable/jquery.nestable.js')}}"></script>
     {{--菜单添加、修改、删除的js--}}
     <script src="{{ asset('/backend/js/menu/menu-list.js')}}"></script>
+    {{--提示代码--}}
+    @include('component.errorsLayer')
     <script>
         $(document).ready(function() {
             MenuList.init();

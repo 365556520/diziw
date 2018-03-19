@@ -31,7 +31,7 @@
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('admin/role.model.permission')}}</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="select2_multiple form-control" name="permission[]" multiple="multiple" size="4">
+                <select  class="select2_multiple form-control" name="permission[]" multiple="multiple" size="4">
                     @foreach($permission as $v)
                         <option value="{{$v->id}}">{{$v->display_name}}</option>
                     @endforeach
@@ -60,10 +60,14 @@
 <script>
     /*   下拉菜单*/
     $(document).ready(function() {
+        //得到权限的个数
+        var len ={{count($permission)}};
         $(".select2_multiple").select2({
-            maximumSelectionLength: 8,
-            placeholder: "最多能添加8个",
-            allowClear: true
+            maximumSelectionLength:len,
+            placeholder: "请选择权限共有"+len+"个权限",
+            allowClear: true, //关闭符号
+            selectOnClose: true,//结果显示高亮
+            closeOnSelect: false,//select选中不关闭下拉框
         });
     });
 </script>
