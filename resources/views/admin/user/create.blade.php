@@ -90,7 +90,8 @@
         $(".select2_multiple").select2({
             maximumSelectionLength: 5,
             placeholder: "最多能添加5个角色",
-            allowClear: true
+            allowClear: true,
+            closeOnSelect: false,//select选中不关闭下拉框
         });
     });
 </script>
