@@ -14,26 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('text', function () {
-/*    #这里请填写cos-autoloader.php该文件所在的相对路径这个地方说是需要但是目前没导入也没问题
-    require(public_path().'/backend/myvebdors/cos-php-sdk-v5-master/cos-autoloader.php');*/
-    $cosClient = new Qcloud\Cos\Client(array('region' => 'ap-beijing',
-        'credentials'=> array(
-            'appId' => '1251899486',
-            'secretId'    => 'AKIDKYhkbIPLfnnaBb6obDielplkcIm32GED',
-            'secretKey' => 'ylLn370jIjx1v23sUxFLEwRmvDM7lFXd')));
-
-    #listObjects
-    try {
-        $result = $cosClient->listObjects(array(
-            'Bucket' => 'diziw-1251899486'));
-        dd($result);
-    } catch (\Exception $e) {
-        echo "$e\n";
-    }
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
