@@ -188,7 +188,6 @@ return [
         HieuLe\Active\ActiveServiceProvider::class,
         //代码提升增强
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-
     ],
 
     /*

@@ -14,6 +14,7 @@
         "laravel/tinker": "~1.0",
         "mews/captcha": "^2.1",
         "predis/predis": "1.0.*",
+        "qcloud/cos-sdk-v5": "^1.1",
         "zizaco/entrust": " dev-master"
     },
     "require-dev": {
