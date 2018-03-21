@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Illuminate\Http\Request;
+
 use App\Repositories\Contracts\UserInterface; //引入自定义服务
-use UserRepository;//引入门面
 use App\Repositories\Eloquent\Admin\UserRepository as UserPepo; //仓库模式引入因为和门面名字相同重复了所以as UserPepo起一个别名
 class HomeController extends Controller
 {   private $user;

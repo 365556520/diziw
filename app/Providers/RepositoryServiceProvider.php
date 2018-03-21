@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -33,6 +34,10 @@ class RepositoryServiceProvider extends ServiceProvider
         // 单例
         $this->app->singleton('UserFacadeRepository', function ($app) {
             return new \App\Repositories\Eloquent\UserFacadeRepository();
+        });
+        //cos门面注册
+        $this->app->singleton('CosFacade',function ($app){
+            return new  \App\Repositories\Eloquent\CosFacade();
         });
     }
 }

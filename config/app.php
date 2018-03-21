@@ -240,10 +240,12 @@ return [
          'Captcha'=>Mews\Captcha\Facades\Captcha::class,
         //Entrust扩展包
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-//        自定义门面
+//        测试自定义门面
         'UserRepository' => App\Facades\UserFacade::class,
 //     菜单高亮门面
         'Active' => HieuLe\Active\Facades\Active::class,
+        //Cos门面
+        'CosFacade' => App\Facades\CosFacade::class,
     ],
 
 ];

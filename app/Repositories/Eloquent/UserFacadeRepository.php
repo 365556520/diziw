@@ -6,7 +6,7 @@ namespace App\Repositories\Eloquent;
  * Date: 2018/1/14
  * Time: 9:43
  */
-use App\Models\User;
+use App\User;
 use App\Repositories\Contracts\UserInterface;
 
 class UserFacadeRepository implements UserInterface {
