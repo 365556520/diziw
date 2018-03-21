@@ -3,7 +3,7 @@ namespace App\Traits;
 
 use Qcloud\Cos\Client;
 /**
- * 腾讯COS存储
+ * 获取腾讯COS存储初始化
  * User: 小强
  * Date: 2018/3/20
  * Time: 8:59
@@ -26,21 +26,51 @@ trait CosTrait{
        );
        return $cosClient;
    }
-   //上传文件
-    public function upCosClient(){
+   /*
+    *   putObject()上传文件(上传文件的内容，可以为文件流或字节流)
+     *  $bucketName 类型string 存储桶名称必须为（bucket的命名规则为{name}-{appid} ）
+     *  $saveCosFled 类型string  上传文件的路径名和名称，默认从 Bucket 开始 例如:img/head.jpg
+     *  $upFled  类型string  上传文件的内容，可以为文件流或字节流
+     *  上传成功上传的信息
+    * */
+    public function putObject($bucketName,$saveCosFled,$upFled){
         $cosClient = $this->getCosClient();
-        //上传文件
         try {
             $result = $cosClient->putObject(array(
-                //bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
-                'Bucket' => 'testbucket-125000000',
-                'Key' => '11.txt',
-                'Body' => 'Hello World!'));
-            print_r($result);
+                'Bucket' => $bucketName,
+                'Key' => $saveCosFled,
+                'Body' => $upFled
+             ));
+            return $result;
         } catch (\Exception $e) {
             echo "$e\n";
         }
-#分块上
+    }
+
+    /*
+     * puCosFled()
+     * 说明: 单文件小于5M时，使用单文件上传,反之使用分片上传
+     *  $bucketName 类型string 存储桶名称必须为（bucket的命名规则为{name}-{appid} ）
+     *  $saveCosFled 类型string  上传文件的路径名和名称，默认从 Bucket 开始 例如:img/head.jpg
+     *  $upFled  类型string  本地要上传文件的位置  例如$upFled = public_path().'/backend/images/黄蓉.mp4';
+     *  上传成功上传的信息
+     * */
+    public function puCosFled($bucketName,$upFled,$saveCosFled){
+        $cosClient = $this->getCosClient();
+        //上传文件
+        try {
+            $result = $cosClient->upload(
+                $bucket= $bucketName,
+                $key = $saveCosFled,
+                $body = fopen($upFled,'rb'),
+                $options = array(
+                    "ACL"=>'public-read-write',
+                    'CacheControl' => 'private'
+                ));
+            return $result;
+        } catch (\Exception $e) {
+            echo "$e\n";
+        }
     }
 
 }
