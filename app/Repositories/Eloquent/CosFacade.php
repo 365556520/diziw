@@ -15,13 +15,17 @@ class CosFacade implements CosInterface {
     public function __construct(){
         /*    #这里请填写cos-autoloader.php该文件所在的相对路径这个地方说是需要但是目前没导入也没问题
          require(public_path().'/backend/myvebdors/cos-php-sdk-v5-master/cos-autoloader.php');*/
+        /*
+         * region腾讯COS的区域
+         * appId，secretId，secretKey
+         * */
         $this->cosClient = new Client(
             array(
-                'region' => 'ap-beijing',
+                'region' => config('admin.cos.region'),
                 'credentials'=> array(
-                    'appId' => '1251899486',
-                    'secretId' => 'AKIDKYhkbIPLfnnaBb6obDielplkcIm32GED',
-                    'secretKey' => 'ylLn370jIjx1v23sUxFLEwRmvDM7lFXd'
+                    'appId' => config('admin.cos.credentials.appId'),
+                    'secretId' => config('admin.cos.credentials.secretId'),
+                    'secretKey' => config('admin.cos.credentials.secretKey')
                 )
             )
         );
@@ -35,9 +39,8 @@ class CosFacade implements CosInterface {
         *  上传成功上传的信息
        * */
     public function putObject($bucketName,$saveCosFled,$upFled){
-     $cosClient = $this->cosClient;
         try {
-            $result = $cosClient->putObject(array(
+            $result =  $this->cosClient->putObject(array(
                 'Bucket' => $bucketName,
                 'Key' => $saveCosFled,
                 'Body' => $upFled
@@ -56,10 +59,9 @@ class CosFacade implements CosInterface {
      *  上传成功上传的信息
      * */
     public function puCosFled($bucketName,$saveCosFled,$upFled){
-        $cosClient = $this->getCosClient();
         //上传文件
         try {
-            $result = $cosClient->upload(
+            $result =  $this->cosClient->upload(
                 $bucket= $bucketName,
                 $key = $saveCosFled,
                 $body = fopen($upFled,'rb'),
@@ -72,5 +74,27 @@ class CosFacade implements CosInterface {
             echo "$e\n";
         }
     }
+    /*
+     * 删除COS对象
+     *  * $bucketName 类型string 存储桶名称必须为（bucket的命名规则为{name}-{appid} ）
+     * $deleteObject 要删除的对象
+     * */
+    public function deleteObject($bucketName,$deleteObject){
+
+        $result = $this->cosClient->deleteObject(array(
+            //bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
+            'Bucket' => $bucketName,
+            'Key' => $deleteObject
+        ));
+        return $result;
+    }
+    /*
+     * 获取cos文件的列表
+     * $prefix可选得到文件前缀（可以指某路径下的文件或者特定文件名字）
+     * */
+    public function listObjects($bucketName,$prefix=''){
+        return $this->cosClient->listObjects(array('Bucket' => $bucketName,'Prefix' => $prefix));
+    }
+
 
 }
