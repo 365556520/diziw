@@ -28,13 +28,15 @@ Route::post('resetPas','Auth\UserResetPasswordController@reset')->middleware(['a
 
 Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => ['auth']],function (){
         //后台页面__DIR__表示当前目录
-        require(__DIR__.'/Routes/HomeRoute.php');
+        require(__DIR__.'/adminRoutes/HomeRoute.php');
         //菜单路由
-        require(__DIR__.'/Routes/MenuRoute.php');
+        require(__DIR__.'/adminRoutes/MenuRoute.php');
         //权限路由
-        require(__DIR__.'/Routes/PermissionRoute.php');
+        require(__DIR__.'/adminRoutes/PermissionRoute.php');
         //角色路由
-        require(__DIR__.'/Routes/RoleRoute.php');
+        require(__DIR__.'/adminRoutes/RoleRoute.php');
         //用户路由
-        require(__DIR__.'/Routes/UserRoute.php');
+        require(__DIR__.'/adminRoutes/UserRoute.php');
+        //视频标签
+        require(__DIR__.'/adminRoutes/VideoTagRoute.php');
 });

@@ -57,6 +57,8 @@
         <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
         {{--cropperjs--}}
         <script src="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.js')}}"></script>
+        {{--vue js--}}
+        <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
         <!-- Custom Theme Scripts -->
         <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
         <script>

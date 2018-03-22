@@ -150,6 +150,35 @@ class PermissionsTableSeeder extends Seeder
             'description' => '查看用户',
         ]);
 
+        /**
+         * 视频标签
+         */
+
+        Permission::create([
+            'name' => 'videotag.list',
+            'display_name' => '视频标签列表',
+            'description' => '视频标签列表',
+        ]);
+
+        Permission::create([
+            'name' => 'videotag.add',
+            'display_name' => '添加视频标签',
+            'description' => '添加视频标签',
+        ]);
+
+        Permission::create([
+            'name' => 'videotag.edit',
+            'display_name' => '修改视频标签',
+            'description' => '修改视频标签',
+        ]);
+
+        Permission::create([
+            'name' => 'videotag.delete',
+            'display_name' => '删除视频标签',
+            'description' => '删除视频标签',
+        ]);
+
+
 
     }
 }

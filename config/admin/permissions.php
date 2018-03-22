@@ -28,6 +28,12 @@ return [
         'delete' => 'user.delete',
         'show'   => 'user.show',
     ],
+    'videotag' => [
+        'list' => 'videotag.list',
+        'add' => 'videotag.add',
+        'edit' => 'videotag.edit',
+        'delete' => 'videotag.delete',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'
