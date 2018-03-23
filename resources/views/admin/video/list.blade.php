@@ -51,9 +51,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="layui-upload-drag" id="test10">
-                                            <img class="layui-upload-img  img-responsive " alt="点击上传，或将文件拖拽到此处" id="demo1">
+                                        <div class="layui-upload-drag" id="upload">
+                                            <div id="uptitle">
                                                 <i class="layui-icon"></i>
+                                                <p>点击或将图片拖拽到此处上传</p>
+                                            </div>
+                                            <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1">
                                         </div>
 
                                         <div class="layui-form-item">
@@ -124,11 +127,12 @@
 
             //拖拽上传
             upload.render({
-                elem: '#test10'
+                elem: '#upload'
                 ,url: '/upload/'
                 ,before: function(obj){
                     //预读本地文件示例，不支持ie8
                     obj.preview(function(index, file, result){
+                        $('#uptitle').hide();
                         $('#demo1').attr('src', result); //图片链接（base64）
                     });
                 }
