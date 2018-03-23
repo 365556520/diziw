@@ -178,6 +178,34 @@ class PermissionsTableSeeder extends Seeder
             'description' => '删除视频标签',
         ]);
 
+        /**
+         * 视频管理
+         */
+
+        Permission::create([
+            'name' => 'video.list',
+            'display_name' => '视频列表',
+            'description' => '视频列表',
+        ]);
+
+        Permission::create([
+            'name' => 'video.add',
+            'display_name' => '添加视频',
+            'description' => '添加视频',
+        ]);
+
+        Permission::create([
+            'name' => 'video.edit',
+            'display_name' => '修改视频',
+            'description' => '修改视频',
+        ]);
+
+        Permission::create([
+            'name' => 'video.delete',
+            'display_name' => '删除视频',
+            'description' => '删除视频',
+        ]);
+
 
 
     }

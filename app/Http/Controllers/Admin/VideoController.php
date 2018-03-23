@@ -2,36 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\VideoTagRequest;
-use App\Repositories\Eloquent\Admin\VideoTagRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-
-class VideoTagController extends CommonController
+class VideoController extends CommonController
 {
-    private $videotag;
-    function __construct(VideoTagRepository $videotag)
+
+    private $video;
+    function __construct()
     {
         //调用父累的构造方法
-        parent::__construct('videotag');
-        $this->videotag = $videotag;
+        parent::__construct('video');
+
 
     }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('admin.videotag.list');
+        return view('admin.video.list');
     }
 
-    //权限表DataTables
-    public function ajaxIndex(){
-        $result = $this->videotag->ajaxIndex();
-        return response()->json($result);
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -43,35 +36,36 @@ class VideoTagController extends CommonController
     }
 
     /**
-     * 添加视频标签
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VideoTagRequest $request){
-        $this->videotag->createVideoTag($request->all());
-        return redirect(url('admin/videotag'));
+    public function store(Request $request)
+    {
+        //
     }
 
     /**
-     *显示视图
+     * Display the specified resource.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
+        //
     }
 
     /**
-     * 显示修改标签视图
+     * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $videotag = $this->videotag->editView($id);
-        return view('admin.videotag.edit')->with(compact('videotag'));
+        //
     }
 
     /**
@@ -81,10 +75,9 @@ class VideoTagController extends CommonController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(VideoTagRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $videotag = $this->videotag->updateVideoTagr($request->all(),$id);
-        return redirect('admin/videotag');
+        //
     }
 
     /**
@@ -95,7 +88,6 @@ class VideoTagController extends CommonController
      */
     public function destroy($id)
     {
-        $this->videotag->destroyVideoTagr($id);
-        return redirect(url('admin/videotag'));
+        //
     }
 }

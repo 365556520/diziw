@@ -11,12 +11,26 @@ class MenusTableSeeder extends Seeder
     public function run()
     {
         $backend = Menu::create([
-            'name' => '控制台',
+            'name' => '视频控制',
             'icon' => 'fa fa-cog',
             'parent_id' => '0',
             'slug' => 'system.login',
-            'url' => 'admin',
-            'heightlight_url' => 'admin',
+            'url' => 'admin/videotag',
+            'heightlight_url' => 'admin/videotag*,admin/videos*',
+        ]);
+        Menu::create([
+            'name' => '视频标签管理',
+            'parent_id' => $backend->id,
+            'slug' => 'videotag.list',
+            'url' => 'admin/videotag',
+            'heightlight_url' => 'admin/videotag*',
+        ]);
+        Menu::create([
+            'name' => '视频管理',
+            'parent_id' => $backend->id,
+            'slug' => 'video.list',
+            'url' => 'admin/video',
+            'heightlight_url' => 'admin/videos*',
         ]);
 
         $system = Menu::create([

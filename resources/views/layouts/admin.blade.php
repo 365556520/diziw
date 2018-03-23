@@ -14,16 +14,17 @@
         <link href="{{ asset('/backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
         <!-- Font Awesome -->
         <link href="{{ asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-        {{--layui-v2.2.5--}}
-        <link href="{{ asset('/backend/myvebdors/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
+
         <!-- NProgress -->
         <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-          @yield('css')
+
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
         {{--cropper-cs--}}
         <link  href="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.css')}}" rel="stylesheet">
-
+        {{--layui-v2.2.5--}}
+        <link href="{{ asset('/backend/myvebdors/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
+        @yield('css')
     </head>
     <body class="nav-md">
         <div class="container body">
@@ -61,6 +62,8 @@
         <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
         <!-- Custom Theme Scripts -->
         <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
+
+        @yield('js')
         <script>
             $(function() {
                 //公共--自动为ajax请求自动添加csrf-token
@@ -71,6 +74,5 @@
                 });
             });
         </script>
-        @yield('js')
     </body>
 </html>

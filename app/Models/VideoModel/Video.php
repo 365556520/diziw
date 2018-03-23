@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\VideoModel;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ActionButtonTrait;
 
-class VideoTag extends Model{
-
-    protected $table='videotags';
+class Video extends Model
+{
+    protected $table='videos';
     //通过Traits获取查看删除修改按钮
     use ActionButtonTrait;
     //这个表的路由的前缀
-    private $action =  'videotag';
+    private $action =  'video';
     protected $fillable = [
-        'name',
+        'id',
+        'videoclass_id',
+        'title',
+        'path',
     ];
 }

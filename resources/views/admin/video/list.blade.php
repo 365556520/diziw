@@ -17,7 +17,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>视频标签管理<small>视频标签管理页面</small></h2>
+                        <h2>视频管理<small>视频管理页面</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -29,35 +29,56 @@
                     <div class="x_content">
                         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                             <ul class="layui-tab-title">
-                                <li class="layui-this">标签管理</li>
-                                <li>添加标签</li>
+                                <li class="layui-this">视频管理</li>
+                                <li>添加视频</li>
                             </ul>
                             {{--视频标签列表--}}
-                            <div class="layui-tab-content" style="height: 100px;">
+                            <div class="layui-tab-content" >
                                 @include('flash::message')
                                 <div class="layui-tab-item layui-show">
-                                    <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
-                                        <thead>
-                                        <tr>
-                                            <th>编号</th>
-                                            <th>标签</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                    视频列表
                                 </div>
                                 {{--添加视频标签--}}
                                 <div class="layui-tab-item">
+
+
                                     <form class="layui-form layui-form-pane" method="post" action="{{url('admin/videotag')}}">
                                         {{csrf_field()}}
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">视频标签</label>
+                                            <label class="layui-form-label">视频名称</label>
                                             <div class="layui-input-block">
                                                 <input type="text" name="name"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
                                             </div>
                                         </div>
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">视频介绍</label>
+                                            <div class="layui-input-block">
+                                                <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item" pane="">
+                                            <label class="layui-form-label">推荐</label>
+                                            <div class="layui-input-block">
+                                                <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="开|关"  title="开关">
+                                            </div>
+                                        </div>
+
+                                        <div class="layui-form-item" pane="">
+                                            <label class="layui-form-label">热门</label>
+                                            <div class="layui-input-block">
+                                                <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="开|关"  title="开关">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">点击数</label>
+                                            <div class="layui-input-block">
+                                                <input type="text"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
+                                            </div>
+                                        </div>
+
                                         <div class="layui-form-item">
                                             <button class="layui-btn" lay-submit="" lay-filter="demo2">添加标签</button>
                                         </div>
@@ -93,8 +114,13 @@
     {{--导入自己js--}}
     <script src="{{asset('backend/js/videotag/videotag-list.js')}}"></script>
     <script>
-        $(function () {
-            videotagList.init();
+
+        layui.use(['form', 'layedit'], function(){
+            var form = layui.form
+            //监听指定开关
+            form.on('switch(switchTest)', function(data){
+            });
+
         });
         layui.use('element', function(){
             var $ = layui.jquery

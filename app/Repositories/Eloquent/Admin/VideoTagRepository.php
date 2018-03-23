@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Eloquent\Admin;
 
-use App\Models\VideoTag;
+use App\Models\VideoModel\VideoTag;
 use App\Repositories\Eloquent\Repository;
 
 

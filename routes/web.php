@@ -38,5 +38,5 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => ['auth']]
         //用户路由
         require(__DIR__.'/adminRoutes/UserRoute.php');
         //视频标签
-        require(__DIR__.'/adminRoutes/VideoTagRoute.php');
+        require(__DIR__.'/adminRoutes/VideoRoute.php');
 });

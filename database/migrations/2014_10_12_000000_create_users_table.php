@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration{
             $table->increments('id');
             $table->integer('user_id')->unsigned()->unique();
             $table->string('nickname')->nullable();
-            $table->integer('age')->nullable();
+            $table->string('age')->nullable();
             $table->integer('sex')->nullable();
             $table->string('ipone')->nullable();
             $table->string('qq')->nullable();

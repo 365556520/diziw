@@ -34,6 +34,12 @@ return [
         'edit' => 'videotag.edit',
         'delete' => 'videotag.delete',
     ],
+    'video' => [
+        'list' => 'video.list',
+        'add' => 'video.add',
+        'edit' => 'video.edit',
+        'delete' => 'video.delete',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'
