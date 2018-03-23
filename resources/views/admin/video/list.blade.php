@@ -50,27 +50,19 @@
                                                 <input type="text" name="name"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
                                             </div>
                                         </div>
-                                        <div class="layui-form-item layui-form-text">
-                                            <label class="layui-form-label">视频介绍</label>
-                                            <div class="layui-input-block">
-                                                <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-                                            </div>
+
+                                        <div class="layui-upload-drag" id="test10">
+                                            <img class="layui-upload-img  img-responsive " alt="点击上传，或将文件拖拽到此处" id="demo1">
+                                                <i class="layui-icon"></i>
                                         </div>
 
-                                        <div class="layui-form-item" pane="">
-                                            <label class="layui-form-label">推荐</label>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">视频状态</label>
                                             <div class="layui-input-block">
-                                                <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="开|关"  title="开关">
+                                                <input type="checkbox" name="like[write]" title="推荐">
+                                                <input type="checkbox" name="like[read]" title="热门" checked="">
                                             </div>
                                         </div>
-
-                                        <div class="layui-form-item" pane="">
-                                            <label class="layui-form-label">热门</label>
-                                            <div class="layui-input-block">
-                                                <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="开|关"  title="开关">
-                                            </div>
-                                        </div>
-
 
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">点击数</label>
@@ -78,6 +70,15 @@
                                                 <input type="text"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
                                             </div>
                                         </div>
+
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">视频介绍</label>
+                                            <div class="layui-input-block">
+                                                <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                                            </div>
+                                        </div>
+
+
 
                                         <div class="layui-form-item">
                                             <button class="layui-btn" lay-submit="" lay-filter="demo2">添加标签</button>
@@ -115,16 +116,26 @@
     <script src="{{asset('backend/js/videotag/videotag-list.js')}}"></script>
     <script>
 
-        layui.use(['form', 'layedit'], function(){
+        layui.use(['element','upload','form'], function(){
             var form = layui.form
-            //监听指定开关
-            form.on('switch(switchTest)', function(data){
-            });
-
-        });
-        layui.use('element', function(){
             var $ = layui.jquery
-                ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+            ,element = layui.element //Tab的切换功能，切换事件监听等，需要依赖element模块
+            ,upload = layui.upload //上传初始
+
+            //拖拽上传
+            upload.render({
+                elem: '#test10'
+                ,url: '/upload/'
+                ,before: function(obj){
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function(index, file, result){
+                        $('#demo1').attr('src', result); //图片链接（base64）
+                    });
+                }
+                ,done: function(res){
+                    console.log(res)
+                }
+            });
         });
 
     </script>
