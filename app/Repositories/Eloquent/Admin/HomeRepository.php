@@ -3,6 +3,7 @@ namespace App\Repositories\Eloquent\Admin;
 use App\Models\UsersModel\User_Data;
 use App\Repositories\Eloquent\Repository;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -23,6 +24,7 @@ class HomeRepository extends Repository {
              $base64_image_content = $img['icon'];
             //将base64编码转换为图片保存、、
             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                //图片后缀
                 $type = $result[2];
                 //绝对路径
                 $new_file = "".public_path()."/backend/images/uploads/";

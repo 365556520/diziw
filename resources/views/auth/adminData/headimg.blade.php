@@ -77,12 +77,11 @@
                                         </div>
                                         <br>
                                         <div class="row">
-
                                             <form id="submitForm" action="{{route('headimg')}}" method="post">
                                                 {{csrf_field()}}
                                                 <input type="hidden" name="user_data_img" id="user_data_img" value="{{Auth::user()->id}}"/>
                                                 <input type="hidden" name="past_img" id="past_img" value="{{Auth::user()->getUserData->headimg}}"/>
-                                                <input type="hidden" name="icon" id="icon"/>
+                                                <input type="hidden"  name="icon" id="icon"/>
                                                 <input  class="btn btn-danger" type="submit" id="submitbtn" value="上传图像">
                                             </form>
                                         </div>

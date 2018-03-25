@@ -95,7 +95,7 @@ var headimg = function () {
         //上传提交
         $('#submitbtn').on('click',function () {
             //获取裁剪图片的
-            $imageinfo = $image.cropper('getCroppedCanvas',{width:300, height:300}).toDataURL( );
+            $imageinfo = $image.cropper('getCroppedCanvas',{width:300, height:300}).toDataURL();
             //把图片放到icon里面
             $("#icon").val($imageinfo);
         });
