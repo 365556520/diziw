@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="layui-form-label">label
+                    <label class="layui-form-label">label</label>
                     <div class="layui-input-inline">
                         <input type="text" name="password_confirmation" v-model="v.pa"  class="layui-input">
                     </div>
