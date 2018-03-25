@@ -36,8 +36,12 @@ class HomeRepository extends Repository {
                 $new_file = $new_file . $imgname;
                 //将图片保存到指定的位置base64_decode把base64进行解码file_put_contents把字符串新到文件里面没有文件就从新创建一个
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1],'', $base64_image_content)))) {
-                     // 删除以前的图像用Storage::delete()修改了filesystems文件的默认路径
-                    if(Storage::delete($img['past_img'])){
+                     // 如果不是默认照片就删除删除以前的图像用Storage::delete()修改了filesystems文件的默认路径
+                    if ($img['past_img'] != '/backend/images/uploads/img.png'){
+                        if(Storage::delete($img['past_img'])){
+                            flash("上传成功",'success');
+                        }
+                    }else{
                         flash("上传成功",'success');
                     }
                     //保存成功返回这个相对路径和图片名字
