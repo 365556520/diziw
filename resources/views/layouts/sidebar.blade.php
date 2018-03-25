@@ -28,10 +28,7 @@
                     {!!$menu->sidebarMenus($sidebarMenus)!!}
                 </ul>
             </div>
-            <div class="menu_section">
-                <h3>网站配置</h3>
 
-            </div>
 
         </div>
         <!-- /sidebar menu -->

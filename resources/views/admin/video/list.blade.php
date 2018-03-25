@@ -26,28 +26,28 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="x_content">
+                    <div class="x_content" id="video">
                         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                             <ul class="layui-tab-title">
                                 <li class="layui-this">视频管理</li>
                                 <li>添加视频</li>
                             </ul>
-                            {{--视频标签列表--}}
+
                             <div class="layui-tab-content" >
                                 @include('flash::message')
+                                {{--视频列表--}}
                                 <div class="layui-tab-item layui-show">
                                     视频列表
                                 </div>
-                                {{--添加视频标签--}}
+                                {{--添加视频--}}
                                 <div class="layui-tab-item">
-
 
                                     <form class="layui-form layui-form-pane" method="post" action="{{url('admin/videotag')}}">
                                         {{csrf_field()}}
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">视频名称</label>
-                                            <div class="layui-input-block">
-                                                <input type="text" name="name"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
+                                            <label class="layui-form-label">视频标题</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="title"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
                                             </div>
                                         </div>
 
@@ -58,10 +58,10 @@
                                             </div>
                                             <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1">
                                         </div>
-
+                                        <br><br>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">视频状态</label>
-                                            <div class="layui-input-block">
+                                            <div class="layui-input-inline">
                                                 <input type="checkbox" name="like[write]" title="推荐">
                                                 <input type="checkbox" name="like[read]" title="热门" checked="">
                                             </div>
@@ -69,7 +69,7 @@
 
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">点击数</label>
-                                            <div class="layui-input-block">
+                                            <div class="layui-input-inline">
                                                 <input type="text"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
                                             </div>
                                         </div>
@@ -82,9 +82,37 @@
                                         </div>
 
 
-
+                                        <div class="x_panel" v-for="(v,k) in videos">
+                                            <div class="x_title">
+                                                <h2>添加视频</h2>
+                                                <ul class="nav navbar-right panel_toolbox">
+                                                    <li>&nbsp;&nbsp;&nbsp;</li>
+                                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                    </li>
+                                                    <li><a class="close-link"  @click="del"><i class="fa fa-close"></i></a></li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="x_content">
+                                                <div class="layui-form-item">
+                                                    <label class="layui-form-label">视频名称</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="text" name="name" v-model="v.name" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                                    </div>
+                                                </div>
+                                                <div class="layui-form-item">
+                                                    <label class="layui-form-label">视频URL</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="text" name="path" v-model="v.path" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-success btn-sm" @click="add"><i class="fa fa-plus">添加视频</i></button>
+                                        <textarea hidden>@{{videos}}</textarea>
+                                        <hr class="layui-bg-green">
                                         <div class="layui-form-item">
-                                            <button class="layui-btn" lay-submit="" lay-filter="demo2">添加标签</button>
+                                            <button class="layui-btn pull-right" lay-submit="" lay-filter="demo2">提交视频</button>
                                         </div>
                                     </form>
                                 </div>
@@ -124,7 +152,6 @@
             var $ = layui.jquery
             ,element = layui.element //Tab的切换功能，切换事件监听等，需要依赖element模块
             ,upload = layui.upload //上传初始
-
             //拖拽上传
             upload.render({
                 elem: '#upload'
@@ -141,6 +168,22 @@
                 }
             });
         });
+        var app = new Vue({
+            el: '#video',
+            data:{
+                videos: [{name:'',path:''}]
+            },
+            methods:{
+                //添加视频事件
+                add:function () {
+                    this.videos.push({name:'',path:''});
+                },
+                //删除视频事件
+                del:function (k) {
+                    this.videos.splice(k,1);
+                }
+            }
+        })
 
     </script>
     {{--提示代码--}}
