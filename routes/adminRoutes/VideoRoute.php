@@ -9,5 +9,8 @@ Route::resource('videotag','VideoTagController');
 /*
  * 视频路由
  * */
-
+Route::group(['prefix' => 'video'],function () {
+    //上传图片
+    Route::post('upload', 'VideoController@upload');
+});
 Route::resource('video','VideoController');

@@ -56,7 +56,8 @@
                                                 <i class="layui-icon"></i>
                                                 <p>点击或将图片拖拽到此处上传</p>
                                             </div>
-                                            <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1">
+                                            <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1"/>
+                                            <input type="hidden" name="uploadimg"  id="uploadimg">
                                         </div>
                                         <br><br>
                                         <div class="layui-form-item">
@@ -146,7 +147,6 @@
     {{--导入自己js--}}
     <script src="{{asset('backend/js/videotag/videotag-list.js')}}"></script>
     <script>
-
         layui.use(['element','upload','form'], function(){
             var form = layui.form
             var $ = layui.jquery
@@ -154,20 +154,33 @@
             ,upload = layui.upload //上传初始
             //拖拽上传
             upload.render({
-                elem: '#upload'
-                ,url: '/upload/'
-                ,before: function(obj){
+                elem: '#upload',
+                url: 'video/upload',
+                data: {'_token':'{{csrf_token()}}'},
+                before: function(obj){
+                    layer.load(); //上传loading
                     //预读本地文件示例，不支持ie8
                     obj.preview(function(index, file, result){
                         $('#uptitle').hide();
                         $('#demo1').attr('src', result); //图片链接（base64）
                     });
-                }
-                ,done: function(res){
-                    console.log(res)
+                },
+                done: function(res){
+                    layer.closeAll('loading'); //关闭loading
+                    //status=0代表上传成功
+                    if(res.status == 0){
+                        $('#uploadimg').attr('value',res.path); //把连接放到隐藏输入框中
+                        layer.msg(res.message, {icon: 6});   //do something （比如将res返回的图片链接保存到表单的隐藏域）
+                    }else {
+                        layer.msg(res.message, {icon: 5});
+                    }
+                },
+                error: function(index, upload){
+                    layer.closeAll('loading'); //关闭loading
                 }
             });
         });
+        //vuejs
         var app = new Vue({
             el: '#video',
             data:{
