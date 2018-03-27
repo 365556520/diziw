@@ -145,7 +145,6 @@
     <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js')}}"></script>
     {{--打印 jsend--}}
     {{--导入自己js--}}
-    <script src="{{asset('backend/js/videotag/videotag-list.js')}}"></script>
     <script>
         layui.use(['element','upload','form'], function(){
             var form = layui.form
