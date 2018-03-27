@@ -33,8 +33,8 @@ class CreateVideoTagsTable extends Migration
         //视频内容
         Schema::create('videos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('videoclass_id')->unsigned()->unique();
-            $table->string('title');
+            $table->integer('videoclass_id')->unsigned();
+            $table->string('name');
             $table->string('path');
             //外检约束更新和删除都绑定
             $table->foreign('videoclass_id')->references('id')->on('videoclasss') ->onUpdate('cascade')->onDelete('cascade');

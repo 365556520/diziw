@@ -13,9 +13,8 @@ class Video extends Model
     //这个表的路由的前缀
     private $action =  'video';
     protected $fillable = [
-        'id',
-        'videoclass_id',
-        'title',
+        'name',
         'path',
+        'videoclass_id'
     ];
 }

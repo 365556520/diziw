@@ -1,17 +1,17 @@
 <?php
 namespace App\Repositories\Eloquent\Admin;
 
-use App\Models\VideoModel\Video;
+use App\Models\VideoModel\VideoClass;
 use App\Repositories\Eloquent\Repository;
 
 
 /**
  * 仓库模式继承抽象类
  */
-class VideoRepository extends Repository {
+class VideoClassRepository extends Repository {
     //重写父类的抽象方法
     public function model(){
-        return Video::class;
+        return VideoClass::class;
     }
 
     /*权限表显示数据*/
@@ -66,5 +66,29 @@ class VideoRepository extends Repository {
     /*上传图片*/
     public function upload(){
 
+    }
+    /*添加视频*/
+    public function createVideoClass($formData){
+       // 添加到视频类表
+        $result = $this->model->create([
+            'title' => $formData['title'],
+            'introduce' => $formData['introduce'],
+            'preview' => $formData['preview'],
+            'iscommend' => array_key_exists('iscommend',$formData['like'])?1:0,
+            'ishot' => array_key_exists('ishot',$formData['like'])?1:0,
+            'click' => $formData['click'],
+        ]);
+        //添加关联的视频表
+        $videos = json_decode($formData['videos'],true);
+        foreach ($videos as $v){
+            $v['videoclass_id'] = $result->id;
+            $result->getVideo()->create($v);
+        }
+        if ($result) {
+            flash('添加成功','success');
+        }else{
+            flash('添加失败','error');
+        }
+        return $result;
     }
 }

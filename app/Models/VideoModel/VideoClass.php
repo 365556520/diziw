@@ -25,6 +25,7 @@ class VideoClass extends Model
      */
     public function getVideo()
     {
-        return $this->hasOne('App\Models\VideoModel\Video');
+        //第二个参数是自定义外键的名字不用的话默认是video_class_id
+        return $this->hasMany('App\Models\VideoModel\Video','videoclass_id');
     }
 }

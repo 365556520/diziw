@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Repositories\Eloquent\Admin\VideoClassRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class VideoController extends CommonController
+class VideoClassController extends CommonController
 {
 
     private $video;
-    function __construct()
+    function __construct(VideoClassRepository $video)
     {
 /*        //调用父累的构造方法
         parent::__construct('video');*/
-
+        $this->video = $video;
 
     }
     /**
@@ -43,20 +44,19 @@ class VideoController extends CommonController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         //
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 添加视频
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $this->video->createVideoClass($request->all());
+        return view('admin.video.list');
     }
 
     /**
