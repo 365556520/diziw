@@ -65,13 +65,7 @@
     $(document).ready(function() {
         //得到权限的个数
         var len ={{count($permission)}};
-        $(".select2_multiple").select2({
-            maximumSelectionLength:len,
-            placeholder: "请选择权限共有"+len+"个权限",
-            allowClear: true, //关闭符号
-            selectOnClose: true,//结果显示高亮
-            closeOnSelect: false,//select选中不关闭下拉框
-        });
+
         var v = [];
         /*把权限数组遍历到js数据中*/
         @foreach($role->permission as $k =>$v)
@@ -79,8 +73,14 @@
         @endforeach
         /*添加下拉列表所有的值*/
         $('.select2_multiple').val(v).trigger('change');//这个就是select2的赋值方式。而val里的就是opt;
+        $(".select2_multiple").select2({
+            maximumSelectionLength:len,
+            placeholder: "请选择权限共有"+len+"个权限",
+            allowClear: true, //关闭符号
+            selectOnClose: true,//结果显示高亮
+            closeOnSelect: false,//select选中不关闭下拉框
 
-
+        });
     });
 </script>
 

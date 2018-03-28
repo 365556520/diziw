@@ -23,7 +23,7 @@ trait ActionButtonTrait{
     }
     //得到三个按钮config('admin.permissions.menu.delete'))
     public function getActionButtont($showPermission = null,$editPermission = null ,$destroyPermission = null){
-        $thml = '<div class="btn-group btn-group-sm">';
+        $thml = '<div class="btn-group btn-group-xs">';
         if ($showPermission == null){
             $thml .= '';
         }else{

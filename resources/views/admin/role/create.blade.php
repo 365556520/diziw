@@ -31,7 +31,7 @@
         <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('admin/role.model.permission')}}</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select  class="select2_multiple form-control" name="permission[]" multiple="multiple" size="4">
+                <select  class="select2_multiple form-control" name="permission[]" multiple="multiple" size="4" >
                     @foreach($permission as $v)
                         <option value="{{$v->id}}">{{$v->display_name}}</option>
                     @endforeach
@@ -69,5 +69,6 @@
             selectOnClose: true,//结果显示高亮
             closeOnSelect: false,//select选中不关闭下拉框
         });
+
     });
 </script>
