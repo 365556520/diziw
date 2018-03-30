@@ -95,18 +95,35 @@
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="x_content">
-                                                <div class="layui-form-item">
+                  {{--                              <div class="layui-form-item">
                                                     <label class="layui-form-label">视频名称</label>
                                                     <div class="layui-input-block">
                                                         <input type="text"  v-model="v.name" autocomplete="off" placeholder="请输入标题" class="layui-input">
                                                     </div>
                                                 </div>
                                                 <div class="layui-form-item">
-                                                    <label class="layui-form-label">视频URL</label>
+                                                    <button class="layui-form-label btn btn-default"  type="button">视频URL</button>
                                                     <div class="layui-input-block">
                                                         <input type="text" v-model="v.path" autocomplete="off" placeholder="请输入标题" class="layui-input">
                                                     </div>
+                                                </div>--}}
+
+                                                <div class="layui-upload">
+                                                    <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
+                                                    <div class="layui-upload-list">
+                                                        <table class="layui-table">
+                                                            <thead>
+                                                            <tr><th>文件名</th>
+                                                                <th>大小</th>
+                                                                <th>状态</th>
+                                                                <th>操作</th>
+                                                            </tr></thead>
+                                                            <tbody id="demoList"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <button type="button" class="layui-btn" id="testListAction">开始上传</button>
                                                 </div>
+
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-success btn-sm" @click="add"><i class="fa fa-plus">添加视频</i></button>
@@ -146,12 +163,15 @@
     {{--打印 jsend--}}
     {{--导入自己js--}}
     <script>
+
+
         layui.use(['element','upload','form'], function(){
             var form = layui.form
             var $ = layui.jquery
             ,element = layui.element //Tab的切换功能，切换事件监听等，需要依赖element模块
             ,upload = layui.upload //上传初始
             //拖拽上传
+            //图片上传
             upload.render({
                 elem: '#upload',
                 url: 'video/upload',
@@ -179,6 +199,63 @@
                     layer.closeAll('loading'); //关闭loading
                 }
             });
+            //多文件上传
+            //多文件列表示例
+            var demoListView = $('#demoList')
+                ,uploadListIns = upload.render({
+                elem: '#testList'
+                ,url: '/upload/'
+                ,accept: 'file'
+                ,multiple: true
+                ,auto: false
+                ,bindAction: '#testListAction'
+                ,choose: function(obj){
+                    var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                    //读取本地文件
+                    obj.preview(function(index, file, result){
+                        var tr = $(['<tr id="upload-'+ index +'">'
+                            ,'<td>'+ file.name +'</td>'
+                            ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
+                            ,'<td>等待上传</td>'
+                            ,'<td>'
+                            ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                            ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+                            ,'</td>'
+                            ,'</tr>'].join(''));
+                        //单个重传
+                        tr.find('.demo-reload').on('click', function(){
+                            obj.upload(index, file);
+                        });
+
+                        //删除
+                        tr.find('.demo-delete').on('click', function(){
+                            delete files[index]; //删除对应的文件
+                            tr.remove();
+                            uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                        });
+
+                        demoListView.append(tr);
+                    });
+                }
+                ,done: function(res, index, upload){
+                    if(res.code == 0){ //上传成功
+                        var tr = demoListView.find('tr#upload-'+ index)
+                            ,tds = tr.children();
+                        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                        tds.eq(3).html(''); //清空操作
+                        return delete this.files[index]; //删除文件队列已经上传成功的文件
+                    }
+                    this.error(index, upload);
+                }
+                ,error: function(index, upload){
+                    var tr = demoListView.find('tr#upload-'+ index)
+                        ,tds = tr.children();
+                    tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+                    tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+                }
+            });
+
+
         });
         //vuejs
         var app = new Vue({
