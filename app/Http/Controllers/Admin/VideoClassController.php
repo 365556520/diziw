@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Repositories\Eloquent\Admin\VideoClassRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Facades\CosFacade;
 
 class VideoClassController extends CommonController
 {
@@ -39,6 +39,25 @@ class VideoClassController extends CommonController
         return ['status' => 1,'message' => '上传失败'];
     }
 
+    /*
+* 上传视频
+* */
+    public function uploadvideo(Request $request){
+        $video = $request->file;
+        //获取文件名称
+        $videoName = $video -> getClientOriginalName();
+        //获取文件后缀
+        $entension = $video -> getClientOriginalExtension();
+        //生成新的文件名称
+        $newName = md5(date("Y-m-d H:i:s").$videoName).".".$entension;
+        if ($video->isValid()) {
+            //使用cos上传
+            $path =  CosFacade::putObject(config('admin.cos.bucket'),'video/'.$newName,$video);
+            return ['status' => 0,'message' =>'上传成功','path' => $path['ObjectURL']];
+        }
+        return ['status' => 1,'message' => '上传失败'];
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -55,6 +74,7 @@ class VideoClassController extends CommonController
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+
         $this->video->createVideoClass($request->all());
         return view('admin.video.list');
     }

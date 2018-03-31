@@ -109,19 +109,21 @@
                                                 </div>--}}
 
                                                 <div class="layui-upload">
-                                                    <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
+                                                    <button type="button" class="layui-btn layui-btn-normal" id="testList">选择视频</button>
+                                                    <button type="button" class="layui-btn" id="testListAction">开始上传</button>
                                                     <div class="layui-upload-list">
                                                         <table class="layui-table">
                                                             <thead>
-                                                            <tr><th>文件名</th>
-                                                                <th>大小</th>
-                                                                <th>状态</th>
-                                                                <th>操作</th>
-                                                            </tr></thead>
+                                                                <tr>
+                                                                    <th>视频名称</th>
+                                                                    <th>大小</th>
+                                                                    <th>状态</th>
+                                                                    <th>操作</th>
+                                                                </tr>
+                                                            </thead>
                                                             <tbody id="demoList"></tbody>
                                                         </table>
                                                     </div>
-                                                    <button type="button" class="layui-btn" id="testListAction">开始上传</button>
                                                 </div>
 
                                             </div>
@@ -130,7 +132,7 @@
                                         <textarea name="videos" hidden >@{{videos}}</textarea>
                                         <hr class="layui-bg-green">
                                         <div class="layui-form-item">
-                                            <button class="layui-btn pull-right" lay-submit="" lay-filter="demo2">提交视频</button>
+                                            <button class="layui-btn" type="submit"  lay-submit="demo2" lay-filter="demo2">立即提交</button>
                                         </div>
                                     </form>
                                 </div>
@@ -199,12 +201,13 @@
                     layer.closeAll('loading'); //关闭loading
                 }
             });
-            //多文件上传
-            //多文件列表示例
+
+            //视频多文件列表示例
             var demoListView = $('#demoList')
                 ,uploadListIns = upload.render({
-                elem: '#testList'
-                ,url: '/upload/'
+                 elem: '#testList'
+                ,url: 'video/uploadvideo'
+                ,data: {'_token':'{{csrf_token()}}'}
                 ,accept: 'file'
                 ,multiple: true
                 ,auto: false
@@ -218,8 +221,8 @@
                             ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
                             ,'<td>等待上传</td>'
                             ,'<td>'
-                            ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
-                            ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+                            ,'<button type="button"  class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                            ,'<button type="button"  class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
                             ,'</td>'
                             ,'</tr>'].join(''));
                         //单个重传
@@ -233,15 +236,14 @@
                             tr.remove();
                             uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
                         });
-
                         demoListView.append(tr);
                     });
                 }
                 ,done: function(res, index, upload){
-                    if(res.code == 0){ //上传成功
+                    if(res.status == 0){ //上传成功
                         var tr = demoListView.find('tr#upload-'+ index)
                             ,tds = tr.children();
-                        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span><input type="text" name="videopath[]" value="'+res.path+'" hidden>');
                         tds.eq(3).html(''); //清空操作
                         return delete this.files[index]; //删除文件队列已经上传成功的文件
                     }
@@ -254,6 +256,7 @@
                     tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
                 }
             });
+
 
 
         });
