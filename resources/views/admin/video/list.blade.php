@@ -95,34 +95,23 @@
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="x_content">
-                  {{--                              <div class="layui-form-item">
+
+                                                <div class="layui-form-item">
                                                     <label class="layui-form-label">视频名称</label>
                                                     <div class="layui-input-block">
-                                                        <input type="text"  v-model="v.name" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                                        <input type="text" name="vname" lay-verify="title" v-model="v.name" autocomplete="off" placeholder="请输入标题" class="layui-input">
                                                     </div>
                                                 </div>
-                                                <div class="layui-form-item">
-                                                    <button class="layui-form-label btn btn-default"  type="button">视频URL</button>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" v-model="v.path" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                                                    </div>
-                                                </div>--}}
 
-                                                <div class="layui-upload">
-                                                    <button type="button" class="layui-btn layui-btn-normal" id="testList">选择视频</button>
-                                                    <button type="button" class="layui-btn" id="testListAction">开始上传</button>
-                                                    <div class="layui-upload-list">
-                                                        <table class="layui-table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>视频名称</th>
-                                                                    <th>大小</th>
-                                                                    <th>状态</th>
-                                                                    <th>操作</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="demoList"></tbody>
-                                                        </table>
+                                                <div class="layui-form-item">
+                                                    <label class="layui-form-label">视频URL</label>
+                                                    <div class="layui-input-block">
+                                                        <div class="input-group">
+                                                            <input type="text" v-model="v.path" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="layui-btn" id="upvideo"><i class="layui-icon"></i>上传视频</button>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -201,63 +190,22 @@
                     layer.closeAll('loading'); //关闭loading
                 }
             });
-
-            //视频多文件列表示例
-            var demoListView = $('#demoList')
-                ,uploadListIns = upload.render({
-                 elem: '#testList'
-                ,url: 'video/uploadvideo'
+            //视频上传
+            upload.render({
+                elem: '#upvideo'
+                ,url: '/upload/'
                 ,data: {'_token':'{{csrf_token()}}'}
-                ,accept: 'file'
-                ,multiple: true
-                ,auto: false
-                ,bindAction: '#testListAction'
-                ,choose: function(obj){
-                    var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
-                    //读取本地文件
+                ,accept: 'video' //视频
+                ,before: function(obj){
+                    //预读本地文件示例，不支持ie8
                     obj.preview(function(index, file, result){
-                        var tr = $(['<tr id="upload-'+ index +'">'
-                            ,'<td>'+ file.name +'</td>'
-                            ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
-                            ,'<td>等待上传</td>'
-                            ,'<td>'
-                            ,'<button type="button"  class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
-                            ,'<button type="button"  class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
-                            ,'</td>'
-                            ,'</tr>'].join(''));
-                        //单个重传
-                        tr.find('.demo-reload').on('click', function(){
-                            obj.upload(index, file);
-                        });
 
-                        //删除
-                        tr.find('.demo-delete').on('click', function(){
-                            delete files[index]; //删除对应的文件
-                            tr.remove();
-                            uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
-                        });
-                        demoListView.append(tr);
                     });
                 }
-                ,done: function(res, index, upload){
-                    if(res.status == 0){ //上传成功
-                        var tr = demoListView.find('tr#upload-'+ index)
-                            ,tds = tr.children();
-                        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span><input type="text" name="videopath[]" value="'+res.path+'" hidden>');
-                        tds.eq(3).html(''); //清空操作
-                        return delete this.files[index]; //删除文件队列已经上传成功的文件
-                    }
-                    this.error(index, upload);
-                }
-                ,error: function(index, upload){
-                    var tr = demoListView.find('tr#upload-'+ index)
-                        ,tds = tr.children();
-                    tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
-                    tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+                ,done: function(res){
+                    console.log(res)
                 }
             });
-
-
 
         });
         //vuejs
