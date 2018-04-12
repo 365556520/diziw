@@ -11,6 +11,7 @@
     <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
+
     <div class="">
         <div class="clearfix"></div>
         <div class="row">
@@ -124,6 +125,7 @@
                                             <button class="layui-btn" type="submit"  lay-submit="demo2" lay-filter="demo2">立即提交</button>
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
@@ -152,6 +154,8 @@
     {{--打印 js--}}
     <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js')}}"></script>
     {{--打印 jsend--}}
+        {{--cosjs--}}
+    <script src="{{asset('backend/myvebdors/cos-js-sdk-v5/dist/cos-js-sdk-v5.min.js')}}"></script>
     {{--导入自己js--}}
     <script>
 
