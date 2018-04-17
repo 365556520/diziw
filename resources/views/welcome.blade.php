@@ -56,10 +56,103 @@
 
     </div>
 
+
+    <div>
+        <h1>Ajax Post 上传</h1>
+        <input id="fileSelector" type="file">
+        <input id="submitBtn" type="submit">
+        <div id="msg"></div>
+    </div>
+
+
 @endsection
 @section('js')
     <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
+    {{--cosjs--}}
+    <script src="{{asset('backend/myvebdors/cos-js-sdk-v5/dist/cos-js-sdk-v5.min.js')}}"></script>
+
     <script>
+
+        $(function () {
+            // 请求用到的参数
+            var Bucket = 'diziw-1251899486';
+            var Region = 'ap-beijing';
+            var protocol = location.protocol === 'https:' ? 'https:' : 'http:';
+            var prefix = protocol + '//' + Bucket + '.cos.' + Region + '.myqcloud.com/';
+
+            // 计算签名
+            var getAuthorization = function (options, callback) {
+                var method = (options.Method || 'get').toLowerCase();
+                var key = options.Key || '';
+                // var url = 'http://127.0.0.1:3000/sts-post-object' +
+                var url = '{{Url("admin/video/uploadvideo")}}' +
+                    '?method=' + method +
+                    '&pathname=' + encodeURIComponent('/') +
+                    '&key=' + encodeURIComponent(key);
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.onload = function (e) {
+                    var data = JSON.parse(e.target.responseText);
+                    if (data.authorization === '') {
+
+                    }
+                    callback(null, {
+                        Authorization: data.authorization,
+                        XCosSecurityToken: data.sessionToken,
+                    });
+                };
+                xhr.onerror = function (e) {
+                    callback('获取签名出错');
+                };
+                xhr.send();
+            };
+
+            // 上传文件
+            var uploadFile = function (file, callback) {
+                var Key = 'dir/' + file.name; // 这里指定上传目录和文件名
+
+                getAuthorization({Method: 'get', Key: Key}, function (err, info) {
+                    var auth = info.Authorization;
+                    var XCosSecurityToken = info.XCosSecurityToken;
+
+                    var fd = new FormData();
+                    fd.append('key', Key);
+                    fd.append('Signature', auth);
+                    XCosSecurityToken && fd.append('x-cos-security-token', XCosSecurityToken);
+                    fd.append('file', file);
+                    var url = prefix;
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', url, true);
+                    xhr.onload = function () {
+                        if (Math.floor(xhr.status / 100) === 2) {
+                            var ETag = xhr.getResponseHeader('etag');
+                            callback(null, {url: url, ETag: ETag});
+                        } else {
+                            callback('文件 ' + Key + ' 上传失败，状态码：' + xhr.status);
+                        }
+                    };
+                    xhr.onerror = function () {
+                        callback('文件 ' + Key + ' 上传失败，请检查是否没配置 CORS 跨域规则');
+                    };
+                    xhr.send(fd);
+
+                });
+            };
+
+            // 监听表单提交
+            document.getElementById('submitBtn').onclick = function (e) {
+                var file = document.getElementById('fileSelector').files[0];
+                if (!file) {
+                    document.getElementById('msg').innerText = '未选择上传文件';
+                    return;
+                }
+                file && uploadFile(file, function (err, data) {
+                    console.log(err || data);
+                    document.getElementById('msg').innerText = err ? err : ('上传成功，ETag=' + data.ETag);
+                });
+            };
+        });
+
         Vue.component('todo-item', {
             props: ['todo'],
             template: '<li>@{{ todo.text }}</li>'

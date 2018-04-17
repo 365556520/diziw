@@ -197,7 +197,7 @@
             //视频上传
             upload.render({
                 elem: '#upvideo'
-                ,url: '/upload/'
+                ,url: 'video/uploadvideo'
                 ,data: {'_token':'{{csrf_token()}}'}
                 ,accept: 'video' //视频
                 ,before: function(obj){

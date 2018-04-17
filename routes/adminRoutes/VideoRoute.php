@@ -11,8 +11,8 @@ Route::resource('videotag','VideoTagController');
  * */
 Route::group(['prefix' => 'video'],function () {
     //上传图片
-    Route::post('upload', 'VideoClassController@upload');
+    Route::post('upload','VideoClassController@upload');
     //上传视频
-    Route::post('uploadvideo', 'VideoClassController@uploadvideo');
+    Route::get('uploadvideo','VideoClassController@uploadvideo');
 });
 Route::resource('video','VideoClassController');
