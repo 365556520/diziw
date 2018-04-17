@@ -28,8 +28,8 @@
     (function () {
 
         // 请求用到的参数
-        var Bucket = 'test-1250000000';
-        var Region = 'ap-guangzhou';
+        var Bucket = 'diziw-1251899486';
+        var Region = 'ap-beijing';
         var protocol = location.protocol === 'https:' ? 'https:' : 'http:';
         var prefix = protocol + '//' + Bucket + '.cos.' + Region + '.myqcloud.com/';
         var form = document.getElementById('form');
@@ -95,7 +95,7 @@
                 document.getElementById('msg').innerText = '未选择上传文件';
                 return;
             }
-            Key = 'dir/' + filePath.match(/[\\\/]?([^\\\/]+)$/)[1]; // 这里指定上传目录和文件名
+            Key = 'video/' + filePath.match(/[\\\/]?([^\\\/]+)$/)[1]; // 这里指定上传目录和文件名
             getAuthorization({Method: 'POST', Key: Key}, function (err, AuthData) {
                 // 在当前目录下放一个空的 empty.html 以便让接口上传完成跳转回来
                 document.getElementById('success_action_redirect').value = location.href.substr(0, location.href.lastIndexOf('/') + 1) + 'empty.html';

@@ -45,8 +45,7 @@ var getAuthorization = function (options, callback) {
             Authorization: AuthData.authorization,
             XCosSecurityToken: AuthData.sessionToken,
         });
-    };*/
-    xhr.send(JSON.stringify(data));
+    }; xhr.send(JSON.stringify(data));*/
     // 方法二、后端计算签名（推荐）
 /*      var method = (options.Method || 'get').toLowerCase();
     var key = options.Key || '';
