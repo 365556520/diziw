@@ -45,6 +45,7 @@ class VideoClassController extends CommonController
     public function uploadvideo(Request $request){
 // 临时密钥计算样例
 
+        session_start();
 // 固定密钥
         $config = array(
             'Url'=> 'https://sts.api.qcloud.com/v2/index.php',
@@ -241,6 +242,7 @@ class VideoClassController extends CommonController
                 'q-signature=' . $qSignature
             ));
 
+
             return $authorization;
         }
 
@@ -256,15 +258,16 @@ class VideoClassController extends CommonController
             'authorization' => getAuthorization($tempKeys, $method, $pathname),
             'sessionToken' => $tempKeys['credentials']['sessionToken'],
         );
+
         if ($data['authorization'] === 'action deny') {
             $data = array('error'=> 'action deny');
         }
-
+        dd( $data);
 // 返回数据给前端
         header('Content-Type: application/json');
         header('Allow-Control-Allow-Origin: http://diziw.cn/'); // 这里修改允许跨域访问的网站
         header('Allow-Control-Allow-Headers: origin,accept,content-type');
-        echo json_encode($data);
+
 
     /*    $video = $request->file;
         //获取文件名称

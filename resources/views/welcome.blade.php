@@ -85,12 +85,12 @@
                 var method = (options.Method || 'get').toLowerCase();
                 var key = options.Key || '';
                 // var url = 'http://127.0.0.1:3000/sts-post-object' +
-                var url = '{{Url("admin/video/uploadvideo")}}' +
+                var url = '{{url("admin/video/uploadvideo")}}' +
                     '?method=' + method +
                     '&pathname=' + encodeURIComponent('/') +
                     '&key=' + encodeURIComponent(key);
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', url, true);
+                xhr.open('post', url, true);
                 xhr.onload = function (e) {
                     var data = JSON.parse(e.target.responseText);
                     if (data.authorization === '') {
