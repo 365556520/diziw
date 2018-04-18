@@ -84,7 +84,7 @@ var cos = new COS({
 });
 var TaskId;
 
-var pre = document.querySelector('.result');
+
 var logger = function (text, color) {
     if (typeof text === 'object') {
         try {
@@ -92,12 +92,7 @@ var logger = function (text, color) {
         } catch (e) {
         }
     }
-    var div = document.createElement('div');
-    div.innerText = text;
-    color && (div.style.color = color);
-    pre.appendChild(div);
-    pre.style.display = 'block';
-    pre.scrollTop = pre.scrollHeight;
+
 };
 console._log = console.log;
 console._error = console.error;

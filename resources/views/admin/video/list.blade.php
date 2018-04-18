@@ -157,8 +157,13 @@
         {{--cosjs--}}
     <script src="{{asset('backend/myvebdors/cos-js-sdk-v5/dist/cos-js-sdk-v5.min.js')}}"></script>
     {{--导入自己js--}}
+    <script src="{{asset('backend/js/cos/demo.js')}}"></script>
     <script>
-
+        $(function () {
+            $('#upvideo').click(function () {
+                selectFileToUpload();
+            })
+        });
 
         layui.use(['element','upload','form'], function(){
             var form = layui.form
@@ -194,22 +199,7 @@
                     layer.closeAll('loading'); //关闭loading
                 }
             });
-            //视频上传
-            upload.render({
-                elem: '#upvideo'
-                ,url: 'video/uploadvideo'
-                ,data: {'_token':'{{csrf_token()}}'}
-                ,accept: 'video' //视频
-                ,before: function(obj){
-                    //预读本地文件示例，不支持ie8
-                    obj.preview(function(index, file, result){
 
-                    });
-                }
-                ,done: function(res){
-                    console.log(res)
-                }
-            });
 
         });
         //vuejs
