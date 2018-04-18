@@ -525,16 +525,17 @@ function putObjectAcl() {
     });
 }
 
+//获取对象Acl
 function getObjectAcl() {
     cos.getObjectAcl({
         Bucket: config.Bucket, // Bucket 格式：test-1250000000
         Region: config.Region,
-        Key: '1mb.zip'
+        Key: '测试ceshi.zip'
     }, function (err, data) {
         console.log(err || data);
     });
 }
-
+//删除一个对象
 function deleteObject() {
     cos.deleteObject({
         Bucket: config.Bucket, // Bucket 格式：test-1250000000
@@ -545,13 +546,13 @@ function deleteObject() {
     });
 }
 
+//删除一组对象
 function deleteMultipleObject() {
     cos.deleteMultipleObject({
         Bucket: config.Bucket, // Bucket 格式：test-1250000000
         Region: config.Region,
         Objects: [
-            {Key: '1mb.zip'},
-            {Key: '3mb.zip'},
+            {Key: '30mb.zip'},
         ]
     }, function (err, data) {
         console.log(err || data);
@@ -562,7 +563,7 @@ function restoreObject() {
     cos.restoreObject({
         Bucket: config.Bucket, // Bucket 格式：test-1250000000
         Region: config.Region,
-        Key: '1.txt',
+        Key: '黄蓉.mp4',
         RestoreRequest: {
             Days: 1,
             CASJobParameters: {
@@ -574,6 +575,7 @@ function restoreObject() {
     });
 }
 
+//删除为完成的上传
 function abortUploadTask() {
     cos.abortUploadTask({
         Bucket: config.Bucket, /* 必须 */ // Bucket 格式：test-1250000000
@@ -584,7 +586,7 @@ function abortUploadTask() {
         // UploadId: '14985543913e4e2642e31db217b9a1a3d9b3cd6cf62abfda23372c8d36ffa38585492681e3',
         // 格式2，删除单个文件所有未完成上传任务
         Level: 'file',
-        Key: '10mb.zip',
+        Key: '30mb.zip',
         // 格式3，删除 Bucket 下所有未完成上传任务
         // Level: 'bucket',
     }, function (err, data) {
@@ -592,6 +594,7 @@ function abortUploadTask() {
     });
 }
 
+//上传设定文件
 function sliceUploadFile() {
     var blob = util.createFile({size: 1024 * 1024 * 2});
     cos.sliceUploadFile({
@@ -612,6 +615,7 @@ function sliceUploadFile() {
     });
 }
 
+//选择文件后上传
 function selectFileToUpload() {
     var input = document.createElement('input');
     input.type = 'file';
@@ -629,9 +633,15 @@ function selectFileToUpload() {
                     },
                     onHashProgress: function (progressData) {
                         console.log('onHashProgress', JSON.stringify(progressData));
+                        var percent = parseInt(progressData.percent * 10000) / 100;
+                        var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
+                        console.log('进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                     },
                     onProgress: function (progressData) {
                         console.log('onProgress', JSON.stringify(progressData));
+                        var percent = parseInt(progressData.percent * 10000) / 100;
+                        var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
+                        console.log('进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                     },
                 }, function (err, data) {
                     console.log(err || data);
@@ -647,6 +657,9 @@ function selectFileToUpload() {
                     },
                     onProgress: function (progressData) {
                         console.log(JSON.stringify(progressData));
+                        var percent = parseInt(progressData.percent * 10000) / 100;
+                        var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
+                        console.log('进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                     },
                 }, function (err, data) {
                     console.log(err || data);
@@ -657,39 +670,16 @@ function selectFileToUpload() {
     input.click();
 }
 
-function cancelTask() {
-    cos.cancelTask(TaskId);
-    console.log('canceled');
-}
 
-function pauseTask() {
-    cos.pauseTask(TaskId);
-    console.log('paused');
-}
-
-function restartTask() {
-    cos.restartTask(TaskId);
-    console.log('restart');
-}
-
+//上传
 function uploadFiles() {
-    var filename = 'mb.zip';
-    var blob = util.createFile({size: 1024 * 1024 * 3});
+    var filename = '233.zip';
+    var blob = util.createFile({size: 1024 * 1024 * 0.001});
     cos.uploadFiles({
         files: [{
             Bucket: config.Bucket, // Bucket 格式：test-1250000000
             Region: config.Region,
-            Key: '1' + filename,
-            Body: blob,
-        }, {
-            Bucket: config.Bucket, // Bucket 格式：test-1250000000
-            Region: config.Region,
-            Key: '2' + filename,
-            Body: blob,
-        }, {
-            Bucket: config.Bucket, // Bucket 格式：test-1250000000
-            Region: config.Region,
-            Key: '3' + filename,
+            Key: '测试' + filename,
             Body: blob,
         }],
         SliceSize: 1024 * 1024,
@@ -706,6 +696,7 @@ function uploadFiles() {
     });
 }
 
+/*
 
 (function () {
     var list = [
@@ -747,11 +738,8 @@ function uploadFiles() {
         'restoreObject',
         'abortUploadTask',
         'sliceUploadFile',
-        'selectFileToUpload',
-        'cancelTask',
-        'pauseTask',
-        'restartTask',
-        'uploadFiles',
+        'selectFileToUpload', //选择文件后上传
+        'uploadFiles', //上传
     ];
     var container = document.querySelector('.main');
     var html = [];
@@ -766,3 +754,4 @@ function uploadFiles() {
         }
     };
 })();
+*/

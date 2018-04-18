@@ -1,6 +1,14 @@
 @extends('layouts.auth')
 @section('title')
     <title>ceshi</title>
+    <style>
+        body { font-family: "Microsoft YaHei"; }
+        .page {max-width:1024px;margin:0 auto;}
+        h1 { font-weight: normal; color:#333;}
+        a { color: #006eff; background-color: transparent; padding: 8px 16px; line-height: 1.3; display: inline-block; text-align: center; margin: 0 8px 8px 0; border: 1px solid #006eff; font-size: 14px; text-decoration: none; }
+        a:hover { color: #fff; background-color: #006eff; }
+        .result {display:none;line-height:1.3;font-size: 13px;font-family:monospace;border:1px solid #006eff;margin:0;height:200px;overflow:auto;box-sizing:border-box;padding:5px;}
+    </style>
 @endsection
 @section('content')
     @if (Route::has('login'))
@@ -53,15 +61,25 @@
                 <button class="layui-btn"  @click ="add">添加</button>
             </div>
         <textarea> @{{videos}}</textarea>
-
     </div>
 
+    <div class="page">
+        <h1>cos-js-sdk-v5</h1>
+        <div class="main" ><a id="main" href="javascript:void(0)">uploadFiles</a></div>
+        <pre class="result"></pre>
+    </div>
 @endsection
 @section('js')
+    {{--vue js--}}
     <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
     {{--cosjs--}}
     <script src="{{asset('backend/myvebdors/cos-js-sdk-v5/dist/cos-js-sdk-v5.min.js')}}"></script>
+    <script src="{{asset('backend/js/cos/demo.js')}}"></script>
+
     <script>
+
+
+
 
         Vue.component('todo-item', {
             props: ['todo'],
@@ -91,7 +109,13 @@
                     this.videos.splice(k,1);
                 }
             }
-        })
+        });
+
+        $(function () {
+            $('#main').click(function (e) {
+                selectFileToUpload();
+            })
+        });
     </script>
 @endsection
 
