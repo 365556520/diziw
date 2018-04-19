@@ -108,14 +108,17 @@
                                                     <label class="layui-form-label">视频URL</label>
                                                     <div class="layui-input-block">
                                                         <div class="input-group">
-                                                            <input type="text" v-model="v.path" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                                            <input type="text" v-model="v.path" autocomplete="off"  id="videourl" placeholder="请输入标题" class="layui-input">
                                                             <span class="input-group-btn">
                                                                 <button type="button" class="layui-btn" id="upvideo"><i class="layui-icon"></i>上传视频</button>
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                {{--进度条--}}
+                                                <div class="layui-progress layui-progress-big" id="progress" lay-filter="demo"  lay-showPercent="yes" hidden>
+                                                    <div class="layui-progress-bar layui-bg-green" lay-percent=""></div>
+                                                </div>
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-success btn-sm" @click="add"><i class="fa fa-plus">添加视频</i></button>
@@ -157,10 +160,17 @@
         {{--cosjs--}}
     <script src="{{asset('backend/myvebdors/cos-js-sdk-v5/dist/cos-js-sdk-v5.min.js')}}"></script>
     {{--导入自己js--}}
-    <script src="{{asset('backend/js/cos/demo.js')}}"></script>
+    <script src="{{asset('backend/js/cos/cos.js')}}"></script>
     <script>
+        var startprogress = function (progress,percent) {
+            progress.show();
+            layui.use('element', function(){
+                var element = layui.element;
+                element.progress('demo',percent+'%');
+            });
+        }
         $(function () {
-            $('#upvideo').click(function () {
+            $('#upvideo').click(function (){
                 selectFileToUpload();
             })
         });
