@@ -611,6 +611,8 @@ function sliceUploadFile() {
 }
 
 
+
+//选择文件后上传
 var startprogress = function (progress,percent) {
     progress.show();
     layui.use('element', function(){
@@ -618,7 +620,6 @@ var startprogress = function (progress,percent) {
         element.progress('demo',percent+'%');
     });
 }
-//选择文件后上传
 function selectFileToUpload() {
     //选择文件后上传
     var input = document.createElement('input');

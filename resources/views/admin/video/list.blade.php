@@ -171,6 +171,7 @@
         }
         $(function () {
             $('#upvideo').click(function (){
+                //上传方法
                 selectFileToUpload();
             })
         });
