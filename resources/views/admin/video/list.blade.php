@@ -110,7 +110,7 @@
                                                         <div class="input-group">
                                                             <input type="text" v-model="v.path" autocomplete="off"  id="videourl" placeholder="请输入标题" class="layui-input">
                                                             <span class="input-group-btn">
-                                                                <button type="button" class="layui-btn" id="upvideo"><i class="layui-icon"></i>上传视频</button>
+                                                                <button type="button" class="layui-btn" :id="v.id"><i class="layui-icon"></i>上传视频</button>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -122,7 +122,7 @@
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-success btn-sm" @click="add"><i class="fa fa-plus">添加视频</i></button>
-                                        <textarea name="videos" hidden >@{{videos}}</textarea>
+                                        <textarea name="videos"  >@{{videos}}</textarea>
                                         <hr class="layui-bg-green">
                                         <div class="layui-form-item">
                                             <button class="layui-btn" type="submit"  lay-submit="demo2" lay-filter="demo2">立即提交</button>
@@ -169,12 +169,7 @@
                 element.progress('demo',percent+'%');
             });
         }
-        $(function () {
-            $('#upvideo').click(function (){
-                //上传方法
-                selectFileToUpload();
-            })
-        });
+
 
         layui.use(['element','upload','form'], function(){
             var form = layui.form
@@ -217,12 +212,17 @@
         var app = new Vue({
             el: '#video',
             data:{
-                videos: [{name:'',path:''}]
+                videos: []
             },
             methods:{
                 //添加视频事件
                 add:function () {
-                    this.videos.push({name:'',path:''});
+                    var field = {name:'',path:'',id:'upvideo'+Date.parse(new Date())};
+                    this.videos.push(field);
+                    //定时器 添加后200毫秒给给按钮绑定上传事件
+                    setTimeout(function () {
+                        upvideo(field);
+                    },200);
                 },
                 //删除视频事件
                 del:function (k) {
@@ -230,6 +230,13 @@
                 }
             }
         })
+        //上传事件
+        function upvideo(field) {
+            $('#'+field.id).click(function (){
+                //上传方法
+                selectFileToUpload('#progress',field,'video');
+            })
+        }
 
     </script>
     {{--提示代码--}}

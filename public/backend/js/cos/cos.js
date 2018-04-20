@@ -68,7 +68,7 @@ var getAuthorization = function (options, callback) {
     };
     xhr.send(JSON.stringify(data));
 */
-    // // 方法三、前端计算签名（适用于前端调试）
+    // 方法三、前端计算签名（适用于前端调试）
     var authorization = COS.getAuthorization({
         SecretId: 'AKIDKYhkbIPLfnnaBb6obDielplkcIm32GED',
         SecretKey: 'ylLn370jIjx1v23sUxFLEwRmvDM7lFXd',
@@ -76,7 +76,6 @@ var getAuthorization = function (options, callback) {
         Key: options.Key,
     });
     callback(authorization);
-
 };
 
 var cos = new COS({
@@ -116,6 +115,7 @@ function getAuth() {
     });
 }
 
+//获取某个对象的url
 function getObjectUrl() {
     var url = cos.getObjectUrl({
         Bucket: config.Bucket, // Bucket 格式：test-1250000000
@@ -612,7 +612,7 @@ function sliceUploadFile() {
 
 
 
-//选择文件后上传
+//这个方法用到jq和vue 选择文件后上传  startprogress 表示
 var startprogress = function (progress,percent) {
     progress.show();
     layui.use('element', function(){
@@ -620,22 +620,29 @@ var startprogress = function (progress,percent) {
         element.progress('demo',percent+'%');
     });
 }
-function selectFileToUpload() {
+//需要2个参数progress是进度条的id属性videourl是输入框的属性path路径
+//用用法selectFileToUpload('#progress','#videourl');
+function selectFileToUpload(progressid,field,path) {
     //选择文件后上传
     var input = document.createElement('input');
     //进度条
-    var progress = $('#progress');
-    //输入框
-    var videourl = $('#videourl');
+    var progress=$(progressid);
     input.type = 'file';
     input.onchange = function (e) {
-        var file = this.files[0]
+        var file = this.files[0];
+        //获取上传文件的名字
+        var filename = file.name;
+        //获取当前时间戳
+        var timestamp= new Date().getTime();
+        //组成新的名字
+        var newname = path+'/'+timestamp+'and'+filename;
+        console.log('w看下新的名字',newname);
         if (file) {
             if (file.size > 1024 * 1024) {
                 cos.sliceUploadFile({
                     Bucket: config.Bucket, // Bucket 格式：test-1250000000
                     Region: config.Region,
-                    Key: file.name,
+                    Key: newname,
                     Body: file,
                     TaskReady: function (tid) {
                         TaskId = tid;
@@ -646,7 +653,7 @@ function selectFileToUpload() {
                         var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
                         console.log('2进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                         //设置进度条
-                        startprogress(progress,percent);
+                        startprogress(progressid,percent);
                     },
                     onProgress: function (progressData) {
                         console.log('onProgress', JSON.stringify(progressData));
@@ -654,13 +661,13 @@ function selectFileToUpload() {
                         var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
                         console.log('2进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                         //设置进度条
-                        startprogress(progress,percent);
+                        startprogress(progressid,percent);
                     }
                 }, function (err, data) {
                     //进度条隐藏
                     progress.hide();
-                    //上传成功后
-                    videourl.attr('value',data.Location);
+                    //上传成功后 把上传资源的地址传给 输入框
+                    field.path = data.Location;
                     console.log(data.Location + ' ++++++上传' + (err ? '失败' : '完成'));
                     console.log(err || data);
                 });
@@ -668,7 +675,7 @@ function selectFileToUpload() {
                 cos.putObject({
                     Bucket: config.Bucket, // Bucket 格式：test-1250000000
                     Region: config.Region,
-                    Key: file.name,
+                    Key: newname,
                     Body: file,
                     TaskReady: function (tid) {
                         TaskId = tid;
@@ -679,13 +686,14 @@ function selectFileToUpload() {
                         var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
                         console.log('2进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                         //设置进度条
-                        startprogress(progress,percent);
+                        startprogress(progressid,percent);
                     },
                 }, function (err, data) {
+                    //上传成功后
                     //进度条隐藏
                     progress.hide();
-                    //上传成功后
-                    videourl.attr('value',data.Location);
+                    //上传成功后 把上传资源的地址传给 输入框
+                    field.path = data.Location;
                     console.log(err || data);
                     console.log(data.Location + ' ++++++上传' + (err ? '失败' : '完成'));
                 });
