@@ -612,7 +612,13 @@ function sliceUploadFile() {
 
 
 
-//这个方法用到jq和vue 选择文件后上传  startprogress 表示
+/*startprogress()显示上传进度和上传状态 这个方法用到jq和vue 选择文件后上传
+* progress 进度条
+ * peeds 上传状态
+ * percent 当前上传的进度
+*s speed上传的速度
+* */
+
 var startprogress = function (progress,percent) {
     progress.show();
     layui.use('element', function(){
@@ -620,13 +626,15 @@ var startprogress = function (progress,percent) {
         element.progress('demo',percent+'%');
     });
 }
-//需要2个参数progress是进度条的id属性videourl是输入框的属性path路径
+//path上传存放的路径field是vue的对象俩面包含了上传这块的全部信息
 //用用法selectFileToUpload('#progress','#videourl');
-function selectFileToUpload(progressid,field,path) {
+function selectFileToUpload(field,path) {
     //选择文件后上传
     var input = document.createElement('input');
+    //状态对象
+    var speeds = $('#speed'+field.id);
     //进度条
-    var progress=$(progressid);
+    var progress =$('#progress'+field.id);
     input.type = 'file';
     input.onchange = function (e) {
         var file = this.files[0];
@@ -653,7 +661,8 @@ function selectFileToUpload(progressid,field,path) {
                         var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
                         console.log('2进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                         //设置进度条
-                        startprogress(progressid,percent);
+                        startprogress(progress,percent);
+                        speeds.html('速度:' + speed + 'Mb/s');
                     },
                     onProgress: function (progressData) {
                         console.log('onProgress', JSON.stringify(progressData));
@@ -661,13 +670,14 @@ function selectFileToUpload(progressid,field,path) {
                         var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
                         console.log('2进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                         //设置进度条
-                        startprogress(progressid,percent);
+                        startprogress(progress,percent);
+                        speeds.html('速度:' + speed + 'Mb/s');
                     }
                 }, function (err, data) {
-                    //进度条隐藏
-                    progress.hide();
                     //上传成功后 把上传资源的地址传给 输入框
                     field.path = data.Location;
+                    //上传状态
+                    speeds.html('上传完成');
                     console.log(data.Location + ' ++++++上传' + (err ? '失败' : '完成'));
                     console.log(err || data);
                 });
@@ -686,14 +696,14 @@ function selectFileToUpload(progressid,field,path) {
                         var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
                         console.log('2进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                         //设置进度条
-                        startprogress(progressid,percent);
+                        startprogress(progress,percent);
+                        speeds.html('速度:' + speed + 'Mb/s');
                     },
                 }, function (err, data) {
-                    //上传成功后
-                    //进度条隐藏
-                    progress.hide();
                     //上传成功后 把上传资源的地址传给 输入框
                     field.path = data.Location;
+                    //上传状态
+                    speeds.html('上传完成');
                     console.log(err || data);
                     console.log(data.Location + ' ++++++上传' + (err ? '失败' : '完成'));
                 });

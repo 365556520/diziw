@@ -89,8 +89,6 @@
                                                 <h2>添加视频</h2>
                                                 <ul class="nav navbar-right panel_toolbox">
                                                     <li>&nbsp;&nbsp;&nbsp;</li>
-                                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                    </li>
                                                     <li><a class="close-link"  @click="del"><i class="fa fa-close"></i></a></li>
                                                 </ul>
                                                 <div class="clearfix"></div>
@@ -115,10 +113,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{--进度条--}}
-                                                <div class="layui-progress layui-progress-big" id="progress" lay-filter="demo"  lay-showPercent="yes" hidden>
-                                                    <div class="layui-progress-bar layui-bg-green" lay-percent=""></div>
-                                                </div>
+
+                                                    <p :id="'speed'+v.id" ></p>
+                                                    {{--进度条--}}
+                                                    <div class="layui-progress" lay-showPercent="yes" :id="'progress'+v.id" lay-filter="demo"  >
+                                                        <div class="layui-progress-bar layui-bg-green " lay-percent="0%"></div>
+                                                    </div>
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-success btn-sm" @click="add"><i class="fa fa-plus">添加视频</i></button>
@@ -222,7 +222,7 @@
                     //定时器 添加后200毫秒给给按钮绑定上传事件
                     setTimeout(function () {
                         upvideo(field);
-                    },200);
+                    },100);
                 },
                 //删除视频事件
                 del:function (k) {
@@ -234,7 +234,7 @@
         function upvideo(field) {
             $('#'+field.id).click(function (){
                 //上传方法
-                selectFileToUpload('#progress',field,'video');
+                selectFileToUpload(field,'video');
             })
         }
 
