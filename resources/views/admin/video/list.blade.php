@@ -108,21 +108,24 @@
                                                         <div class="input-group">
                                                             <input type="text" v-model="v.path" autocomplete="off"  id="videourl" placeholder="请输入标题" class="layui-input">
                                                             <span class="input-group-btn">
-                                                                <button type="button" class="layui-btn" :id="v.id"><i class="layui-icon"></i>上传视频</button>
+                                                                <button type="button" class="layui-btn" :id="v.id"><i class="layui-icon"></i>上传视频</button>
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                    <p :id="'speed'+v.id" ></p>
-                                                    {{--进度条--}}
-                                                    <div class="layui-progress" lay-showPercent="yes" :id="'progress'+v.id" lay-filter="demo"  >
-                                                        <div class="layui-progress-bar layui-bg-green " lay-percent="0%"></div>
+                                                <p :id="'speed'+v.id"></p>
+                                                <div class="progress progress-striped active">
+                                                    这个是Bootstrap的进度条progress-bar和
+                                                    <div class="progress-bar progress-bar-success" :id="'progress'+v.id" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%" hidden >
+                                                        0%
                                                     </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-success btn-sm" @click="add"><i class="fa fa-plus">添加视频</i></button>
-                                        <textarea name="videos"  >@{{videos}}</textarea>
+                                        <textarea name="videos"  hidden>@{{videos}}</textarea>
                                         <hr class="layui-bg-green">
                                         <div class="layui-form-item">
                                             <button class="layui-btn" type="submit"  lay-submit="demo2" lay-filter="demo2">立即提交</button>
@@ -162,14 +165,6 @@
     {{--导入自己js--}}
     <script src="{{asset('backend/js/cos/cos.js')}}"></script>
     <script>
-        var startprogress = function (progress,percent) {
-            progress.show();
-            layui.use('element', function(){
-                var element = layui.element;
-                element.progress('demo',percent+'%');
-            });
-        }
-
 
         layui.use(['element','upload','form'], function(){
             var form = layui.form

@@ -616,15 +616,13 @@ function sliceUploadFile() {
 * progress 进度条
  * peeds 上传状态
  * percent 当前上传的进度
-*s speed上传的速度
+ * speed上传的速度
 * */
 
 var startprogress = function (progress,percent) {
     progress.show();
-    layui.use('element', function(){
-        var element = layui.element;
-        element.progress('demo',percent+'%');
-    });
+    progress.css('width',percent+'%');
+    progress.html(percent+'%');
 }
 //path上传存放的路径field是vue的对象俩面包含了上传这块的全部信息
 //用用法selectFileToUpload('#progress','#videourl');
@@ -644,7 +642,6 @@ function selectFileToUpload(field,path) {
         var timestamp= new Date().getTime();
         //组成新的名字
         var newname = path+'/'+timestamp+'and'+filename;
-        console.log('w看下新的名字',newname);
         if (file) {
             if (file.size > 1024 * 1024) {
                 cos.sliceUploadFile({
@@ -659,7 +656,7 @@ function selectFileToUpload(field,path) {
                         console.log('onHashProgress', JSON.stringify(progressData));
                         var percent = parseInt(progressData.percent * 10000) / 100;
                         var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
-                        console.log('2进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
+                        console.log('进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                         //设置进度条
                         startprogress(progress,percent);
                         speeds.html('速度:' + speed + 'Mb/s');
@@ -668,7 +665,7 @@ function selectFileToUpload(field,path) {
                         console.log('onProgress', JSON.stringify(progressData));
                         var percent = parseInt(progressData.percent * 10000) / 100;
                         var speed = parseInt(progressData.speed / 1024 / 1024 * 100) / 100;
-                        console.log('2进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
+                        console.log('进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
                         //设置进度条
                         startprogress(progress,percent);
                         speeds.html('速度:' + speed + 'Mb/s');
