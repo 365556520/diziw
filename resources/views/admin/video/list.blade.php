@@ -13,6 +13,7 @@
 @section('content')
 
     <div class="">
+        @include('flash::message')
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -35,7 +36,6 @@
                             </ul>
 
                             <div class="layui-tab-content" >
-                                @include('flash::message')
                                 {{--视频列表--}}
                                 <div class="layui-tab-item layui-show">
                                     视频列表
@@ -116,7 +116,7 @@
 
                                                 <p :id="'speed'+v.id"></p>
                                                 <div class="progress progress-striped active">
-                                                    这个是Bootstrap的进度条progress-bar和
+                                                    {{--这个是Bootstrap的进度条progress-bar和有个进度条冲突 会报错--}}
                                                     <div class="progress-bar progress-bar-success" :id="'progress'+v.id" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%" hidden >
                                                         0%
                                                     </div>
@@ -200,8 +200,6 @@
                     layer.closeAll('loading'); //关闭loading
                 }
             });
-
-
         });
         //vuejs
         var app = new Vue({
