@@ -29,31 +29,20 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content" id="video">
-                        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" lay-filter="demo">
                             <ul class="layui-tab-title">
-                                <li class="layui-this">视频管理</li>
-                                <li>添加视频</li>
+                                <li><a href="{{ url('/admin/video')}}">视频管理</a></li>
+                                <li  class="layui-this">修改视频</li>
                             </ul>
 
                             <div class="layui-tab-content" >
                                 {{--视频列表--}}
-                                <div class="layui-tab-item layui-show">
-                                    <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
-                                        <thead>
-                                        <tr>
-                                            <th>编号</th>
-                                            <th>系列名称</th>
-                                            <th>视频数量</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                <div class="layui-tab-item ">
+
 
                                 </div>
                                 {{--添加视频--}}
-                                <div class="layui-tab-item">
+                                <div class="layui-tab-item layui-show">
 
                                     <form class="layui-form layui-form-pane" method="post" action="{{url('admin/video')}}">
                                         {{csrf_field()}}
@@ -176,16 +165,19 @@
     <script src="{{asset('backend/myvebdors/cos-js-sdk-v5/dist/cos-js-sdk-v5.min.js')}}"></script>
     {{--导入自己js--}}
     <script src="{{asset('backend/js/cos/cos.js')}}"></script>
-    <script src="{{asset('backend/js/videoclass/videoclass-list.js')}}"></script>
+
     <script>
-        $(function () {
-            videoClassList.init();
-        });
+
         layui.use(['element','upload','form'], function(){
             var form = layui.form
             var $ = layui.jquery
             ,element = layui.element //Tab的切换功能，切换事件监听等，需要依赖element模块
             ,upload = layui.upload //上传初始
+            //标签页监听事件
+            //一些事件监听
+            element.on('tab(demo)', function(data){
+                console.log(data);
+            });
             //拖拽上传
             //图片上传
             upload.render({

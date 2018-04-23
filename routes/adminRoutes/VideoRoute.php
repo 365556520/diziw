@@ -10,6 +10,7 @@ Route::resource('videotag','VideoTagController');
  * 视频路由
  * */
 Route::group(['prefix' => 'video'],function () {
+    Route::get('ajaxIndex','VideoClassController@ajaxIndex');
     //上传图片
     Route::post('upload','VideoClassController@upload');
     //上传视频

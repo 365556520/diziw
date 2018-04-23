@@ -26,6 +26,12 @@ class VideoClassController extends CommonController
         return view('admin.video.list');
     }
 
+    //权限表DataTables
+    public function ajaxIndex(){
+        $result = $this->video->ajaxIndex();
+        return response()->json($result);
+    }
+
     /*
  * 上传图片
  * */
@@ -99,7 +105,9 @@ class VideoClassController extends CommonController
      */
     public function edit($id)
     {
-        //
+        $video = $this->video->find($id);
+        dd($video);
+        return view('admin.video.edit');
     }
 
     /**

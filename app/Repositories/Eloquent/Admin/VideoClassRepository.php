@@ -27,7 +27,7 @@ class VideoClassRepository extends Repository {
 
         $order['dir'] = request('order')[0]['dir']; //按什么排序
         //得到permission模型
-        $videotag = $this->model;
+        $vidos = $this->model;
         // datatables是否启用模糊搜索
         $search['regex'] = request('search')['regex'];
         // 搜索框中的值
@@ -36,22 +36,20 @@ class VideoClassRepository extends Repository {
         if ($search['value']) {
             if($search['regex'] == 'true'){
                 //模糊查找name、id列
-                $videotag = $videotag->where('id', 'like', "%{$search['value']}%")->orWhere('name','like', "%{$search['value']}%");
+                $vidos = $vidos->where('id', 'like', "%{$search['value']}%")->orWhere('title','like', "%{$search['value']}%");
             }else{
                 //精确查找name、id列
-                $videotag = $videotag->where('id', $search['value'])->orWhere('name', $search['value']);
+                $vidos = $vidos->where('id', $search['value'])->orWhere('title', $search['value']);
             }
         }
-        $count = $videotag->count();//查出所有数据的条数
-        $videotag = $videotag->orderBy($order['name'],$order['dir']);//数据排序
-        $videotags = $videotag->offset($start)->limit($length)->get();//得到分页数据
-        foreach ($videotags as $v){
-            $v->password;
-        }
-        if($videotags){
-            foreach ($videotags as $v){
-                //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
-                $v->actionButton = $v->getActionButtont(config('admin.permissions.videotag.show'),config('admin.permissions.videotag.edit'),config('admin.permissions.videotag.delete'));
+        $count = $vidos->count();//查出所有数据的条数
+        $vidos = $vidos->orderBy($order['name'],$order['dir']);//获取表格数据并且排过序
+        $vidoss = $vidos->offset($start)->limit($length)->get();//得到分页数据
+        if($vidoss){
+            foreach ($vidoss as $v){
+                $v->videomun = $v->getVideo()->count();//获取视频的个数并且添加上（这是用关联查询然后直接传给新增的这个属性）
+                    //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
+                $v->actionButton = $v->getActionButtont(config('admin.permissions.video.show'),config('admin.permissions.video.edit'),config('admin.permissions.video.delete'),false);
             }
         }
         // datatables固定的返回格式
@@ -59,7 +57,7 @@ class VideoClassRepository extends Repository {
             'draw' => $draw,
             'recordsTotal' => $count,
             'recordsFiltered' => $count,
-            'data' => $videotags,
+            'data' => $vidoss,
         ];
     }
 

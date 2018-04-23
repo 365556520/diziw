@@ -3,13 +3,17 @@ namespace App\Traits;
 
 /*这是一trait*/
 trait ActionButtonTrait{
-    /*公共的查看按钮*/
+    /*用modal的按钮公共的查看按钮*/
     public function getShowActionButtont(){
         return '<a class="btn btn-primary btn-xs" href="'.url('admin/'.$this->action.'/'.$this->id).'"  data-toggle="modal" data-target="#showModal"><i class="fa fa-search"></i> 查看 </a>&nbsp ';
     }
-    /*公共的修改按钮*/
+    /*用modal的按钮公共的修改按钮*/
     public function getEditActionButtont(){
         return '<a href="'.url('admin/'.$this->action.'/'.$this->id.'/edit').'" class="btn btn-info btn-xs" data-toggle="modal" data-target="#eidtModal"><i class="fa fa-edit"></i> 修改 </a>&nbsp ';
+    }
+    /*不用modal的按钮公共的修改按钮*/
+    public function getNoModalEditActionButtont(){
+        return '<a href="'.url('admin/'.$this->action.'/'.$this->id.'/edit').'" class="btn btn-info btn-xs" ><i class="fa fa-edit"></i> 修改 </a>&nbsp ';
     }
     /*公共的删除按钮*/
     public function getDestroyActionButtont(){
@@ -22,7 +26,7 @@ trait ActionButtonTrait{
                 </a> &nbsp';
     }
     //得到三个按钮config('admin.permissions.menu.delete'))
-    public function getActionButtont($showPermission = null,$editPermission = null ,$destroyPermission = null){
+    public function getActionButtont($showPermission = null,$editPermission = null ,$destroyPermission = null,$Modal = true){
         $thml = '<div class="btn-group btn-group-xs">';
         if ($showPermission == null){
             $thml .= '';
@@ -40,7 +44,11 @@ trait ActionButtonTrait{
                 if ($this->is_Role_admin()){
                    $thml .= '<small class="text-danger">不可修改和';
                 }else{
-                    $thml .= $this->getEditActionButtont();
+                    if ($Modal){
+                        $thml .= $this->getEditActionButtont();
+                    }else{
+                        $thml .= $this->getNoModalEditActionButtont();
+                    }
                 }
             }
         }
