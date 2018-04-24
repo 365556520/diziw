@@ -5,9 +5,6 @@
 @section('css')
     {{--datatables 插件--}}
     <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
-    {{--导出excel插件cs--}}
-    <link href="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.min.css')}}" rel="stylesheet">
-    {{--导出excel插件csend--}}
     <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
@@ -82,14 +79,7 @@
 @section('js')
     {{--datatables 插件--}}
     <script src="{{asset('backend/vendors/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>
-    {{--导出excel插件js--}}
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js')}}"></script>
-    <script src="{{asset('backend/js/permission/jszip.min.js')}}"></script>
-    {{--导出excel插件jsend--}}
-    {{--打印 js--}}
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js')}}"></script>
-    {{--打印 jsend--}}
+
     {{--导入自己js--}}
     <script src="{{asset('backend/js/videotag/videotag-list.js')}}"></script>
     <script>

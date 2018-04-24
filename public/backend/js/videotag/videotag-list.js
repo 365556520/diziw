@@ -81,46 +81,8 @@ var videotagList = function() {
                 }
             },
             //按钮顺序
-            dom: 'B<"clearfix"><"ln_solid"><lfrtip>',
-            "buttons": [
-                {
-                    'extend': 'copy',
-                    'text': '复制',
-                    'exportOptions': {
-                        'modifier': {
-                            'page': 'current'
-                        }
-                    }
-                },
-                {
-                    'extend': 'excel',
-                    'text': '保存excel',//定义导出excel按钮的文字
-                    'exportOptions': {
-                        'modifier': {
-                            'page': 'current'
-                        }
-                    }
-                },
-                {
-                    'extend': 'csv',
-                    'text': '保存csv',
-                    'exportOptions': {
-                        'modifier': {
-                            'search': 'none'
-                        }
-                    }
-                },
-                {
-                    extend: 'print',
-                    text: '打印',
-                    exportOptions: {
-                        modifier: {
-                            page: 'current'
-                        }
-                    }
-                }
+            dom: 'lfrtip',
 
-            ],
         });
         // 删除按钮
         $(document).on('click','.destroy_item',function() {
