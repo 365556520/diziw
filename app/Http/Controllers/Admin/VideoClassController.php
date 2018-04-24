@@ -105,9 +105,9 @@ class VideoClassController extends CommonController
      */
     public function edit($id)
     {
-        $video = $this->video->find($id);
-        dd($video);
-        return view('admin.video.edit');
+        $video = $this->video->editView($id);
+
+        return view('admin.video.edit',compact('video'));
     }
 
     /**

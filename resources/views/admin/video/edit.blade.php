@@ -39,48 +39,46 @@
                                 {{--视频列表--}}
                                 <div class="layui-tab-item ">
 
-
                                 </div>
                                 {{--添加视频--}}
                                 <div class="layui-tab-item layui-show">
 
-                                    <form class="layui-form layui-form-pane" method="post" action="{{url('admin/video')}}">
+                                    <form class="layui-form layui-form-pane" method="post" action="{{url('admin/video/'.$video->id)}}">
                                         {{csrf_field()}}
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">视频标题</label>
                                             <div class="layui-input-inline">
-                                                <input type="text" name="title"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
+                                                <input type="text" name="title"  required="required" autocomplete="off" value="{{$video->title}}" placeholder="请输入视频标题" class="layui-input">
                                             </div>
                                         </div>
-
                                         <div class="layui-upload-drag" id="upload">
-                                            <div id="uptitle">
+                                            <div id="uptitle" {{url($video->preview)==0?'':'hidden'}} >
                                                 <i class="layui-icon"></i>
                                                 <p>点击或将图片拖拽到此处上传</p>
                                             </div>
-                                            <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1"/>
-                                            <input type="hidden" name="preview"  id="uploadimg">
+                                            <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1"  src="{{url($video->preview)}}"/>
+                                            <input type="hidden" name="preview"  id="uploadimg" value="{{$video->preview}}">
                                         </div>
                                         <br><br>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">视频状态</label>
                                             <div class="layui-input-inline">
-                                                <input type="checkbox"   name="like[iscommend]" title="推荐" >
-                                                <input type="checkbox"   name="like[ishot]" title="热门" checked="">
+                                                <input type="checkbox"   name="like[iscommend]" title="推荐"  {{$video->iscommend==1?'checked':''}}>
+                                                <input type="checkbox"   name="like[ishot]" title="热门" {{$video->ishot==1?'checked':''}}>
                                             </div>
                                         </div>
 
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">点击数</label>
                                             <div class="layui-input-inline">
-                                                <input type="text"  required="required" name="click" value="0" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
+                                                <input type="text"  required="required" name="click" value="{{$video->click}}" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
                                             </div>
                                         </div>
 
                                         <div class="layui-form-item layui-form-text">
                                             <label class="layui-form-label">视频介绍</label>
                                             <div class="layui-input-block">
-                                                <textarea placeholder="请输入内容" name="introduce" class="layui-textarea"></textarea>
+                                                <textarea placeholder="请输入内容" name="introduce" class="layui-textarea" >{{$video->introduce}}</textarea>
                                             </div>
                                         </div>
 
@@ -167,7 +165,6 @@
     <script src="{{asset('backend/js/cos/cos.js')}}"></script>
 
     <script>
-
         layui.use(['element','upload','form'], function(){
             var form = layui.form
             var $ = layui.jquery
@@ -197,7 +194,6 @@
                     //status=0代表上传成功
                     if(res.status == 0){
                         $('#uploadimg').attr('value',res.path); //把连接放到隐藏输入框中
-                        $('#demo1').attr('value',res.path); //把连接放到隐藏输入框中
                         layer.msg(res.message, {icon: 6});   //do something （比如将res返回的图片链接保存到表单的隐藏域）
                     }else {
                         layer.msg(res.message, {icon: 5});
@@ -212,7 +208,13 @@
         var app = new Vue({
             el: '#video',
             data:{
-                videos: []
+                videos: JSON.parse('{!! $video->video !!}') //解析JSON对象
+            },
+            mounted:function () {
+                //挂载
+                this.videos.forEach(function (v) {
+                    upvideo(v)
+                })
             },
             methods:{
                 //添加视频事件

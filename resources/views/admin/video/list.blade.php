@@ -8,7 +8,6 @@
     <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
-
     <div class="">
         @include('flash::message')
         <div class="clearfix"></div>
@@ -67,7 +66,7 @@
                                                 <p>点击或将图片拖拽到此处上传</p>
                                             </div>
                                             <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1"/>
-                                            <input type="hidden" name="preview"  id="uploadimg">
+                                            <input type="hidden" name="preview"  id="uploadimg" value="0">
                                         </div>
                                         <br><br>
                                         <div class="layui-form-item">

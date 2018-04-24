@@ -61,10 +61,6 @@ class VideoClassRepository extends Repository {
         ];
     }
 
-    /*上传图片*/
-    public function upload(){
-
-    }
     /*添加视频*/
     public function createVideoClass($formData){
        // 添加到视频类表
@@ -86,6 +82,42 @@ class VideoClassRepository extends Repository {
             flash('添加成功','success');
         }else{
             flash('添加失败','error');
+        }
+        return $result;
+    }
+
+    /*删除视频标签*/
+    public function destroyVideoTagr($id){
+        $result = $this->delete($id);
+        if ($result) {
+            flash('删除成功','success');
+        } else {
+            flash('删除失败','error');
+        }
+        return $result;
+    }
+
+    // 修改视频视图数据
+    public function editView($id)
+    {
+        $result = $this->find($id);
+        $result->video = $result->getVideo()->get()->toJson();
+        if ($result) {
+            return $result;
+        }
+        abort(404);
+    }
+    // 修改视频标签数据
+    public function updateVideoTagr($attributes,$id)
+    {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
+        if ($attributes['id'] != $id) {
+            abort(500,trans('admin/errors.user_error'));
+        }
+        $result = $this->update($attributes,$id);
+        if ($result) {
+            flash('视频标签修改成功','success');
+        }else{
+            flash('视频标签修改失败', 'error');
         }
         return $result;
     }
