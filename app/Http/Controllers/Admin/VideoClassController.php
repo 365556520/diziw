@@ -119,7 +119,8 @@ class VideoClassController extends CommonController
      */
     public function update(Request $request, $id)
     {
-        //
+        $video = $this->video->updateVideo($request->all(),$id);
+        return redirect('admin/video');
     }
 
     /**

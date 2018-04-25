@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Eloquent\Admin;
 
+use App\Models\VideoModel\Video;
 use App\Models\VideoModel\VideoClass;
 use App\Repositories\Eloquent\Repository;
 
@@ -108,12 +109,23 @@ class VideoClassRepository extends Repository {
         abort(404);
     }
     // 修改视频标签数据
-    public function updateVideoTagr($attributes,$id)
-    {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
+    public function updateVideo($attributes,$id)
+    {
+        $attributes['iscommend'] = array_key_exists('iscommend',$attributes['like'])?1:0;
+        $attributes['ishot']  = array_key_exists('ishot',$attributes['like'])?1:0;
+
+        // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
         }
         $result = $this->update($attributes,$id);
+        //更新视频
+        $videoClass = VideoClass::find($id);
+        $videoClass->getVideo()->delete(); //删除旧视频
+        $videos = json_decode($attributes['videos']); //把新视频数据转换成数组
+        foreach ($videos as $v) {
+            $videoClass->getVideo()->create($v);
+        }
         if ($result) {
             flash('视频标签修改成功','success');
         }else{

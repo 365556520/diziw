@@ -45,6 +45,8 @@
 
                                     <form class="layui-form layui-form-pane" method="post" action="{{url('admin/video/'.$video->id)}}">
                                         {{csrf_field()}}
+                                        {{method_field('PUT')}}
+                                        <input type="hidden" value="{{$video->id}}" name="id">
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">视频标题</label>
                                             <div class="layui-input-inline">
