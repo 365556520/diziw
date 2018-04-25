@@ -88,11 +88,17 @@ class VideoClassRepository extends Repository {
     }
 
     /*删除视频标签*/
-    public function destroyVideoTagr($id){
-        $result = $this->delete($id);
-        if ($result) {
-            flash('删除成功','success');
-        } else {
+    public function destroyVideo($id){
+        $video = $this->find($id)->getVideo()->delete(); //删除所有的视频
+        $result = '';
+        if($video){
+            $result = $this->delete($id); //删除视频系列
+            if ($result) {
+                flash('删除成功','success');
+            } else {
+                flash('删除失败','error');
+            }
+        }else{
             flash('删除失败','error');
         }
         return $result;
@@ -108,28 +114,27 @@ class VideoClassRepository extends Repository {
         }
         abort(404);
     }
-    // 修改视频标签数据
+    // 修改视频数据
     public function updateVideo($attributes,$id)
     {
-        $attributes['iscommend'] = array_key_exists('iscommend',$attributes['like'])?1:0;
-        $attributes['ishot']  = array_key_exists('ishot',$attributes['like'])?1:0;
-
         // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
         }
+        $attributes['iscommend'] = array_key_exists('iscommend',$attributes['like'])?1:0;
+        $attributes['ishot']  = array_key_exists('ishot',$attributes['like'])?1:0;
         $result = $this->update($attributes,$id);
-        //更新视频
-        $videoClass = VideoClass::find($id);
-        $videoClass->getVideo()->delete(); //删除旧视频
-        $videos = json_decode($attributes['videos']); //把新视频数据转换成数组
-        foreach ($videos as $v) {
-            $videoClass->getVideo()->create($v);
-        }
         if ($result) {
-            flash('视频标签修改成功','success');
+            //更新视频
+            $videoClass = $this->find($id);
+            $videoClass->getVideo()->delete(); //删除旧视频
+            $videos = json_decode($attributes['videos'],true); //把新视频数据转换成数组
+            foreach ($videos as $v) {
+                $videoClass->getVideo()->create($v);
+            }
+            flash('视频修改成功','success');
         }else{
-            flash('视频标签修改失败', 'error');
+            flash('视频修改失败', 'error');
         }
         return $result;
     }

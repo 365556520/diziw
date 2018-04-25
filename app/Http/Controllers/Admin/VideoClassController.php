@@ -119,7 +119,7 @@ class VideoClassController extends CommonController
      */
     public function update(Request $request, $id)
     {
-        $video = $this->video->updateVideo($request->all(),$id);
+       $this->video->updateVideo($request->all(),$id);
         return redirect('admin/video');
     }
 
@@ -131,6 +131,8 @@ class VideoClassController extends CommonController
      */
     public function destroy($id)
     {
-        //
+        //删除视频
+        $this->video->destroyVideo($id);
+        return redirect('admin/video');
     }
 }

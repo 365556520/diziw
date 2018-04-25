@@ -54,7 +54,7 @@
                                             </div>
                                         </div>
                                         <div class="layui-upload-drag" id="upload">
-                                            <div id="uptitle" {{url($video->preview)==0?'':'hidden'}} >
+                                            <div id="uptitle" {{$video->preview=='0'?'':'hidden'}} >
                                                 <i class="layui-icon"></i>
                                                 <p>点击或将图片拖拽到此处上传</p>
                                             </div>
@@ -181,7 +181,7 @@
             //图片上传
             upload.render({
                 elem: '#upload',
-                url: 'video/upload',
+                url: '{{url('admin/video/upload')}}',
                 data: {'_token':'{{csrf_token()}}'},
                 before: function(obj){
                     layer.load(); //上传loading
