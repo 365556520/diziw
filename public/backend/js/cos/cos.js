@@ -636,8 +636,8 @@ function selectFileToUpload(field,path) {
     input.type = 'file';
     input.onchange = function (e) {
         var file = this.files[0];
-        //获取上传文件的名字
-        var filename = file.name;
+        //获取上传文件的名字去掉中文.replace(/[\u4E00-\u9FA5]/g,"c")把名字（字符串）中的中文字符都换成c
+        var filename = file.name.replace(/[\u4E00-\u9FA5]/g,"c");
         //获取当前时间戳
         var timestamp= new Date().getTime();
         //组成新的名字

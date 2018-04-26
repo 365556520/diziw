@@ -1,8 +1,10 @@
 <?php
 namespace App\Repositories\Eloquent\Admin;
 
-use App\Models\VideoModel\Video;
+
+use App\Facades\CosFacade;
 use App\Models\VideoModel\VideoClass;
+
 use App\Repositories\Eloquent\Repository;
 
 
@@ -87,9 +89,19 @@ class VideoClassRepository extends Repository {
         return $result;
     }
 
-    /*删除视频标签*/
+    /*删除视频标签
+
+    */
     public function destroyVideo($id){
-        $video = $this->find($id)->getVideo()->delete(); //删除所有的视频
+        $video = $this->find($id)->getVideo();
+        $videoname = [];
+        foreach($video->get() as $k=>$v){
+            $videoname[$k] = explode('/', $v->path);//把地址字符串转换成数组
+            //带文件目录的和文件对象 array_diff去出数组中的地址的元素，implode以/为分隔符把数组转换成字符串
+            $videoname[$k] = implode("/", array_diff($videoname[$k], ["http:","https:","","diziw-1251899486.cos.ap-beijing.myqcloud.com"]));
+            CosFacade::deleteObject(config('admin.cos.bucket'),$videoname[$k]);
+        }
+        $video->delete(); //删除所有的视频
         $result = '';
         if($video){
             $result = $this->delete($id); //删除视频系列
