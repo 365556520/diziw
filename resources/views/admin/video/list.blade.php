@@ -234,7 +234,6 @@
                 selectFileToUpload(field,'video');
             })
         }
-
     </script>
     {{--提示代码--}}
     @include('component.errorsLayer')
