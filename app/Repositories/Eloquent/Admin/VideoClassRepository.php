@@ -6,6 +6,7 @@ use App\Facades\CosFacade;
 use App\Models\VideoModel\VideoClass;
 
 use App\Repositories\Eloquent\Repository;
+use Illuminate\Support\Facades\Storage;
 
 
 /**
@@ -89,14 +90,16 @@ class VideoClassRepository extends Repository {
         return $result;
     }
 
-    /*删除视频标签
+    /*删除视频
     */
     public function destroyVideo($id){
-        $video = $this->find($id)->getVideo();
-        $video =  $this->deleteCosObj($video); //删除cos中的视频
+        $video = $this->find($id);
         $result = '';
         if($video){
-            $result = $this->delete($id); //删除视频系列
+            Storage::delete($video->preview);//删除视频图片
+            $videoCos = $video->getVideo(); //得到关联的对象
+            $this->deleteCosObj($videoCos); //删除cos中的视频
+            $result = $video->delete(); //删除视频系列
             if ($result) {
                 flash('删除成功','success');
             } else {
@@ -117,7 +120,7 @@ class VideoClassRepository extends Repository {
             $videoname[$k] = implode("/", array_diff($videoname[$k], ["http:","https:","","diziw-1251899486.cos.ap-beijing.myqcloud.com"]));
             CosFacade::deleteObject(config('admin.cos.bucket'),$videoname[$k]);
         }
-        return $video->delete(); //删除所有的视频
+        return $video->delete(); //删除数据库中视频数据
     }
 
     // 修改视频视图数据
@@ -139,11 +142,13 @@ class VideoClassRepository extends Repository {
         }
         $attributes['iscommend'] = array_key_exists('iscommend',$attributes['like'])?1:0;
         $attributes['ishot']  = array_key_exists('ishot',$attributes['like'])?1:0;
+        $videoClass = $this->find($id);
         $result = $this->update($attributes,$id);
         if ($result) {
+            Storage::delete($videoClass->preview);//删除旧的视频图片
             //更新视频
-            $videoClass = $this->find($id);
-            $videoClass->getVideo()->delete(); //删除旧视频
+            $videoCos = $videoClass->getVideo();
+            $videoCos->delete(); //删除旧视频数据库中数据
             $videos = json_decode($attributes['videos'],true); //把新视频数据转换成数组
             foreach ($videos as $v) {
                 $videoClass->getVideo()->create($v);
@@ -154,4 +159,5 @@ class VideoClassRepository extends Repository {
         }
         return $result;
     }
+
 }
