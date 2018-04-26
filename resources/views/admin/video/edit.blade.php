@@ -126,7 +126,7 @@
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-success btn-sm" @click="add"><i class="fa fa-plus">添加视频</i></button>
-                                        <textarea name="videos"  >@{{videos}}</textarea>
+                                        <textarea name="videos" hidden >@{{videos}}</textarea>
                                         <hr class="layui-bg-green">
                                         <div class="layui-form-item">
                                             <button class="layui-btn" type="submit"  lay-submit="demo2" lay-filter="demo2">立即提交</button>
