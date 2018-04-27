@@ -16,7 +16,6 @@ class VideoClassRepository extends Repository {
     public function model(){
         return VideoClass::class;
     }
-
     /*权限表显示数据*/
     public function ajaxIndex(){
         // datatables请求次数
@@ -108,24 +107,6 @@ class VideoClassRepository extends Repository {
         }
         return $result;
     }
-    //删除cos中的视频
-    public function deleteCosObj($video){
-        $videoname = [];
-        //删除cos中视频文件
-        foreach($video->get() as $k=>$v){
-            $videoname[$k] = $this->getCosFeldName($v->path);//获取连接中文件的路径+名字
-            CosFacade::deleteObject(config('admin.cos.bucket'),$videoname[$k]);
-        }
-        return $video->delete(); //删除数据库中视频数据
-    }
-    //从cos上的资源地址连中获取资源的路径+名称名称
-    public function getCosFeldName($path){
-        $paths = explode('/', $path);//把地址字符串转换成数组
-        //带文件目录的和文件对象 array_diff去出数组中的地址的元素，implode以/为分隔符把数组转换成字符串
-        $paths = implode("/", array_diff($paths, ["http:","https:","","diziw-1251899486.cos.ap-beijing.myqcloud.com"]));
-        return $paths;
-    }
-
     // 修改视频视图数据
     public function editView($id)
     {
@@ -169,5 +150,21 @@ class VideoClassRepository extends Repository {
         }
         return $result;
     }
-
+    //删除cos中的视频
+    public function deleteCosObj($video){
+        $videoname = [];
+        //删除cos中视频文件
+        foreach($video->get() as $k=>$v){
+            $videoname[$k] = $this->getCosFeldName($v->path);//获取连接中文件的路径+名字
+            CosFacade::deleteObject(config('admin.cos.bucket'),$videoname[$k]);
+        }
+        return $video->delete(); //删除数据库中视频数据
+    }
+    //从cos上的资源地址连中获取资源的路径+名称名称
+    public function getCosFeldName($path){
+        $paths = explode('/', $path);//把地址字符串转换成数组
+        //带文件目录的和文件对象 array_diff去出数组中的地址的元素，implode以/为分隔符把数组转换成字符串
+        $paths = implode("/", array_diff($paths, ["http:","https:","","diziw-1251899486.cos.ap-beijing.myqcloud.com"]));
+        return $paths;
+    }
 }
