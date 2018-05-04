@@ -68,16 +68,16 @@
     <!--底部固定导航-->
     <ul id="bottom">
       <li class="cur">
-        <a href="index.html">
-          <i class="iconfont icon-shouyeshouye"></i>
-          <span>首页</span>
-        </a>
+        <router-link to ='/'>
+            <i class="iconfont icon-shouyeshouye"></i>
+            <span>首页</span>
+        </router-link>
       </li>
       <li>
-        <a href="video.html">
+        <router-link to ='/Video'>
           <i class="iconfont icon-icon02"></i>
           <span>视频</span>
-        </a>
+        </router-link>
       </li>
     </ul>
     <!--底部固定导航结束-->
