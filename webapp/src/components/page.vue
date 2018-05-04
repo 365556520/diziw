@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--视频-->
-    <video src="static/images/big_buck_bunny.mp4" controls="controls" poster="static/images/510.jpg"></video>
+    <video src="static/images/big_buck_bunny.mp4" autoplay="autoplay" controls="controls" poster="static/images/510.jpg"></video>
     <!--视频结束-->
 
     <h1>10 导航条样式的设置</h1>

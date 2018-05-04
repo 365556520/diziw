@@ -3,21 +3,19 @@
   <div>
     <link rel="stylesheet" type="text/css" href="static/css/index.css"/>
     <!--轮播图-->
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <a href=""><img src="static/images/1.jpg"/></a>
-        </div>
-        <div class="swiper-slide">
-          <a href=""><img src="static/images/2.jpg"/></a>
-        </div>
-        <div class="swiper-slide">
-          <a href=""><img src="static/images/3.jpg"/></a>
-        </div>
-      </div>
-      <!-- 如果需要分页器 -->
-      <div class="swiper-pagination"></div>
-    </div>
+    <swiper :options="swiperOption" ref="mySwiper" >
+      <!-- slides -->
+      <swiper-slide v-for="v in slides" :key="v.id">
+        <router-link to="/video">
+          <img :src="v.path">
+        </router-link>
+      </swiper-slide>
+
+      <!-- Optional controls -->
+      <div class="swiper-pagination"  slot="pagination"></div>
+
+      <div class="swiper-scrollbar"   slot="scrollbar"></div>
+    </swiper>
     <!--轮播图结束-->
 
     <!--推荐视频-->
@@ -51,19 +49,16 @@
     </div>
     <!--推荐视频结束-->
     <a href="" class="more">MORE ></a>
-    <!--今日推荐-->
-    <h2>今日推荐</h2>
-
+    <!--热门视频-->
+    <h2>热门视频</h2>
     <div class="today">
-      <a href="" class="title">大数据下的广告：精准投放与精准消除</a>
-      <p class="column">网络资讯</p>
       <div class="pic">
         <a href=""><img src="static/images/8.jpg"/></a>
         <a href=""><img src="static/images/9.jpg"/></a>
         <a href=""><img src="static/images/10.jpg"/></a>
       </div>
     </div>
-    <!--今日推荐结束-->
+    <!--热门视频结束-->
 
     <!--底部固定导航-->
     <ul id="bottom">
@@ -90,6 +85,21 @@ export default {
   name: 'home',
   data () {
     return {
+        slides:[
+            {id:1,path:'static/images/1.jpg'},
+            {id:2,path:'static/images/2.jpg'},
+            {id:3,path:'static/images/3.jpg'},
+        ],
+        swiperOption: {
+            autoplay: true,//自动切换
+            effect : 'fade',//切换效果
+            //滚动监视
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true,
+                snapOnRelease: false,
+            },
+        },
     }
   }
 }

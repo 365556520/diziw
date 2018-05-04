@@ -5,7 +5,10 @@ import App from './App'
 import router from './router'
 
 Vue.config.productionTip = false
-
+/*vue-awesome-swiper轮播插件*/
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+Vue.use(VueAwesomeSwiper)
+/*vue-awesome-swiper轮播插件 end*/
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -2,20 +2,14 @@
   <div>
 
     <!--导航条-->
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <a href="" class="swiper-slide cur">静态布局</a>
-        <a href="" class="swiper-slide">JavaScript</a>
-        <a href="" class="swiper-slide">PHP</a>
-        <a href="" class="swiper-slide">MySQL</a>
-        <a href="" class="swiper-slide">静态布局</a>
-        <a href="" class="swiper-slide">JavaScript</a>
-        <a href="" class="swiper-slide">PHP</a>
-        <a href="" class="swiper-slide">MySQL</a>
-      </div>
-    </div>
-    <!--导航条结束-->
+    <swiper :options="swiperOption">
+      <swiper-slide v-for="v in tags" :key="v.id">
+        {{v.title}}
+      </swiper-slide>
 
+    </swiper>
+
+    <!--导航条结束-->
     <!--视频列表-->
     <ul id="videolist">
       <li>
@@ -142,7 +136,6 @@
     </ul>
     <!--视频列表结束-->
 
-
     <!--底部固定导航-->
     <ul id="bottom">
       <li class="cur">
@@ -166,6 +159,19 @@ export default {
   name: 'Video',
   data () {
     return {
+        tags:[
+            {id:1,title:'喜剧'},
+            {id:2,title:'武侠剧'},
+            {id:3,title:'科幻剧'},
+            {id:4,title:'恐怖电影'},
+            {id:5,title:'小视频 '}
+        ],
+        swiperOption: {
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            freeMode: true,
+        },
+
     }
   }
 }
