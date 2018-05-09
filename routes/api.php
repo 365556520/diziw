@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+header('Access-Control-Allow-Origin:*');
 /*
 |--------------------------------------------------------------------------
 | API Routes

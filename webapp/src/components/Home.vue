@@ -22,30 +22,12 @@
     <h2>推荐视频</h2>
 
     <div id="recommend">
-      <a href="">
-        <img src="static/images/4.jpg" alt="" />
+      <router-link :to="{params:{videoclasssid:v.id},name:'Page'}" v-for="v in commendvideo" :key="v.id" >
+        <img :src="v.preview"  />
         <i class="iconfont icon-bofang"></i>
         <span class="time">22:56</span>
-        <span class="title">谷歌：没有扫描仪也能</span>
-      </a>
-      <a href="">
-        <img src="static/images/5.jpg" alt="" />
-        <i class="iconfont icon-bofang"></i>
-        <span class="time">22:56</span>
-        <span class="title">谷歌：没有扫描仪也能</span>
-      </a>
-      <a href="">
-        <img src="static/images/6.jpg" alt="" />
-        <i class="iconfont icon-bofang"></i>
-        <span class="time">22:56</span>
-        <span class="title">谷歌：没有扫描仪也能</span>
-      </a>
-      <a href="">
-        <img src="static/images/7.jpg" alt="" />
-        <i class="iconfont icon-bofang"></i>
-        <span class="time">22:56</span>
-        <span class="title">谷歌：没有扫描仪也能</span>
-      </a>
+        <span class="title">{{v.title}}</span>
+      </router-link>
     </div>
     <!--推荐视频结束-->
     <a href="" class="more">MORE ></a>
@@ -53,9 +35,9 @@
     <h2>热门视频</h2>
     <div class="today">
       <div class="pic">
-        <a href=""><img src="static/images/8.jpg"/></a>
-        <a href=""><img src="static/images/9.jpg"/></a>
-        <a href=""><img src="static/images/10.jpg"/></a>
+        <router-link :to="{params:{videoclasssid:v.id},name:'Page'}" v-for="v in hotvideo" :key="v.id"  >
+          <img :src="v.preview"  />
+        </router-link>
       </div>
     </div>
     <!--热门视频结束-->
@@ -83,8 +65,22 @@
 <script>
 export default {
   name: 'home',
+  mounted(){ //这个挂在第一次进入页面后运行一次
+      this.axios.get('http://diziw.dev/api/commendvideoclass/4').then((response) => {
+          this.commendvideo = response.data.data;
+          console.log(response.data)
+      }),
+      this.axios.get('http://diziw.dev/api/hotvideoclass/3').then((response) => {
+          this.hotvideo = response.data.data;
+          console.log(response.data)
+      })
+  },
   data () {
     return {
+        //推荐视频
+        commendvideo:[],
+        //热门视频
+        hotvideo:[],
         slides:[
             {id:1,path:'static/images/1.jpg'},
             {id:2,path:'static/images/2.jpg'},

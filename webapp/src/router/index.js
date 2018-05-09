@@ -20,7 +20,7 @@ export default new Router({
         component: Video
     },
     {
-        path:'/Page',
+        path:'/Page/:videoclasssid',
         name:'Page',
         component: Page
     },
