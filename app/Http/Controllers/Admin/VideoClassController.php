@@ -40,7 +40,7 @@ class VideoClassController extends CommonController
         if ($upload->isValid()) {
             //把图片放到临时文件家下面
            $path =  $upload->store('backend/images/temp');
-            return ['status' => 0,'message' =>'上传成功','path' => $path];
+            return ['status' => 0,'message' =>'上传成功','path' => url($path)];
         }
         return ['status' => 1,'message' => '上传失败'];
     }
