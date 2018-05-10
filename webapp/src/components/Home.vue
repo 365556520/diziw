@@ -35,8 +35,8 @@
     <h2>热门视频</h2>
     <div class="today">
       <div class="pic">
-        <router-link :to="{params:{videoclasssid:v.id},name:'Page'}" v-for="v in hotvideo" :key="v.id"  >
-          <img :src="v.preview"  />
+        <router-link :to="{name:'Page',params:{videoclasssid:v.id}}" v-for="v in hotvideo" :key="v.id"  >
+          <img :src="v.preview" />
         </router-link>
       </div>
     </div>

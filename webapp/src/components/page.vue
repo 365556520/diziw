@@ -1,36 +1,14 @@
 <template>
   <div>
     <!--视频-->
-    <video src="static/images/big_buck_bunny.mp4" autoplay="autoplay" controls="controls" poster="static/images/510.jpg"></video>
+    <video :src="current.path"  controls="controls" poster="static/images/510.jpg"></video>
     <!--视频结束-->
 
     <h1>10 导航条样式的设置</h1>
 
     <ul id="list">
-      <li><a href="">07 w3c规范 创建网页的方法</a></li>
+      <li v-for="v in videos"><a href="" @click.prevent="play(v)">{{v.name}}</a></li>
       <li class="cur"><a href="">08 a标签 img标签详解</a></li>
-      <li><a href="">09 代码注释</a></li>
-      <li><a href="">07 w3c规范 创建网页的方法</a></li>
-      <li><a href="">08 a标签 img标签详解</a></li>
-      <li><a href="">09 代码注释</a></li>
-      <li><a href="">07 w3c规范 创建网页的方法</a></li>
-      <li><a href="">08 a标签 img标签详解</a></li>
-      <li><a href="">09 代码注释</a></li>
-      <li><a href="">08 a标签 img标签详解</a></li>
-      <li><a href="">09 代码注释</a></li>
-      <li><a href="">07 w3c规范 创建网页的方法</a></li>
-      <li><a href="">08 a标签 img标签详解</a></li>
-      <li><a href="">09 代码注释</a></li>
-      <li><a href="">08 a标签 img标签详解</a></li>
-      <li><a href="">09 代码注释</a></li>
-      <li><a href="">07 w3c规范 创建网页的方法</a></li>
-      <li><a href="">08 a标签 img标签详解</a></li>
-      <li><a href="">09 代码注释</a></li>
-      <li><a href="">08 a标签 img标签详解</a></li>
-      <li><a href="">09 代码注释</a></li>
-      <li><a href="">07 w3c规范 创建网页的方法</a></li>
-      <li><a href="">08 a标签 img标签详解</a></li>
-      <li><a href="">09 代码注释</a></li>
     </ul>
 
 
@@ -41,10 +19,32 @@
 <script>
 export default {
   name: 'Page',
-  data () {
-    return {
+  mounted(){
+      let videoClass_id = this.$route.params.videoclasssid;//获取传送过来的系列视频的id
+      this.axios.get('http://diziw.dev/api/videos/'+videoClass_id).then((response) => {
+          console.log(response);
+          if(response.status != 200 && response.data.code != 200 ){
+              alert("获取视频信息失败");
+          }else {
+              this.videos = response.data.data;
+              this.current = this.videos[0]
+          }
+
+      })
+    },
+    data () {
+      return {
+          //视频列表
+          videos:[],
+          //当前视频
+          current:{},
+      }
+    },
+    methods:{
+      play(video){
+          this.current=video;
+      }
     }
-  }
 }
 </script>
 <style scoped>
