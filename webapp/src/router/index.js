@@ -14,12 +14,12 @@ export default new Router({
       name: 'Home',
       component: Home
     },
-    {
-        path:'/Video',
+    {    /*这是视频标签如果有标签id就会获取该标签的所有视频如果没有就会获取所有视频*/
+        path:'/Video/:id?',
         name:'Video',
         component: Video
     },
-    {
+    {   /*系列视频*/
         path:'/Page/:videoclasssid',
         name:'Page',
         component: Page

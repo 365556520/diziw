@@ -4,9 +4,10 @@
     <!--导航条-->
     <swiper :options="swiperOption">
       <swiper-slide v-for="v in tags" :key="v.id">
-        {{v.title}}
+        <router-link :to="{params:{id:v.id},name:'Video'}">
+         {{v.name}}
+        </router-link>
       </swiper-slide>
-
     </swiper>
 
     <!--导航条结束-->
@@ -157,15 +158,21 @@
 <script>
 export default {
   name: 'Video',
+  mounted(){ //这个挂在第一次进入页面后运行一次
+      //获取标签
+      this.axios.get(this.GLOBAL.serverSrc+'api/videoTags/').then((response) => {
+          this.tags = response.data.data;
+      })
+      //获取视频类别
+      let id = this.$route.params.id;
+      this.axios.get(this.GLOBAL.serverSrc+'api/videoclasss/'+(id?id:0)).then((response) => {
+          this.videoclasss = response.data.data;
+      })
+  },
   data () {
     return {
-        tags:[
-            {id:1,title:'喜剧'},
-            {id:2,title:'武侠剧'},
-            {id:3,title:'科幻剧'},
-            {id:4,title:'恐怖电影'},
-            {id:5,title:'小视频 '}
-        ],
+        tags:[],
+        videoclasss:[],
         swiperOption: {
             slidesPerView: 'auto',
             spaceBetween: 10,
@@ -218,6 +225,7 @@ export default {
     text-decoration: none;
     color: white;
   }
+  .swiper-slide a{color: #fff;}
   .swiper-slide.cur:after {
     display: block;
     content: '';

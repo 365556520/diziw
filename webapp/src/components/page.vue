@@ -12,7 +12,7 @@
 
 
     <!--返回按钮-->
-    <router-link  class="iconfont back" to="/Video">&#xe612;</router-link>
+    <a  class="iconfont back"  @click.prevent="back()">&#xe612;</a>
   </div>
 </template>
 <script>
@@ -20,7 +20,7 @@ export default {
   name: 'Page',
   mounted(){
       let videoClass_id = this.$route.params.videoclasssid;//获取传送过来的系列视频的id
-      this.axios.get('http://diziw.dev/api/videos/'+videoClass_id).then((response) => {
+      this.axios.get(this.GLOBAL.serverSrc+'api/videos/'+videoClass_id).then((response) => {
           console.log(response);
           if(response.status != 200 && response.data.code != 200 ){
               alert("获取视频信息失败");
@@ -48,7 +48,10 @@ export default {
           this.active =video.id;
           //更改播放视频连接
           this.current=video;
-      }
+      },
+      back(){
+          this.$router.back();
+      },
     }
 }
 </script>

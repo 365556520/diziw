@@ -14,8 +14,10 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 /*vue-axios end*/
-
-
+/*自定义全局变量*/
+import global from './components/config/Global'//引用文件
+Vue.prototype.GLOBAL = global//挂载到Vue实例上面
+/*自定义全局变量end*/
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

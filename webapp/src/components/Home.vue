@@ -66,11 +66,11 @@
 export default {
   name: 'home',
   mounted(){ //这个挂在第一次进入页面后运行一次
-      this.axios.get('http://diziw.dev/api/commendvideoclass/4').then((response) => {
+      this.axios.get(this.GLOBAL.serverSrc+'api/commendvideoclass/4').then((response) => {
           this.commendvideo = response.data.data;
           console.log(response.data)
       }),
-      this.axios.get('http://diziw.dev/api/hotvideoclass/3').then((response) => {
+      this.axios.get(this.GLOBAL.serverSrc+'api/hotvideoclass/3').then((response) => {
           this.hotvideo = response.data.data;
           console.log(response.data)
       })
