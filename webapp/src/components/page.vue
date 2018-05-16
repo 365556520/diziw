@@ -30,7 +30,6 @@ export default {
               this.current = this.videos[0];
               this.active = this.videos[0].id;
           }
-
       })
     },
     data () {
