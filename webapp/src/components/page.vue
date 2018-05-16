@@ -7,8 +7,7 @@
     <h1>10 导航条样式的设置</h1>
 
     <ul id="list">
-      <li v-for="v in videos"><a href="" @click.prevent="play(v)">{{v.name}}</a></li>
-      <li class="cur"><a href="">08 a标签 img标签详解</a></li>
+      <li v-for="v in videos" :class="{'cur':active === v.id}" :key="v.id"><a href="" @click.prevent="play(v)">{{v.name}}</a></li>
     </ul>
 
 
@@ -27,7 +26,9 @@ export default {
               alert("获取视频信息失败");
           }else {
               this.videos = response.data.data;
-              this.current = this.videos[0]
+              //默认视频
+              this.current = this.videos[0];
+              this.active = this.videos[0].id;
           }
 
       })
@@ -38,10 +39,15 @@ export default {
           videos:[],
           //当前视频
           current:{},
+          //视频状态
+          active:'',
       }
     },
     methods:{
       play(video){
+          //把id给视频状态
+          this.active =video.id;
+          //更改播放视频连接
           this.current=video;
       }
     }
