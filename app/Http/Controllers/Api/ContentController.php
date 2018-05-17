@@ -19,6 +19,7 @@ class ContentController extends CommonController
         if($id){
             //多表关联查询
             $data = DB::table('videoclasss')
+                ->select('videoclasss.*')//查询videoclasss的所有列
                 //join 第一个参数是2个表的关联表 第二个参数是主表.id 等于 关联表对应这个表的id
                 ->join('videotagsid_videoclasssids', 'videoclasss.id', '=', 'videotagsid_videoclasssids.videoclasss_id')
                 //关联视频标签的id

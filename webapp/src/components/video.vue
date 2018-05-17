@@ -13,127 +13,14 @@
     <!--导航条结束-->
     <!--视频列表-->
     <ul id="videolist">
-      <li>
-        <router-link to="/Page" class="pic">
-          <img src="static/images/5.jpg"/>
+      <li  v-for="v in videoclasss" :key="v.id" >
+        <router-link  class="pic":to="{params:{videoclasssid:v.id},name:'Page'}" >
+          <img :src="v.preview"/>
           <span>08:26</span>
           <i class="iconfont icon-bofang"></i>
         </router-link>
-        <router-link to="/Page" class="title">精准投放与精准消除</router-link>
+        <router-link :to="{params:{videoclasssid:v.id},name:'Page'}" class="title"  >{{v.title}}</router-link>
       </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/17.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/18.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/19.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/20.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/21.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/22.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/23.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/17.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/18.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/19.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/20.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/21.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/22.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-      <li>
-        <a href="" class="pic">
-          <img src="static/images/23.jpg"/>
-          <span>08:26</span>
-          <i class="iconfont icon-bofang"></i>
-        </a>
-        <a href="" class="title">精准投放与精准消除</a>
-      </li>
-
     </ul>
     <!--视频列表结束-->
 
@@ -157,30 +44,41 @@
 </template>
 <script>
 export default {
-  name: 'Video',
-  mounted(){ //这个挂在第一次进入页面后运行一次
-      //获取标签
-      this.axios.get(this.GLOBAL.serverSrc+'api/videoTags/').then((response) => {
-          this.tags = response.data.data;
-      })
-      //获取视频类别
-      let id = this.$route.params.id;
-      this.axios.get(this.GLOBAL.serverSrc+'api/videoclasss/'+(id?id:0)).then((response) => {
-          this.videoclasss = response.data.data;
-      })
-  },
-  data () {
-    return {
-        tags:[],
-        videoclasss:[],
-        swiperOption: {
-            slidesPerView: 'auto',
-            spaceBetween: 10,
-            freeMode: true,
-        },
+    name: 'Video',
+    watch:{//监听
+        '$route'(to,from){//监听路由的to和from
+            this.loadData();
+        }
+    },
+    mounted(){ //这个挂在第一次进入页面后运行一次提后不会执行
+         this.loadData();
+    },
+    data () {
+      return {
+          tags:[],
+          videoclasss:[],
+          swiperOption: {
+              slidesPerView: 'auto',
+              spaceBetween: 10,
+              freeMode: true,
+          },
 
+      }
+    },
+    methods:{
+        loadData(){
+            //获取标签
+            this.axios.get(this.GLOBAL.serverSrc+'api/videoTags/').then((response) => {
+                this.tags = response.data.data;
+            })
+            //获取视频类别
+            let id = this.$route.params.id;
+            this.axios.get(this.GLOBAL.serverSrc+'api/videoclasss/'+(id?id:0)).then((response) => {
+                console.log(response.data);
+                this.videoclasss = response.data.data;
+            })
+        },
     }
-  }
 }
 </script>
 <style scoped>
@@ -219,7 +117,7 @@ export default {
     font-size: 3.5vw;
     color: white;
     position: relative;
-    margin: 0 10px;
+    margin: 0 3px;
   }
   .swiper-slide:active,.swiper-slide:link,.swiper-slide:hover{
     text-decoration: none;

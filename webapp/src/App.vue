@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-      <router-view></router-view>
+      <transition enter-active-class="flipInY animated">
+         <router-view></router-view>
+      </transition>
   </div>
 </template>
 
