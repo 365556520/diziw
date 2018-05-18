@@ -7,7 +7,7 @@
       <!-- slides -->
       <swiper-slide v-for="v in slides" :key="v.id">
         <router-link to="/video">
-          <img :src="v.path">
+          <img :src="v.preview">
         </router-link>
       </swiper-slide>
 
@@ -68,6 +68,7 @@ export default {
   mounted(){ //这个挂在第一次进入页面后运行一次
       this.axios.get(this.GLOBAL.serverSrc+'api/commendvideoclass/4').then((response) => {
           this.commendvideo = response.data.data;
+          this.slides = response.data.data;
           console.log(response.data)
       }),
       this.axios.get(this.GLOBAL.serverSrc+'api/hotvideoclass/3').then((response) => {
@@ -81,11 +82,8 @@ export default {
         commendvideo:[],
         //热门视频
         hotvideo:[],
-        slides:[
-            {id:1,path:'static/images/1.jpg'},
-            {id:2,path:'static/images/2.jpg'},
-            {id:3,path:'static/images/3.jpg'},
-        ],
+        //轮播图
+        slides:[],
         swiperOption: {
             autoplay: true,//自动切换
             effect : 'fade',//切换效果

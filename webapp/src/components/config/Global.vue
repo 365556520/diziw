@@ -1,6 +1,6 @@
 <!--全局配置-->
 <script>
-    const serverSrc='http://diziw.dev/';
+    const serverSrc='http://diziw.cn/';
     const token='12345678';
     const hasEnter=false;
     const userSite="中国钓鱼岛";

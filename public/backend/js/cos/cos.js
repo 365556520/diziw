@@ -672,7 +672,7 @@ function selectFileToUpload(field,path) {
                     }
                 }, function (err, data) {
                     //上传成功后 把上传资源的地址传给 输入框
-                    field.path = data.Location;
+                    field.path = 'https://'+data.Location;
                     //上传状态
                     speeds.html('上传完成');
                     console.log(data.Location + ' ++++++上传' + (err ? '失败' : '完成'));
@@ -698,7 +698,7 @@ function selectFileToUpload(field,path) {
                     },
                 }, function (err, data) {
                     //上传成功后 把上传资源的地址传给 输入框
-                    field.path = data.Location;
+                    field.path = 'https://'+data.Location;
                     //上传状态
                     speeds.html('上传完成');
                     console.log(err || data);
