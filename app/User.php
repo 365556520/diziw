@@ -5,11 +5,12 @@ namespace App;
 use App\Traits\ActionButtonTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use App\Notifications\RestPassword as RestPasswordNotification;  //修改密码自定义邮箱
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens,Notifiable;
     use EntrustUserTrait; //entrust权限扩展
 
     //通过Traits获取查看删除修改按钮

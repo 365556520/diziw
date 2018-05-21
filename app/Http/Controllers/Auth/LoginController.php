@@ -32,7 +32,20 @@ class LoginController extends Controller
         if(Auth::user()->can(config('admin.permissions.system.login'))){
             return 'admin/home';
         }
-        return 'home';
+    }
+    /**
+     * 重写用户登录成功后处理方法
+     * @author
+     * 这个登录逻辑先级大于redirectTo()
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        if($user->can(config('admin.permissions.system.login'))){// 如果有后台权限就登录到后台
+            $this->redirectTo = 'admin/home';
+        }else{ // 创建用户个人 token api
+            $token = $user->createToken($user->name);
+            return response()->json(compact('token'));
+        }
     }
     /**
      * Create a new controller instance.
