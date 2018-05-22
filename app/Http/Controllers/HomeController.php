@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Facades\CosFacade;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\Contracts\UserInterface; //引入自定义服务
 use App\Repositories\Eloquent\Admin\UserRepository as UserPepo; //仓库模式引入因为和门面名字相同重复了所以as UserPepo起一个别名
 class HomeController extends Controller
@@ -47,7 +48,10 @@ class HomeController extends Controller
 //       dd($this->userPepo->findBy(1));
 
         /*判断用户是否有权限登录后台*/
-
-            return '这是前台页面正在建设中';
+        if(Auth::user()->can(config('admin.permissions.system.login'))){// 如果有后台权限就登录到后台
+            return view('admin.home');
+        }else{ // 创建用户个人 token api
+            return '大爷你有不是管理员瞎搞个啥的这里是home路由在 App\Http\Controllers这里';
+        }
     }
 }

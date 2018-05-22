@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+ //   protected $redirectTo = '/home';
     //返回主页逻辑 这里优先级大于变量
     protected function redirectTo(){
         /*添加权限和关联用户数据*/
@@ -43,8 +43,10 @@ class RegisterController extends Controller
 //        如果有后台权限就登录到后台没有就登录到前台
         if(Auth::user()->can(config('admin.permissions.system.login'))){
             return 'admin/home';
+        }else{
+           // return 'home';
         }
-        return 'home';
+
     }
     /**
      * Create a new controller instance.

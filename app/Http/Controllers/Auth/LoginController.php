@@ -25,9 +25,9 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'home';
+   // protected $redirectTo = 'home';
     //登录逻辑 这里优先级大于变量
-    protected function redirectTo(){
+    protected function redirectTo()   {
 //        如果有后台权限就登录到后台没有就登录到前台
         if(Auth::user()->can(config('admin.permissions.system.login'))){
             return 'admin/home';
@@ -35,7 +35,6 @@ class LoginController extends Controller
     }
     /**
      * 重写用户登录成功后处理方法
-     * @author
      * 这个登录逻辑先级大于redirectTo()
      */
     protected function authenticated(Request $request, $user)
