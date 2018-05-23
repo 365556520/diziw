@@ -45,7 +45,7 @@
     <!--底部固定导航-->
     <ul id="bottom">
       <li class="cur">
-        <router-link to ='/'>
+        <router-link to ='/VideoHome'>
             <i class="iconfont icon-shouyeshouye"></i>
             <span>首页</span>
         </router-link>
@@ -64,7 +64,7 @@
 
 <script>
 export default {
-  name: 'home',
+  name: 'VideoHome',
   mounted(){ //这个挂在第一次进入页面后运行一次
       this.axios.get(this.GLOBAL.serverSrc+'api/commendvideoclass/4').then((response) => {
           this.commendvideo = response.data.data;

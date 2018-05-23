@@ -27,7 +27,7 @@
     <!--底部固定导航-->
     <ul id="bottom">
       <li class="cur">
-        <router-link to ='/'>
+        <router-link to ='/VideoHome'>
           <i class="iconfont icon-shouyeshouye"></i>
           <span>首页</span>
         </router-link>
