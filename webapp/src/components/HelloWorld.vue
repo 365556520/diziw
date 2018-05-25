@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-
+    <mt-button @click.native="handleClick">按钮</mt-button>
   </div>
 </template>
 
@@ -11,7 +11,12 @@
       return {
         msg: 'Welcome to Your Vue.js App'
       }
-    }
+    },
+      methods: {
+          handleClick: function() {
+              this.$toast('Hello world!');
+          }
+      }
   }
 </script>
 

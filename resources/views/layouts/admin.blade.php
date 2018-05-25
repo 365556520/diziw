@@ -53,7 +53,7 @@
         <!-- NProgress -->
         <script src="{{ asset('/backend/vendors/nprogress/nprogress.js')}}"></script>
         {{--layer--}}
-        <script src="{{asset('/backend/vendors/layer/layer.js')}}"></script>
+        <script src="{{asset('/backend/myvebdors/layer/layer.js')}}"></script>
         {{--layui-v2.2.5--}}
         <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
         {{--cropperjs--}}

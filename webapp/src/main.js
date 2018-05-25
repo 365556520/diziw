@@ -14,6 +14,12 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 /*vue-axios end*/
+/*MintUI*/
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(MintUI)
+/*MintUI end*/
+
 /*自定义全局变量*/
 import global from './components/config/Global'//引用文件
 Vue.prototype.GLOBAL = global//挂载到Vue实例上面
