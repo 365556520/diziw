@@ -8,4 +8,5 @@ class Buses extends Model
 {
     //班车模型
     protected $table='buses';
+
 }
