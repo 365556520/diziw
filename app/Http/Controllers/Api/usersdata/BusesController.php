@@ -16,6 +16,7 @@ class BusesController extends CommonController
     public function getBusesRouteall(){
         $data =  BusesRoute::get();
         $newdata = [];
+
         foreach ($data as $k=>$v){
             $newdata['buses_start'][$k] = $v->buses_start;
             $newdata['buses_midway'][$k] = $v->buses_midway;
@@ -37,10 +38,15 @@ class BusesController extends CommonController
     /*
      * 起点和终点查出线路id
      * */
-    public function getBusesRouteId(){
-        $buses_start = '西峡' ;
-        $buses_end = '西坪';
+    public function getBusesRouteId(Request $request){
+        $buses_start = $request->buses_start;
+        $buses_end =  $request->buses_end;
         $data = BusesRoute::whereRaw('buses_start =? and buses_end = ?',[$buses_start,$buses_end])->first();
+        if($data!=null){
+            $data = $data->getBuses;
+        }else{//在中途中查看终点
+            $data = BusesRoute::where([['buses_start','=',$buses_start],['buses_midway','like','%'.$buses_end.'%']])->first()->getBuses;
+        }
         return $this->response($data);
     }
 }
