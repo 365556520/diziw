@@ -19,5 +19,9 @@ Route::group(['namespace'=>'Api'],function(){
     Route::get('videos/{videoClasssId}','ContentController@videos');
     //获取该线路汽车
     Route::get('buses/{id}','usersdata\BusesController@getBuses');
+    //获取所有线路
+    Route::get('getBusesRouteall','usersdata\BusesController@getBusesRouteall');
+
+    Route::get('getBusesRouteId','usersdata\BusesController@getBusesRouteId');
 
 });
