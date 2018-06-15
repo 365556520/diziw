@@ -41,11 +41,12 @@ class BusesController extends CommonController
     public function getBusesRouteId(Request $request){
         $buses_start = $request->buses_start;
         $buses_end =  $request->buses_end;
-        $data = BusesRoute::whereRaw('buses_start =? and buses_end = ?',[$buses_start,$buses_end])->first();
-        if($data!=null){
-            $data = $data->getBuses;
-        }else{//在中途中查看终点
-            $data = BusesRoute::where([['buses_start','=',$buses_start],['buses_midway','like','%'.$buses_end.'%']])->first()->getBuses;
+        //获取线路
+        $data = BusesRoute::whereRaw('buses_start =? and buses_end = ?',[$buses_start,$buses_end])
+                            ->orWhere([['buses_start','=',$buses_start],['buses_midway','like','%'.$buses_end.'%']])
+                            ->get();
+        foreach ( $data as $k=>$v){
+            $data[$k]['buses'] = $v->getBuses;
         }
         return $this->response($data);
     }
