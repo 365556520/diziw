@@ -17,11 +17,20 @@ Route::group(['namespace'=>'Api'],function(){
     Route::get('hotvideoclass/{row}','ContentController@hotvideoclass');
     //视频接口
     Route::get('videos/{videoClasssId}','ContentController@videos');
-    //获取该线路汽车
-    Route::get('buses/{id}','usersdata\BusesController@getBuses');
-    //获取所有线路
-    Route::get('getBusesRouteall','usersdata\BusesController@getBusesRouteall');
 
-    Route::get('getBusesRouteId','usersdata\BusesController@getBusesRouteId');
-
+    Route::group(['namespace'=>'usersdata'],function() {
+        //获取该线路汽车
+        Route::get('buses/{id}', 'BusesController@getBuses');
+        //获取所有线路
+        Route::get('getBusesRouteall', 'BusesController@getBusesRouteall');
+        //起点和终点查出线路id
+        Route::get('getBusesRouteId', 'BusesController@getBusesRouteId');
+    });
+    Route::group(['namespace'=>'Auth'],function() {
+        //登录api
+        Route::post('login', 'LoginController@login');
+        Route::group(['middleware' => 'auth:api'], function() {
+            Route::get('passport', 'LoginController@passport');
+        });
+    });
 });
