@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-header('Access-Control-Allow-Origin:*');
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,6 +12,8 @@ header('Access-Control-Allow-Origin:*');
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+/*跨域接口响应*/
+header('Access-Control-Allow-Origin:*');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

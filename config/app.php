@@ -164,9 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        /*
-         * Package Service Providers...
-         */
+
 
         /*
          * Application Service Providers...
@@ -188,6 +186,7 @@ return [
         HieuLe\Active\ActiveServiceProvider::class,
         //代码提升增强
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
     ],
 
     /*
