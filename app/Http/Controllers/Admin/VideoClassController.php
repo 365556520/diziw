@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\Eloquent\Admin\VideoClassRepository;
+use App\Repositories\Eloquent\Admin\Video\VideoClassRepository;
 use Illuminate\Http\Request;
 use App\Facades\CosFacade;
 
@@ -12,8 +12,8 @@ class VideoClassController extends CommonController
     private $video;
     function __construct(VideoClassRepository $video)
     {
-/*        //调用父累的构造方法
-        parent::__construct('video');*/
+       //调用父累的构造方法
+        parent::__construct('video');
         $this->video = $video;
 
     }

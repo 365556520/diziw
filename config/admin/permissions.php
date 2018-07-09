@@ -40,6 +40,12 @@ return [
         'edit' => 'video.edit',
         'delete' => 'video.delete',
     ],
+    'busesroute' => [
+        'list' => 'busesroute.list',
+        'add' => 'busesroute.add',
+        'edit' => 'busesroute.edit',
+        'delete' => 'busesroute.delete',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'

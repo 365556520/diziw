@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Eloquent\Admin;
+namespace App\Repositories\Eloquent\Admin\Video;
 
 
 use App\Facades\CosFacade;

@@ -1,17 +1,17 @@
 <?php
-namespace App\Repositories\Eloquent\Admin;
+namespace App\Repositories\Eloquent\Admin\Buses;
 
-use App\Models\VideoModel\VideoTag;
+use App\Models\UsersModel\Buses\BusesRoute;
 use App\Repositories\Eloquent\Repository;
 
 
 /**
  * 仓库模式继承抽象类
  */
-class VideoTagRepository extends Repository {
+class BusesRouteRepository extends Repository {
     //重写父类的抽象方法
     public function model(){
-        return VideoTag::class;
+        return BusesRoute::class;
     }
 
     /*权限表显示数据*/
@@ -27,7 +27,7 @@ class VideoTagRepository extends Repository {
 
         $order['dir'] = request('order')[0]['dir']; //按什么排序
         //得到permission模型
-        $videotag = $this->model;
+        $busesroute = $this->model;
         // datatables是否启用模糊搜索
         $search['regex'] = request('search')['regex'];
         // 搜索框中的值
@@ -36,22 +36,22 @@ class VideoTagRepository extends Repository {
         if ($search['value']) {
             if($search['regex'] == 'true'){
                 //模糊查找name、id列
-                $videotag = $videotag->where('id', 'like', "%{$search['value']}%")->orWhere('name','like', "%{$search['value']}%");
+                $busesroute = $busesroute->where('id', 'like', "%{$search['value']}%")->orWhere('buses_end','like', "%{$search['value']}%");
             }else{
                 //精确查找name、id列
-                $videotag = $videotag->where('id', $search['value'])->orWhere('name', $search['value']);
+                $busesroute = $busesroute->where('id', $search['value'])->orWhere('buses_end', $search['value']);
             }
         }
-        $count = $videotag->count();//查出所有数据的条数
-        $videotag = $videotag->orderBy($order['name'],$order['dir']);//数据排序
-        $videotags = $videotag->offset($start)->limit($length)->get();//得到分页数据
-        foreach ($videotags as $v){
+        $count = $busesroute->count();//查出所有数据的条数
+        $busesroute = $busesroute->orderBy($order['name'],$order['dir']);//数据排序
+        $busesroutes = $busesroute->offset($start)->limit($length)->get();//得到分页数据
+        foreach ($busesroutes as $v){
             $v->password;
         }
-        if($videotags){
-            foreach ($videotags as $v){
+        if($busesroutes){
+            foreach ($busesroutes as $v){
                 //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
-                $v->actionButton = $v->getActionButtont(config('admin.permissions.videotag.show'),config('admin.permissions.videotag.edit'),config('admin.permissions.videotag.delete'));
+                $v->actionButton = $v->getActionButtont(config('admin.permissions.busesroute.show'),config('admin.permissions.busesroute.edit'),config('admin.permissions.busesroute.delete'));
             }
         }
         // datatables固定的返回格式
@@ -59,7 +59,7 @@ class VideoTagRepository extends Repository {
             'draw' => $draw,
             'recordsTotal' => $count,
             'recordsFiltered' => $count,
-            'data' => $videotags,
+            'data' => $busesroutes,
         ];
     }
 

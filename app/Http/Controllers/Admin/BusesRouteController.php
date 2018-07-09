@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\VideoTagRequest;
-use App\Repositories\Eloquent\Admin\Video\VideoTagRepository;
+use App\Repositories\Eloquent\Admin\Buses\BusesRouteRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-
-class VideoTagController extends CommonController
+class BusesRouteController extends CommonController
 {
-    private $videotag;
-    function __construct(VideoTagRepository $videotag)
+    private $busesroute;
+    function __construct(BusesRouteRepository $busesroute)
     {
         //调用父累的构造方法
-        parent::__construct('videotag');
-        $this->videotag = $videotag;
-
+        parent::__construct('busesroute');
+        $this->busesroute = $busesroute;
     }
 
     /**
@@ -24,12 +22,13 @@ class VideoTagController extends CommonController
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('admin.videotag.list');
+        return view('admin.buses.busesroute.list');
     }
 
-    //权限表DataTables
+
+    //列表表DataTables
     public function ajaxIndex(){
-        $result = $this->videotag->ajaxIndex();
+        $result = $this->busesroute->ajaxIndex();
         return response()->json($result);
     }
     /**
