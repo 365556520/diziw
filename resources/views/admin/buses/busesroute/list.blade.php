@@ -52,9 +52,21 @@
                                     <form class="layui-form layui-form-pane" method="post" action="{{url('admin/videotag')}}">
                                         {{csrf_field()}}
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">班车线路</label>
+                                            <label class="layui-form-label">起点</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="name"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
+                                                <input type="text" name="name"  required="required" autocomplete="off" placeholder=""class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">途经</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="name"  required="required" autocomplete="off" placeholder=""class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">终点</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="name"  required="required" autocomplete="off" placeholder=""class="layui-input">
                                             </div>
                                         </div>
                                         <div class="layui-form-item">
@@ -82,6 +94,11 @@
         $(function () {
             busesrouteList.init();
         });
+        layui.use('element', function(){
+            var $ = layui.jquery
+                ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+        });
+
     </script>
     {{--提示代码--}}
     @include('component.errorsLayer')

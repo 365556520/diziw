@@ -82,7 +82,6 @@ var videotagList = function() {
             },
             //按钮顺序
             dom: 'lfrtip',
-
         });
         // 删除按钮
         $(document).on('click','.destroy_item',function() {
