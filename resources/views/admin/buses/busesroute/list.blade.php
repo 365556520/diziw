@@ -62,7 +62,7 @@
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">途经</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="name"  required="required" autocomplete="off" placeholder=""class="layui-input">
+                                                <input type="text" value="" data-role="tagsinput"   autocomplete="off" class="layui-input"/>
                                             </div>
                                         </div>
                                         <div class="layui-form-item">
@@ -94,6 +94,7 @@
     <script src="{{asset('backend/js/busesroute/busesroute-list.js')}}"></script>
     <script>
         $(function () {
+            $("input").val();
             busesrouteList.init();
         });
         layui.use('element', function(){
