@@ -5,6 +5,8 @@
 @section('css')
     {{--datatables 插件--}}
     <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+    {{--bootstrap-tagsinput 插件 输入框带标签--}}
+    <link href="{{asset('backend/myvebdors/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css')}}" rel="stylesheet">
     <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
@@ -30,7 +32,7 @@
                                 <li>添加班车线路</li>
                             </ul>
                             {{--视频标签列表--}}
-                            <div class="layui-tab-content" style="height: 100px;">
+                            <div class="layui-tab-content" >
                                 @include('flash::message')
                                 <div class="layui-tab-item layui-show">
                                     <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
@@ -85,8 +87,8 @@
 @section('js')
     {{--datatables 插件--}}
     <script src="{{asset('backend/vendors/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>
-        {{--cosjs--}}
-    <script src="{{asset('backend/myvebdors/cos-js-sdk-v5/dist/cos-js-sdk-v5.min.js')}}"></script>
+    {{--bootstrap-tagsinput 插件 输入框带标签js--}}
+    <script src="{{asset('backend/myvebdors/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.min.js')}}"></script>
     {{--导入自己js--}}
     <script src="{{asset('backend/js/cos/cos.js')}}"></script>
     <script src="{{asset('backend/js/busesroute/busesroute-list.js')}}"></script>
