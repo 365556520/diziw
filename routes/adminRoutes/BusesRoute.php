@@ -3,9 +3,11 @@
  * 班车和班车线路路由
  */
 Route::group(['prefix' => 'busesroute'],function (){
+    //列表数据
     Route::get('ajaxIndex','BusesRouteController@ajaxIndex');
 });
 Route::resource('busesroute','BusesRouteController');
+
 /*
  * 视频路由
  * */

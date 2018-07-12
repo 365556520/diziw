@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\BusesRouteRequest;
 use App\Repositories\Eloquent\Admin\Buses\BusesRouteRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -42,14 +43,15 @@ class BusesRouteController extends CommonController
     }
 
     /**
-     * 添加视频标签
+     * 添加班车线路
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VideoTagRequest $request){
-        $this->videotag->createVideoTag($request->all());
-        return redirect(url('admin/videotag'));
+    public function store(BusesRouteRequest $request){
+        //$request->except('_token')不获取_token的值，其他值正常获取
+        $result = $this->busesroute->createBusesRoute($request->except('_token'));
+        return redirect(url('admin/busesroute'));
     }
 
     /**
@@ -62,15 +64,15 @@ class BusesRouteController extends CommonController
     }
 
     /**
-     * 显示修改标签视图
+     * 显示修改班车线路视图
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $videotag = $this->videotag->editView($id);
-        return view('admin.videotag.edit')->with(compact('videotag'));
+        $busesroute = $this->busesroute->editView($id);
+        return view('admin.buses.busesroute.edit')->with(compact('busesroute'));
     }
 
     /**
@@ -80,10 +82,10 @@ class BusesRouteController extends CommonController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(VideoTagRequest $request, $id)
+    public function update(BusesRouteRequest $request, $id)
     {
-        $videotag = $this->videotag->updateVideoTagr($request->all(),$id);
-        return redirect('admin/videotag');
+        $this->busesroute->updateBusesRoute($request->all(),$id);
+        return redirect('admin/busesroute');
     }
 
     /**
@@ -94,7 +96,7 @@ class BusesRouteController extends CommonController
      */
     public function destroy($id)
     {
-        $this->videotag->destroyVideoTagr($id);
-        return redirect(url('admin/videotag'));
+        $this->busesroute->destroyBusesRoute($id);
+        return redirect(url('admin/busesroute'));
     }
 }

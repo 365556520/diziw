@@ -25,7 +25,7 @@ trait ActionButtonTrait{
                     </form>
                 </a> &nbsp';
     }
-    //得到三个按钮config('admin.permissions.menu.delete'))
+    //得到三个按钮config('admin.permissions.menu.delete')) 前面三个是查看、修改、删除的权限，最后个设置是否是Modal模式（默认是true）
     public function getActionButtont($showPermission = null,$editPermission = null ,$destroyPermission = null,$Modal = true){
         $thml = '<div class="btn-group btn-group-xs">';
         if ($showPermission == null){

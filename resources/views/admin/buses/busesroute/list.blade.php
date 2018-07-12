@@ -51,24 +51,24 @@
                                 </div>
                                 {{--添加视频标签--}}
                                 <div class="layui-tab-item">
-                                    <form class="layui-form layui-form-pane" method="post" action="{{url('admin/videotag')}}">
+                                    <form class="layui-form " method="post" action="{{url('admin/busesroute')}}">
                                         {{csrf_field()}}
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">起点</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="name"  required="required" autocomplete="off" placeholder=""class="layui-input">
+                                                <input type="text" name="buses_start"  required="required" autocomplete="off" placeholder=""class="layui-input">
                                             </div>
                                         </div>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">途经</label>
                                             <div class="layui-input-block">
-                                                <input type="text" value="" data-role="tagsinput"   autocomplete="off" class="layui-input"/>
+                                                <input type="text" name="buses_midway" value="" data-role="tagsinput" >
                                             </div>
                                         </div>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">终点</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="name"  required="required" autocomplete="off" placeholder=""class="layui-input">
+                                                <input type="text" name="buses_end"  required="required" autocomplete="off" placeholder=""class="layui-input">
                                             </div>
                                         </div>
                                         <div class="layui-form-item">
@@ -90,11 +90,9 @@
     {{--bootstrap-tagsinput 插件 输入框带标签js--}}
     <script src="{{asset('backend/myvebdors/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.min.js')}}"></script>
     {{--导入自己js--}}
-    <script src="{{asset('backend/js/cos/cos.js')}}"></script>
     <script src="{{asset('backend/js/busesroute/busesroute-list.js')}}"></script>
     <script>
         $(function () {
-            $("input").val();
             busesrouteList.init();
         });
         layui.use('element', function(){

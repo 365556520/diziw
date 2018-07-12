@@ -51,7 +51,7 @@ class BusesRouteRepository extends Repository {
         if($busesroutes){
             foreach ($busesroutes as $v){
                 //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
-                $v->actionButton = $v->getActionButtont(config('admin.permissions.busesroute.show'),config('admin.permissions.busesroute.edit'),config('admin.permissions.busesroute.delete'));
+                $v->actionButton = $v->getActionButtont(config('admin.permissions.busesroute.show'),config('admin.permissions.busesroute.edit'),config('admin.permissions.busesroute.delete'),false);
             }
         }
         // datatables固定的返回格式
@@ -64,19 +64,17 @@ class BusesRouteRepository extends Repository {
     }
 
     /*添加视频标签*/
-    public function createVideoTag($formData){
-        $result = $this->model->create([
-            'name' => $formData['name'],
-        ]);
+    public function createBusesRoute($formData){
+        $result = $this->model->create($formData);
         if ($result) {
-            flash('视频标签添加成功','success');
+            flash('线路添加成功','success');
         }else{
-            flash('视频标签添加失败','error');
+            flash('线路添加失败','error');
         }
         return $result;
     }
-    /*删除视频标签*/
-    public function destroyVideoTagr($id){
+    /*删除班车线路*/
+    public function destroyBusesRoute($id){
         $result = $this->delete($id);
         if ($result) {
             flash('删除成功','success');
@@ -86,7 +84,7 @@ class BusesRouteRepository extends Repository {
         return $result;
     }
 
-    // 修改视频标签视图数据
+    // 修改班车线路视图数据
     public function editView($id)
     {
         $result = $this->find($id);
@@ -96,16 +94,16 @@ class BusesRouteRepository extends Repository {
         abort(404);
     }
     // 修改视频标签数据
-    public function updateVideoTagr($attributes,$id)
+    public function updateBusesRoute($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
         }
         $result = $this->update($attributes,$id);
         if ($result) {
-            flash('视频标签修改成功','success');
+            flash('班线修改成功','success');
         }else{
-            flash('视频标签修改失败', 'error');
+            flash('班线修改失败', 'error');
         }
         return $result;
     }
