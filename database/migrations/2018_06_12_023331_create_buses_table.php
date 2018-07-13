@@ -21,6 +21,20 @@ class CreateBusesTable extends Migration
             $table->string('buses_end')->comment('终点');
             $table->timestamps();
         });
+        //驾驶员
+        Schema::create('driver', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('driver_name')->comment('驾驶员名字');
+            $table->string('driver_card_firstdata')->comment('初领日期');
+            $table->string('driver_permit')->comment('准驾车型');
+            $table->string('driver_archive_number')->comment('档案号');
+            $table->string('driver_card')->comment('驾驶证号');
+            $table->string('driver_qualification')->comment('从业资格证号');
+            $table->string('driver_card_date')->comment('驾驶证审验有效时间');
+            $table->string('driver_qualification_date')->comment('资格证审验有效时间');
+            $table->string('driver_phone')->comment('电话');
+            $table->timestamps();
+        });
         //班车
         Schema::create('buses', function (Blueprint $table) {
             $table->increments('id');
@@ -30,17 +44,16 @@ class CreateBusesTable extends Migration
             $table->string('buses_sit')->comment('核载');
             $table->string('buses_approve_date')->comment('车辆审验时间');
             $table->string('buses_insurance_date')->comment('保险期限');
-            $table->string('buses_driver')->comment('驾驶员');
-            $table->string('buses_driver_card')->comment('驾驶证号');
-            $table->string('buses_qualification')->comment('资格证号');
+            $table->integer('buses_driver_id')->unsigned()->comment('驾驶员');
+            $table->string('buses_boss')->comment('车主');
             $table->string('buses_phone')->comment('随车电话');
             $table->string('buses_start_date')->comment('发车时间');
             $table->string('buses_end_date')->comment('返回时间');
             //外检约束更新和删除都绑定
             $table->foreign('busesroute_id')->references('id')->on('busesroute') ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('buses_driver_id')->references('id')->on('driver') ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -51,6 +64,7 @@ class CreateBusesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('busesroute');
+        Schema::dropIfExists('driver');
         Schema::dropIfExists('buses');
     }
 }

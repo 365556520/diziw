@@ -13,5 +13,9 @@ class Buses extends Model
     use ActionButtonTrait;
     //这个表的路由的前缀
     private $action =  'buses';
-
+    //获取驾驶员
+    public function getDriver()
+    {
+        return $this->belongsTo('App\Models\UsersModel\Buses\Driver', 'buses_driver_id');
+    }
 }

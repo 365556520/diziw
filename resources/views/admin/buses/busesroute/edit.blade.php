@@ -28,15 +28,15 @@
                     <div class="x_content">
                         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                             <ul class="layui-tab-title">
-                                <li><a href="{{ url('/admin/busesroute')}}">班车线路管理</a></li>
+                                <li><a href="{{ url('/admin/busesroute')}}">班车线路列表</a></li>
                                 <li  class="layui-this">修改班车线路</li>
                             </ul>
-                            {{--视频标签列表--}}
+                            {{--班车线路列表--}}
                             <div class="layui-tab-content" >
                                 @include('flash::message')
                                 <div class="layui-tab-item">
                                 </div>
-                                {{--添加视频标签--}}
+                                {{--添加班车线路--}}
                                 <div class="layui-tab-item layui-show">
                                     <form class="layui-form " method="post" action="{{url('admin/busesroute/'.$busesroute->id)}}">
                                         {{csrf_field()}}
