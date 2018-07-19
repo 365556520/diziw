@@ -46,6 +46,18 @@ return [
         'edit' => 'busesroute.edit',
         'delete' => 'busesroute.delete',
     ],
+    'buses' => [
+        'list' => 'buses.list',
+        'add' => 'buses.add',
+        'edit' => 'buses.edit',
+        'delete' => 'buses.delete',
+    ],
+    'driver' => [
+        'list' => 'driver.list',
+        'add' => 'driver.add',
+        'edit' => 'driver.edit',
+        'delete' => 'driver.delete',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'
