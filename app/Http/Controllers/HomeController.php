@@ -49,7 +49,7 @@ class HomeController extends Controller
 
         /*判断用户是否有权限登录后台*/
         if(Auth::user()->can(config('admin.permissions.system.login'))){// 如果有后台权限就登录到后台
-            return view('admin.home');
+            return view('admin.home.index');
         }else{ // 创建用户个人 token api
             return '大爷你有不是管理员瞎搞个啥的这里是home路由在 App\Http\Controllers这里';
         }

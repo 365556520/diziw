@@ -8,6 +8,16 @@ Route::group(['prefix' => 'busesroute'],function (){
 });
 Route::resource('busesroute','BusesRouteController');
 
+
+/**
+ * 驾驶员
+ */
+Route::group(['prefix' => 'driver'],function (){
+    //列表数据
+    Route::get('ajaxIndex','DriverController@ajaxIndex');
+});
+Route::resource('driver','DriverController');
+
 /*
  * 视频路由
  * */

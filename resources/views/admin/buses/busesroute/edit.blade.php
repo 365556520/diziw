@@ -79,7 +79,7 @@
     {{--bootstrap-tagsinput 插件 输入框带标签js--}}
     <script src="{{asset('backend/myvebdors/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.min.js')}}"></script>
     {{--导入自己js--}}
-    <script src="{{asset('backend/js/busesroute/busesroute-list.js')}}"></script>
+    <script src="{{asset('backend/js/buses/busesroute-list.js')}}"></script>
     <script>
         $(function () {
             busesrouteList.init();

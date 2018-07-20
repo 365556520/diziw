@@ -19,7 +19,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>班车线路<small>班车线路管理页面</small></h2>
+                        <h2>驾驶员<small>驾驶员管理页面</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -31,10 +31,10 @@
                     <div class="x_content">
                         <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                             <ul class="layui-tab-title">
-                                <li class="layui-this">班车线路列表</li>
-                                <li>添加班车线路</li>
+                                <li class="layui-this">驾驶员列表</li>
+                                <li>添加驾驶员</li>
                             </ul>
-                            {{--班车线路列表--}}
+                            {{--驾驶员列表--}}
                             <div class="layui-tab-content" >
                                 @include('flash::message')
                                 <div class="layui-tab-item layui-show">
@@ -42,9 +42,12 @@
                                         <thead>
                                         <tr>
                                             <th>编号</th>
-                                            <th>起点</th>
-                                            <th>途径</th>
-                                            <th>终点</th>
+                                            <th>驾驶员</th>
+                                            <th>年龄</th>
+                                            <th>准驾车型</th>
+                                            <th>驾驶证档案号</th>
+                                            <th>驾驶证号</th>
+                                            <th>从业资格证号</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -52,9 +55,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                {{--添加班车线路--}}
+                                {{--添加驾驶员--}}
                                 <div class="layui-tab-item">
-                                    <form class="layui-form " method="post" action="{{url('admin/busesroute')}}">
+                                    <form class="layui-form " method="post" action="{{url('admin/driver')}}">
                                         {{csrf_field()}}
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">起点</label>
@@ -75,7 +78,7 @@
                                             </div>
                                         </div>
                                         <div class="layui-form-item">
-                                            <button class="layui-btn" lay-submit="" lay-filter="demo2">添加班车线路</button>
+                                            <button class="layui-btn" lay-submit="" lay-filter="demo2">添加驾驶员</button>
                                         </div>
                                     </form>
                                 </div>
@@ -101,10 +104,10 @@
     {{--bootstrap-tagsinput 插件 输入框带标签js--}}
     <script src="{{asset('backend/myvebdors/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.min.js')}}"></script>
     {{--导入自己js--}}
-    <script src="{{asset('backend/js/buses/busesroute-list.js')}}"></script>
+    <script src="{{asset('backend/js/buses/driver-list.js')}}"></script>
     <script>
         $(function () {
-            busesrouteList.init();
+            driverList.init();
         });
         layui.use('element', function(){
             var $ = layui.jquery

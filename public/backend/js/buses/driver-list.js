@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2018/1/30.
  */
-var busesrouteList = function() {
-    var busesrouteInit = function(){
+var driverList = function() {
+    var driverInit = function(){
         $('#datatable-responsive').DataTable({
             "processing": true,
             //开启服务模式
@@ -20,7 +20,7 @@ var busesrouteList = function() {
             "lengthMenu": [[5, 10, 15, 20], [5,10, 15, 20]],
             "ajax":{
                 //ajax请求
-                'url' : '/admin/busesroute/ajaxIndex',
+                'url' : '/admin/driver/ajaxIndex',
                 //传递额外的参数
                 // "data" : function ( d ) {
                 //     d.name = '';
@@ -38,18 +38,32 @@ var busesrouteList = function() {
                     "name":"id"
                 },
                 {
-                    "data": "buses_start",
-                    "name": "buses_start",
+                    "data": "driver_name",
+                    "name": "driver_name",
                     "orderable" : true,
                 },
                 {
-                    "data": "buses_midway",
-                    "name": "buses_midway",
+                    "data": "driver_age",
+                    "name": "driver_age",
+                },
+                {
+                    "data": "driver_permit",
+                    "name": "driver_permit",
                     "orderable" : true,
                 },
                 {
-                    "data": "buses_end",
-                    "name": "buses_end",
+                    "data": "driver_archive_number",
+                    "name": "driver_archive_number",
+                    "orderable" : true,
+                },
+                {
+                    "data": "driver_card",
+                    "name": "driver_card",
+                    "orderable" : true,
+                },
+                {
+                    "data": "driver_qualification",
+                    "name": "driver_qualification",
                     "orderable" : true,
                 },
                 {
@@ -91,8 +105,45 @@ var busesrouteList = function() {
                 }
             },
             //按钮顺序
-            dom: 'lfrtip',
-
+            dom: 'B<"clearfix"><"ln_solid"><lfrtip>',
+            "buttons": [
+                {
+                    'extend': 'copy',
+                    'text': '复制',
+                    'exportOptions': {
+                        'modifier': {
+                            'page': 'current'
+                        }
+                    }
+                },
+                {
+                    'extend': 'excel',
+                    'text': '保存excel',//定义导出excel按钮的文字
+                    'exportOptions': {
+                        'modifier': {
+                            'page': 'current'
+                        }
+                    }
+                },
+                {
+                    'extend': 'csv',
+                    'text': '保存csv',
+                    'exportOptions': {
+                        'modifier': {
+                            'search': 'none'
+                        }
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: '打印',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                },
+            ],
         });
         // 删除按钮
         $(document).on('click','.destroy_item',function() {
@@ -107,6 +158,6 @@ var busesrouteList = function() {
         });
     };
     return {
-        init : busesrouteInit
+        init : driverInit
     }
 }();

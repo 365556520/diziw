@@ -57,6 +57,7 @@ return [
         'add' => 'driver.add',
         'edit' => 'driver.edit',
         'delete' => 'driver.delete',
+        'show' => 'driver.show',
     ],
     'system' => [
         'list' => 'system.index',
