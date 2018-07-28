@@ -25,8 +25,9 @@ class CreateBusesTable extends Migration
         Schema::create('driver', function (Blueprint $table) {
             $table->increments('id');
             $table->string('driver_name')->comment('驾驶员名字');
+            $table->string('driver_sex')->comment('驾驶员性别');
             $table->string('driver_photo')->comment('驾驶员照片');
-            $table->string('driver_time')->comment('驾驶员驾龄');
+            $table->string('driver_time')->comment('安全行驶里程');
             $table->integer('driver_age')->comment('驾驶员年龄');
             $table->string('driver_card_firstdata')->comment('初领日期');
             $table->string('driver_permit')->comment('准驾车型');
