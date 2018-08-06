@@ -3,6 +3,8 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
+    {{--cropper-cs--}}
+    <link  href="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.css')}}" rel="stylesheet">
     {{--剪切头像css--}}
     <style>
         #image {
@@ -97,6 +99,8 @@
     </div>
 @endsection
 @section('js')
+    {{--cropperjs--}}
+    <script src="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.js')}}"></script>
     <script src="{{ asset('/backend/js/home/headimg.js')}}"></script>
     {{--提示代码--}}
     @include('component.errorsLayer')

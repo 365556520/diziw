@@ -17,8 +17,6 @@
         <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
-        {{--cropper-cs--}}
-        <link  href="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.css')}}" rel="stylesheet">
         {{--layui-v2.2.5--}}
         <link href="{{ asset('/backend/myvebdors/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
         @yield('css')
@@ -53,8 +51,6 @@
         <script src="{{asset('/backend/myvebdors/layer/layer.js')}}"></script>
         {{--layui-v2.2.5--}}
         <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
-        {{--cropperjs--}}
-        <script src="{{asset('/backend/myvebdors/cropper-master/dist/cropper.min.js')}}"></script>
         {{--vue js--}}
         <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
         <!-- Custom Theme Scripts -->
