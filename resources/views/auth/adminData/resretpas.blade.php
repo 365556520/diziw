@@ -3,6 +3,8 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
+    {{--layui-v2.2.5--}}
+    <link href="{{ asset('/backend/myvebdors/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
 @endsection
 @section('content')
     <div class="">
@@ -61,6 +63,8 @@
     </div>
 @endsection
 @section('js')
+    {{--layui-v2.2.5--}}
+    <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
     <script>
         //form提交
         layui.use('form', function(){

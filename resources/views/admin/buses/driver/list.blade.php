@@ -3,6 +3,8 @@
     <title>{{ trans('admin/user.title')}}</title>
 @endsection
 @section('css')
+    {{--layui-v2.2.5--}}
+    <link href="{{ asset('/backend/myvebdors/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
     {{--datatables 插件--}}
     <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     {{--bootstrap-tagsinput 插件 输入框带标签--}}
@@ -11,6 +13,11 @@
     <link href="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.min.css')}}" rel="stylesheet">
     {{--导出excel插件csend--}}
     <!--或者下载到本地，下面有下载地址-->
+    <style>
+        .layui-form-label{
+            padding: 9px 9px;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="">
@@ -57,50 +64,156 @@
                                 </div>
                                 {{--添加驾驶员--}}
                                 <div class="layui-tab-item">
-                                    <form class="layui-form " method="post" action="{{url('admin/driver')}}">
+                                    <form class="layui-form layui-form-pane" method="post" action="{{url('admin/driver')}}">
                                         {{csrf_field()}}
                                         <div class="layui-row">
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label">姓名</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="username" lay-verify="required" placeholder="请输入驾驶员姓名" autocomplete="off" class="layui-input">
+                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md8">
+                                                <div class="layui-row">
+                                                    {{--姓名--}}
+                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">姓名</label>
+                                                            <div class="layui-input-block">
+                                                                <input type="text" name="username" lay-verify="required" placeholder="请输入驾驶员姓名" autocomplete="off" class="layui-input">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{--电话--}}
+                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">联系电话</label>
+                                                            <div class="layui-input-block">
+                                                                <input type="text" name="username" lay-verify="required" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="layui-row">
+                                                    {{--年龄--}}
+                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">年龄</label>
+                                                            <div class="layui-input-block">
+                                                                <input type="text" name="username" lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{--性别--}}
+                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">性别</label>
+                                                            <div class="layui-input-block">
+                                                                <input type="radio" name="sex" value="男" title="男" checked="">
+                                                                <input type="radio" name="sex" value="女" title="女">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="layui-row">
+                                                    {{--驾驶证号--}}
+                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">驾驶证号</label>
+                                                            <div class="layui-input-block">
+                                                                <input type="text" name="username" lay-verify="required" placeholder="请输入驾驶证号" autocomplete="off" class="layui-input">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{--初领日期--}}
+                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">初领日期</label>
+                                                            <div class="layui-input-block">
+                                                                <input type="text" name="username" lay-verify="required" placeholder="请输入初领日期" autocomplete="off" class="layui-input">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label">年龄</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="username" lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                                                {{--上传图片--}}
+                                                <div class="layui-row" >
+                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" style="margin-left: 15% ;">
+                                                        <div class="layui-upload-drag" id="upload">
+                                                            <div id="uptitle">
+                                                                <i class="layui-icon"></i>
+                                                                <p>上传驾驶员头像</p>
+                                                                <p>点击或将图片拖拽到此处</p>
+                                                            </div>
+                                                            <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1"/>
+                                                            <input type="hidden" name="preview"  id="uploadimg" value="0">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="layui-row">
                                             <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+                                                {{--驾驶证档案号--}}
                                                 <div class="layui-form-item">
-                                                    <label class="layui-form-label">单选框</label>
+                                                    <label class="layui-form-label" style=" padding: 9px 3px;">驾驶证档案号</label>
                                                     <div class="layui-input-block">
-                                                        <input type="radio" name="sex" value="男" title="男" checked="">
-                                                        <input type="radio" name="sex" value="女" title="女">
+                                                        <input type="text" name="username" lay-verify="required" placeholder="请输入证档案号" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+                                                {{--准驾车型--}}
+                                                <div class="layui-form-item">
+                                                    <label class="layui-form-label">准驾车型</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="text" name="username" lay-verify="required" placeholder="准驾车型" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md5">
+                                                {{--驾驶证审验有效时间--}}
+                                                <div class="layui-form-item">
+                                                    <label class="layui-form-label" style="width: 150px;padding:9px 2px;">驾驶证审验有效时间</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="text" name="username" lay-verify="required" placeholder="请输入驾驶证审验有效时间" autocomplete="off" class="layui-input" style="width: 67%">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="layui-row" >
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
-                                                <div class="layui-upload-drag" id="upload">
-                                                    <div id="uptitle">
-                                                        <i class="layui-icon"></i>
-                                                        <p>上传驾驶员头像</p>
-                                                        <p>点击或将图片拖拽到此处</p>
+                                        <div class="layui-row">
+                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+                                                {{--从业资格证号--}}
+                                                <div class="layui-form-item">
+                                                    <label class="layui-form-label" style=" padding: 9px 3px;">从业资格证号</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="text" name="username" lay-verify="required" placeholder="请输入从业资格证号" autocomplete="off" class="layui-input">
                                                     </div>
-                                                    <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1"/>
-                                                    <input type="hidden" name="preview"  id="uploadimg" value="0">
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+                                                {{--从业资格证号--}}
+                                                <div class="layui-form-item">
+                                                    <label class="layui-form-label" style="width: 150px;padding:9px 2px;">资格证审验有效时间</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="text" name="username" lay-verify="required" placeholder="请输入资格证审验有效时间" autocomplete="off" class="layui-input" style="width: 67%">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="layui-row">
+                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                                                <div class="layui-form-item layui-form-text">
+                                                    <label class="layui-form-label">驾驶信息</label>
+                                                    <div class="layui-input-block">
+                                                        <textarea placeholder="驾驶信息" class="layui-textarea"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
 
 
                                         <div class="layui-form-item">
@@ -117,6 +230,8 @@
     </div>
 @endsection
 @section('js')
+    {{--layui-v2.2.5--}}
+    <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
     {{--datatables 插件--}}
     <script src="{{asset('backend/vendors/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>
     {{--导出excel插件js--}}

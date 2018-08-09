@@ -17,8 +17,6 @@
         <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
-        {{--layui-v2.2.5--}}
-        <link href="{{ asset('/backend/myvebdors/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
         @yield('css')
     </head>
     <body class="nav-md">
@@ -49,11 +47,9 @@
         <script src="{{ asset('/backend/vendors/nprogress/nprogress.js')}}"></script>
         {{--layer--}}
         <script src="{{asset('/backend/myvebdors/layer/layer.js')}}"></script>
-        {{--layui-v2.2.5--}}
-        <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
         {{--vue js--}}
         <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
-        <!-- Custom Theme Scripts -->
+        <!--用的这个模板js -->
         <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
         @yield('js')
         <script>
