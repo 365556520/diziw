@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\BusesRouteRequest;
+
+use Illuminate\Http\Request;
 use App\Repositories\Eloquent\Admin\Buses\DriverRepository;
 
 class DriverController extends CommonController
@@ -42,14 +43,14 @@ class DriverController extends CommonController
     }
 
     /**
-     * 添加班车线路
+     * 添加驾驶员
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BusesRouteRequest $request){
+    public function store(Request $request){
         //$request->except('_token')不获取_token的值，其他值正常获取
-        $result = $this->driver->createBusesRoute($request->except('_token'));
+        $result = $this->driver->createDriver($request->except('_token','field'));
         return redirect(url('admin/driver'));
     }
 
@@ -63,7 +64,7 @@ class DriverController extends CommonController
     }
 
     /**
-     * 显示修改班车线路视图
+     * 显示修改驾驶员路视图
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -81,9 +82,9 @@ class DriverController extends CommonController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BusesRouteRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $this->driver->updateBusesRoute($request->all(),$id);
+        $this->driver->updateDriver($request->all(),$id);
         return redirect('admin/driver');
     }
 
@@ -95,7 +96,7 @@ class DriverController extends CommonController
      */
     public function destroy($id)
     {
-        $this->driver->destroyBusesRoute($id);
+        $this->driver->destroyDriver($id);
         return redirect(url('admin/driver'));
     }
 }

@@ -26,7 +26,7 @@ class CreateBusesTable extends Migration
             $table->increments('id');
             $table->string('driver_name')->comment('驾驶员名字');
             $table->string('driver_sex')->comment('驾驶员性别');
-            $table->string('driver_photo')->comment('驾驶员照片');
+            $table->string('driver_photo')->nullable()->comment('驾驶员照片');
             $table->text('driver_info')->comment('驾驶信息');
             $table->integer('driver_age')->comment('驾驶员年龄');
             $table->string('driver_card_firstdata')->comment('初领日期');

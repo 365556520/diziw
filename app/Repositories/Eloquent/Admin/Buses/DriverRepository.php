@@ -64,7 +64,7 @@ class DriverRepository extends Repository {
         ];
     }
 
-    /*添加视频标签*/
+    /*添加驾驶员*/
     public function createDriver($formData){
         $result = $this->model->create($formData);
         if ($result) {
@@ -74,7 +74,7 @@ class DriverRepository extends Repository {
         }
         return $result;
     }
-    /*删除班车线路*/
+    /*删除驾驶员*/
     public function destroyDriver($id){
         $result = $this->delete($id);
         if ($result) {
@@ -102,9 +102,9 @@ class DriverRepository extends Repository {
         }
         $result = $this->update($attributes,$id);
         if ($result) {
-            flash('班线修改成功','success');
+            flash('驾驶员信息修改成功','success');
         }else{
-            flash('班线修改失败', 'error');
+            flash('驾驶员信息修改失败', 'error');
         }
         return $result;
     }
