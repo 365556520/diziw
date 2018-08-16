@@ -61,6 +61,8 @@ class DriverController extends CommonController
      */
     public function show($id)
     {
+        $driver = $this->driver->find($id);
+        return view('admin.buses.driver.show')->with(compact('driver'));
     }
 
     /**

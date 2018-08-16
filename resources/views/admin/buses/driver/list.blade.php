@@ -218,6 +218,15 @@
             </div>
         </div>
     </div>
+
+    {{--查看模态框--}}
+    <div class="modal inmodal" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                {{--内容在show.balde中--}}
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 @endsection
 @section('js')
     {{--layui-v2.2.5--}}
