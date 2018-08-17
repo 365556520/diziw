@@ -15,6 +15,8 @@ Route::resource('busesroute','BusesRouteController');
 Route::group(['prefix' => 'driver'],function (){
     //列表数据
     Route::get('ajaxIndex','DriverController@ajaxIndex');
+    //上传驾驶员照片图片
+    Route::post('upload','DriverController@upload');
 });
 Route::resource('driver','DriverController');
 

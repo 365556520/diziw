@@ -61,7 +61,7 @@
                                                         <div class="layui-form-item">
                                                             <label class="layui-form-label">联系电话</label>
                                                             <div class="layui-input-block">
-                                                                <input type="text" name="driver_phone" value="{{$driver->driver_phone}}"  lay-verify="required" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+                                                                <input type="text" name="driver_phone" value="{{$driver->driver_phone}}"  lay-verify="required|phone|number" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -72,7 +72,7 @@
                                                         <div class="layui-form-item">
                                                             <label class="layui-form-label">年龄</label>
                                                             <div class="layui-input-block">
-                                                                <input type="text" name="driver_age" value="{{$driver->driver_age}}"  lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                                                                <input type="text" name="driver_age" value="{{$driver->driver_age}}"  lay-verify="required|number" placeholder="请输入年龄" autocomplete="off" class="layui-input">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -93,7 +93,7 @@
                                                         <div class="layui-form-item">
                                                             <label class="layui-form-label">驾驶证号</label>
                                                             <div class="layui-input-block">
-                                                                <input type="text" name="driver_card" value="{{$driver->driver_card}}"  lay-verify="required" placeholder="请输入驾驶证号" autocomplete="off" class="layui-input">
+                                                                <input type="text" name="driver_card" value="{{$driver->driver_card}}"  lay-verify="required|identity" placeholder="请输入驾驶证号" autocomplete="off" class="layui-input">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -217,10 +217,30 @@
                 upload = layui.upload;
             //拖拽上传
             upload.render({
-                elem: '#upload'
-                ,url: '/upload/'
-                ,done: function(res){
-                    console.log(res)
+                elem: '#upload',
+                url: '{{url("admin/driver/upload")}}',
+                data: {'_token':'{{csrf_token()}}'},
+                before: function(obj){
+                    layer.load(); //上传loading
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function(index, file, result){
+                        $('#uptitle').hide();
+                        $('#demo1').attr('src', result); //图片链接（base64）
+                    });
+                },
+                done: function(res){
+                    layer.closeAll('loading'); //关闭loading
+                    //status=0代表上传成功
+                    if(res.status == 0){
+                        $('#uploadimg').attr('value',res.path); //把连接放到隐藏输入框中
+                        $('#demo1').attr('value',res.path); //把连接放到隐藏输入框中
+                        layer.msg(res.message, {icon: 6});   //do something （比如将res返回的图片链接保存到表单的隐藏域）
+                    }else {
+                        layer.msg(res.message, {icon: 5});
+                    }
+                },
+                error: function(index, upload){
+                    layer.closeAll('loading'); //关闭loading
                 }
             });
         });

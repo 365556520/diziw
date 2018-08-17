@@ -32,6 +32,21 @@ class DriverController extends CommonController
         $result = $this->driver->ajaxIndex();
         return response()->json($result);
     }
+    /*
+   * 上传图片
+   * */
+    public function upload(Request $request){
+        $upload = $request->file;
+        if ($upload->isValid()) {
+            //把图片放到临时文件家下面
+            $path =  $upload->store('backend/images/temp/driver');
+            return ['status' => 0,'message' =>'上传成功','path' => url($path)];
+        }
+        return ['status' => 1,'message' => '上传失败'];
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *
