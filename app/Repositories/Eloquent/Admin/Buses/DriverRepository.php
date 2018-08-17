@@ -3,7 +3,7 @@ namespace App\Repositories\Eloquent\Admin\Buses;
 
 use App\Models\UsersModel\Buses\Driver;
 use App\Repositories\Eloquent\Repository;
-
+use Illuminate\Support\Facades\Storage;
 
 /**
  * 仓库模式继承抽象类
@@ -14,7 +14,6 @@ class DriverRepository extends Repository {
     public function model(){
         return Driver::class;
     }
-
     /*权限表显示数据*/
     public function ajaxIndex(){
         // datatables请求次数
@@ -63,29 +62,41 @@ class DriverRepository extends Repository {
             'data' => $drivers,
         ];
     }
-
     /*添加驾驶员*/
     public function createDriver($formData){
         $result = $this->model->create($formData);
         if ($result) {
-            flash('线路添加成功','success');
+            flash('驾驶员添加成功','success');
         }else{
-            flash('线路添加失败','error');
+            flash('驾驶员添加失败','error');
         }
         return $result;
     }
     /*删除驾驶员*/
     public function destroyDriver($id){
-        $result = $this->delete($id);
+       $result = false;
+       if ($this->deletephoto($id)){
+            $result = $this->delete($id);
+       }
         if ($result) {
             flash('删除成功','success');
         } else {
             flash('删除失败','error');
         }
-        return $result;
+       return $result;
     }
-
-    // 修改班车线路视图数据
+    /*删除图片*/
+    public function deletephoto($id){
+        $result = $this->find($id);
+        $driver_photo = true;
+        if(!empty($result->driver_photo)){
+            $driver_photo = strrchr($result->driver_photo,'/');
+            //删除视频图片
+            $driver_photo = Storage::delete(config('admin.globals.img.driver_photo').$driver_photo);
+        }
+        return $driver_photo;
+    }
+    // 修改驾驶员视图数据
     public function editView($id)
     {
         $result = $this->find($id);
@@ -94,7 +105,7 @@ class DriverRepository extends Repository {
         }
         abort(404);
     }
-    // 修改视频标签数据
+    // 修改驾驶员数据
     public function updateDriver($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {

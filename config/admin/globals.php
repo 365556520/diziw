@@ -23,4 +23,8 @@ return[
         'name' => 'name',
         'admin' => 'admin',
     ],
+    //图片默认存储位置
+    'img' =>[
+        'driver_photo' => 'backend/images/temp/driver'
+    ]
 ];

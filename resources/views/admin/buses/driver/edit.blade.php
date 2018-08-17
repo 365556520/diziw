@@ -219,7 +219,7 @@
             upload.render({
                 elem: '#upload',
                 url: '{{url("admin/driver/upload")}}',
-                data: {'_token':'{{csrf_token()}}'},
+                data: {'_token':'{{csrf_token()}}','id':'{{$driver->id}}'},
                 before: function(obj){
                     layer.load(); //上传loading
                     //预读本地文件示例，不支持ie8
