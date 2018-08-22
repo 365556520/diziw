@@ -51,6 +51,7 @@ return [
         'add' => 'buses.add',
         'edit' => 'buses.edit',
         'delete' => 'buses.delete',
+        'show' => 'buses.show',
     ],
     'driver' => [
         'list' => 'driver.list',

@@ -7,7 +7,13 @@ Route::group(['prefix' => 'busesroute'],function (){
     Route::get('ajaxIndex','BusesRouteController@ajaxIndex');
 });
 Route::resource('busesroute','BusesRouteController');
-
+/* 班车路由
+*/
+Route::group(['prefix' => 'buses'],function (){
+    //列表数据
+    Route::get('ajaxIndex','BusesController@ajaxIndex');
+});
+Route::resource('buses','BusesController');
 
 /**
  * 驾驶员
