@@ -14,7 +14,6 @@ Route::group(['prefix' => 'buses'],function (){
     Route::get('ajaxIndex','BusesController@ajaxIndex');
 });
 Route::resource('buses','BusesController');
-
 /**
  * 驾驶员
  */
