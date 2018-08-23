@@ -91,7 +91,7 @@
             </div>
         </div>
     </div>
-    <hr class="layui-bg-orange">
+    <hr class="layui-bg-blue">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 " >从业资格证号:{{$buses->driver->driver_qualification}}
         </div>
