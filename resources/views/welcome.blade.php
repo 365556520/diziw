@@ -6,7 +6,7 @@
     <div id="app">
         <jspang>
             <span slot="bolgUrl">@{{jspangData.bolgUrl}}</span>
-            <span slot="netName">测试</span>
+            <span slot="netName">che</span>
             <span slot="skill">@{{jspangData.skill}}</span>
         </jspang>
     </div>
