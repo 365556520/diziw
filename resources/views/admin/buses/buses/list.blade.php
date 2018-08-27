@@ -67,148 +67,102 @@
                                 </div>
                                 {{--添加班车--}}
                                 <div class="layui-tab-item">
-                                    <form class="layui-form layui-form-pane" method="post" action="{{url('admin/driver')}}">
+                                    <form class="layui-form layui-form-pane" method="post" action="{{url('admin/buses')}}">
                                         {{csrf_field()}}
-                                        <div class="layui-row">
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md8">
-                                                <div class="layui-row">
-                                                    {{--姓名--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">姓名</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_name" lay-verify="required" placeholder="请输入班车姓名" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {{--电话--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">联系电话</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_phone" lay-verify="required|phone|number" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
+                                        <div class="layui-form-item">
+                                                {{--车牌号--}}
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label" style=" padding: 9px 3px;">车牌号</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="text" name="buses_name" lay-verify="required" placeholder="请输入车牌号" autocomplete="off" class="layui-input">
                                                     </div>
                                                 </div>
-                                                <div class="layui-row">
-                                                    {{--年龄--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">年龄</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_age" lay-verify="required|number" placeholder="请输入年龄" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {{--性别--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">性别</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="radio" name="driver_sex" value="男" title="男" checked="">
-                                                                <input type="radio" name="driver_sex" value="女" title="女">
-                                                            </div>
-                                                        </div>
+                                                {{--车型--}}
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">车型</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="text" name="buses_type" lay-verify="required" placeholder="请输入车型" autocomplete="off" class="layui-input">
                                                     </div>
                                                 </div>
-                                                <div class="layui-row">
-                                                    {{--驾驶证号--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">驾驶证号</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_card" lay-verify="required|identity" placeholder="请输入驾驶证号" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
+                                                {{--核载--}}
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">核载</label>
+                                                    <div class="layui-input-block">
+                                                        <input type="text" name="buses_sit" lay-verify="required" placeholder="请输入核载人数" autocomplete="off" class="layui-input" style="width: 67%">
                                                     </div>
-                                                    {{--初领日期--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">初领日期</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_card_firstdata" lay-verify="required" placeholder="请输入初领日期" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div  class="layui-form-item">
+                                            {{--保险期限--}}
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label" style=" padding: 9px 3px;">保险期限</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="buses_insurance_date" lay-verify="required"  placeholder="请输入保险期限" autocomplete="off" class="layui-input">
                                                 </div>
                                             </div>
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
-                                                {{--上传图片--}}
-                                                <div class="layui-row" >
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" style="margin-left: 15% ;">
-                                                        <div class="layui-upload-drag" id="upload">
-                                                            <div id="uptitle">
-                                                                <i class="layui-icon"></i>
-                                                                <p>上传班车头像</p>
-                                                                <p>点击或将图片拖拽到此处</p>
-                                                            </div>
-                                                            <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1"/>
-                                                            <input type="hidden" name="driver_photo"  id="uploadimg" >
-                                                        </div>
-                                                    </div>
+                                            {{--保险期限--}}
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label" style="padding:9px 2px;">车辆审验时间</label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="buses_approve_date" lay-verify="required"  placeholder="请输入车辆审验时间" autocomplete="off" class="layui-input" >
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="layui-row">
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
-                                                {{--驾驶证档案号--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label" style=" padding: 9px 3px;">驾驶证档案号</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_archive_number" lay-verify="required" placeholder="请输入证档案号" autocomplete="off" class="layui-input">
-                                                    </div>
+
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">发车时间</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="buses_start_date" lay-verify="required" autocomplete="off" class="layui-input">
                                                 </div>
                                             </div>
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
-                                                {{--准驾车型--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label">准驾车型</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_permit" lay-verify="required" placeholder="准驾车型" autocomplete="off" class="layui-input">
-                                                    </div>
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">返回时间</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="buses_end_date" lay-verify="required" autocomplete="off" class="layui-input">
+                                                </div>
+                                                <div class="layui-form-mid layui-word-aux">往返时间填写格式例如时间多的用,号隔开（发车时间;6:20,12:10返回时间:9:10,5:20）</div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">车主</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" name="buses_boss" lay-verify="required" autocomplete="off" class="layui-input">
                                                 </div>
                                             </div>
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md5">
-                                                {{--驾驶证审验有效时间--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label" style="width: 150px;padding:9px 2px;">驾驶证审验有效时间</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_card_date" lay-verify="required" placeholder="请输入驾驶证审验有效时间" autocomplete="off" class="layui-input" style="width: 67%">
-                                                    </div>
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">车主电话</label>
+                                                <div class="layui-input-inline" style="width:300px;">
+                                                    <input type="text" name="buses_phone" lay-verify="required" autocomplete="off" class="layui-input">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="layui-row">
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                {{--从业资格证号--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label" style=" padding: 9px 3px;">从业资格证号</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_qualification" lay-verify="required" placeholder="请输入从业资格证号" autocomplete="off" class="layui-input">
-                                                    </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">驾驶员</label>
+                                                <div class="layui-input-inline">
+                                                    <select name="buses_driver_id">
+                                                        <option value="">选择驾驶员</option>
+                                                        @foreach($driver as $d)
+                                                            <option value="{{$d->id}}">{{$d->driver_name}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                {{--从业资格证号--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label" style="width: 150px;padding:9px 2px;">资格证审验有效时间</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_qualification_date" lay-verify="required" placeholder="请输入资格证审验有效时间" autocomplete="off" class="layui-input" style="width: 67%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="layui-row">
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                                                <div class="layui-form-item layui-form-text">
-                                                    <label class="layui-form-label">驾驶信息</label>
-                                                    <div class="layui-input-block">
-                                                        <textarea placeholder="驾驶信息" name="driver_info" class="layui-textarea"></textarea>
-                                                    </div>
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">营运线路</label>
+                                                <div class="layui-input-inline">
+                                                    <select name="busesroute_id">
+                                                        <option value="">选择营运线路</option>
+                                                        @foreach($busesRoute as $routes)
+                                                            <option value="{{$routes->id}}">{{$routes->buses_start}}-{{$routes->buses_end}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="layui-form-item">
                                             <button class="layui-btn" lay-submit="" lay-filter="demo2">添加班车</button>
                                         </div>
@@ -255,36 +209,7 @@
         layui.use(['element','upload','form'],function(){
             var $ = layui.jquery,
             form = layui.form,
-            element = layui.element,//Tab的切换功能，切换事件监听等，需要依赖element模块
-            upload = layui.upload;
-            //拖拽上传
-            upload.render({
-                elem: '#upload',
-                url: 'driver/upload',
-                data: {'_token':'{{csrf_token()}}'},
-                before: function(obj){
-                    layer.load(); //上传loading
-                    //预读本地文件示例，不支持ie8
-                    obj.preview(function(index, file, result){
-                        $('#uptitle').hide();
-                        $('#demo1').attr('src', result); //图片链接（base64）
-                    });
-                },
-                done: function(res){
-                    layer.closeAll('loading'); //关闭loading
-                    //status=0代表上传成功
-                    if(res.status == 0){
-                        $('#uploadimg').attr('value',res.path); //把连接放到隐藏输入框中
-                        $('#demo1').attr('value',res.path); //把连接放到隐藏输入框中
-                        layer.msg(res.message, {icon: 6});   //do something （比如将res返回的图片链接保存到表单的隐藏域）
-                    }else {
-                        layer.msg(res.message, {icon: 5});
-                    }
-                },
-                error: function(index, upload){
-                    layer.closeAll('loading'); //关闭loading
-                }
-            });
+            element = layui.element;//Tab的切换功能，切换事件监听等，需要依赖element模块
         });
     </script>
     {{--提示代码--}}

@@ -63,13 +63,13 @@ class BusesRepository extends Repository {
         ];
     }
 
-    /*添加视频标签*/
-    public function createBusesRoute($formData){
+    /*添加班车*/
+    public function createBuses($formData){
         $result = $this->model->create($formData);
         if ($result) {
-            flash('线路添加成功','success');
+            flash('班车添加成功','success');
         }else{
-            flash('线路添加失败','error');
+            flash('班车添加失败','error');
         }
         return $result;
     }

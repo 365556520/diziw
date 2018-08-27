@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\BusesRouteRequest;
+use App\Models\UsersModel\Buses\BusesRoute;
+use App\Models\UsersModel\Buses\Driver;
 use App\Repositories\Eloquent\Admin\Buses\BusesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,7 +25,11 @@ class BusesController extends CommonController
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('admin.buses.buses.list');
+        //得到所有驾驶员
+        $driver = Driver::all();
+        //得到所有线路
+        $busesRoute =BusesRoute::all();
+        return view('admin.buses.buses.list')->with(compact('driver','busesRoute'));
     }
 
 
@@ -48,9 +54,9 @@ class BusesController extends CommonController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BusesRouteRequest $request){
+    public function store(Request $request){
         //$request->except('_token')不获取_token的值，其他值正常获取
-        $result = $this->buses->createBusesRoute($request->except('_token'));
+        $result = $this->buses->createBuses($request->except('_token'));
         return redirect(url('admin/buses'));
     }
 
