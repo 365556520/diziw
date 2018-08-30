@@ -12,11 +12,18 @@ use App\Http\Controllers\Controller;
 class BusesController extends CommonController
 {
     private $buses;
+    //得到所有驾驶员
+    private $driver;
+    //得到所有线路
+    private $busesRoute;
     function __construct(BusesRepository $buses)
     {
         //调用父累的构造方法
         parent::__construct('buses');
         $this->buses = $buses;
+        $this->driver = Driver::all();
+        $this->busesRoute = BusesRoute::all();
+
     }
 
     /**
@@ -26,9 +33,9 @@ class BusesController extends CommonController
      */
     public function index(){
         //得到所有驾驶员
-        $driver = Driver::all();
+        $driver =   $this->driver;
         //得到所有线路
-        $busesRoute =BusesRoute::all();
+        $busesRoute = $this->busesRoute;
         return view('admin.buses.buses.list')->with(compact('driver','busesRoute'));
     }
 
@@ -69,6 +76,7 @@ class BusesController extends CommonController
     {
         $buses = $this->buses->find($id);
         $buses['driver'] = $buses->getDriver;
+        $buses['busesroute'] = $buses->getBusesRoute;
         return view('admin.buses.buses.show')->with(compact('buses'));
     }
 
@@ -80,8 +88,12 @@ class BusesController extends CommonController
      */
     public function edit($id)
     {
+        //得到所有驾驶员
+        $driver =   $this->driver;
+        //得到所有线路
+        $busesRoute = $this->busesRoute;
         $buses = $this->buses->editView($id);
-        return view('admin.buses.buses.edit')->with(compact('buses'));
+        return view('admin.buses.buses.edit')->with(compact('buses','driver','busesRoute'));
     }
 
     /**
@@ -91,7 +103,7 @@ class BusesController extends CommonController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BusesRouteRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $this->buses->updateBusesRoute($request->all(),$id);
         return redirect('admin/buses');

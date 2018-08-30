@@ -93,7 +93,7 @@ class BusesRepository extends Repository {
         }
         abort(404);
     }
-    // 修改视频标签数据
+    // 修改班车
     public function updateBusesRoute($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
