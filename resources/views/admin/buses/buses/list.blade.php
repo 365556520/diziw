@@ -150,19 +150,18 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="layui-inline">
-                                                <label class="layui-form-label">营运线路</label>
-                                                <div class="layui-input-inline">
-                                                    <select name="busesroute_id">
-                                                        <option value="">选择营运线路</option>
-                                                        @foreach($busesRoute as $routes)
-                                                            <option value="{{$routes->id}}">{{$routes->buses_start}}-{{$routes->buses_end}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">营运线路</label>
+                                            <div class="layui-input-block">
+                                                <select name="busesroute_id">
+                                                    <option value="">选择营运线路</option>
+                                                    @foreach($busesRoute as $routes)
+                                                        <option value="{{$routes->id}}">{{$routes->buses_start}}-{{$routes->buses_midway}}-{{$routes->buses_end}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
-
                                         <div class="layui-form-item">
                                             <button class="layui-btn" lay-submit="" lay-filter="demo2">添加班车</button>
                                         </div>

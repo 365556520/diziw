@@ -31,4 +31,9 @@ class Buses extends Model
     {
         return $this->belongsTo('App\Models\UsersModel\Buses\Driver', 'buses_driver_id');
     }
+    //获取营运线路
+    public function getBusesRoute()
+    {
+        return $this->belongsTo('App\Models\UsersModel\Buses\BusesRoute', 'busesroute_id');
+    }
 }

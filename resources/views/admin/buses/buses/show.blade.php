@@ -43,6 +43,20 @@
         </div>
     </div>
     <hr class="layui-bg-red">
+    <h2 style="text-align: center">营运线路</h2>
+    <hr class="layui-bg-red">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                始发地:{{$buses->getBusesRoute->buses_start}}
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                途经:{{$buses->getBusesRoute->buses_midway}}
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                终点:{{$buses->getBusesRoute->buses_end}}
+            </div>
+        </div>
+    <hr class="layui-bg-red">
     <h2 style="text-align: center">驾驶员信息</h2>
     <hr class="layui-bg-red">
     <div class="row">
