@@ -35,14 +35,14 @@
 
         <!-- /menu footer buttons 侧边导航底部按钮 -->
         <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings">
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="系统设置">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </a>
-            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            <a data-toggle="tooltip" data-placement="top" title="" href="{{url('admin/menu')}}" data-original-title="菜单管理">
+                <span class="fa fa-navicon" aria-hidden="true"></span>
             </a>
-            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            <a data-toggle="tooltip" data-placement="top" title="" onclick="fullScreen()" data-original-title="进入全屏">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
             </a>
             <a data-toggle="tooltip" data-placement="top" title="" data-original-title="退出" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -109,3 +109,34 @@
     </div>
 </div>
 <!-- /top navigation -->
+<script>
+
+    // 全屏代码
+    function fullScreen() {
+        var elem = document.body;
+        if (elem.webkitRequestFullScreen) {
+            elem.webkitRequestFullScreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.requestFullScreen) {
+            elem.requestFullscreen();
+        } else {
+            notice.notice_show("浏览器不支持全屏API或已被禁用", null, null, null, true, true);
+        }
+    }
+    function exitFullScreen() {
+        var elem = document;
+        if (elem.webkitCancelFullScreen) {
+            elem.webkitCancelFullScreen();
+        } else if (elem.mozCancelFullScreen) {
+            elem.mozCancelFullScreen();
+        } else if (elem.cancelFullScreen) {
+            elem.cancelFullScreen();
+        } else if (elem.exitFullscreen) {
+            elem.exitFullscreen();
+        } else {
+            notice.notice_show("浏览器不支持全屏API或已被禁用", null, null, null, true, true);
+        }
+    }
+
+</script>
