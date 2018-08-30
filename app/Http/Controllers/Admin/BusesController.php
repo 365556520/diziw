@@ -73,7 +73,7 @@ class BusesController extends CommonController
     }
 
     /**
-     * 显示修改班车线路视图
+     * 显示修改班车视图
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
