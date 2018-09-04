@@ -75,8 +75,6 @@ class BusesController extends CommonController
     public function show($id)
     {
         $buses = $this->buses->find($id);
-        $buses['driver'] = $buses->getDriver;
-        $buses['busesroute'] = $buses->getBusesRoute;
         return view('admin.buses.buses.show')->with(compact('buses'));
     }
 

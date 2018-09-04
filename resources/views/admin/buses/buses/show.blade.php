@@ -62,42 +62,42 @@
     <div class="row">
         <div class="col-md-8 col-sm-12 col-xs-12">
             <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12 " >名字:{{$buses->driver->driver_name}}
+                <div class="col-md-6 col-sm-12 col-xs-12 " >名字:{{$buses->getDriver->driver_name}}
                 </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 " >年龄:{{$buses->driver->driver_age}}
+                <div class="col-md-6 col-sm-12 col-xs-12 " >年龄:{{$buses->getDriver->driver_age}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12 " >性别:{{$buses->driver->driver_sex}}
+                <div class="col-md-6 col-sm-12 col-xs-12 " >性别:{{$buses->getDriver->driver_sex}}
                 </div>
-                <div class="col-md-6 col-sm-12 col-xs-12 " >联系电话:{{$buses->driver->driver_phone}}
+                <div class="col-md-6 col-sm-12 col-xs-12 " >联系电话:{{$buses->getDriver->driver_phone}}
                 </div>
             </div>
             <hr class="layui-bg-blue">
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 " >驾驶证号:{{$buses->driver->driver_card}}
+                <div class="col-md-12 col-sm-12 col-xs-12 " >驾驶证号:{{$buses->getDriver->driver_card}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 " >驾驶证档案号:{{$buses->driver->driver_archive_number}}
+                <div class="col-md-12 col-sm-12 col-xs-12 " >驾驶证档案号:{{$buses->getDriver->driver_archive_number}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 " >准驾车型:{{$buses->driver->driver_permit}}
+                <div class="col-md-12 col-sm-12 col-xs-12 " >准驾车型:{{$buses->getDriver->driver_permit}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 " >初领日期:{{$buses->driver->driver_card_firstdata}}
+                <div class="col-md-12 col-sm-12 col-xs-12 " >初领日期:{{$buses->getDriver->driver_card_firstdata}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 " >驾驶证审验有效时间:{{$buses->driver->driver_card_date}}
+                <div class="col-md-12 col-sm-12 col-xs-12 " >驾驶证审验有效时间:{{$buses->getDriver->driver_card_date}}
                 </div>
             </div>
         </div>
         <div  class="col-md-4 col-sm-12 col-xs-12">
             <div class="xiangkuang"
-                 @if(empty($buses->driver->driver_photo))
+                 @if(empty($buses->getDriver->driver_photo))
                  style ="background:  url({{url('/backend/images/default/default_zhaopian.jpg')}});background-size:100% 100%;"
                  @else
                  style ="background: url({{url($buses->driver->driver_photo)}});background-size:100% 100%;"
@@ -107,9 +107,9 @@
     </div>
     <hr class="layui-bg-blue">
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12 " >从业资格证号:{{$buses->driver->driver_qualification}}
+        <div class="col-md-12 col-sm-12 col-xs-12 " >从业资格证号:{{$buses->getDriver->driver_qualification}}
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 " >资格证审验有效时间:{{$buses->driver->driver_qualification_date}}
+        <div class="col-md-12 col-sm-12 col-xs-12 " >资格证审验有效时间:{{$buses->getDriver->driver_qualification_date}}
         </div>
     </div>
 </div>
