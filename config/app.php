@@ -186,6 +186,8 @@ return [
         HieuLe\Active\ActiveServiceProvider::class,
         //代码提升增强
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        //Debugbar优化调试工具
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -245,6 +247,8 @@ return [
         'Active' => HieuLe\Active\Facades\Active::class,
         //Cos门面
         'CosFacade' => App\Facades\CosFacade::class,
+        //Debugbar优化调试工具
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
