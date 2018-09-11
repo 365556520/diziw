@@ -15,9 +15,14 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',100)->default("");
-            $table->text('content');
-            $table->integer('user_id')->default(0);
+            $table->string('title',100)->default("")->comment('标题');
+            $table->string('tag',100)->default("")->comment('关键词');
+            $table->string('description',150)->default("")->comment('描述');
+            $table->string('thumb')->default("")->comment('缩略图');
+            $table->string('view')->default("")->comment('查看次数');
+            $table->integer('category_id')->default("")->comment('分类id');
+            $table->integer('user_id')->default("")->comment('作者id');
+            $table->text('content')->comment('内容');
             $table->timestamps();
         });
     }
