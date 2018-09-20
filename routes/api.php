@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 /*跨域接口响应*/
 // 指定允许其他域名访问
 header('Access-Control-Allow-Origin: *');
@@ -53,10 +52,12 @@ Route::group(['namespace'=>'Api'],function(){
         Route::post('login', 'PassportController@login');
         // 注册
         Route::post('register', 'PassportController@register');
-        //增加用户登录过滤
+        //用户令牌认证过滤
         Route::group(['middleware' => 'auth:api'], function() {
             //获取用户信息
             Route::post('passport', 'PassportController@passport');
+            //退出用户删除令牌
+            Route::post('logout','PassportController@logout');
         });
     });
 });

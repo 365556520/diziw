@@ -63,4 +63,15 @@ class PassportController extends CommonController
     {
         return response()->json(['user' => Auth::user()],$this->successStatus);
     }
+
+    /**
+     * 退出登录 删除用户令牌
+     */
+    public function logout()
+    {
+        if (Auth::guard('api')->check()) {
+            Auth::guard('api')->user()->token()->delete();
+        }
+        return response()->json(['message' => '登出成功', 'status_code' =>  $this->successStatus, 'data' => null]);
+    }
 }
