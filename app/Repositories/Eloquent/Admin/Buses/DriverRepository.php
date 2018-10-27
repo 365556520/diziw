@@ -48,7 +48,7 @@ class DriverRepository extends Repository {
         foreach ($drivers as $v){
             $v->password;
         }
-        $userPermissions =  $this->getUserPermissions('permission'); //获取当前用户对该表的权限
+        $userPermissions =  $this->getUserPermissions('driver'); //获取当前用户对该表的权限
         if($drivers){
             foreach ($drivers as $v){
                 //这里需要传入2个权限第一个修改权限 第二个删除权限 第三个是查看权限

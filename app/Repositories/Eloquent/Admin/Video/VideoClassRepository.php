@@ -47,7 +47,7 @@ class VideoClassRepository extends Repository {
         $count = $vidos->count();//查出所有数据的条数
         $vidos = $vidos->orderBy($order['name'],$order['dir']);//获取表格数据并且排过序
         $vidoss = $vidos->offset($start)->limit($length)->get();//得到分页数据
-        $userPermissions =  $this->getUserPermissions('permission'); //获取当前用户对该表的权限
+        $userPermissions =  $this->getUserPermissions('video'); //获取当前用户对该表的权限
 
         if($vidoss){
             foreach ($vidoss as $v){
