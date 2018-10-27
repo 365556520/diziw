@@ -48,10 +48,11 @@ class DriverRepository extends Repository {
         foreach ($drivers as $v){
             $v->password;
         }
+        $userPermissions =  $this->getUserPermissions('permission'); //获取当前用户对该表的权限
         if($drivers){
             foreach ($drivers as $v){
-                //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
-                $v->actionButton = $v->getActionButtont(config('admin.permissions.driver.show'),config('admin.permissions.driver.edit'),config('admin.permissions.driver.delete'),false);
+                //这里需要传入2个权限第一个修改权限 第二个删除权限 第三个是查看权限
+                $v->actionButton = $v->getActionButtont($userPermissions['show'],$userPermissions['edit'],$userPermissions['delete'],false);
             }
         }
         // datatables固定的返回格式
