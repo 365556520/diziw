@@ -26,23 +26,19 @@ trait ActionButtonTrait{
                 </a> &nbsp';
     }
     //得到三个按钮config('admin.permissions.menu.delete')) 前面三个是查看、修改、删除的权限，最后个设置是否是Modal模式（默认是true）
-    public function getActionButtont($showPermission = null,$editPermission = null ,$destroyPermission = null,$Modal = true){
+    public function getActionButtont($showPermission = false,$editPermission = false,$destroyPermission = false,$Modal = true){
+
         $thml = '<div class="btn-group btn-group-xs">';
-        if ($showPermission == null){
-            $thml .= '';
-        }else{
+        if ($showPermission){
             /*有查看权限才加入编写按钮*/
-            if(auth()->user()->can($showPermission)){
-                $thml .= $this->getShowActionButtont();
-            }
-        }
-        if($editPermission == null){
-            $thml .= '';
+           $thml .= $this->getShowActionButtont();
         }else{
+            $thml .= '';
+        }
+        if($editPermission){
             /*有编写权限才加入编写按钮*/
-            if(auth()->user()->can($editPermission)){
                 if ($this->is_Role_admin()){
-                   $thml .= '<small class="text-danger">不可修改和';
+                    $thml .= '<small class="text-danger">不可修改和';
                 }else{
                     if ($Modal){
                         $thml .= $this->getEditActionButtont();
@@ -50,20 +46,19 @@ trait ActionButtonTrait{
                         $thml .= $this->getNoModalEditActionButtont();
                     }
                 }
-            }
+        }else{
+            $thml .= '';
         }
 
-        if($destroyPermission == null){
-                $thml .= '';
+        if($destroyPermission){
+            /*有删除全选才加入删除按钮*/
+            if ($this->is_Role_admin()){
+                $thml .= '删除</small>';
+            }else{
+                $thml .= $this->getDestroyActionButtont();
+            }
         } else{
-                /*有删除全选才加入删除按钮*/
-            if(auth()->user()->can($destroyPermission)){
-                 if ($this->is_Role_admin()){
-                    $thml .= '删除</small>';
-                 }else{
-                    $thml .= $this->getDestroyActionButtont();
-                 }
-             }
+            $thml .= '';
         }
         $thml .= '</div>';
         return $thml;

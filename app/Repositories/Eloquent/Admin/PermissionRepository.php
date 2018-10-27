@@ -57,11 +57,14 @@ class  PermissionRepository extends Repository{
         $count = $permission->count();//查出所有数据的条数
         $permission = $permission->orderBy($order['name'],$order['dir']);//数据排序
         $permissions = $permission->offset($start)->limit($length)->get();//得到分页数据
+
+        $userPermissions =  $this->getUserPermissions('permission'); //获取当前用户对该表的权限
         if($permissions){
             foreach ($permissions as $v){
-                //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
-                $v->actionButton = $v->getActionButtont(config('admin.permissions.permission.show'),config('admin.permissions.permission.edit'),config('admin.permissions.permission.delete'));
+                //这里需要传入2个权限第一个修改权限 第二个删除权限 第三个是查看权限
+                $v->actionButton = $v->getActionButtont($userPermissions['show'],$userPermissions['edit'],$userPermissions['delete']);
             }
+
         }
         // datatables固定的返回格式
         return [

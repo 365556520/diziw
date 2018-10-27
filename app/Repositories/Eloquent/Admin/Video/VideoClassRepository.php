@@ -47,11 +47,13 @@ class VideoClassRepository extends Repository {
         $count = $vidos->count();//查出所有数据的条数
         $vidos = $vidos->orderBy($order['name'],$order['dir']);//获取表格数据并且排过序
         $vidoss = $vidos->offset($start)->limit($length)->get();//得到分页数据
+        $userPermissions =  $this->getUserPermissions('permission'); //获取当前用户对该表的权限
+
         if($vidoss){
             foreach ($vidoss as $v){
                 $v->videomun = $v->getVideo()->count();//获取视频的个数并且添加上（这是用关联查询然后直接传给新增的这个属性）
-                    //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
-                $v->actionButton = $v->getActionButtont(config('admin.permissions.video.show'),config('admin.permissions.video.edit'),config('admin.permissions.video.delete'),false);
+                //这里需要传入2个权限第一个修改权限 第二个删除权限 第三个是查看权限
+                $v->actionButton = $v->getActionButtont($userPermissions['show'],$userPermissions['edit'],$userPermissions['delete'],false);
             }
         }
         // datatables固定的返回格式

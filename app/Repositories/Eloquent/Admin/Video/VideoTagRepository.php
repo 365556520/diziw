@@ -48,10 +48,11 @@ class VideoTagRepository extends Repository {
         foreach ($videotags as $v){
             $v->password;
         }
+        $userPermissions =  $this->getUserPermissions('permission'); //获取当前用户对该表的权限
         if($videotags){
             foreach ($videotags as $v){
-                //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
-                $v->actionButton = $v->getActionButtont(config('admin.permissions.videotag.show'),config('admin.permissions.videotag.edit'),config('admin.permissions.videotag.delete'));
+                //这里需要传入2个权限第一个修改权限 第二个删除权限 第三个是查看权限
+                $v->actionButton = $v->getActionButtont($userPermissions['show'],$userPermissions['edit'],$userPermissions['delete']);
             }
         }
         // datatables固定的返回格式

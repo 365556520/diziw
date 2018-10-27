@@ -26,8 +26,15 @@ abstract class Repository implements RepositoryInterface{
         }
         $this->model = $model;
     }
-
-
+    /*得到当前用户列表权限*/
+    public function getUserPermissions($tableName){
+        //得到权限
+        $permissions = [
+                       'show'=>auth()->user()->can(config('admin.permissions.'.$tableName.'.show')),//查看权限
+                       'edit'=>auth()->user()->can(config('admin.permissions.'.$tableName.'.edit')),  //编辑权限
+                       'delete'=>auth()->user()->can(config('admin.permissions.'.$tableName.'.delete'))];//删除权限
+        return $permissions;
+    }
     public function all($columns = ['*']){
         return $this->model->all($columns);
     }

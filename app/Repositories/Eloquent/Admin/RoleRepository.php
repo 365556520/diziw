@@ -50,10 +50,11 @@ class  RoleRepository extends Repository{
         $count = $role->count();//查出所有数据的条数
         $role = $role->orderBy($order['name'],$order['dir']);//数据排序
         $roles = $role->offset($start)->limit($length)->get();//得到分页数据
+        $userPermissions =  $this->getUserPermissions('permission'); //获取当前用户对该表的权限
         if($roles){
             foreach ($roles as $v){
                 //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
-                $v->actionButton = $v->getActionButtont(config('admin.permissions.role.show'),config('admin.permissions.role.edit'),config('admin.permissions.role.delete'));
+                $v->actionButton = $v->getActionButtont($userPermissions['show'],$userPermissions['edit'],$userPermissions['delete']);
             }
         }
         // datatables固定的返回格式
