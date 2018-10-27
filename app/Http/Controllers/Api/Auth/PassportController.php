@@ -22,6 +22,7 @@ class PassportController extends CommonController
         {
             $user = Auth::user();
             $this->content['token'] =  $user->createToken('Pi App')->accessToken; //创建令牌
+            $this->content['message'] =  '登录成功';
             $this->successStatus = 200;
         } else {
             $this->content['error'] = "未授权";
