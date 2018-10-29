@@ -44,7 +44,7 @@ class RegisterController extends Controller
         if(Auth::user()->can(config('admin.permissions.system.login'))){
             return 'admin/home';
         }else{
-           // return 'home';
+            return 'admin/login';
         }
 
     }

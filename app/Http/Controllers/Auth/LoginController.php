@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-   // protected $redirectTo = 'home';
+    protected $redirectTo = 'home'; //默认到home
     //登录逻辑 这里优先级大于变量
     protected function redirectTo()   {
 //        如果有后台权限就登录到后台没有就登录到前台
@@ -37,15 +37,17 @@ class LoginController extends Controller
      * 重写用户登录成功后处理方法
      * 这个登录逻辑先级大于redirectTo()
      */
-    protected function authenticated(Request $request, $user)
+/*    protected function authenticated(Request $request, $user)
     {
         if($user->can(config('admin.permissions.system.login'))){// 如果有后台权限就登录到后台
             $this->redirectTo = 'admin/home';
-        }else{ // 创建用户个人 token api
-            $token = $user->createToken($user->name);
-            return response()->json(compact('token'));
+        }else{
+//           // 创建用户个人 token api这里不需要
+//            $token = $user->createToken($user->name);
+//            return response()->json(compact('token'));
         }
-    }
+    }*/
+
     /**
      * Create a new controller instance.
      *
@@ -65,6 +67,7 @@ class LoginController extends Controller
     //验证码重写AuthenticatesUsers类里面的这个validateLogin方法，增加验证码判断
     protected function validateLogin(Request $request)
     {
+        //        如果有后台权限就登录到后台没有就登录到前台
         $this->validate($request, [
             $this->username() => 'required|string',
             'password' => 'required|string',
@@ -75,5 +78,6 @@ class LoginController extends Controller
             'captcha.required' => trans('validation.required'),
             'captcha.captcha' => trans('validation.captcha'),
         ]);
+
     }
 }
