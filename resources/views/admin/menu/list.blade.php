@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.content')
 @section('title')
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
@@ -11,11 +11,9 @@
 @section('content')
     {{--页面逻辑处理类--}}
     @inject('menus','App\Repositories\Presenter\MenuPresenter')
-    <div class="">
+
     <div class="page-title">
-        <div class="title_left">
-            <h3>{{ trans('admin/menu.title')}}</h3>
-        </div>
+
     </div>
     <div class="clearfix"></div>
     <div class="row ">
@@ -98,8 +96,7 @@
                                     <input type="text" class="form-control" name="heightlight_url" value="{{old('heightlight_url')}}" placeholder="请输入菜单高亮">
                                 </div>
                             </div>
-
-
+                            
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ trans('admin/menu.model.url')}}</label>
@@ -129,7 +126,6 @@
             <!-- end right panel -->
         </div>
     </div>
-</div>
 @endsection
 @section('js')
     <!-- Select2 -->

@@ -16,6 +16,9 @@ class AppServiceProvider extends ServiceProvider{
         view()->composer(
             'layouts.sidebar', 'App\Http\ViewComposers\MenuComposer'
         );
+        view()->composer(
+            'admin.layouts.sidebar', 'App\Http\ViewComposers\MenuComposer'
+        );
     }
 
     /**
