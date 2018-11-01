@@ -11,7 +11,7 @@ class AdminMenuPresenter {
 //   添加菜单下拉列表渲染
     public function getMenu($menus){
         if ($menus){
-            $option = '<option value="0">顶级</option>';
+            $option = '<option value="0" selected >顶级</option>';
             foreach ($menus as $v) {
                 $option .=   '<option value="'.$v->id.'">'.$v->name.'</option>';
             }

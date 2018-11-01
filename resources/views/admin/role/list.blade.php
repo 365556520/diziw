@@ -3,7 +3,6 @@
     <title>{{ trans('admin/role.title')}}</title>
 @endsection
 @section('css')
-
     {{--datatables 插件--}}
     <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     {{--导出excel插件cs--}}
@@ -16,7 +15,6 @@
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>{{ trans('admin/role.desc')}}<small>{{ trans('admin/role.action.createDescription')}}</small></h2>
