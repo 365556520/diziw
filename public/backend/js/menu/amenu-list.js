@@ -2,24 +2,26 @@
 var MenuList = function() {
     var menuInit = function(){
        //   得到添加菜单的父级菜单的选项
-            var select = $(".select_single").select();
+            var select2 = $(".select2_single").select2({
+                placeholder: "Select a state",
+                allowClear: true
+            });
            // 控制菜单只有2层层级关系
             $('#nestable_list_3').nestable({
                 "maxDepth":2
             });
             //添加按钮事件
             $('.createMenu').on('click',function () {
-                layer.closeAll('loading');
                 // 清除修改按钮的数据
                 $('#method').remove();
                 $('input[name=id]').remove();
                 // 修改表单action
                 $('#menuForm').attr('action','/admin/menu');
                 // 清空表单
-                $('#menuForm input.layui-input').val('');
+                $('#menuForm input.form-control').val('');
                 var _item = $(this);
                 // 改变select2默认值 修改添加菜单父级别值为当前菜单
-                select.val($(this).attr('data-pid')).trigger("change");
+                select2.val($(this).attr('data-pid')).trigger("change");
             });
         // 修改菜单按钮事件
         $('.editMenu').on('click',function () {
@@ -35,7 +37,7 @@ var MenuList = function() {
                     // 成功关闭loading
                     layer.closeAll('loading');
                     if (menu.status) {
-                        menuFun.initAttribute(menu,select);
+                        menuFun.initAttribute(menu,select2);
                     }
                     layer.msg(menu.msg);
                 },
@@ -63,9 +65,9 @@ var MenuList = function() {
             });
         });
         var menuFun = function() {
-            var menuAttribute = function(menu,select) {
+            var menuAttribute = function(menu,select2) {
                 $('input[name=name]').val(menu.name);
-                select.val(menu.parent_id).trigger("change");
+                select2.val(menu.parent_id).trigger("change");
                 $('input[name=icon]').val(menu.icon);
                 $('input[name=url]').val(menu.url);
                 $('input[name=heightlight_url] ').val(menu.heightlight_url);

@@ -13,7 +13,7 @@ return [
         'pid' 			=> '菜单关系',
         'slug' 			=> '菜单权限',
         'url' 			=> '菜单链接',
-        'active' 		=> '菜单高亮地址',
+        'active' 		=> '菜单高亮',
         'description' 	=> '描述',
         'sort' 			=> '排序',
         'created_at' 	=> '创建时间',

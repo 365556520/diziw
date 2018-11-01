@@ -92,21 +92,26 @@ class AdminMenuPresenter {
      */
     protected function getActionButtons($id,$menuAdd ,$menuEdit ,$menuDelete ,$bool = true)
     {
-        $action = '<div class="pull-right action-buttons">';
+/*
+    <button class="layui-btn">增加</button>
+    <button class="layui-btn ">编辑</button>
+    <button class="layui-btn">删除</button>
+  </div>*/
+        $action = '<div class="layui-btn-group" style="float:right ">';
         if ($menuAdd && $bool) {
             //添加按钮
-            $action .= '<a href="javascript:;" data-pid="'.$id.'" class="btn-xs createMenu" data-toggle="tooltip"data-original-title="添加"  data-placement="top"> <i class="fa fa-plus"></i></a>';
+            $action .= '<a href="javascript:;" data-pid="'.$id.'" class="createMenu"  style=" text-decoration: none;"> <i class="layui-icon"></i></a>';
         }
 
         if ($menuEdit) {
             //修改按钮
-            $action .= '<a href="javascript:;" data-href="'.url('admin/menu/'.$id.'/edit').'" class="btn-xs editMenu" data-toggle="tooltip"data-original-title="修改"  data-placement="top"><i class="fa fa-pencil"></i></a>';
+            $action .= '<a href="javascript:;" data-href="'.url('admin/menu/'.$id.'/edit').'" class="editMenu"   style=" text-decoration: none;"><i class="layui-icon"></i></a>';
         }
 
         if ($menuDelete) {
             //删除按钮
-            $action .= '<a href="javascript:;" class="btn-xs destoryMenu" data-id="'.$id.'" data-original-title="删除"data-toggle="tooltip"  data-placement="top">
-                            <i class="fa fa-trash"></i>
+            $action .= '<a href="javascript:;" class="destoryMenu" data-id="'.$id.'">
+                            <i class="layui-icon"></i>
                             <form action="'.url('admin/menu',[$id]).'" method="POST" name="delete_item'.$id.'" style="display:none">
                                 <input type="hidden"name="_method" value="delete"><input type="hidden" name="_token" value="'.csrf_token().'">
                             </form>
