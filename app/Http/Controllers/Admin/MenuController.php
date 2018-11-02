@@ -12,7 +12,10 @@ class MenuController extends CommonController {
            parent::__construct('menu');
             $this->menu = $menuRepository;
     }
-
+    //菜单icons代码
+    public function icons(){
+        return view('admin.menu.icons');
+    }
     public function index(){
         //查出顶级菜单
         $menu = $this->menu->findByField('parent_id',0);

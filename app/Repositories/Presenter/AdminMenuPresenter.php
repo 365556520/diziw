@@ -133,14 +133,14 @@ class AdminMenuPresenter {
                     $html .= '<li class="layui-nav-item ">';
                         if ($v['child']) {
                             $html .= '
-                               <a  href="javascript:;"><i class="'.$v['icon'].'">&#xe620;</i>'.$v['name'].'</a>                 
+                               <a  href="javascript:;"><i class="'.$v['icon'].'"></i>'.$v['name'].'</a>                 
                                <dl class="layui-nav-child">
                                      '.$this->getSidebarChildMenu($v['child']).'  
                                </dl>
                             ';
                          // $html .= '<li class="'.active_class(if_uri_pattern(explode(',',$v['heightlight_url']))).'"><a><i class="'.$v['icon'].'"></i> '.$v['name'].' <span class="fa fa-chevron-down"></span></a>'.$this->getSidebarChildMenu($v['child']).'</li>';
                         }else{
-                            $html .='<a  href="javascript:;" href-url="'.url($v['url']).'"><i class="'.$v['icon'].'">&#xe620;</i>'.$v['name'].'</a>';
+                            $html .='<a  href="javascript:;" href-url="'.url($v['url']).'"><i class="'.$v['icon'].'"></i>'.$v['name'].'</a>';
                          /*   $html .= '<li class="'.active_class(if_uri_pattern([$v['heightlight_url']])).'"><a href="'.url($v['url']).'"><i class="'.$v['icon'].'"></i> '.$v['name'].'</a></li>';*/
                         }
                    }
@@ -158,7 +158,7 @@ class AdminMenuPresenter {
         $html = '';
         if ($childMenu) {
             foreach ($childMenu as $v) {
-                $html .= '<dd><a href="javascript:;" href-url="'.url($v['url']).'"><i class="layui-icon">&#xe621;</i>'.$v['name'].'</a></dd>';
+                $html .= '<dd><a href="javascript:;" href-url="'.url($v['url']).'"><i class="layui-icon"></i>'.$v['name'].'</a></dd>';
             }
         }
         return $html;

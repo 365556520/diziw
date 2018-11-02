@@ -1,6 +1,7 @@
 @inject('menu',' App\Repositories\Presenter\AdminMenuPresenter')
-
-!-- layout admin -->
+<!-- Font Awesome字体和图标 -->
+<link href="{{ asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- layout admin -->
 <div class="layui-layout layui-layout-admin"> <!-- 添加skin-1类可手动修改主题为纯白，添加skin-2类可手动修改主题为蓝白 -->
     <!-- header -->
     <div class="layui-header my-header">
