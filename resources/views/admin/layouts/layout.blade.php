@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
     <head>
+        {{--后台框架包括导航头部信息和底部右边信息导航--}}
         <meta charset="utf-8">
         <title>后台管理 | {{ env('APP_NAME') }}</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.bootstrapcontent')
 @section('title')
     <title>{{ trans('admin/permission.title')}}</title>
 @endsection
@@ -11,48 +11,41 @@
     <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
-    <div class="">
-        <div class="page-title">
-
-        </div>
-        <div class="clearfix"></div>
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>{{ trans('admin/permission.desc')}} <small>{{trans('admin/permission.action.createDescription')}}</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                           <li>
-                               @permission(config('admin.permissions.permission.add'))
-                                <div class="title">
-                                    <div class="col-md-12 col-sm-12 col-xs-12  pull-left top_search">
-                                        <a class="btn btn-round btn-warning" data-toggle="modal" data-target="#createModal" href="{{url('admin/permission/create')}}">
-                                            {!!trans('admin/permission.action.create')!!}
-                                        </a>
-                                    </div>
-                                </div>
-                               @endpermission
-                           </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    @include('flash::message')
-                    <div class="x_content">
-                        <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th>{{trans('admin/permission.model.id')}}</th>
-                                <th>{{trans('admin/permission.model.name')}}</th>
-                                <th>{{trans('admin/permission.model.display_name')}}</th>
-                                <th>{{trans('admin/permission.model.description')}}</th>
-                                <th>{{trans('admin/permission.model.operate')}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    <br>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{ trans('admin/permission.desc')}} <small>{{trans('admin/permission.action.createDescription')}}</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                   <li>
+                       @permission(config('admin.permissions.permission.add'))
+                        <div class="title">
+                            <div class="col-md-12 col-sm-12 col-xs-12  pull-left top_search">
+                                <a class="btn btn-round btn-warning" data-toggle="modal" data-target="#createModal" href="{{url('admin/permission/create')}}">
+                                    {!!trans('admin/permission.action.create')!!}
+                                </a>
+                            </div>
+                        </div>
+                       @endpermission
+                   </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            @include('flash::message')
+            <div class="x_content">
+                <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>{{trans('admin/permission.model.id')}}</th>
+                        <th>{{trans('admin/permission.model.name')}}</th>
+                        <th>{{trans('admin/permission.model.display_name')}}</th>
+                        <th>{{trans('admin/permission.model.description')}}</th>
+                        <th>{{trans('admin/permission.model.operate')}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

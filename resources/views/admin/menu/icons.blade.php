@@ -1,4 +1,4 @@
-@extends('admin.layouts.content')
+@extends('admin.layouts.layuicontent')
 @section('title')
     <title>图标代码</title>
 @endsection
@@ -11,6 +11,7 @@
     <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
 @endsection
 @section('content')
+    <br>
     <!--icons content -->
         <div class="col-md-12">
             <div class="x_panel">

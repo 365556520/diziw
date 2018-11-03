@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
     <head>
+        {{--主用layui--}}
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Meta, title, CSS, favicons, etc. -->
         <meta charset="utf-8">
@@ -15,11 +16,9 @@
     </head>
     <body class="nav-md">
         <div class="container">
-
                 <div class="right_col" role="main" style="min-height: 934px; ">
                     @yield('content')
                 </div>
-
         </div>
         <!-- jQuery -->
         <script src="{{ asset('/backend/vendors/jquery/dist/jquery.min.js')}}"></script>
