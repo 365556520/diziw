@@ -20,7 +20,7 @@
 
         @yield('css')
     </head>
-    <body style="background-color:#d2d2d2">
+    <body style="background-color:#eee">
         <!-- page content 主页内容-->
         <div class="right_col" role="main"  >
             @yield('content')
