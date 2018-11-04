@@ -1,14 +1,8 @@
-@extends('admin.layouts.layuicontent')
+@extends('admin.layouts.bootstrapcontent')
 @section('title')
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
-    <!-- Bootstrap -->
-    <link href="{{ asset('/backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{ asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
     <!-- Select2 -->
     <link href="{{ asset('/backend/vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
     <!-- nestable 后台拖拽菜单css-->
@@ -17,8 +11,8 @@
     <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
 @endsection
 @section('content')
-    <br>
     <div class="col-md-12 col-sm-12 col-xs-12">
+        <br>
         {{--页面逻辑处理类--}}
         @inject('menus','App\Repositories\Presenter\MenuPresenter')
         @include('flash::message')
@@ -129,8 +123,6 @@
     </div>
 @endsection
 @section('js')
-    <!-- Bootstrap -->
-    <script src="{{ asset('/backend/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <!-- Select2 -->
     <script src="{{ asset('/backend/vendors/select2/dist/js/select2.full.min.js')}}"></script>
     <!-- nestable 后台拖拽菜单js-->

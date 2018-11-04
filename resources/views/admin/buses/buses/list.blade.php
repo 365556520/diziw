@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.bootstrapcontent')
 @section('title')
     <title>{{ trans('admin/user.title')}}</title>
 @endsection
@@ -20,13 +20,12 @@
     </style>
 @endsection
 @section('content')
-    <div class="">
-        <div class="clearfix"></div>
-        <div class="row">
+        <div class="">
+            <br>
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>班车<small>班车管理页面</small></h2>
+                        <h2>班车管理<small>班车管理页面</small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -172,17 +171,15 @@
                     </div>
                 </div>
             </div>
+            {{--查看模态框--}}
+            <div class="modal inmodal" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content animated bounceInRight">
+                        {{--内容在show.balde中--}}
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
         </div>
-    </div>
-
-    {{--查看模态框--}}
-    <div class="modal inmodal" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-                {{--内容在show.balde中--}}
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
 @endsection
 @section('js')
     {{--layui-v2.2.5--}}

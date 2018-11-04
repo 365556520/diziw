@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.bootstrapcontent')
 @section('title')
     <title>{{ trans('admin/user.title')}}</title>
 @endsection
@@ -13,12 +13,7 @@
 @endsection
 @section('content')
     <div class="">
-
-        <div class="page-title">
-
-        </div>
-        <div class="clearfix"></div>
-        <div class="row">
+        <br>
             <div class="col-md-12 col-sm-12 col-xs-12">
 
                 <div class="x_panel">
@@ -58,8 +53,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
     {{--添加模态框--}}
     <div class="modal inmodal" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -83,6 +76,7 @@
                 {{--内容在show.balde中--}}
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
+    </div>
     </div>
 @endsection
 @section('js')

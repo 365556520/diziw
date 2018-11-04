@@ -2,7 +2,8 @@
 /**
  * 存档home的路由
  */
-Route::get('/','HomeController@index');
+//欢迎页面
+Route::get('welcome','HomeController@welcome');
 //修改图像
 Route::get('showheadimg','HomeController@showheadimg')->name('showheadimg');
 //上传图片

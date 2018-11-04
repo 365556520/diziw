@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.bootstrapcontent')
 @section('title')
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
@@ -8,10 +8,8 @@
 @endsection
 @section('content')
     <div class="">
-
-        <div class="row">
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
+        <br>
+        <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>修改密码</h2>
@@ -59,7 +57,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 @endsection
 @section('js')

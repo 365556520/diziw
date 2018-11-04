@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="{{ asset('admin/frame/static/css/style.css')}}">
         @yield('css')
     </head>
-    <body class="nav-md">
+    <body class="layui-bg-gray">
         <div class="container">
                 <div class="right_col" role="main" style="min-height: 934px; ">
                     @yield('content')
@@ -24,10 +24,7 @@
         <script src="{{ asset('/backend/vendors/jquery/dist/jquery.min.js')}}"></script>
         {{--vue js--}}
         <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
-
         <script type="text/javascript" src="{{ asset('admin/frame/layui/layui.js')}}"></script>
-        <script type="text/javascript" src="{{ asset('admin/frame/static/js/vip_comm.js')}}"></script>
-        <script type="text/javascript" src="{{ asset('admin/frame/static/js/vip_nav.js ')}}"></script>
         @yield('js')
         <script>
             $(function() {

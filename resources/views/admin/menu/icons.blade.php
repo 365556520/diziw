@@ -1,19 +1,19 @@
-@extends('admin.layouts.layuicontent')
+@extends('admin.layouts.bootstrapcontent')
 @section('title')
     <title>图标代码</title>
 @endsection
 @section('css')
-    <!-- Bootstrap -->
-    <link href="{{ asset('/backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+
     <!-- Font Awesome字体和图标 -->
     <link href="{{ asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
 @endsection
 @section('content')
-    <br>
+
     <!--icons content -->
         <div class="col-md-12">
+            <br>
             <div class="x_panel">
                 <div class="x_title">
                     <h2>图标例子</h2>
@@ -2033,8 +2033,6 @@
     <!-- icons content -->
 @endsection
 @section('js')
-    <!-- Bootstrap -->
-    <script src="{{ asset('/backend/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <!--用的这个模板js -->
     <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
 @endsection

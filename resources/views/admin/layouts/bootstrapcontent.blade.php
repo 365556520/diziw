@@ -17,15 +17,14 @@
         <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
+
         @yield('css')
     </head>
-    <body>
-
-                <!-- page content 主页内容-->
-                <div class="right_col" role="main"  >
-                    @yield('content')
-                </div>
-
+    <body style="background-color:#d2d2d2">
+        <!-- page content 主页内容-->
+        <div class="right_col" role="main"  >
+            @yield('content')
+        </div>
         <!-- jQuery -->
         <script src="{{ asset('/backend/vendors/jquery/dist/jquery.min.js')}}"></script>
         <!-- Bootstrap -->

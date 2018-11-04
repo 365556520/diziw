@@ -11,8 +11,9 @@
     <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
-    <br>
+
     <div class="col-md-12 col-sm-12 col-xs-12">
+        <br>
         <div class="x_panel">
             <div class="x_title">
                 <h2>{{ trans('admin/permission.desc')}} <small>{{trans('admin/permission.action.createDescription')}}</small></h2>

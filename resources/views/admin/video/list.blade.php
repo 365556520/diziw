@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.bootstrapcontent')
 @section('title')
     <title>{{ trans('admin/user.title')}}</title>
 @endsection
@@ -10,10 +10,8 @@
     <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
-    <div class="">
-
-        <div class="clearfix"></div>
-        <div class="row">
+        <div>
+            <br>
             @include('flash::message')
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -149,16 +147,15 @@
                     </div>
                 </div>
             </div>
+            {{--修改模态框--}}
+            <div class="modal inmodal" id="eidtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content animated bounceInRight">
+                        {{--内容在edit.balde中--}}
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
         </div>
-    </div>
-    {{--修改模态框--}}
-    <div class="modal inmodal" id="eidtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-                {{--内容在edit.balde中--}}
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
 @endsection
 @section('js')
     {{--layui-v2.2.5--}}

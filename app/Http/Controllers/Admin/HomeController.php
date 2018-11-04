@@ -39,9 +39,13 @@ class HomeController extends CommonController{
         }
         return view('auth.adminData.headimg');
     }
+    //欢迎页面
+    public function welcome(){
+        return view('admin.home.index');
+    }
 
     public function index(){
-        return view('admin.home.index');
+        return view('admin.layouts.nav');
     }
     public function store(Request $request){
 

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.bootstrapcontent')
 @section('title')
     <title>{{ trans('admin/user.title')}}</title>
 @endsection
@@ -10,64 +10,60 @@
     <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
-    <div class="">
-        <div class="clearfix"></div>
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>视频标签管理<small>视频标签管理页面</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <form class="layui-form layui-form-pane" method="post" action="{{url('admin/videotag')}}">
-                            {{csrf_field()}}
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">视频标签</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="name"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
-                                </div>
-                                <div class="layui-inline">
-                                    <button class="layui-btn" lay-submit="" lay-filter="demo2">添加标签</button>
-                                </div>
+    <div>
+        <br>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>视频标签管理<small>视频标签管理页面</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form class="layui-form layui-form-pane" method="post" action="{{url('admin/videotag')}}">
+                        {{csrf_field()}}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">视频标签</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name"  required="required" autocomplete="off" placeholder="请输入视频标签" class="layui-input">
                             </div>
-                        </form>
-                        <hr>
-                            {{--视频标签列表--}}
-                                @include('flash::message')
-                                <div>
-                                    <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
-                                        <thead>
-                                        <tr>
-                                            <th>编号</th>
-                                            <th>标签</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="layui-inline">
+                                <button class="layui-btn" lay-submit="" lay-filter="demo2">添加标签</button>
                             </div>
                         </div>
+                    </form>
+                    <hr>
+                    {{--视频标签列表--}}
+                    @include('flash::message')
+                    <div>
+                        <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>标签</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{--修改模态框--}}
-    <div class="modal inmodal" id="eidtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-                {{--内容在edit.balde中--}}
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
+        {{--修改模态框--}}
+        <div class="modal inmodal" id="eidtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    {{--内容在edit.balde中--}}
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
     </div>
 @endsection
 @section('js')

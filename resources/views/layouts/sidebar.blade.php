@@ -1,6 +1,7 @@
 @inject('menu',' App\Repositories\Presenter\MenuPresenter')
 {{--侧边导航--}}
 <div class="col-md-3 left_col">
+    {{--旧的改版后不用的--}}
     {{--侧边导航--}}
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
@@ -28,8 +29,6 @@
                     {!!$menu->sidebarMenus($sidebarMenus)!!}
                 </ul>
             </div>
-
-
         </div>
         <!-- /sidebar menu -->
 

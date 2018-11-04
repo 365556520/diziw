@@ -17,7 +17,7 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        return view('admin.layouts.layout');
+        return view('admin.layouts.nav');
 /*//        判断当前用户有没有管理权限
         dd(auth()->user()->hasRole('admin'));
 //        判断用户是否有相应的权限

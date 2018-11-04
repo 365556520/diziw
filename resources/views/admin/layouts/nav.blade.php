@@ -13,8 +13,8 @@
     </head>
     <body>
      @include('admin.layouts.sidebar')
-     <script type="text/javascript" src="{{ asset('admin/frame/layui/layui.js')}}"></script>
-     <script type="text/javascript" src="{{ asset('admin/frame/static/js/vip_comm.js')}}"></script>
-     <script type="text/javascript" src="{{ asset('admin/frame/static/js/vip_nav.js ')}}"></script>
     </body>
+    <script type="text/javascript" src="{{ asset('admin/frame/layui/layui.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('admin/frame/static/js/vip_comm.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('admin/frame/static/js/vip_nav.js ')}}"></script>
 </html>
