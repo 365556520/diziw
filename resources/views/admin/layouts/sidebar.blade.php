@@ -9,21 +9,22 @@
             <!--<img class="my-header-logo" src="" alt="logo">-->
             <div class="my-header-logo">后台模板 HTML</div>
         </a>
-        {{--左侧菜单伸缩--}}
-        <div class="my-header-btn">
-            <button class="layui-btn  layui-btn-fluid btn-nav"><i class="fa fa-navicon"></i></button>
-        </div>
+
         <!-- 顶部左侧添加选项卡监听 -->
         <ul class="layui-nav" lay-filter="side-top-left">
+            {{--左侧菜单伸缩--}}
+            <li class="layui-nav-item">
+                <a class="btn-nav"><i class="fa fa-dedent" style="font-size:20px"></i></a>
+            </li>
 
-            <li class="layui-nav-item"><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></li>
+        {{--    <li class="layui-nav-item"><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;"><i class="layui-icon">&#xe621;</i>基础</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
                     <dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
                 </dl>
-            </li>
+            </li>--}}
         </ul>
 
         <!-- 顶部右侧添加选项卡监听 -->
@@ -95,7 +96,6 @@
     <div><img src="" alt="支付宝"><p>支付宝</p></div>
     <div><img src="" alt="微信"><p>微信</p></div>
 </div>
-
 <!-- 右键菜单 -->
 <div class="my-dblclick-box none"></div>
 

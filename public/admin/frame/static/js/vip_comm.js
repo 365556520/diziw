@@ -54,8 +54,12 @@ layui.use(['layer', 'element', 'util'], function () {
     $('.btn-nav').on('click', function () {
         if (localStorage.log == 0) {
             navShow(50);
+            //换图标
+            $('.btn-nav i').attr("class","fa fa-dedent");
         } else {
             navHide(50);
+            //换图标
+            $('.btn-nav i').attr("class","fa fa-indent");
         }
     });
 

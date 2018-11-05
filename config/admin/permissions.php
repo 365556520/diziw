@@ -60,6 +60,20 @@ return [
         'delete' => 'driver.delete',
         'show' => 'driver.show',
     ],
+    'articles' => [
+        'list' => 'articles.list',
+        'add' => 'articles.add',
+        'edit' => 'articles.edit',
+        'delete' => 'articles.delete',
+        'show' => 'articles.show',
+    ],
+    'categorys' => [
+        'list' => 'categorys.list',
+        'add' => 'categorys.add',
+        'edit' => 'categorys.edit',
+        'delete' => 'categorys.delete',
+        'show' => 'categorys.show',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'

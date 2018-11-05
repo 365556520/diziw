@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models\UsersModel\Articles;
+
+use Illuminate\Database\Eloquent\Model;
+use App\Traits\ActionButtonTrait;
+
+class Categorys extends Model
+{
+    //文章分类模型
+    protected $table='categorys';
+    //通过Traits获取查看删除修改按钮
+    use ActionButtonTrait;
+    //这个表的路由的前缀
+    private $action =  'categorys';
+    protected $fillable = [
+        'cate_name',
+        'cate_keywords',
+        'cate_description',
+        'cate_view',
+        'cate_order',
+        'cate_pid',
+    ];
+
+}

@@ -103,10 +103,7 @@ layui.define(['layer', 'element'], function (exports) {
             list = list.substr(0, (list.length - 1));
             return list;
         }
-        // 获取高度
-        ,getFullHeight: function(){
-            return $(window).height() - ( $('.my-btn-box').outerHeight(true) ? $('.my-btn-box').outerHeight(true) + 35 :  40 );
-        }
+
     };
 
     // 输出

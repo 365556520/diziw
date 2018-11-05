@@ -39,4 +39,6 @@ Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => ['auth']]
         require(__DIR__.'/adminRoutes/VideoRoute.php');
         //班车
         require(__DIR__.'/adminRoutes/BusesRoute.php');
+        //文章管理
+        require(__DIR__.'/adminRoutes/articles.php');
 });
