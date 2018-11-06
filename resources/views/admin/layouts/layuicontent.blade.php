@@ -10,7 +10,8 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @yield('title')
-        <link rel="stylesheet" href="{{ asset('admin/frame/layui/css/layui.css')}}">
+        {{--layui-v2.2.5--}}
+        <link href="{{ asset('/backend/myvebdors/layui/layui/css/layui.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('admin/frame/static/css/style.css')}}">
         @yield('css')
     </head>
@@ -24,7 +25,7 @@
         <script src="{{ asset('/backend/vendors/jquery/dist/jquery.min.js')}}"></script>
         {{--vue js--}}
         <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
-        <script type="text/javascript" src="{{ asset('admin/frame/layui/layui.js')}}"></script>
+        <script src="{{asset('/backend/myvebdors/layui/layui/layui.js')}}"></script>
         @yield('js')
         <script>
             $(function() {

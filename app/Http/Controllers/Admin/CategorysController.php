@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Repositories\Eloquent\Admin\Articles\CategorysRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class CategorysController extends Controller
+
+class CategorysController extends CommonController
 {
     /**
      * 文章分类
@@ -13,10 +14,27 @@ class CategorysController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //文章分类仓库
+    private $categorys;
+    function __construct(CategorysRepository $categorys)
+    {
+        //调用父累的构造方法
+        parent::__construct('categorys');
+        $this->categorys = $categorys;
+
+    }
+
     public function index()
     {
-        //
+        //显示
         return view("admin.articles.categorys.list");
+    }
+    /*
+     * 列表数据
+     * */
+    public function ajaxIndex(Request $request){
+        $result = $this->categorys->ajaxIndex($request->all());
+        return response()->json($result);
     }
 
     /**
@@ -28,7 +46,6 @@ class CategorysController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -39,7 +56,6 @@ class CategorysController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *

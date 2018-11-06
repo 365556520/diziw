@@ -14,6 +14,7 @@
     <body>
      @include('admin.layouts.sidebar')
     </body>
+    {{--这个必须使用原版框架的layui--}}
     <script type="text/javascript" src="{{ asset('admin/frame/layui/layui.js')}}"></script>
     <script type="text/javascript" src="{{ asset('admin/frame/static/js/vip_comm.js')}}"></script>
     <script type="text/javascript" src="{{ asset('admin/frame/static/js/vip_nav.js ')}}"></script>

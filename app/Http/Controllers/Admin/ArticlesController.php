@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Repositories\Eloquent\Admin\Articles\ArticlesRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class ArticlesController extends Controller
+
+class ArticlesController extends CommonController
 {
     /**
      * 文章路由
@@ -13,9 +14,19 @@ class ArticlesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //文章分类仓库
+    private $article;
+    function __construct(ArticlesRepository $article)
+    {
+
+        //调用父累的构造方法
+        parent::__construct('articles');
+        $this->article = $article;
+
+    }
     public function index()
     {
-        //
+        //显示
         return view("admin.articles.articles.list");
     }
 

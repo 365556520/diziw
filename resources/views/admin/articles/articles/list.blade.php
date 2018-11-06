@@ -45,11 +45,11 @@
                 elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
                 , height: $(window).height() - ( $('.my-btn-box').outerHeight(true) ? $('.my-btn-box').outerHeight(true) + 35 :  40 )    //获取高度容器高度
                 , cols: [[                  //标题栏
-                    {checkbox: true, sort: true, fixed: true, space: true}
-                    , {field: 'id', title: 'ID', width: 80}
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'id', title: 'ID', width: 60, sort: true,}
                     , {field: 'account', title: '用户名', width: 120}
                     , {field: 'auth_group_name', title: '权限组', width: 120}
-                    , {field: 'last_login_time', title: '最后登录时间', width: 180}
+                    , {field: 'last_login_time', title: '最后登录时间', width: 120}
                     , {field: 'last_login_ip', title: '最后登录IP', width: 180}
                     , {field: 'create_time', title: '创建时间', width: 180}
                     , {field: 'status', title: '状态', width: 70}

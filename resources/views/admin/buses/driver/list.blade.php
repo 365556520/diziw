@@ -3,8 +3,8 @@
     <title>{{ trans('admin/user.title')}}</title>
 @endsection
 @section('css')
-    {{--layui-v2.2.5--}}
-    <link href="{{ asset('/backend/myvebdors/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
+    {{--layui--}}
+    <link href="{{ asset('/backend/myvebdors/layui/layui/css/layui.css')}}" rel="stylesheet">
     {{--datatables 插件--}}
     <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     {{--bootstrap-tagsinput 插件 输入框带标签--}}
@@ -227,8 +227,8 @@
     </div>
 @endsection
 @section('js')
-    {{--layui-v2.2.5--}}
-    <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
+    {{--layui--}}
+    <script src="{{asset('/backend/myvebdors/layui/layui/layui.js')}}"></script>
     {{--datatables 插件--}}
     <script src="{{asset('backend/vendors/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>
     {{--导出excel插件js--}}

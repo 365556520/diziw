@@ -3,8 +3,8 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
-    {{--layui-v2.2.5--}}
-    <link href="{{ asset('/backend/myvebdors/layui-v2.2.5/layui/css/layui.css')}}" rel="stylesheet">
+    {{--layui--}}
+    <link href="{{ asset('/backend/myvebdors/layui/layui/css/layui.css')}}" rel="stylesheet">
 @endsection
 @section('content')
     <div class="">
@@ -95,8 +95,8 @@
     </div>
 @endsection
 @section('js')
-    {{--layui-v2.2.5--}}
-    <script src="{{asset('/backend/myvebdors/layui-v2.2.5/layui/layui.js')}}"></script>
+    {{--layui--}}
+    <script src="{{asset('/backend/myvebdors/layui/layui/layui.js')}}"></script>
     {{--菜单添加、修改、删除的js--}}
     <script src="{{ asset('/backend/js/home/userdata.js')}}"></script>
     {{--提示代码--}}
