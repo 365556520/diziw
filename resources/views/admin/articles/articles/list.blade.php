@@ -6,7 +6,7 @@
 @endsection
 @section('content')
     <br>
-    <div class="layui-row layui-col-space10">
+    <div class="">
         <div class="layui-col-xs12 layui-col-sm2 layui-col-md2">
             <!-- tree -->
             <ul id="tree" class="tree-table-tree-box"></ul>
@@ -28,6 +28,11 @@
             </div>
             <!-- table -->
             <div id="dateTable"></div>
+
+            <script type="text/html" id="barOption">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </script>
         </div>
     </div>
 @endsection
@@ -47,24 +52,26 @@
                 , cols: [[                  //标题栏
                     {type: 'checkbox', fixed: 'left'}
                     , {field: 'id', title: 'ID', width: 60, sort: true,}
-                    , {field: 'account', title: '用户名', width: 120}
-                    , {field: 'auth_group_name', title: '权限组', width: 120}
-                    , {field: 'last_login_time', title: '最后登录时间', width: 120}
-                    , {field: 'last_login_ip', title: '最后登录IP', width: 180}
-                    , {field: 'create_time', title: '创建时间', width: 180}
-                    , {field: 'status', title: '状态', width: 70}
-                    , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+                    , {field: 'title', title: '文章标题', width: 120}
+                    , {field: 'tag', title: '关键词', width: 120}
+                    , {field: 'description', title: '描述', width: 120}
+                    , {field: 'view', title: '查看次数', width: 120}
+                    , {field: 'category_id', title: '分类id', width: 120}
+                    , {field: 'user_id', title: '作者id', width: 120}
+                    , {field: 'created_at', title: '创建时间', width: 180}
+                    , {fixed: 'right', title: '操作', width: 120, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
                 ]]
                 , id: 'dataCheck'
-                , url: ''
+                , url: '/admin/articles/ajaxIndex'
                 , method: 'get'
                 , page: true
-                , limits: [30, 60, 90, 150, 300]
-                , limit: 30 //默认采用30
+                , limits: [10, 20, 50, 100]
+                , limit: 10 //默认采用30
                 , loading: false
                 , done: function (res, curr, count) {
                     //如果是异步请求数据方式，res即为你接口返回的信息。
                     //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    layer.msg('看下' +curr);
                     console.log(res);
 
                     //得到当前页码

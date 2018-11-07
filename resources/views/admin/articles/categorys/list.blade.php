@@ -27,7 +27,7 @@
 
             table.render({
                 elem: '#test'
-                ,url:'/admin/articles/ajaxIndex'
+                ,url:'/admin/categorys/ajaxIndex'
                 ,toolbar: '#toolbarDemo'
                 ,title: '用户数据表'
                 ,cols: [[

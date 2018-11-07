@@ -24,6 +24,14 @@ class ArticlesController extends CommonController
         $this->article = $article;
 
     }
+    /*
+ * 列表数据
+ * */
+    public function ajaxIndex(Request $request){
+        $result = $this->article->ajaxIndex($request->all());
+        return response()->json($result);
+    }
+
     public function index()
     {
         //显示

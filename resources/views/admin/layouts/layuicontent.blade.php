@@ -17,7 +17,7 @@
     </head>
     <body class="layui-bg-gray">
         <div class="container">
-                <div class="right_col" role="main" style="min-height: 934px; ">
+                <div class="right_col" role="main">
                     @yield('content')
                 </div>
         </div>

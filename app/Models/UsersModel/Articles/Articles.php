@@ -8,11 +8,11 @@ use App\Traits\ActionButtonTrait;
 class Articles extends Model
 {
     //文章模型
-    protected $table='Articles';
+    protected $table='articles';
     //通过Traits获取查看删除修改按钮
     use ActionButtonTrait;
     //这个表的路由的前缀
-    private $action =  'Articles';
+    private $action =  'articles';
     protected $fillable = [
         'title',
         'tag',

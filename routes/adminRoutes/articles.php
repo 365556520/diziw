@@ -9,7 +9,7 @@ Route::group(['prefix' => 'articles'],function (){
 });
 Route::resource('articles','ArticlesController');
 //文章分类
-Route::group(['prefix' => 'articles'],function (){
+Route::group(['prefix' => 'categorys'],function (){
     //列表数据
     Route::get('ajaxIndex','CategorysController@ajaxIndex');
 });
