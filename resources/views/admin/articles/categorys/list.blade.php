@@ -40,7 +40,7 @@
                     ,{field:'cate_view', title:'查看次数', width:120}
                     ,{field:'created_at', title:'创建时间', width:180, sort: true}
                     ,{field:'updated_at', title:'更新时间', width:180}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo',}
+                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:120}
                 ]]
                 ,page: true
             });

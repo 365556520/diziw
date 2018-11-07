@@ -23,8 +23,8 @@ class ArticlesRepository extends Repository {
         if ($start!=0){
             $start = $start*$length; //得到查询的开始的id
         }
-        $count = $articles->count();//查出所有数据的条数
-        $articless = $articles->offset($start)->limit($length)->get();//得到分页数据
+        $count = $articles->where('category_id',$data['category_id'])->count();//查出所有数据的条数
+        $articless = $articles->where('category_id',$data['category_id'])->offset($start)->limit($length)->get();//得到分页数据
         // datatables固定的返回格式
         return [
             'code' => 0,

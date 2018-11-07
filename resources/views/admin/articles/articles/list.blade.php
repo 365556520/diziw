@@ -39,6 +39,7 @@
 @section('js')
 
     <script type="text/javascript">
+
         // layui方法
         layui.use(['tree', 'table', 'layer'], function () {
             // 操作对象
@@ -46,6 +47,7 @@
                 , layer = layui.layer
                 , $ = layui.jquery;
             // 表格渲染
+            var newcategory_id = 1;
             var tableIns = table.render({
                 elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
                 , height: $(window).height() - ( $('.my-btn-box').outerHeight(true) ? $('.my-btn-box').outerHeight(true) + 35 :  40 )    //获取高度容器高度
@@ -63,6 +65,7 @@
                 ]]
                 , id: 'dataCheck'
                 , url: '/admin/articles/ajaxIndex'
+                ,where: { category_id: newcategory_id}//传递额外参数
                 , method: 'get'
                 , page: true
                 , limits: [10, 20, 50, 100]
@@ -71,7 +74,6 @@
                 , done: function (res, curr, count) {
                     //如果是异步请求数据方式，res即为你接口返回的信息。
                     //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                    layer.msg('看下' +curr);
                     console.log(res);
 
                     //得到当前页码
@@ -93,7 +95,8 @@
             layui.tree({
                 elem: '#tree' //传入元素选择器
                 , click: function (item) { //点击节点回调
-                    layer.msg('当前节名称：' + item.title);
+                    layer.msg('当前节名称：' + item.category_id);
+                    newcategory_id = item.category_id;
                     // 加载中...
                     var loadIndex = layer.load(2, {shade: false});
                     // 关闭加载
@@ -103,9 +106,10 @@
                 }
                 , nodes: [{ //节点
                     name: '父节点1'
-                    ,title:'ceshi'
+                    ,category_id:'1'
                     , children: [{
-                        name: '子节点11'
+                        name: '2号'
+                        ,category_id:'2'
                         , children: [{
                             name: '子节点111'
                         }]
