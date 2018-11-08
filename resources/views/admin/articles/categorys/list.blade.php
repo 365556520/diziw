@@ -33,16 +33,16 @@
                 ,cols: [[
                     {type: 'checkbox', fixed: 'left'}
                     ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-                    ,{field:'cate_name', title:'分类名称', width:120, edit: 'text'}
+                    ,{field:'_cate_name', title:'分类名称', width:120, edit: 'text'}
                     ,{field:'cate_keywords', title:'关键词', width:120, edit: 'text',}
                     ,{field:'cate_description', title:'描述', width:200, edit: 'text',}
-                    ,{field:'cate_pid', title:'PID', width:60}
                     ,{field:'cate_view', title:'查看次数', width:120}
                     ,{field:'created_at', title:'创建时间', width:180, sort: true}
                     ,{field:'updated_at', title:'更新时间', width:180}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:120}
                 ]]
-                ,page: true
+                , limit: 100 //默认采用100
+                ,page:true
             });
 
             //头工具栏事件

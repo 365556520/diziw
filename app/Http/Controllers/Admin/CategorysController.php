@@ -26,7 +26,6 @@ class CategorysController extends CommonController
 
     public function index()
     {
-        //显示
         return view("admin.articles.categorys.list");
     }
     /*

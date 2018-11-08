@@ -108,10 +108,11 @@
                       }
                     });
                 }
-                , nodes: [{ //节点
-                    name: '父节点1'
-                    ,category_id:'1'
-                    , children: [{
+                , nodes:[
+                    { //节点
+                        name: '父节点1'
+                        ,category_id:'1'
+                        , children: [{
                         name: '2号'
                         ,category_id:'2'
                         , children: [{
@@ -120,17 +121,21 @@
                     }, {
                         name: '子节点12'
                     }]
-                }, {
-                    name: '父节点2'
-                    , children: [{
-                        name: '子节点21'
+                    }, {
+                        name: '父节点2'
                         , children: [{
-                            name: '子节点211纷纷就爱我就覅偶而安静佛尔'
+                            name: '子节点21'
+                            , children: [{
+                                name: '子节点211纷纷就爱我就覅偶而安静佛尔'
+                            }]
                         }]
-                    }]
-                }]
+                    }
+                ]
             });
             // you code ...
+
+            /*
+            * */
         });
     </script>
 

@@ -25,6 +25,7 @@ class CategorysRepository extends Repository {
         }
         $count = $categorys->count();//查出所有数据的条数
         $categoryss = $categorys->offset($start)->limit($length)->get();//得到分页数据
+        $categoryss = $this->getTree($categoryss,'cate_name','id','cate_pid',0);
         // datatables固定的返回格式
         return [
             'code' => 0,
@@ -34,21 +35,35 @@ class CategorysRepository extends Repository {
         ];
     }
     //获取所有的分类树形结构
-    public function getTree(){
-        //得到permission模型
-        $categorysTree ='';
-        $categorys = $this->model;
-        $categorysTree = $categorys->get();
-        foreach ($categorysTree as $v){
-            if($v['cate_pid']==0){
-                $v['children'] = $this->getChildren($v['pid']);
+    public function getcategorysTree(){
+        //根据 cate_order排序
+        $categorys =  $this->model->orderBy('cate_order','asc')->get();
+        $categorys = $this->getTree($categorys,'cate_name','id','cate_pid',0);
+        return $categorys;
+    }
+    //这个类处理树型列表参数说明：$date数据，$field_id父数据表头名,$field_pid子数据表头名，$pid父数据中的pid的值
+    public function getTree($date,$field_name,$field_id='id',$field_pid='pid',$pid=0){
+        $arr = array();
+        //遍历数据
+        foreach ($date as $k=>$v){
+            if($v->$field_pid==$pid) {
+                $date[$k]["_".$field_name] =  $date[$k][$field_name];
+                //如果该数据的cate_pid=0也就是总栏目的时候就把该数据添加在$arr[]
+                $arr[] = $date[$k];
+                //然后从新遍历数据
+                foreach ($date as $m=>$n){
+                    if($n->$field_pid == $v->$field_id){
+                        $date[$m]["_".$field_name] ='├─ '.$date[$m][$field_name];
+                        //如果该数据的cate_pid=cate_id也就是子栏目cate_pid等于总栏目的cate_id的时候就把该数据添加在$arr[]
+                        $arr[] = $date[$m];
+                    }
+                }
             }
         }
-        return $categorysTree;
+        return $arr;
     }
-    public function getChildren($pid){
 
-    }
+
     /*添加班车*/
     public function createBuses($formData){
         $result = $this->model->create($formData);
