@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Repositories\Eloquent\Admin\Articles\ArticlesRepository;
+use App\Repositories\Eloquent\Admin\Articles\CategorysRepository;
 use Illuminate\Http\Request;
 
 
@@ -16,12 +17,14 @@ class ArticlesController extends CommonController
      */
     //文章分类仓库
     private $article;
-    function __construct(ArticlesRepository $article)
+    private $categorys;
+    function __construct(ArticlesRepository $article,CategorysRepository $categorys)
     {
 
         //调用父累的构造方法
         parent::__construct('articles');
         $this->article = $article;
+        $this->categorys = $categorys;
 
     }
     /*
@@ -34,6 +37,8 @@ class ArticlesController extends CommonController
 
     public function index()
     {
+        //得到树列表
+        dd($this->categorys->getTree());
         //显示
         return view("admin.articles.articles.list");
     }

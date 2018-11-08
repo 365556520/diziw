@@ -23,8 +23,13 @@ class ArticlesRepository extends Repository {
         if ($start!=0){
             $start = $start*$length; //得到查询的开始的id
         }
-        $count = $articles->where('category_id',$data['category_id'])->count();//查出所有数据的条数
-        $articless = $articles->where('category_id',$data['category_id'])->offset($start)->limit($length)->get();//得到分页数据
+        if($data['category_id'] != null){
+            $articless = $articles->where('category_id',$data['category_id'])->offset($start)->limit($length)->get();//得到分页数据
+            $count = $articles->where('category_id',$data['category_id'])->count();//查出所有数据的条数
+        }else{
+            $articless = $articles->offset($start)->limit($length)->get();//得到全部数据
+            $count = $articles->count();//查出所有数据的条数
+        }
         // datatables固定的返回格式
         return [
             'code' => 0,
@@ -33,8 +38,6 @@ class ArticlesRepository extends Repository {
             'data' => $articless,//数据
         ];
     }
-
-
     /*添加班车*/
     public function createBuses($formData){
         $result = $this->model->create($formData);

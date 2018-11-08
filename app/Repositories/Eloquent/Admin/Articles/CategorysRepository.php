@@ -33,7 +33,22 @@ class CategorysRepository extends Repository {
             'data' => $categoryss,//数据
         ];
     }
+    //获取所有的分类树形结构
+    public function getTree(){
+        //得到permission模型
+        $categorysTree ='';
+        $categorys = $this->model;
+        $categorysTree = $categorys->get();
+        foreach ($categorysTree as $v){
+            if($v['cate_pid']==0){
+                $v['children'] = $this->getChildren($v['pid']);
+            }
+        }
+        return $categorysTree;
+    }
+    public function getChildren($pid){
 
+    }
     /*添加班车*/
     public function createBuses($formData){
         $result = $this->model->create($formData);

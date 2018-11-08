@@ -47,7 +47,6 @@
                 , layer = layui.layer
                 , $ = layui.jquery;
             // 表格渲染
-            var newcategory_id = 1;
             var tableIns = table.render({
                 elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
                 , height: $(window).height() - ( $('.my-btn-box').outerHeight(true) ? $('.my-btn-box').outerHeight(true) + 35 :  40 )    //获取高度容器高度
@@ -65,11 +64,11 @@
                 ]]
                 , id: 'dataCheck'
                 , url: '/admin/articles/ajaxIndex'
-                ,where: { category_id: newcategory_id}//传递额外参数
+                , where: {'category_id': null} //设定异步数据接口的额外参数
                 , method: 'get'
                 , page: true
-                , limits: [10, 20, 50, 100]
-                , limit: 10 //默认采用30
+                , limits: [15, 25, 50, 100]
+                , limit: 15 //默认采用30
                 , loading: false
                 , done: function (res, curr, count) {
                     //如果是异步请求数据方式，res即为你接口返回的信息。
@@ -102,7 +101,12 @@
                     // 关闭加载
                     layer.close(loadIndex);
                     // 刷新表格
-                    tableIns.reload();
+                    tableIns.reload({
+                      where: {'category_id': newcategory_id} //设定异步数据接口的额外参数
+                      ,page: {
+                            curr: 1 //重新从第 1 页开始
+                      }
+                    });
                 }
                 , nodes: [{ //节点
                     name: '父节点1'
@@ -126,10 +130,7 @@
                     }]
                 }]
             });
-
             // you code ...
-
-
         });
     </script>
 
