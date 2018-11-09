@@ -35,7 +35,7 @@ class CategorysRepository extends Repository {
         ];
     }
     //获取所有的分类树形结构
-    public function getcategorysTree(){
+    public function getCategorysTree(){
         //根据 cate_order排序
         $categorys =  $this->model->orderBy('cate_order','asc')->get();
         $categorys = $this->getTree($categorys,'cate_name','id','cate_pid',0);
@@ -62,8 +62,35 @@ class CategorysRepository extends Repository {
         }
         return $arr;
     }
+    //得到分两类列表
+    public function getCategorysTreeArry(){
+       $categorys = $this->getCategorysTree();
 
-
+    }
+    //得到的分类这个只能迭代2层分类
+    public function getCategorysList(){
+        $arr = array();
+        $date = $this->model->orderBy('cate_order','asc')->get();
+        //遍历数据
+        foreach ($date as $k => $v){
+            $arr[$k]['id'] = $v->id;
+            $arr[$k]['cate_name'] = $v->cate_name;
+            if($v->cate_pid == 0){
+                $arr[$k]['children'] = $this->getCategorysList($v->id);
+            }
+        }
+        return $arr;
+    }
+    public function getChildren($id){
+        $arr = array();
+        $date = $this->model->where('cate_pid','id')->orderBy('cate_order','asc')->get();
+        //遍历数据
+        foreach ($date as $k => $v){
+            $arr[$k]['id'] = $v->id;
+            $arr[$k]['cate_name'] = $v->cate_name;
+        }
+        return $arr;
+    }
     /*添加班车*/
     public function createBuses($formData){
         $result = $this->model->create($formData);

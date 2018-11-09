@@ -108,7 +108,23 @@
                       }
                     });
                 }
-                , nodes:[
+                , nodes: '{{$categorys}}'
+                /*[
+                    @foreach($categorys as $v )
+                    {
+                        name: '{{$v->cate_name}}'
+                        ,category_id: '{{$v->id}}'
+                        , children: [
+                            @foreach($v->children as $value){
+                                name: '{{$value->cate_name}}'
+                                ,category_id: '{{$value->id}}'
+                            }
+                            @endforeach
+                        ]
+                    }
+                    @endforeach
+               ]*/
+                /*[
                     { //节点
                         name: '父节点1'
                         ,category_id:'1'
@@ -130,7 +146,7 @@
                             }]
                         }]
                     }
-                ]
+                ]*/
             });
             // you code ...
 
