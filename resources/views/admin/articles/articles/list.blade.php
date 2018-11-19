@@ -3,8 +3,7 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
-    {{--layui1.0+版本的css因为树用的是1.0的--}}
-    <link rel="stylesheet" href="{{ asset('admin/frame/layui/css/layui.css')}}">
+
 @endsection
 @section('content')
     <div class="">
