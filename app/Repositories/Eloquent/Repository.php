@@ -35,6 +35,49 @@ abstract class Repository implements RepositoryInterface{
                        'delete'=>auth()->user()->can(config('admin.permissions.'.$tableName.'.delete'))];//删除权限
         return $permissions;
     }
+    /*
+     * 递归数组无限极分类
+     *$date  需要递归的数组
+     * $pId_Name 指pid的名称
+     * $pId 指pid
+     * */
+    function getTree($date,$pId_Name, $pId)
+    {
+        $tree = array();
+        foreach($date as $k => $v)
+        {
+            if($v[$pId_Name] == $pId)
+            {        //父亲找到儿子
+                $v['children'] = $this->getTree($date,$pId_Name,$v['id']);
+                $tree[$k] = $v;
+                //unset($data[$k]);
+            }
+        }
+        return $tree;
+    }
+
+    //这个类处理树型列表参数说明：$date数据，$field_id父数据表头名,$field_pid子数据表头名，$pid父数据中的pid的值
+    public function getTreeOne($date,$field_name,$field_id='id',$field_pid='pid',$pid=0){
+        $arr = array();
+        //遍历数据
+        foreach ($date as $k=>$v){
+            if($v->$field_pid==$pid) {
+                $date[$k]["_".$field_name] =  $date[$k][$field_name];
+                //如果该数据的cate_pid=0也就是总栏目的时候就把该数据添加在$arr[]
+                $arr[] = $date[$k];
+                //然后从新遍历数据
+                foreach ($date as $m=>$n){
+                    if($n->$field_pid == $v->$field_id){
+                        $date[$m]["_".$field_name] ='├─ '.$date[$m][$field_name];
+                        //如果该数据的cate_pid=cate_id也就是子栏目cate_pid等于总栏目的cate_id的时候就把该数据添加在$arr[]
+                        $arr[] = $date[$m];
+                    }
+                }
+            }
+        }
+        return $arr;
+    }
+
     public function all($columns = ['*']){
         return $this->model->all($columns);
     }

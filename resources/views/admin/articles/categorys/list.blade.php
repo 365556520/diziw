@@ -24,7 +24,6 @@
     <script>
         layui.use('table', function(){
             var table = layui.table;
-
             table.render({
                 elem: '#test'
                 ,url:'/admin/categorys/ajaxIndex'

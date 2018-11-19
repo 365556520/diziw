@@ -3,9 +3,10 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
+    {{--layui1.0+版本的css因为树用的是1.0的--}}
+    <link rel="stylesheet" href="{{ asset('admin/frame/layui/css/layui.css')}}">
 @endsection
 @section('content')
-    <br>
     <div class="">
         <div class="layui-col-xs12 layui-col-sm2 layui-col-md2">
             <!-- tree -->
@@ -28,16 +29,14 @@
             </div>
             <!-- table -->
             <div id="dateTable"></div>
-
-            <script type="text/html" id="barOption">
-                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-            </script>
         </div>
     </div>
 @endsection
 @section('js')
-
+    <script type="text/html" id="barOption">
+        <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+    </script>
     <script type="text/javascript">
 
         // layui方法
@@ -57,10 +56,9 @@
                     , {field: 'tag', title: '关键词', width: 120}
                     , {field: 'description', title: '描述', width: 120}
                     , {field: 'view', title: '查看次数', width: 120}
-                    , {field: 'category_id', title: '分类id', width: 120}
                     , {field: 'user_id', title: '作者id', width: 120}
                     , {field: 'created_at', title: '创建时间', width: 180}
-                    , {fixed: 'right', title: '操作', width: 120, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
+                    , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
                 ]]
                 , id: 'dataCheck'
                 , url: '/admin/articles/ajaxIndex'
@@ -94,59 +92,44 @@
             layui.tree({
                 elem: '#tree' //传入元素选择器
                 , click: function (item) { //点击节点回调
-                    layer.msg('当前节名称：' + item.category_id);
-                    newcategory_id = item.category_id;
-                    // 加载中...
-                    var loadIndex = layer.load(2, {shade: false});
-                    // 关闭加载
-                    layer.close(loadIndex);
-                    // 刷新表格
-                    tableIns.reload({
-                      where: {'category_id': newcategory_id} //设定异步数据接口的额外参数
-                      ,page: {
-                            curr: 1 //重新从第 1 页开始
-                      }
-                    });
-                }
-                , nodes: '{{$categorys}}'
-                /*[
-                    @foreach($categorys as $v )
-                    {
-                        name: '{{$v->cate_name}}'
-                        ,category_id: '{{$v->id}}'
-                        , children: [
-                            @foreach($v->children as $value){
-                                name: '{{$value->cate_name}}'
-                                ,category_id: '{{$value->id}}'
+                    if (item.cate_pid != 0){
+                        layer.msg('当前节名称：' + item.id);
+                        console.log(item);
+                        newcategory_id = item.id;
+                        // 加载中...
+                        var loadIndex = layer.load(2, {shade: false});
+                        // 关闭加载
+                        layer.close(loadIndex);
+                        // 刷新表格
+                        tableIns.reload({
+                            where: {'category_id': newcategory_id} //设定异步数据接口的额外参数
+                            ,page: {
+                                curr: 1 //重新从第 1 页开始
                             }
-                            @endforeach
-                        ]
+                        });
                     }
+
+                }
+                , nodes: [
+                    @foreach($categorys as $v)
+                       {
+                            name:'{{$v->name}}'
+                            ,id:'{{$v->id}}'
+                            ,cate_pid : '{{$v->cate_pid}}'
+                             @if($v->children)
+                                 ,children:[
+                                    @foreach($v->children as $vs)
+                                        {
+                                            name:'{{$vs->name}}'
+                                            ,id:'{{$vs->id}}'
+                                            ,cate_pid : '{{$vs->cate_pid}}'
+                                        },
+                                     @endforeach
+                                 ]
+                            @endif
+                        },
                     @endforeach
-               ]*/
-                /*[
-                    { //节点
-                        name: '父节点1'
-                        ,category_id:'1'
-                        , children: [{
-                        name: '2号'
-                        ,category_id:'2'
-                        , children: [{
-                            name: '子节点111'
-                        }]
-                    }, {
-                        name: '子节点12'
-                    }]
-                    }, {
-                        name: '父节点2'
-                        , children: [{
-                            name: '子节点21'
-                            , children: [{
-                                name: '子节点211纷纷就爱我就覅偶而安静佛尔'
-                            }]
-                        }]
-                    }
-                ]*/
+                ]
             });
             // you code ...
 

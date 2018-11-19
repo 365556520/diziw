@@ -37,12 +37,9 @@ class ArticlesController extends CommonController
 
     public function index()
     {
-
         //得到树列表
         $categorys= $this->categorys->getCategorysList();
-//        $categorys = response()->json($categorys);
-        dd($categorys);
-        return view("admin.articles.articles.list")->with(compact('categorys','categorys'));
+        return view("admin.articles.articles.list")->with(compact('categorys','$categorys'));
     }
 
     /**
