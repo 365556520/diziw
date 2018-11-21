@@ -5,20 +5,23 @@
 @section('css')
 @endsection
 @section('content')
-    <dov class="layui-row">
+    <div class="layui-row">
         <table class="layui-hide" id="test" lay-filter="test"></table>
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
                 <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
                 <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+                <button class="layui-btn layui-btn-sm" lay-event="add">添加分类</button>
             </div>
         </script>
+        {{--操作按钮--}}
         <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="show">查看</a>
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
-    </dov>
+    </div>
 @endsection
 @section('js')
     <script>
@@ -38,9 +41,9 @@
                     ,{field:'cate_view', title:'查看次数', width:120}
                     ,{field:'created_at', title:'创建时间', width:180, sort: true}
                     ,{field:'updated_at', title:'更新时间', width:180}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:120}
+                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:180}
                 ]]
-                , limit: 100 //默认采用100
+                ,limit: 15 //默认采用100
                 ,page:true
             });
 
@@ -59,10 +62,20 @@
                     case 'isAll':
                         layer.msg(checkStatus.isAll ? '全选': '未全选');
                         break;
+                    case 'add':
+                        layer.open({
+                            type: 2,//2类型窗口 这里内容是一个网址
+                            title: '添加页面',
+                            shadeClose: true,
+                            shade: false,
+                            maxmin: true, //开启最大化最小化按钮
+                            area: ['893px', '100%'],
+                            content: 'http://fly.layui.com/'
+                        });
+                        break;
                 };
             });
-
-            //监听行工具事件
+            //监听行工具条事件
             table.on('tool(test)', function(obj){
                 var data = obj.data;
                 //console.log(obj)
@@ -80,6 +93,16 @@
                             email: value
                         });
                         layer.close(index);
+                    });
+                } else if(obj.event === 'show'){
+                    //多窗口模式，层叠置顶
+                    layer.open({
+                        type: 1 //1类型窗口 这里内容可以自己写
+                        ,title: '当你选择该窗体时，即会在最顶端'
+                        ,area: ['390px', '260px']
+                        ,shade: 0
+                        ,maxmin: true
+                        ,content: '这里可以输入内容'
                     });
                 }
             });

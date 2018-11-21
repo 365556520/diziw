@@ -3,15 +3,15 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
-
+    <link rel="stylesheet" href="{{ asset('admin/frame/layui/css/layui.css')}}">
 @endsection
 @section('content')
-    <div class="">
-        <div class="layui-col-xs12 layui-col-sm2 layui-col-md2">
+    <div class="layui-row">
+        <div class="layui-col-xs3 layui-col-sm2 layui-col-md2" style="height: 550px;overflow:scroll">
             <!-- tree -->
             <ul id="tree" class="tree-table-tree-box"></ul>
         </div>
-        <div class="layui-col-xs12 layui-col-sm10 layui-col-md10">
+        <div class="layui-col-xs9 layui-col-sm10 layui-col-md10">
             <!-- 工具集 -->
             <div class="my-btn-box">
             <span class="fl">

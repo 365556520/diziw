@@ -16,11 +16,8 @@
         @yield('css')
     </head>
     <body class="layui-bg-gray">
-        <div class="container">
-                <div class="right_col" role="main">
                     @yield('content')
-                </div>
-        </div>
+
         <!-- jQuery -->
         <script src="{{ asset('/backend/vendors/jquery/dist/jquery.min.js')}}"></script>
         {{--vue js--}}
