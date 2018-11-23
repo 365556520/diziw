@@ -54,7 +54,7 @@ class ArticlesController extends CommonController
 
     /**
      * Store a newly created resource in storage.
-     *
+     *添加文章
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */

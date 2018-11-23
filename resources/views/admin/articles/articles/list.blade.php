@@ -54,8 +54,9 @@
                     , {field: 'title', title: '文章标题', width: 120}
                     , {field: 'tag', title: '关键词', width: 120}
                     , {field: 'description', title: '描述', width: 120}
-                    , {field: 'view', title: '查看次数', width: 120}
-                    , {field: 'user_id', title: '作者id', width: 120}
+                    , {field: 'view', title: '查看次数', width: 90}
+                    , {field: 'user_id', title: '作者id', width: 100}
+                    , {field: 'state', title: '文章状态', width: 90}
                     , {field: 'created_at', title: '创建时间', width: 180}
                     , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
                 ]]

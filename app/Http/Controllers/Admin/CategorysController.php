@@ -38,22 +38,24 @@ class CategorysController extends CommonController
 
     /**
      * Show the form for creating a new resource.
-     *
+     *添加分类视图
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         //
+        return view("admin.articles.categorys.add");
     }
     /**
      * Store a newly created resource in storage.
-     *
+     *添加文章分类
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //
+
     }
     /**
      * Display the specified resource.

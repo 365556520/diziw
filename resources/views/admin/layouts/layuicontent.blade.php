@@ -17,12 +17,12 @@
     </head>
     <body class="layui-bg-gray">
                     @yield('content')
-                    {{--操作按钮--}}
-                    <script type="text/html" id="barDemo">
-                        <a class="layui-btn layui-btn-xs" lay-event="show">查看</a>
-                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                    </script>
+        {{--操作按钮--}}
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="show">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
         <!-- jQuery -->
         <script src="{{ asset('/backend/vendors/jquery/dist/jquery.min.js')}}"></script>
         {{--vue js--}}

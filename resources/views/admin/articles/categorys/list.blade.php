@@ -60,12 +60,12 @@
                     case 'add':
                         layer.open({
                             type: 2,//2类型窗口 这里内容是一个网址
-                            title: '添加页面',
+                            title: '添加文章分类',
                             shadeClose: true,
                             shade: false,
                             maxmin: true, //开启最大化最小化按钮
                             area: ['893px', '100%'],
-                            content: 'http://fly.layui.com/'
+                            content: '{{url("/admin/categorys/create")}}'
                         });
                         break;
                 };
