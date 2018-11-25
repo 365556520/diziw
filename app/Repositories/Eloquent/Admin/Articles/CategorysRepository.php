@@ -38,18 +38,18 @@ class CategorysRepository extends Repository {
 
     //得到的分类这个只能迭代2层分类
     public function getCategorysList(){
-        $date = $this->model->select('id','cate_name as name','cate_pid')->orderBy('cate_order','asc')->get();
+        $date = $this->model->select('id','cate_name','cate_pid')->orderBy('cate_order','asc')->get();
         $categorysTree = $this->getTree($date,'cate_pid',0);
         return $categorysTree;
     }
 
-    /*添加班车*/
-    public function createBuses($formData){
+    /*添加文章分类*/
+    public function createCategorys($formData){
         $result = $this->model->create($formData);
         if ($result) {
-            flash('班车添加成功','success');
+            flash('文章分类添加成功','success');
         }else{
-            flash('班车添加失败','error');
+            flash('文章分类添加失败','error');
         }
         return $result;
     }

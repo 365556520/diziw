@@ -73,11 +73,12 @@
             //监听行工具条事件
             table.on('tool(test)', function(obj){
                 var data = obj.data;
-                //console.log(obj)
+                //console.log('kankan22222 '+obj.data);
                 if(obj.event === 'del'){
                     layer.confirm('真的删除行么', function(index){
                         obj.del();
                         layer.close(index);
+
                     });
                 } else if(obj.event === 'edit'){
                     layer.prompt({

@@ -43,8 +43,9 @@ class CategorysController extends CommonController
      */
     public function create()
     {
-        //
-        return view("admin.articles.categorys.add");
+        //得到所有分类
+        $categorys= $this->categorys->getCategorysList();
+        return view("admin.articles.categorys.add")->with(compact('categorys','categorys'));
     }
     /**
      * Store a newly created resource in storage.
@@ -54,8 +55,8 @@ class CategorysController extends CommonController
      */
     public function store(Request $request)
     {
-        //
-
+        $result =  $this->categorys->createCategorys($request->all());
+        return redirect(url('admin/categorys/create'));
     }
     /**
      * Display the specified resource.

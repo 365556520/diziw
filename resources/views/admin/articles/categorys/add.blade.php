@@ -5,46 +5,55 @@
 @section('css')
 @endsection
 @section('content')
-    <div class="layui-row">
+    <div class="layui-row" style="padding: 2px 15px 2px 15px">
         <br>
-        <form class="layui-form layui-form-pane" action="">
+        <form class="layui-form layui-form-pane" method="post" action="{{url('admin/categorys')}}">
+            {{csrf_field()}}
             <div class="layui-form-item">
                 <label class="layui-form-label">分类标题</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">分类关系</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">分类关键词</label>
-                <div class="layui-input-block">
-                    <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" name="cate_name" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">自定义验证</label>
+                <label class="layui-form-label">分类关系</label>
+                    <div class="layui-input-inline">
+                        <select name="cate_pid" lay-verify="" lay-search>
+                            <option value="0">顶级分类</option>
+                            @foreach($categorys as $v)
+                                    <option value="{{$v->id}}">{{$v->cate_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">浏览次数</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="password" lay-verify="cate_view" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    <input type="text" name="cate_view" lay-verify="cate_view" placeholder="请输入密码" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">必须填写数字但不能大于7位</div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">分类关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" name="cate_keywords" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
             </div>
 
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">分类描述</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入内容" name="cate_description" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
             </div>
         </form>
+        <div style="background: #beff9f;color: #ec4e20;size: 18px">@include('flash::message')</div>
     </div>
 @endsection
 @section('js')
@@ -62,7 +71,7 @@
                 layer.alert(JSON.stringify(data.field), {
                     title: '最终的提交信息'
                 })
-                return false;
+                return true;
             });
 
 

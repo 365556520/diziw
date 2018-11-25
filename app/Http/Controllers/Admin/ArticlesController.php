@@ -39,7 +39,7 @@ class ArticlesController extends CommonController
     {
         //得到树列表
         $categorys= $this->categorys->getCategorysList();
-        return view("admin.articles.articles.list")->with(compact('categorys','$categorys'));
+        return view("admin.articles.articles.list")->with(compact('categorys','categorys'));
     }
 
     /**

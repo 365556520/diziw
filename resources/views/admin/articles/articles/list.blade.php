@@ -113,14 +113,14 @@
                 , nodes: [
                     @foreach($categorys as $v)
                        {
-                            name:'{{$v->name}}'
+                            name:'{{$v->cate_name}}'
                             ,id:'{{$v->id}}'
                             ,cate_pid : '{{$v->cate_pid}}'
                              @if($v->children)
                                  ,children:[
                                     @foreach($v->children as $vs)
                                         {
-                                            name:'{{$vs->name}}'
+                                            name:'{{$vs->cate_name}}'
                                             ,id:'{{$vs->id}}'
                                             ,cate_pid : '{{$vs->cate_pid}}'
                                         },
