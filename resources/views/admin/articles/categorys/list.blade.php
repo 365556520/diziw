@@ -5,6 +5,7 @@
 @section('css')
 @endsection
 @section('content')
+    <div style="background: #beff9f;color: #ec4e20;size: 18px">@include('flash::message')</div>
     <div class="layui-row">
         <table class="layui-hide" id="test" lay-filter="test"></table>
         <script type="text/html" id="toolbarDemo">
@@ -38,7 +39,7 @@
                     ,{field:'updated_at', title:'更新时间', width:180}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:180}
                 ]]
-                ,limit: 15 //默认采用100
+                ,limit: 10 //默认采用100
                 ,page:true
             });
 
@@ -76,15 +77,23 @@
                 //console.log('kankan22222 '+obj.data);
                 if(obj.event === 'del'){
                     layer.confirm('真的删除行么', function(index){
-                        obj.del();
-                        layer.close(index);
                         $.ajax({
-                            type: "GET",
-                            url: "{{url('/admin/categorys')}}/"+obj.data.id,
+                            type: "POST",
+                            url: "{{url('/admin/categorys')}}/"+data.id,
                             cache: false,
+                            data:{_method:"DELETE", _token: "{{csrf_token()}}"},
                             success: function (data) {
+                                layer.msg('删除成功', {
+                                    time: 2000, //20s后自动关
+                                });
+                                //删除成功后删除缓存
+                                obj.del();
+                                layer.close(index);
                             },
                             error: function (xhr, status, error) {
+                                layer.msg('删除失败', {
+                                    time: 2000, //20s后自动关
+                                });
                                 console.log(xhr);
                                 console.log(status);
                                 console.log(error);
