@@ -100,7 +100,17 @@ class CategorysController extends CommonController
      */
     public function destroy($id)
     {
-         $this->categorys->destroyCategorys($id);
+        $this->categorys->destroyCategorys($id);
+        return redirect(url('admin/categorys'));
+    }
+
+    /*
+     * 批量删除
+     * */
+    public function destroys($data){
+        //把json转换成数组然后用数组函数支取id列
+        $id = array_column(json_decode($data),'id');
+        $this->categorys->destroyCategorys($id);
         return redirect(url('admin/categorys'));
     }
 }

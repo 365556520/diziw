@@ -12,5 +12,6 @@ Route::resource('articles','ArticlesController');
 Route::group(['prefix' => 'categorys'],function (){
     //列表数据
     Route::get('ajaxIndex','CategorysController@ajaxIndex');
+    Route::get('destroys/{data}','CategorysController@destroys');
 });
 Route::resource('categorys','CategorysController');

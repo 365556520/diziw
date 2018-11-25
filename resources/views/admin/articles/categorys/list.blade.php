@@ -9,10 +9,10 @@
     <div class="layui-row">
         <table class="layui-hide" id="test" lay-filter="test"></table>
         <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-                <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-                <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+            <div class="layui-btn-container my-btn-box">
+                <button class="layui-btn layui-btn-danger  layui-btn-sm" lay-event="getCheckData">批量删除</button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+                <button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="isAll">刷新</button>
                 <button class="layui-btn layui-btn-sm" lay-event="add">添加分类</button>
             </div>
         </script>
@@ -25,6 +25,7 @@
             var table = layui.table;
             table.render({
                 elem: '#test'
+                , height: $(window).height() - ( $('.my-btn-box').outerHeight(true) ? $('.my-btn-box').outerHeight(true) + 35 :  40 )    //获取高度容器高度
                 ,url:'/admin/categorys/ajaxIndex'
                 ,toolbar: '#toolbarDemo'
                 ,title: '用户数据表'
@@ -39,8 +40,8 @@
                     ,{field:'updated_at', title:'更新时间', width:180}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:180}
                 ]]
-                ,limit: 10 //默认采用100
-                ,page:true
+                ,limit: 100 //默认采用100
+                ,loading: false
             });
 
             //头工具栏事件
@@ -48,15 +49,42 @@
                 var checkStatus = table.checkStatus(obj.config.id);
                 switch(obj.event){
                     case 'getCheckData':
-                        var data = checkStatus.data;
-                        layer.alert(JSON.stringify(data));
+                        var data = checkStatus.data;  //得到选中数据的数组
+                        if(data.length>0){
+                            layer.confirm('真的删除这些分类吗？', function(index){
+                                $.ajax({
+                                    type: "GET",
+                                    url: "{{url('/admin/categorys/destroys')}}/"+ JSON.stringify(data),
+                                    cache: false,
+                                    success: function (data) {
+                                        layer.msg('删除成功', {
+                                            time: 2000, //20s后自动关
+                                        });
+                                        window.location.reload(); //刷新本页面
+                                        //删除成功后删除缓存
+                                        layer.close(index);
+                                    },
+                                    error: function (xhr, status, error) {
+                                        layer.msg('删除失败', {
+                                            time: 2000, //20s后自动关
+                                        });
+                                        console.log(xhr);
+                                        console.log(status);
+                                        console.log(error);
+                                    }
+                                });
+                            });
+                        }else {
+                            layer.msg('最少选中一个');
+                        }
                         break;
                     case 'getCheckLength':
                         var data = checkStatus.data;
                         layer.msg('选中了：'+ data.length + ' 个');
                         break;
                     case 'isAll':
-                        layer.msg(checkStatus.isAll ? '全选': '未全选');
+                        window.location.reload(); //刷新本页面
+                        //layer.msg(checkStatus.isAll ? '全选': '未全选');
                         break;
                     case 'add':
                         layer.open({
@@ -76,7 +104,7 @@
                 var data = obj.data;
                 //console.log('kankan22222 '+obj.data);
                 if(obj.event === 'del'){
-                    layer.confirm('真的删除行么', function(index){
+                    layer.confirm('真的删除此分类吗？', function(index){
                         $.ajax({
                             type: "POST",
                             url: "{{url('/admin/categorys')}}/"+data.id,
