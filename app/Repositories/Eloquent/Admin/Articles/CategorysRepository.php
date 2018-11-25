@@ -53,8 +53,8 @@ class CategorysRepository extends Repository {
         }
         return $result;
     }
-    /*删除班车线路*/
-    public function destroyBusesRoute($id){
+    /*删除文章*/
+    public function destroyCategorys($id){
         $result = $this->delete($id);
         if ($result) {
             flash('删除成功','success');

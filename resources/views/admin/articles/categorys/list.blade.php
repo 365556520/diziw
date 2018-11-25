@@ -78,7 +78,18 @@
                     layer.confirm('真的删除行么', function(index){
                         obj.del();
                         layer.close(index);
-
+                        $.ajax({
+                            type: "GET",
+                            url: "{{url('/admin/categorys')}}/"+obj.data.id,
+                            cache: false,
+                            success: function (data) {
+                            },
+                            error: function (xhr, status, error) {
+                                console.log(xhr);
+                                console.log(status);
+                                console.log(error);
+                            }
+                        });
                     });
                 } else if(obj.event === 'edit'){
                     layer.prompt({

@@ -100,6 +100,7 @@ class CategorysController extends CommonController
      */
     public function destroy($id)
     {
-        //
+         $this->categorys->destroyCategorys($id);
+         return view("admin.articles.categorys.list");
     }
 }
