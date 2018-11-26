@@ -74,16 +74,16 @@ class CategorysRepository extends Repository {
         abort(404);
     }
     // 修改班车
-    public function updateBusesRoute($attributes,$id)
+    public function updateCategorys($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
         }
         $result = $this->update($attributes,$id);
         if ($result) {
-            flash('班线修改成功','success');
+            flash('文章分类修改成功','success');
         }else{
-            flash('班线修改失败', 'error');
+            flash('文章分类修改失败', 'error');
         }
         return $result;
     }

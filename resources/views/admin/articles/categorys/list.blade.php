@@ -32,7 +32,7 @@
                 ,cols: [[
                     {type: 'checkbox', fixed: 'left'}
                     ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-                    ,{field:'_cate_name', title:'分类名称', width:120, edit: 'text'}
+                    ,{field:'_cate_name', title:'分类名称', width:120}
                     ,{field:'cate_keywords', title:'关键词', width:120, edit: 'text',}
                     ,{field:'cate_description', title:'描述', width:200, edit: 'text',}
                     ,{field:'cate_view', title:'查看次数', width:120}
@@ -129,24 +129,38 @@
                         });
                     });
                 } else if(obj.event === 'edit'){
-                    layer.prompt({
+                   layer.open({
+                        type: 2,//2类型窗口 这里内容是一个网址
+                        title: '修改文章分类',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['893px', '100%'],
+                        content: '{{url("/admin/categorys")}}/'+ data.id + '/edit'
+                    });
+
+                 /*   layer.prompt({
                         formType: 2
-                        ,value: data.email
+                        ,value:data.id
                     }, function(value, index){
                         obj.update({
-                            email: value
+                            cate_keywords: value
                         });
                         layer.close(index);
-                    });
+                    });*/
                 } else if(obj.event === 'show'){
                     //多窗口模式，层叠置顶
                     layer.open({
                         type: 1 //1类型窗口 这里内容可以自己写
-                        ,title: '当你选择该窗体时，即会在最顶端'
+                        ,title:'文章分类----'+data.cate_name
                         ,area: ['390px', '260px']
                         ,shade: 0
                         ,maxmin: true
-                        ,content: '这里可以输入内容'
+                        ,content: '<div>分类id：'+data.id +'<br>' +
+                             '分类名称：'+data.cate_name +'<br>' +
+                             '分类关键词：'+data.cate_keywords +'<br>' +
+                             '分类描述：'+data.cate_description +'<br>' +
+                             '</div>'
                     });
                 }
             });

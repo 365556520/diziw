@@ -7,9 +7,11 @@
 @section('content')
     <div class="layui-row" style="padding: 2px 15px 2px 15px">
         <br>
-        <div style="color: #ec162d;size: 28px">@include('flash::message')</div>
-        <form class="layui-form layui-form-pane" method="post" action="{{url('admin/categorys')}}">
+        <div style="color: #ec162d;size:38px">@include('flash::message')<br></div>
+        <form class="layui-form layui-form-pane" lay-filter="edit" method="post" action="{{url('admin/categorys/'.$categorysEdit->id)}}">
             {{csrf_field()}}
+            {{method_field('PUT')}}
+            <input type="hidden" value="{{$categorysEdit->id}}" name="id">
             <div class="layui-form-item">
                 <label class="layui-form-label">分类标题</label>
                 <div class="layui-input-inline">
@@ -51,7 +53,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <button class="layui-btn" lay-submit="" lay-filter="demo2">添加分类</button>
+                <button class="layui-btn" lay-submit="" lay-filter="demo2">修改分类</button>
             </div>
         </form>
 
@@ -67,9 +69,18 @@
                 cate_view: [/^[0-9]{1,7}$/, '必须数字但不能大于7位']
 
             });
+            //初始值
+            form.val("edit", {
+                "cate_name": "{{$categorysEdit->cate_name}}"
+                ,"cate_pid": "{{$categorysEdit->cate_pid}}"
+                ,"cate_view": "{{$categorysEdit->cate_view}}"
+                ,"cate_keywords": "{{$categorysEdit->cate_keywords}}"
+                ,"cate_description": "{{$categorysEdit->cate_description}}"
+
+            })
             //监听提交
             form.on('submit(demo2)', function(data){
-           /*     layer.alert(JSON.stringify(data.field), {
+       /*         layer.alert(JSON.stringify(data.field), {
                     title: '最终的提交信息'
                 })*/
                 return true;

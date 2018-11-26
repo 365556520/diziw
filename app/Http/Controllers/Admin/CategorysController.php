@@ -45,7 +45,7 @@ class CategorysController extends CommonController
     {
         //得到所有分类
         $categorys= $this->categorys->getCategorysList();
-        return view("admin.articles.categorys.add")->with(compact('categorys','categorys'));
+        return view("admin.articles.categorys.add")->with(compact('categorys'));
     }
     /**
      * Store a newly created resource in storage.
@@ -71,13 +71,16 @@ class CategorysController extends CommonController
 
     /**
      * Show the form for editing the specified resource.
-     *
+     *添加分类视图
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $categorysEdit = $this->categorys->find($id);
+        //得到所有分类
+        $categorys = $this->categorys->getCategorysList();
+        return view("admin.articles.categorys.edit")->with(compact('categorysEdit','categorys'));
     }
 
     /**
@@ -90,6 +93,8 @@ class CategorysController extends CommonController
     public function update(Request $request, $id)
     {
         //
+        $this->categorys->updateCategorys($request->all(),$id);
+        return redirect('admin/categorys/create');
     }
 
     /**
