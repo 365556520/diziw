@@ -3,7 +3,6 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
-    <link href="{{ asset('/backend/myvebdors/layui/layui/css/layui.css')}}" rel="stylesheet">
 @endsection
 @section('content')
     <div class="layui-row">
