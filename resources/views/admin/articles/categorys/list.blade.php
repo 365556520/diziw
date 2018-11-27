@@ -92,9 +92,14 @@
                             title: '添加文章分类',
                             shadeClose: true,
                             shade: false,
+                            anim: 2, //打开动画
                             maxmin: true, //开启最大化最小化按钮
                             area: ['893px', '100%'],
-                            content: '{{url("/admin/categorys/create")}}'
+                            content: '{{url("/admin/categorys/create")}}',
+                            cancel: function(index, layero){
+                                window.location.reload(); //刷新本页面
+                                return false;
+                            }
                         });
                         break;
                 };
@@ -134,9 +139,14 @@
                         title: '修改文章分类',
                         shadeClose: true,
                         shade: false,
+                        anim: 2, //打开动画
                         maxmin: true, //开启最大化最小化按钮
                         area: ['893px', '100%'],
-                        content: '{{url("/admin/categorys")}}/'+ data.id + '/edit'
+                        content: '{{url("/admin/categorys")}}/'+ data.id + '/edit',
+                       cancel: function(index, layero){
+                           window.location.reload(); //刷新本页面
+                           return false;
+                       }
                     });
 
                  /*   layer.prompt({
