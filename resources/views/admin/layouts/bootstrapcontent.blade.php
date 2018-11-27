@@ -15,6 +15,8 @@
         <link href="{{ asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
         <!-- NProgress -->
         <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+        {{--layui-v2.2.5--}}
+        <link href="{{ asset('/backend/myvebdors/layui/layui/css/layui.css')}}" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
 
