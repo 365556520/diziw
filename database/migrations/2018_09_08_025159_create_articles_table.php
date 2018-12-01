@@ -33,6 +33,7 @@ class CreateArticlesTable extends Migration
             $table->string('thumb')->default("")->comment('缩略图');
             $table->string('view')->default("")->comment('查看次数');
             $table->integer('state')->default(0)->comment('文章状态');
+            $table->integer('level')->default(0)->comment('文章级别置顶推荐热门');
             $table->integer('category_id')->default(0)->comment('分类id');
             $table->integer('user_id')->default(0)->comment('作者id');
             $table->text('content')->comment('内容');

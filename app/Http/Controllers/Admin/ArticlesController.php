@@ -50,6 +50,7 @@ class ArticlesController extends CommonController
     public function create()
     {
         //
+        return view("admin.articles.articles.add");
     }
 
     /**

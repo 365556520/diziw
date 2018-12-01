@@ -71,7 +71,7 @@ class CategorysController extends CommonController
 
     /**
      * Show the form for editing the specified resource.
-     *添加分类视图
+     *修改分类视图
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

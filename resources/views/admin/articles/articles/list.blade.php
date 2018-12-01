@@ -56,13 +56,14 @@
                 , loading: false
                 , cols: [[                  //标题栏
                     {type: 'checkbox', fixed: 'left'}
-                    , {field: 'id', title: 'ID', width: 60, sort: true,}
-                    , {field: 'title', title: '文章标题', width: 120}
+                    , {field: 'id', title: 'ID', width: 60, sort: true,fixed: 'left'}
+                    , {field: 'title', title: '文章标题', width: 120 ,fixed: 'left'}
                     , {field: 'tag', title: '关键词', width: 120}
                     , {field: 'description', title: '描述', width: 120}
-                    , {field: 'view', title: '查看次数', width: 90}
-                    , {field: 'user_id', title: '作者id', width: 100}
+                    , {field: 'level', title: '级别', width: 100}
                     , {field: 'state', title: '文章状态', width: 90}
+                    , {field: 'view', title: '浏览次数', width: 100 ,sort: true,}
+                    , {field: 'user_id', title: '作者id', width: 100}
                     , {field: 'created_at', title: '创建时间', width: 180}
                     , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
                 ]]
@@ -117,16 +118,21 @@
                     case 'add':
                         layer.open({
                             type: 2,//2类型窗口 这里内容是一个网址
-                            title: '添加文章分类',
+                            title: '添加文章',
                             shadeClose: true,
                             shade: false,
                             anim: 2, //打开动画
                             maxmin: true, //开启最大化最小化按钮
                             area: ['893px', '100%'],
-                            content: '{{url("/admin/categorys/create")}}',
+                            content: '{{url("/admin/articles/create")}}',
                             cancel: function(index, layero){
-                                window.location.reload(); //刷新本页面
-                                return false;
+                                // 刷新表格
+                                tableIns.reload({
+                                    page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                });
+                                return true;
                             }
                         });
                         break;

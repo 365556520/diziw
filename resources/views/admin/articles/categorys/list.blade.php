@@ -23,7 +23,8 @@
     <script>
         layui.use('table', function(){
             var table = layui.table;
-            table.render({
+            // 表格渲染
+            var tableIns = table.render({
                 elem: '#test'
                 , height: $(window).height() - ( $('.my-btn-box').outerHeight(true) ? $('.my-btn-box').outerHeight(true) + 35 :  40 )    //获取高度容器高度
                 ,url:'/admin/categorys/ajaxIndex'
@@ -60,7 +61,12 @@
                                         layer.msg('删除成功', {
                                             time: 2000, //20s后自动关
                                         });
-                                        window.location.reload(); //刷新本页面
+                                        // 刷新表格
+                                        tableIns.reload({
+                                            page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        });
                                         //删除成功后删除缓存
                                         layer.close(index);
                                     },
@@ -83,7 +89,12 @@
                         layer.msg('选中了：'+ data.length + ' 个');
                         break;
                     case 'isAll':
-                        window.location.reload(); //刷新本页面
+                        // 刷新表格
+                        tableIns.reload({
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });
                         //layer.msg(checkStatus.isAll ? '全选': '未全选');
                         break;
                     case 'add':
@@ -97,8 +108,13 @@
                             area: ['893px', '100%'],
                             content: '{{url("/admin/categorys/create")}}',
                             cancel: function(index, layero){
-                                window.location.reload(); //刷新本页面
-                                return false;
+                                // 刷新表格
+                                tableIns.reload({
+                                    page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                });
+                                return true;
                             }
                         });
                         break;
@@ -144,8 +160,13 @@
                         area: ['893px', '100%'],
                         content: '{{url("/admin/categorys")}}/'+ data.id + '/edit',
                        cancel: function(index, layero){
-                           window.location.reload(); //刷新本页面
-                           return false;
+                           // 刷新表格
+                           tableIns.reload({
+                               page: {
+                                   curr: 1 //重新从第 1 页开始
+                               }
+                           });
+                           return true;
                        }
                     });
 
