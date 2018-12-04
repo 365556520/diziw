@@ -62,6 +62,7 @@ class ArticlesController extends CommonController
     public function store(Request $request)
     {
         //
+        dd($request->all());
     }
 
     /**
