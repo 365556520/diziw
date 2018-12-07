@@ -74,9 +74,8 @@
 
 
             <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">文章内容</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" name="content" class="layui-textarea"></textarea>
+                    <textarea  name="content" id="content"></textarea>
                 </div>
             </div>
 
@@ -87,10 +86,13 @@
     </div>
 @endsection
 @section('js')
+   {{--查看本编辑中查看源码需要用到ace插件--}}
+    <script src="{{asset('/backend/myvebdors/layui/ace/ace.js')}}"></script>
     <script>
         layui.use(['form', 'layedit', 'laydate'], function(){
             var form = layui.form
                 ,layer = layui.layer
+                ,layedit = layui.layedit;
             //自定义验证规则
             form.verify({
                 cate_view: [/^[0-9]{1,7}$/, '必须数字但不能大于7位']
@@ -110,6 +112,94 @@
             form.val("add", {
                 "cate_view":0
                 ,"state": 0
+            })
+            //富文本框
+            layui.use(['layedit', 'layer', 'jquery'], function () {
+                var $ = layui.jquery;
+                var layedit = layui.layedit;
+                layedit.set({
+                    //暴露layupload参数设置接口 --详细查看layupload参数说明
+                    uploadImage: {
+                        url: 'your url',
+                        accept: 'image',
+                        acceptMime: 'image/*',
+                        exts: 'jpg|png|gif|bmp|jpeg',
+                        size: 1024 * 10,
+                        done: function (data) {
+                            console.log(data);
+                        }
+                    }
+
+             /*     // 需要在tool加入'video'
+               , uploadVideo: {
+                        url: 'your url',
+                        accept: 'video',
+                        acceptMime: 'video/!*',
+                        exts: 'mp4|flv|avi|rm|rmvb',
+                        size: 1024 * 10 * 2,
+                        done: function (data) {
+                            console.log(data);
+                        }
+                    }
+                    //需要在tool加入'attachment'
+                    , uploadFiles: {
+                        url: 'your url',
+                        accept: 'file',
+                        acceptMime: 'file/!*',
+                        size: '20480',
+                        done: function (data) {
+                            console.log(data);
+                        }
+                    }*/
+                    //右键删除图片/视频时的回调参数，post到后台删除服务器文件等操作，
+                    //传递参数：
+                    //图片： imgpath --图片路径
+                    //视频： filepath --视频路径 imgpath --封面路径
+                    , calldel: {
+                        url: 'your url',
+                        done: function (data) {
+                            console.log(data);
+                        }
+                    }
+                    //开发者模式 --默认为false
+                    , devmode: true
+                    //插入代码设置 --hide:true 等同于不配置codeConfig
+                    , codeConfig: {
+                        hide: false,  //是否显示编码语言选择框
+                        default: 'javascript' //hide为true时的默认语言格式
+                    }
+                    //新增iframe外置样式和js
+                    //, quote:{
+                    //    style: ['/Content/Layui-KnifeZ/css/layui.css','/others'],
+                    //    js: ['/Content/Layui-KnifeZ/lay/modules/jquery.js']
+                    //}
+                    //自定义样式-暂只支持video添加
+                    //, customTheme: {
+                    //    video: {
+                    //        title: ['原版', 'custom_1', 'custom_2']
+                    //        , content: ['', 'theme1', 'theme2']
+                    //        , preview: ['', '/images/prive.jpg', '/images/prive2.jpg']
+                    //    }
+                    //}
+                    //插入自定义链接
+                    , customlink:{
+                        title: '插入layui官网'
+                        ,href: ''
+                        ,onmouseup:''
+                    }
+                    , facePath:'http://knifez.gitee.io/kz.layedit/Content/Layui-KnifeZ/' //这个是表情地址
+                    , tool: [
+                        'html', 'undo', 'redo', 'code', 'strong', 'italic', 'underline', 'del', 'addhr', '|', 'fontFomatt','fontfamily', 'fontBackColor', 'colorpicker', 'face'
+                        , '|', 'left', 'center', 'right', '|', 'link', 'unlink', 'images', 'image_alt', 'anchors'
+                        , '|'
+                        , 'table','customlink'
+                        , 'fullScreen'
+                    ]
+                    , height: '90%'
+                });
+                var ieditor = layedit.build('content');
+                //设置编辑器内容
+                layedit.setContent(ieditor, '<font color="#fe5824">美好的一天，就这样开始了！ <img src="http://knifez.gitee.io/kz.layedit/Content/Layui-KnifeZ/images/face/1.gif" alt="[嘻嘻]"></font>', false);
             })
 
         });
