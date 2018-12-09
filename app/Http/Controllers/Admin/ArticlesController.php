@@ -42,15 +42,16 @@ class ArticlesController extends CommonController
         return view("admin.articles.articles.list")->with(compact('categorys','categorys'));
     }
 
-    /**
+    /**添加文章试图
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
-        return view("admin.articles.articles.add");
+        //得到树分类
+        $categorys= $this->categorys->getCategorysList();
+        return view("admin.articles.articles.add")->with(compact('categorys','categorys'));
     }
 
     /**

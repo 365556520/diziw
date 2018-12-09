@@ -118,7 +118,7 @@
                     case 'add':
                         layer.open({
                             type: 2,//2类型窗口 这里内容是一个网址
-                            title: '添加文章',
+                            title: '<div><i class="layui-icon layui-icon-edit" style="font-size: 22px; color: #ff2315;"></i>添加文章</div>',
                             shadeClose: true,
                             shade: false,
                             anim: 2, //打开动画
