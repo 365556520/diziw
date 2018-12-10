@@ -34,6 +34,19 @@ class ArticlesController extends CommonController
         $result = $this->article->ajaxIndex($request->all());
         return response()->json($result);
     }
+    /*
+     * 上传图片
+     * */
+
+    public function upload(Request $request){
+        $upload = $request->file;
+        if ($upload->isValid()) {
+            //把图片放到临时文件家下面
+            $path =  $upload->store('backend/images/articleImages');
+            return ['code' => 0,'msg' =>'上传成功',  "data"=>["src"=> url($path)]];
+        }
+        return ['code' => 1,'msg' => '上传失败'];
+    }
 
     public function index()
     {
