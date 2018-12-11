@@ -56,13 +56,11 @@ class ArticlesController extends CommonController
      *视频： filepath --视频路径 imgpath --封面路径
      * */
     public function calldel(Request $request){
-        dd($request->all()['imgpath']);
-        if ( Storage::delete($request->all()['imgpath'])) {
-
+        $img_path =strrchr($request->all()['imgpath'],'/'); //获取图片名字
+        if ( Storage::delete('backend/images/articleImages'.$img_path)) {
             return ['code' => 0,'msg' =>'删除成功'];
         }
         return ['code' => 1,'msg' => '上传失败'];
-
     }
     public function index()
     {
