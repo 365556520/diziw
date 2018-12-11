@@ -28,7 +28,6 @@
         {{--vue js--}}
         <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
         <script src="{{asset('/backend/myvebdors/layui/layui/layui.js')}}"></script>
-        @yield('js')
         <script>
             $(function() {
                 //公共--自动为ajax请求自动添加csrf-token
@@ -39,5 +38,6 @@
                 });
             });
         </script>
+        @yield('js')
     </body>
 </html>

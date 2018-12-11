@@ -135,7 +135,6 @@
                 ,"state": 0
             });
             //富文本框
-
             layedit.set({
                 //暴露layupload参数设置接口 --详细查看layupload参数说明
                 uploadImage: {
@@ -144,9 +143,10 @@
                     acceptMime: 'image/*',
                     exts: 'jpg|png|gif|bmp|jpeg',
                     size: 1024 * 10,
-                    data: {'_token':'{{csrf_token()}}'},
-                    done: function (data) {
-                        console.log("差"+data);
+                    done: function (res, index, upload) {
+                        console.log("差w"+res.data.src);
+                        console.log("差2"+index);
+                        console.log("差3"+upload);
                     }
                 }
 
@@ -176,8 +176,7 @@
                 //图片： imgpath --图片路径
                 //视频： filepath --视频路径 imgpath --封面路径
                 , calldel: {
-                    url: '/admin/articles/upload',
-                    data: {'_token':'{{csrf_token()}}'},
+                    url: '/admin/articles/calldel',
                     done: function (data) {
                         console.log(data);
                     }

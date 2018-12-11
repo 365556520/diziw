@@ -4,8 +4,8 @@ use App\Models\UsersModel\User_Data;
 use App\Repositories\Eloquent\Repository;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Storage
+;
 /**
  * 仓库模式继承抽象类
  */

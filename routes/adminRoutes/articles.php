@@ -8,6 +8,8 @@ Route::group(['prefix' => 'articles'],function (){
     Route::get('ajaxIndex','ArticlesController@ajaxIndex');
     //上传图片
     Route::post('upload','ArticlesController@upload');
+    //删除图片
+    Route::post('calldel','ArticlesController@calldel');
 });
 Route::resource('articles','ArticlesController');
 //文章分类

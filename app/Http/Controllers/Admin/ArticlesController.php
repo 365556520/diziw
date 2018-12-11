@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Repositories\Eloquent\Admin\Articles\ArticlesRepository;
 use App\Repositories\Eloquent\Admin\Articles\CategorysRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 
 class ArticlesController extends CommonController
@@ -47,7 +48,22 @@ class ArticlesController extends CommonController
         }
         return ['code' => 1,'msg' => '上传失败'];
     }
+    /*
+     * 删除图片
+     *  右键删除视频图片的回调方法设置 calldel:{url:''},该设置会调用post方法传递图片(imgpath)/视频地址(filepath)
+     *传递参数：
+     *图片： imgpath --图片路径
+     *视频： filepath --视频路径 imgpath --封面路径
+     * */
+    public function calldel(Request $request){
+        dd($request->all()['imgpath']);
+        if ( Storage::delete($request->all()['imgpath'])) {
 
+            return ['code' => 0,'msg' =>'删除成功'];
+        }
+        return ['code' => 1,'msg' => '上传失败'];
+
+    }
     public function index()
     {
         //得到树列表
