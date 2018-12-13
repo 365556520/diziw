@@ -7,9 +7,7 @@
 @section('content')
     <div class="layui-row" style="padding: 2px 15px 2px 15px">
         <br>
-        <div style="color: #ec162d;size: 28px">@include('flash::message')</div>
-
-
+         @include('flash::message')
         <form class="layui-form layui-form-pane" lay-filter="add" method="post" action="{{url('admin/articles')}}">
             {{csrf_field()}}
             {{--作者id--}}
@@ -24,12 +22,11 @@
                                 <input type="text" name="title" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">缩略图</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="thumb" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-                            </div>
+                        {{--缩略图--}}
+                        <div type="hidden">
+                            <input type="hidden" name="thumb[0]" value=""/>
+                            <input type="hidden" name="thumb[1]" value=""/>
+                            <input type="hidden" name="thumb[2]" value=""/>
                         </div>
 
                         <div class="layui-form-item">
@@ -108,6 +105,7 @@
    {{--查看本编辑中查看源码需要用到ace插件--}}
     <script src="{{asset('/backend/myvebdors/layui/ace/ace.js')}}"></script>
     <script>
+        var i = 0;
         layui.use(['form', 'layedit', 'laydate','element','layedit', 'layer', 'jquery'], function(){
             var $ = layui.jquery
                 ,form = layui.form
@@ -135,6 +133,7 @@
                 ,"state": 0
             });
             //富文本框
+            var i = 0;
             layedit.set({
                 //暴露layupload参数设置接口 --详细查看layupload参数说明
                 uploadImage: {
@@ -142,11 +141,20 @@
                     accept: 'image',
                     acceptMime: 'image/*',
                     exts: 'jpg|png|gif|bmp|jpeg',
-                    size: 1024 * 10,
-                    done: function (res, index, upload) {
-                        console.log("差w"+res.data.src);
-                        console.log("差2"+index);
-                        console.log("差3"+upload);
+                    size: 1024 * 5,
+                    done: function (data) {
+                        if (data.code == 0){
+                            layer.msg(data.msg, {
+                                time: 1000, //1s后自动关闭
+                            });
+                            //设置缩略图地址
+                            if (i<3 ){
+                                $('input[name="thumb['+ i +']"]').val(data.data.src);
+                                i++;
+                            }else{
+                                i = 0;
+                            }
+                        }
                     }
                 }
 
@@ -178,7 +186,12 @@
                 , calldel: {
                     url: '/admin/articles/calldel',
                     done: function (data) {
-                        console.log(data);
+                        if (data.code == 0) {
+                            layer.msg(data.msg, {
+                                time: 1000, //1s后自动关闭
+                            });
+                        }
+                       // console.log(data);
                     }
                 }
                 //开发者模式 --默认为false

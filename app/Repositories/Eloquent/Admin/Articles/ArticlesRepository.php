@@ -39,12 +39,18 @@ class ArticlesRepository extends Repository {
         ];
     }
     /*添加班车*/
-    public function createBuses($formData){
+    public function createArticle($formData){
+        $img ='';
+        foreach ($formData['thumb'] as $v){
+            $img .= strrchr($v,'/'); //获取图片名字
+        }
+        //把图片名字以字符串行式存到数组
+        $formData['thumb']= $img;
         $result = $this->model->create($formData);
         if ($result) {
-            flash('班车添加成功','success');
+            flash('文章添加成功','success');
         }else{
-            flash('班车添加失败','error');
+            flash('文章添加失败','error');
         }
         return $result;
     }

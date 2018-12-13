@@ -10,7 +10,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @yield('title')
-        {{--layui-v2.2.5--}}
+        {{--layui-v2.4.5--}}
         <link href="{{ asset('/backend/myvebdors/layui/layui/css/layui.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('admin/frame/static/css/style.css')}}">
         @yield('css')

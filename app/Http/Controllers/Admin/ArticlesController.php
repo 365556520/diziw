@@ -38,7 +38,6 @@ class ArticlesController extends CommonController
     /*
      * 上传图片
      * */
-
     public function upload(Request $request){
         $upload = $request->file;
         if ($upload->isValid()) {
@@ -56,8 +55,8 @@ class ArticlesController extends CommonController
      *视频： filepath --视频路径 imgpath --封面路径
      * */
     public function calldel(Request $request){
-        $img_path =strrchr($request->all()['imgpath'],'/'); //获取图片名字
-        if ( Storage::delete('backend/images/articleImages'.$img_path)) {
+        $img =strrchr($request->all()['imgpath'],'/'); //获取图片名字
+        if ( Storage::delete('backend/images/articleImages'.$img)) {
             return ['code' => 0,'msg' =>'删除成功'];
         }
         return ['code' => 1,'msg' => '上传失败'];
@@ -89,8 +88,9 @@ class ArticlesController extends CommonController
      */
     public function store(Request $request)
     {
-        //
-        dd($request->all());
+        //把内容存放到数据库
+        $result = $this->article->createArticle($request->all());
+        return redirect(url('admin/articles/create'));
     }
 
     /**

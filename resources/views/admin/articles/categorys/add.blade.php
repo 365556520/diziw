@@ -7,7 +7,7 @@
 @section('content')
     <div class="layui-row" style="padding: 2px 15px 2px 15px">
         <br>
-        <div style="color: #ec162d;size: 28px">@include('flash::message')</div>
+        @include('flash::message')
         <form class="layui-form layui-form-pane" method="post" action="{{url('admin/categorys')}}">
             {{csrf_field()}}
             <div class="layui-form-item">
