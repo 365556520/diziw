@@ -3,12 +3,15 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
+    <link href="{{ asset('/backend/myvebdors/layui/layui_ext/dtree/dtree.css')}}" rel="stylesheet">
+    <link href="{{ asset('/backend/myvebdors/layui/layui_ext/dtree/font/dtreefont.css')}}" rel="stylesheet">
 @endsection
 @section('content')
     <div class="layui-row">
         <div class="layui-col-xs3 layui-col-sm2 layui-col-md2" style="height: 550px;overflow:scroll">
             <!-- tree -->
-            <ul id="tree" class="tree-table-tree-box"></ul>
+            {{--<ul id="tree" class="tree-table-tree-box"></ul>--}}
+            <ul id="tree" class="dtree" data-id="0"></ul>
         </div>
         <div class="layui-col-xs9 layui-col-sm10 layui-col-md10">
             <!-- table -->
@@ -34,13 +37,20 @@
     </div>
 @endsection
 @section('js')
+
     <script type="text/javascript">
         // layui方法
-        layui.use(['tree', 'table', 'layer'], function () {
+        layui.config({
+            base: '/backend/myvebdors/layui/layui_ext/dtree/'//配置 layui 第三方扩展组件存放的基础目录
+        }).extend({
+            dtree: 'dtree' //定义该组件模块名
+        }).use(['tree', 'table', 'layer', 'dtree'], function () {
             // 操作对象
             var table = layui.table
                 , layer = layui.layer
+                ,dtree = layui.dtree
                 , $ = layui.jquery;
+
             // 表格渲染
             var tableIns = table.render({
                 elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
@@ -79,7 +89,6 @@
                     console.log(count);
                 }
             });
-
 
             //头工具栏事件
             table.on('toolbar(dateTable)', function(obj){
@@ -145,53 +154,122 @@
                 console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
             });*/
 
-            // 树        更多操作请查看 http://www.layui.com/demo/tree.html
-            layui.tree({
-                elem: '#tree' //传入元素选择器
-                , click: function (item) { //点击节点回调
-                    if (item.cate_pid != 0){
-                        layer.msg('当前节名称：' + item.id);
-                        console.log(item);
-                        newcategory_id = item.id;
-                        // 加载中...
-                        var loadIndex = layer.load(2, {shade: false});
-                        // 关闭加载
-                        layer.close(loadIndex);
-                        // 刷新表格
-                        tableIns.reload({
-                            where: {'category_id': newcategory_id} //设定异步数据接口的额外参数
-                            ,page: {
-                                curr: 1 //重新从第 1 页开始
+            //监听行工具条事件
+            table.on('tool(dateTable)', function(obj){
+                var data = obj.data;
+                //console.log('kankan22222 '+obj.data);
+                if(obj.event === 'del'){
+                    layer.confirm('真的删除此分类吗？', function(index){
+                        $.ajax({
+                            type: "POST",
+                            url: "{{url('/admin/categorys')}}/"+data.id,
+                            cache: false,
+                            data:{_method:"DELETE", _token: "{{csrf_token()}}"},
+                            success: function (data) {
+                                layer.msg('删除成功', {
+                                    time: 2000, //20s后自动关
+                                });
+                                //删除成功后删除缓存
+                                obj.del();
+                                layer.close(index);
+                            },
+                            error: function (xhr, status, error) {
+                                layer.msg('删除失败', {
+                                    time: 2000, //20s后自动关
+                                });
+                                console.log(xhr);
+                                console.log(status);
+                                console.log(error);
                             }
                         });
-                    }
+                    });
+                } else if(obj.event === 'edit'){
+                    layer.open({
+                        type: 2,//2类型窗口 这里内容是一个网址
+                        title: '修改文章分类',
+                        shadeClose: true,
+                        shade: false,
+                        anim: 2, //打开动画
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['893px', '100%'],
+                        content: '{{url("/admin/articles")}}/'+ data.id + '/edit',
+                        cancel: function(index, layero){
+                            // 刷新表格
+                            tableIns.reload({
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                            });
+                            return true;
+                        }
+                    });
 
+                    /*   layer.prompt({
+                     formType: 2
+                     ,value:data.id
+                     }, function(value, index){
+                     obj.update({
+                     cate_keywords: value
+                     });
+                     layer.close(index);
+                     });*/
+                } else if(obj.event === 'show'){
+                    //多窗口模式，层叠置顶
+                    layer.open({
+                        type: 1 //1类型窗口 这里内容可以自己写
+                        ,title:'文章分类----'+data.cate_name
+                        ,area: ['390px', '260px']
+                        ,shade: 0
+                        ,maxmin: true
+                        ,content: '<div>分类id：'+data.id +'<br>' +
+                        '分类名称：'+data.cate_name +'<br>' +
+                        '分类关键词：'+data.cate_keywords +'<br>' +
+                        '分类描述：'+data.cate_description +'<br>' +
+                        '</div>'
+                    });
                 }
-                , nodes: [
-                    @foreach($categorys as $v)
-                       {
-                            name:'{{$v->cate_name}}'
-                            ,id:'{{$v->id}}'
-                            ,cate_pid : '{{$v->cate_pid}}'
-                             @if($v->children)
-                                 ,children:[
-                                    @foreach($v->children as $vs)
-                                        {
-                                            name:'{{$vs->cate_name}}'
-                                            ,id:'{{$vs->id}}'
-                                            ,cate_pid : '{{$vs->cate_pid}}'
-                                        },
-                                     @endforeach
-                                 ]
-                            @endif
-                        },
-                    @endforeach
-                ]
             });
-            // you code ...
-
-            /*
-            * */
+            //树
+            dtree.render({
+                elem: "#tree",  //绑定元素
+                //  url: "../json/case/tree.json"  //异步接口
+                data: [
+                        @foreach($categorys as $v){
+                        title:'{{$v->cate_name}}'
+                        ,id:'{{$v->id}}'
+                        ,parentId : '{{$v->cate_pid}}'
+                        @if($v->children)
+                        ,children:[
+                            @foreach($v->children as $vs){
+                            title:'{{$vs->cate_name}}'
+                            ,id:'{{$vs->id}}'
+                            ,parentId : '{{$vs->cate_pid}}'
+                        },
+                        @endforeach
+                    ]
+                        @endif
+                    },
+                    @endforeach
+                ],
+            });
+            //单击节点 监听事件
+            dtree.on("node('tree')" ,function(param){
+                console.log('点击树节点的属性'+JSON.stringify(param.param));
+                if (param.param.parentId != 0) {
+                    newcategory_id = param.param.nodeId;
+                    // 加载中...
+                    var loadIndex = layer.load(2, {shade: false});
+                    // 关闭加载
+                    layer.close(loadIndex);
+                    // 刷新表格
+                    tableIns.reload({
+                        where: {'category_id': newcategory_id} //设定异步数据接口的额外参数
+                        , page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+                }
+            });
         });
     </script>
 

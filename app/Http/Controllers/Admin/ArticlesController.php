@@ -67,7 +67,6 @@ class ArticlesController extends CommonController
         $categorys= $this->categorys->getCategorysList();
         return view("admin.articles.articles.list")->with(compact('categorys','categorys'));
     }
-
     /**添加文章试图
      * Show the form for creating a new resource.
      *
@@ -106,13 +105,14 @@ class ArticlesController extends CommonController
 
     /**
      * Show the form for editing the specified resource.
-     *
+     *修改文章视图
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
+        return view("admin.articles.articles.edit");
     }
 
     /**
