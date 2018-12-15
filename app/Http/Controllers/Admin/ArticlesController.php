@@ -129,12 +129,23 @@ class ArticlesController extends CommonController
 
     /**
      * Remove the specified resource from storage.
-     *
+     *删除文章
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $this->article->destroyArticles($id);
+        return redirect(url('admin/articles'));
+    }
+
+    /*
+     * 批量删除文章
+     * */
+    public function destroys($data){
+        //把json转换成数组然后用数组函数支取id列
+        $id = array_column(json_decode($data),'id');
+        $this->article->destroyArticles($id);
+        return redirect(url('admin/articles'));
     }
 }

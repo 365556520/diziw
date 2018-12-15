@@ -54,8 +54,11 @@ class ArticlesRepository extends Repository {
         }
         return $result;
     }
-    /*删除班车线路*/
-    public function destroyBusesRoute($id){
+    /*删除文章*/
+    public function destroyArticles($id){
+        //删除图片
+
+        //删除数据库数据
         $result = $this->delete($id);
         if ($result) {
             flash('删除成功','success');

@@ -100,13 +100,14 @@
                             layer.confirm('真的删除这些分类吗？', function(index){
                                 $.ajax({
                                     type: "GET",
-                                    url: "{{url('/admin/categorys/destroys')}}/"+ JSON.stringify(data),
+                                    url: "{{url('/admin/articles/destroys')}}/"+ JSON.stringify(data),
                                     cache: false,
                                     success: function (data) {
                                         layer.msg('删除成功', {
                                             time: 2000, //20s后自动关
                                         });
-                                        window.location.reload(); //刷新本页面
+                                        //刷新表格
+                                        tableIns.reload();
                                         //删除成功后删除缓存
                                         layer.close(index);
                                     },
@@ -162,7 +163,7 @@
                     layer.confirm('真的删除此分类吗？', function(index){
                         $.ajax({
                             type: "POST",
-                            url: "{{url('/admin/categorys')}}/"+data.id,
+                            url: "{{url('/admin/articles')}}/"+data.id,
                             cache: false,
                             data:{_method:"DELETE", _token: "{{csrf_token()}}"},
                             success: function (data) {

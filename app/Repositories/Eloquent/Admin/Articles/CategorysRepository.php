@@ -53,7 +53,7 @@ class CategorysRepository extends Repository {
         }
         return $result;
     }
-    /*删除文章*/
+    /*删除文章分类*/
     public function destroyCategorys($id){
         $result = $this->delete($id);
         if ($result) {
@@ -64,7 +64,7 @@ class CategorysRepository extends Repository {
         return $result;
     }
 
-    // 修改班车线路视图数据
+    // 修改文章分类视图数据
     public function editView($id)
     {
         $result = $this->find($id);
@@ -73,7 +73,7 @@ class CategorysRepository extends Repository {
         }
         abort(404);
     }
-    // 修改班车
+    // 修改文章分类
     public function updateCategorys($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
