@@ -242,6 +242,7 @@
             //树
             dtree.render({
                 elem: "#tree",  //绑定元素
+                initLevel:1,
                 //  url: "../json/case/tree.json"  //异步接口
                 data: [
                         @foreach($categorys as $v){
