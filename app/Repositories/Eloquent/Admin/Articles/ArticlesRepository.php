@@ -70,33 +70,25 @@ class ArticlesRepository extends Repository {
         } else {
             flash('删除失败','error');
         }
-        return $result;
     }
-    //得到图片明
+    //得到图片删除图片
     public function getImg($thumb){
+        $result =  false;
         $thumbs = '';
         if(is_array($thumb)){
             $thumbs = implode($thumb); //把图片数组转换成字符串
         } else {
             $thumbs =  $thumb;
         }
-       $imgs =  explode("/", $thumbs);//以/为分割符转换为数组
+       $imgs = array_filter(explode("/", $thumbs));//以/为分割符转换为数组    array_filter去掉数组中值为空的
        foreach ($imgs as $v){
-           if(!empty($v)){
-               if($this->deImg($v)){
-                   return true;
-               }else{
-                   return false;
-               }
-           }
+           $result =  $this->deImg($v);
        }
+       return $result;
     }
     //删除服务器图片
     public function deImg($img){
-        if (Storage::delete('backend/images/articleImages'.$img)) {
-            return true;
-        }
-        return false;
+        return Storage::delete('backend/images/articleImages/'.$img);
     }
     // 修改班车线路视图数据
     public function editView($id)
