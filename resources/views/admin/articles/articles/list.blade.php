@@ -89,19 +89,28 @@
                     console.log(count);
                 }
             });
-
             //头工具栏事件
             table.on('toolbar(dateTable)', function(obj){
                 var checkStatus = table.checkStatus(obj.config.id);
                 switch(obj.event){
                     case 'delete-all':
                         var data = checkStatus.data;  //得到选中数据的数组
+                        var ids = new Array(); //id变量
+                        var thumbs = new Array(); //图片变量
+                        //获取图片和id
+                        for (var k in data) {
+                            ids.push({
+                                'id' : data[k]['id'],
+                            });
+                            thumbs.push(data[k]['thumb']);
+                        }
                         if(data.length>0){
                             layer.confirm('真的删除这些分类吗？', function(index){
                                 $.ajax({
-                                    type: "GET",
-                                    url: "{{url('/admin/articles/destroys')}}/"+ JSON.stringify(data),
+                                    type: "POST",
+                                    url: "{{url('/admin/articles/destroys')}}/"+ JSON.stringify(ids),
                                     cache: false,
+                                    data:{"thumb":thumbs},
                                     success: function (data) {
                                         layer.msg('删除成功', {
                                             time: 2000, //20s后自动关
@@ -165,7 +174,7 @@
                             type: "POST",
                             url: "{{url('/admin/articles')}}/"+data.id,
                             cache: false,
-                            data:{_method:"DELETE", _token: "{{csrf_token()}}"},
+                            data:{_method:"DELETE", _token: "{{csrf_token()}}","thumb":data.thumb},
                             success: function (data) {
                                 layer.msg('删除成功', {
                                     time: 2000, //20s后自动关

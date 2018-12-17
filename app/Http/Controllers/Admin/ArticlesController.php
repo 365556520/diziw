@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Repositories\Eloquent\Admin\Articles\ArticlesRepository;
 use App\Repositories\Eloquent\Admin\Articles\CategorysRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 
 class ArticlesController extends CommonController
@@ -56,7 +55,7 @@ class ArticlesController extends CommonController
      * */
     public function calldel(Request $request){
         $img =strrchr($request->all()['imgpath'],'/'); //获取图片名字
-        if ( Storage::delete('backend/images/articleImages'.$img)) {
+        if ($this->article->deImg($img)) {
             return ['code' => 0,'msg' =>'删除成功'];
         }
         return ['code' => 1,'msg' => '上传失败'];
@@ -133,19 +132,23 @@ class ArticlesController extends CommonController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        $this->article->destroyArticles($id);
+        //得到图片
+        $thumb = $request->all()['thumb'];
+        $this->article->destroyArticles($thumb,$id);
         return redirect(url('admin/articles'));
     }
 
     /*
      * 批量删除文章
      * */
-    public function destroys($data){
+    public function destroys(Request $request,$id){
+        //得到图片
+        $thumb = $request->all()['thumb'];
         //把json转换成数组然后用数组函数支取id列
-        $id = array_column(json_decode($data),'id');
-        $this->article->destroyArticles($id);
+        $id = array_column(json_decode($id),'id');
+        $this->article->destroyArticles($thumb,$id);
         return redirect(url('admin/articles'));
     }
 }

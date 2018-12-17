@@ -3,6 +3,7 @@ namespace App\Repositories\Eloquent\Admin\Articles;
 
 use App\Models\UsersModel\Articles\Articles;
 use App\Repositories\Eloquent\Repository;
+use Illuminate\Support\Facades\Storage;
 
 
 /**
@@ -54,12 +55,16 @@ class ArticlesRepository extends Repository {
         }
         return $result;
     }
-    /*删除文章*/
-    public function destroyArticles($id){
-        //删除图片
-
-        //删除数据库数据
-        $result = $this->delete($id);
+    /*删除文章
+    参数 1、$thumb图片的名称
+         2、文章的id
+    */
+    public function destroyArticles($thumb,$id){
+        $result = false;
+        if($this->getImg($thumb)){
+            //删除数据库数据
+            $result = $this->delete($id);
+        }
         if ($result) {
             flash('删除成功','success');
         } else {
@@ -67,7 +72,32 @@ class ArticlesRepository extends Repository {
         }
         return $result;
     }
-
+    //得到图片明
+    public function getImg($thumb){
+        $thumbs = '';
+        if(is_array($thumb)){
+            $thumbs = implode($thumb); //把图片数组转换成字符串
+        } else {
+            $thumbs =  $thumb;
+        }
+       $imgs =  explode("/", $thumbs);//以/为分割符转换为数组
+       foreach ($imgs as $v){
+           if(!empty($v)){
+               if($this->deImg($v)){
+                   return true;
+               }else{
+                   return false;
+               }
+           }
+       }
+    }
+    //删除服务器图片
+    public function deImg($img){
+        if (Storage::delete('backend/images/articleImages'.$img)) {
+            return true;
+        }
+        return false;
+    }
     // 修改班车线路视图数据
     public function editView($id)
     {

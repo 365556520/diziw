@@ -10,8 +10,8 @@ Route::group(['prefix' => 'articles'],function (){
     Route::post('upload','ArticlesController@upload');
     //删除图片
     Route::post('calldel','ArticlesController@calldel');
-    //删除文章
-    Route::get('destroys/{data}','ArticlesController@destroys');
+    //批量删除文章
+    Route::post('destroys/{id}','ArticlesController@destroys');
 });
 Route::resource('articles','ArticlesController');
 //文章分类
