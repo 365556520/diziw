@@ -55,10 +55,13 @@ class ArticlesController extends CommonController
      * */
     public function calldel(Request $request){
         $img =strrchr($request->all()['imgpath'],'/'); //获取图片名字
-        if ($this->article->deImg($img)) {
-            return ['code' => 0,'msg' =>'删除成功'];
-        }
-        return ['code' => 1,'msg' => '上传失败'];
+        $imgname = $img;
+       if($img != ''){
+           if ($this->article->deImg($img)) {
+               return ['code' => 0,'msg' =>'删除成功',"data"=>["src"=> 'backend/images/articleImages'.$imgname]];
+           }
+       }
+       return ['code' => 1,'msg' => '图片不存在删除失败',"data"=>["src"=> 'backend/images/articleImages'.$imgname]];
     }
     public function index()
     {
@@ -110,20 +113,25 @@ class ArticlesController extends CommonController
      */
     public function edit($id)
     {
-        //
-        return view("admin.articles.articles.edit");
+        //获取文章视图
+        $articlesEdit = $this->article->editView($id);
+        //得到所有分类
+        $categorys = $this->categorys->getCategorysList();
+        return view("admin.articles.articles.edit")->with(compact('articlesEdit','categorys'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
+     *修改文章
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        //修改文章
+        $this->article->updateArticles($request->all(),$id);
+        return redirect('admin/articles/'.$id.'/edit');
     }
 
     /**

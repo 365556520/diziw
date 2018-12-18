@@ -146,11 +146,7 @@
                             content: '{{url("/admin/articles/create")}}',
                             cancel: function(index, layero){
                                 // 刷新表格
-                                tableIns.reload({
-                                    page: {
-                                        curr: 1 //重新从第 1 页开始
-                                    }
-                                });
+                                tableIns.reload();
                                 return true;
                             }
                         });
@@ -205,11 +201,7 @@
                         content: '{{url("/admin/articles")}}/'+ data.id + '/edit',
                         cancel: function(index, layero){
                             // 刷新表格
-                            tableIns.reload({
-                                page: {
-                                    curr: 1 //重新从第 1 页开始
-                                }
-                            });
+                            tableIns.reload();
                             return true;
                         }
                     });

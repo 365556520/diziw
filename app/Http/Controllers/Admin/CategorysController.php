@@ -94,7 +94,7 @@ class CategorysController extends CommonController
     {
         //
         $this->categorys->updateCategorys($request->all(),$id);
-        return redirect('admin/categorys/create');
+        return redirect('admin/categorys/'.$id.'/edit');
     }
 
     /**

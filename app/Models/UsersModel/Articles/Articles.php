@@ -19,6 +19,8 @@ class Articles extends Model
         'description',
         'thumb',
         'view',
+        'level',
+        'state',
         'category_id',
         'user_id',
         'content',

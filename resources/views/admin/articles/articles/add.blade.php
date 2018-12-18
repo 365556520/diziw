@@ -48,7 +48,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">浏览次数</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="cate_view"  lay-verify="" autocomplete="off" class="layui-input" disabled="">
+                                    <input type="text" name="view"  lay-verify="" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </div>
@@ -129,8 +129,7 @@
             });
             //初始只
             form.val("add", {
-                "cate_view":0
-                ,"state": 0
+                "view":0
             });
             //富文本框
             var i = 0;

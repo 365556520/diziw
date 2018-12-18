@@ -39,14 +39,10 @@ class ArticlesRepository extends Repository {
             'data' => $articless,//数据
         ];
     }
-    /*添加班车*/
+    /*添加文章*/
     public function createArticle($formData){
-        $img ='';
-        foreach ($formData['thumb'] as $v){
-            $img .= strrchr($v,'/'); //获取图片名字
-        }
         //把图片名字以字符串行式存到数组
-        $formData['thumb']= $img;
+        $formData['thumb']= $this->getImgArr($formData['thumb']);
         $result = $this->model->create($formData);
         if ($result) {
             flash('文章添加成功','success');
@@ -60,11 +56,10 @@ class ArticlesRepository extends Repository {
          2、文章的id
     */
     public function destroyArticles($thumb,$id){
-        $result = false;
-        if($this->getImg($thumb)){
-            //删除数据库数据
-            $result = $this->delete($id);
-        }
+        //删除图片
+        $this->getImg($thumb);
+       //删除数据库数据
+        $result = $this->delete($id);
         if ($result) {
             flash('删除成功','success');
         } else {
@@ -90,21 +85,30 @@ class ArticlesRepository extends Repository {
     public function deImg($img){
         return Storage::delete('backend/images/articleImages/'.$img);
     }
-    // 修改班车线路视图数据
+    // 修改文章视图数据
     public function editView($id)
     {
-        $result = $this->find($id);
-        if ($result) {
-            return $result;
+        //得到修改的数据
+        $articlesEdit = $this->find($id);
+        $img = array_filter(explode("/", $articlesEdit->thumb)); //得到图片名字存到数组中
+        $imgs = [];
+        //图片加上路径
+        foreach ($img as $v){
+            array_push($imgs,'backend/images/articleImages/'.$v);
+        }
+        $articlesEdit->thumb=$imgs;
+        if ($articlesEdit) {
+            return $articlesEdit;
         }
         abort(404);
     }
-    // 修改班车
-    public function updateBusesRoute($attributes,$id)
+    // 修改文章
+    public function updateArticles($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
         }
+        $attributes['thumb'] = $this->getImgArr($attributes['thumb']);
         $result = $this->update($attributes,$id);
         if ($result) {
             flash('班线修改成功','success');
@@ -113,4 +117,14 @@ class ArticlesRepository extends Repository {
         }
         return $result;
     }
+    //提取图片名字并转换成字符串
+    public function getImgArr($imgs){
+        $img ='';
+        foreach ($imgs as $v){
+            $img .= strrchr($v,'/'); //获取图片名字
+        }
+        //把图片名字以字符串行式存到数组
+        return $img;
+    }
+
 }

@@ -3,244 +3,243 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
-    <link href="{{ asset('/backend/myvebdors/layui/layui_ext/dtree/dtree.css')}}" rel="stylesheet">
-    <link href="{{ asset('/backend/myvebdors/layui/layui_ext/dtree/font/dtreefont.css')}}" rel="stylesheet">
 @endsection
 @section('content')
-    <ul id="demoTree1" class="dtree" data-id="0"></ul>
+    <div class="layui-row" style="padding: 2px 15px 2px 15px">
+        <br>
+        @include('flash::message')
+        <form class="layui-form layui-form-pane" lay-filter="edit" method="post" action="{{url('admin/articles/'.$articlesEdit->id)}}">
+            {{csrf_field()}}
+            {{method_field('PUT')}}
+            <input type="hidden" value="{{$articlesEdit->id}}" name="id">
+            {{--作者id--}}
+            <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
+            <div class="layui-collapse" >
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">文章信息</h2>
+                    <div class="layui-colla-content layui-show">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">文章标题</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="title" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        {{--缩略图 type="hidden"--}}
+                        <div >
+                            <input  name="thumb[0]" />
+                            <input  name="thumb[1]" />
+                            <input  name="thumb[2]" />
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">文章分类</label>
+                                <div class="layui-input-inline">
+                                    <select name="category_id">
+                                        <option value="">请选择</option>
+                                        @foreach($categorys as $v)
+                                            <optgroup label="{{$v->cate_name}}">
+                                                @foreach($v->children as $vl)
+                                                    <option value="{{$vl->id}}">{{$vl->cate_name}}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">浏览次数</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="view"  lay-verify="" autocomplete="off" class="layui-input" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" pane="">
+                            <label class="layui-form-label">文章级别</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="level" value=0 title="置顶" checked="">
+                                <input type="radio" name="level" value=1 title="推荐">
+                                <input type="radio" name="level" value=2 title="热门" >
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" pane="">
+                            <label class="layui-form-label">文章状态</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" value="1" name="state" lay-skin="switch" lay-filter="state" lay-text="通过|审核中">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">文章关键词</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="tag" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">文章描述</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="请输入内容" name="description" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">文章内容</h2>
+                    <div class="layui-colla-content layui-show">
+                        <div class="layui-form-item layui-form-text">
+                            <div class="layui-input-block">
+                                <textarea  name="content" id="content"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit="" lay-filter="demo2">发布文章</button>
+            </div>
+        </form>
+    </div>
 @endsection
 @section('js')
+    {{--查看本编辑中查看源码需要用到ace插件--}}
+    <script src="{{asset('/backend/myvebdors/layui/ace/ace.js')}}"></script>
     <script>
-        var data =[{
-            "id":"001",
-            "title": "湖南省",
-            "isLast": false,
-            "level": "1",
-            "parentId": "0",
-            "checkArr": [{"type": "0", "isChecked": "1"}],
-            "basicData": {"data1": "自定义数据111", "data2": "自定义数据222", "data3": "自定义'我带了单引号'333"},
-            "children":[{
-                "id":"001001",
-                "title": "长沙市",
-                "isLast":true,
-                "parentId": "001",
-                "checkArr": [{"type": "0", "isChecked": "1"}],
-                "level": "2"
-            },{
-                "id":"001002",
-                "title": "株洲市",
-                "isLast":true,
-                "parentId": "001",
-                "checkArr": [{"type": "0", "isChecked": "1"}],
-                "level": "2"
-            },{
-                "id":"001003",
-                "title": "湘潭市",
-                "isLast":true,
-                "parentId": "001",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"001004",
-                "title": "衡阳市",
-                "isLast":true,
-                "parentId": "001",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"001005",
-                "title": "郴州市",
-                "isLast":true,
-                "parentId": "001",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            }]
-        },{
-            "id":"002",
-            "title": "湖北省",
-            "isLast": false,
-            "parentId": "0",
-            "level": "1",
-            "checkArr": [{"type": "0", "isChecked": "0"}],
-            "children":[{
-                "id":"002001",
-                "title": "武汉市",
-                "isLast":true,
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"002002",
-                "title": "黄冈市",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "isLast":true,
-                "parentId": "002",
-                "level": "2"
-            },{
-                "id":"002003",
-                "title": "潜江市",
-                "isLast":true,
-                "parentId": "002",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"002004",
-                "title": "荆州市",
-                "isLast":true,
-                "parentId": "002",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"002005",
-                "title": "襄阳市",
-                "isLast":true,
-                "parentId": "002",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            }]
-        },{
-            "id":"003",
-            "title": "广东省",
-            "isLast": false,
-            "parentId": "0",
-            "level": "1",
-            "checkArr": [{"type": "0", "isChecked": "0"}],
-            "children":[{
-                "id":"003001",
-                "title": "广州市",
-                "isLast":false,
-                "parentId": "003",
-                "level": "2",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "children":[{
-                    "id":"003001001",
-                    "title": "天河区",
-                    "isLast":true,
-                    "parentId": "003001",
-                    "checkArr": [{"type": "0", "isChecked": "0"}],
-                    "level": "3"
-                },{
-                    "id":"003001002",
-                    "title": "花都区",
-                    "isLast":true,
-                    "parentId": "003001",
-                    "checkArr": [{"type": "0", "isChecked": "0"}],
-                    "level": "3"
-                }]
-            },{
-                "id":"003002",
-                "title": "深圳市",
-                "isLast":true,
-                "parentId": "003",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"003003",
-                "title": "中山市",
-                "isLast":true,
-                "parentId": "003",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"003004",
-                "title": "东莞市",
-                "isLast":true,
-                "parentId": "003",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"003005",
-                "title": "珠海市",
-                "isLast":true,
-                "parentId": "003",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"003006",
-                "title": "韶关市",
-                "isLast":true,
-                "parentId": "003",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            }]
-        },{
-            "id":"004",
-            "title": "浙江省",
-            "isLast": false,
-            "level": "1",
-            "parentId": "0",
-            "checkArr": [{"type": "0", "isChecked": "0"}],
-            "children":[{
-                "id":"004001",
-                "title": "杭州市",
-                "isLast":true,
-                "parentId": "004",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"004002",
-                "title": "温州市",
-                "isLast":true,
-                "parentId": "004",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"004003",
-                "title": "绍兴市",
-                "isLast":true,
-                "parentId": "004",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"004004",
-                "title": "金华市",
-                "isLast":true,
-                "parentId": "004",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            },{
-                "id":"004005",
-                "title": "义乌市",
-                "isLast":true,
-                "parentId": "004",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            }]
-        },{
-            "id":"005",
-            "title": "福建省",
-            "isLast": false,
-            "parentId": "0",
-            "level": "1",
-            "checkArr": [{"type": "0", "isChecked": "0"}],
-            "children":[{
-                "id":"005001",
-                "title": "厦门市",
-                "isLast":true,
-                "parentId": "005",
-                "checkArr": [{"type": "0", "isChecked": "0"}],
-                "level": "2"
-            }]
-        }];
+        var url = 'http://www.diziw.cn/';
+        layui.use(['form', 'layedit', 'laydate','element','layedit', 'layer', 'jquery'], function(){
+            var $ = layui.jquery
+                ,form = layui.form
+                ,layer = layui.layer
+                ,element = layui.element
+                ,layedit = layui.layedit;
+            //自定义验证规则
+            form.verify({
+                cate_view: [/^[0-9]{1,7}$/, '必须数字但不能大于7位']
+            });
+            //监听提交
+            form.on('submit(demo2)', function(data){
+                /*     layer.alert(JSON.stringify(data.field), {
+                 title: '最终的提交信息'
+                 })*/
+                return true;
+            });
+            //监听指定开关
+            form.on('switch(state)', function(data){
+                layer.tips('温馨提示：'+ (this.checked != 0 ? '直接通过审核！' : '不审核该文章！'), data.othis)
+            });
+            //表单初始值
+            form.val("edit", {
+                "title": '{{$articlesEdit->title}}',
+                @foreach($articlesEdit->thumb as $k => $v)
+                "thumb[{{$k}}]":url+'{{$v}}',
+                @endforeach
+                'category_id': '{{$articlesEdit->category_id}}',
+                "view":'{{$articlesEdit->category_id}}',
+                "level":'{{$articlesEdit->level}}',
+                "state": '{{$articlesEdit->state}}'==1 ? true : false,
+                "tag": '{{$articlesEdit->tag}}',
+                "description": '{{$articlesEdit->description}}',
+            });
+            //富文本框
+            layedit.set({
+                //暴露layupload参数设置接口 --详细查看layupload参数说明
+                uploadImage: {
+                    url: '/admin/articles/upload',
+                    accept: 'image',
+                    acceptMime: 'image/*',
+                    exts: 'jpg|png|gif|bmp|jpeg',
+                    size: 1024 * 5,
+                    done: function (data) {
+                        if (data.code == 0){
+                            layer.msg(data.msg, {
+                                time: 1000, //1s后自动关闭data.data.src
+                            });
+                        }
+                    }
+                }
 
-        layui.config({
-            base: '/backend/myvebdors/layui/layui_ext/dtree/'//配置 layui 第三方扩展组件存放的基础目录
-        }).extend({
-            dtree: 'dtree' //定义该组件模块名
-        }).use(['layer', 'dtree'], function(){
-            var layer = layui.layer,
-                dtree = layui.dtree,
-                $ = layui.$;
-            var DemoTree=dtree.render({
-                elem: "#demoTree1",  //绑定元素
-                //  url: "../json/case/demoTree1.json"  //异步接口
-                data:data,
-                checkbar: false,
-                checkbarType: "all"
+                /*     // 需要在tool加入'video'
+                 , uploadVideo: {
+                 url: 'your url',
+                 accept: 'video',
+                 acceptMime: 'video/!*',
+                 exts: 'mp4|flv|avi|rm|rmvb',
+                 size: 1024 * 10 * 2,
+                 done: function (data) {
+                 console.log(data);
+                 }
+                 }
+                 //需要在tool加入'attachment'
+                 , uploadFiles: {
+                 url: 'your url',
+                 accept: 'file',
+                 acceptMime: 'file/!*',
+                 size: '20480',
+                 done: function (data) {
+                 console.log(data);
+                 }
+                 }*/
+                //右键删除图片/视频时的回调参数，post到后台删除服务器文件等操作，
+                //传递参数：
+                //图片： imgpath --图片路径
+                //视频： filepath --视频路径 imgpath --封面路径
+                , calldel: {
+                    url: '/admin/articles/calldel',
+                    done: function (data) {
+                        if (data.code == 0) {
+                            layer.msg(data.msg, {
+                                time: 1000, //1s后自动关闭
+                            });
+                        }else if(data.code == 1){
+                            layer.msg(data.msg, {
+                                time: 1000, //1s后自动关闭
+                            });
+                        }
+
+                    }
+                }
+                //开发者模式 --默认为false
+                , devmode: true
+                //插入代码设置 --hide:true 等同于不配置codeConfig
+                , codeConfig: {
+                    hide: false,  //是否显示编码语言选择框
+                    default: 'javascript' //hide为true时的默认语言格式
+                }
+                //新增iframe外置样式和js
+                //, quote:{
+                //    style: ['/Content/Layui-KnifeZ/css/layui.css','/others'],
+                //    js: ['/Content/Layui-KnifeZ/lay/modules/jquery.js']
+                //}
+                //自定义样式-暂只支持video添加
+                //, customTheme: {
+                //    video: {
+                //        title: ['原版', 'custom_1', 'custom_2']
+                //        , content: ['', 'theme1', 'theme2']
+                //        , preview: ['', '/images/prive.jpg', '/images/prive2.jpg']
+                //    }
+                //}
+                //插入自定义链接
+                , customlink:{
+                    title: '插入layui官网'
+                    ,href: ''
+                    ,onmouseup:''
+                }
+                , facePath:'http://knifez.gitee.io/kz.layedit/Content/Layui-KnifeZ/' //这个是表情地址
+                , tool: [
+                    'html', 'undo', 'redo', 'code', 'strong', 'italic', 'underline', 'del', 'addhr', '|', 'fontFomatt','fontfamily', 'fontBackColor', 'colorpicker', 'face'
+                    , '|', 'left', 'center', 'right', '|', 'link', 'unlink', 'images', 'image_alt','anchors'
+                    , '|'
+                    , 'table','customlink'
+                    , 'fullScreen'
+                ]
+                , height: '90%'
             });
-            //单击节点 监听事件
-            dtree.on("node('demoTree1')" ,function(param){
-                layer.msg(JSON.stringify(param));
-            });
+            var ieditor = layedit.build('content');
+            //设置编辑器内容
+            layedit.setContent(ieditor, '{!! $articlesEdit->content !!}', false);
+
         });
     </script>
 @endsection
