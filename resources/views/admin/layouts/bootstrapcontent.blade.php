@@ -15,7 +15,7 @@
         <link href="{{ asset('/backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
         <!-- NProgress -->
         <link href="{{ asset('/backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-        {{--layui-v2.2.5--}}
+        {{--layui-v2.4.5--}}
         <link href="{{ asset('/backend/myvebdors/layui/layui/css/layui.css')}}" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="{{ asset('/backend/build/css/custom.min.css')}}" rel="stylesheet">
@@ -39,6 +39,7 @@
         <script src="{{asset('/backend/myvebdors/layer/layer.js')}}"></script>
         {{--vue js--}}
         <script src="{{asset('/backend/myvebdors/vue/vue.js')}}"></script>
+        <script src="{{asset('/backend/myvebdors/layui/layui/layui.js')}}"></script>
         <!--用的这个模板js -->
         <script src="{{ asset('/backend/build/js/custom.min.js')}}"></script>
         @yield('js')
