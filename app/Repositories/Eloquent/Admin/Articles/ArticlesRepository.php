@@ -89,10 +89,7 @@ class ArticlesRepository extends Repository {
        }
        return $result;
     }
-    //删除服务器图片
-    public function deImg($img){
-        return Storage::delete('backend/images/articleImages/'.$img);
-    }
+
     // 修改文章视图数据
     public function editView($id)
     {
@@ -125,6 +122,10 @@ class ArticlesRepository extends Repository {
         }
         return $result;
     }
+    //删除服务器图片
+    public function deImg($img){
+        return Storage::delete('backend/images/articleImages/'.$img);
+    }
     //提取图片名字并转换成字符串
     public function getImgArr($imgs){
         $img ='';
@@ -134,9 +135,8 @@ class ArticlesRepository extends Repository {
         //把图片名字以字符串行式存到数组
         return $img;
     }
-    //提取文章内容的图片
-
     /**
+     * 提取文章内容的图片
      * @param $content
      * @return null
      *  从HTML文本中提取所有图片

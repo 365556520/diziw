@@ -24,13 +24,6 @@
                                 <input type="text" name="title" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                        {{--缩略图 type="hidden"--}}
-                        <div >
-                            <input  name="thumb[0]" />
-                            <input  name="thumb[1]" />
-                            <input  name="thumb[2]" />
-                        </div>
-
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">文章分类</label>
