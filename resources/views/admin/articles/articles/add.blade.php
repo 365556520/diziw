@@ -22,13 +22,6 @@
                                 <input type="text" name="title" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                        {{--缩略图--}}
-                        <div type="hidden">
-                            <input type="hidden" name="thumb[0]" value=""/>
-                            <input type="hidden" name="thumb[1]" value=""/>
-                            <input type="hidden" name="thumb[2]" value=""/>
-                        </div>
-
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">文章分类</label>
@@ -105,7 +98,6 @@
    {{--查看本编辑中查看源码需要用到ace插件--}}
     <script src="{{asset('/backend/myvebdors/layui/ace/ace.js')}}"></script>
     <script>
-        var i = 0;
         layui.use(['form', 'layedit', 'laydate','element','layedit', 'layer', 'jquery'], function(){
             var $ = layui.jquery
                 ,form = layui.form
@@ -118,9 +110,9 @@
             });
             //监听提交
             form.on('submit(demo2)', function(data){
-           /*     layer.alert(JSON.stringify(data.field), {
-                    title: '最终的提交信息'
-                })*/
+                /*     layer.alert(JSON.stringify(data.field), {
+                 title: '最终的提交信息'
+                 })*/
                 return true;
             });
             //监听指定开关
@@ -132,7 +124,6 @@
                 "view":0
             });
             //富文本框
-            var i = 0;
             layedit.set({
                 //暴露layupload参数设置接口 --详细查看layupload参数说明
                 uploadImage: {
@@ -146,13 +137,6 @@
                             layer.msg(data.msg, {
                                 time: 1000, //1s后自动关闭
                             });
-                            //设置缩略图地址
-                            if (i<3 ){
-                                $('input[name="thumb['+ i +']"]').val(data.data.src);
-                                i++;
-                            }else{
-                                i = 0;
-                            }
                         }
                     }
                 }
@@ -186,6 +170,10 @@
                     url: '/admin/articles/calldel',
                     done: function (data) {
                         if (data.code == 0) {
+                            layer.msg(data.msg, {
+                                time: 1000, //1s后自动关闭
+                            });
+                        }else{
                             layer.msg(data.msg, {
                                 time: 1000, //1s后自动关闭
                             });

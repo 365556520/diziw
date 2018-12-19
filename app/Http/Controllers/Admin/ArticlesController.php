@@ -55,13 +55,12 @@ class ArticlesController extends CommonController
      * */
     public function calldel(Request $request){
         $img =strrchr($request->all()['imgpath'],'/'); //获取图片名字
-        $imgname = $img;
        if($img != ''){
            if ($this->article->deImg($img)) {
-               return ['code' => 0,'msg' =>'删除成功',"data"=>["src"=> 'backend/images/articleImages'.$imgname]];
+               return ['code' => 0,'msg' =>'删除成功',"data"=>["src"=> $request->all()['imgpath']]];
            }
        }
-       return ['code' => 1,'msg' => '图片不存在删除失败',"data"=>["src"=> 'backend/images/articleImages'.$imgname]];
+       return ['code' => 1,'msg' => '图片不存在删除失败',"data"=>["src"=> $request->all()['imgpath']]];
     }
     public function index()
     {

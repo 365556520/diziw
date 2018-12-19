@@ -41,8 +41,16 @@ class ArticlesRepository extends Repository {
     }
     /*添加文章*/
     public function createArticle($formData){
+        $img =[];
+        //把文章中的图片提取出来
+        foreach ($this->get_images_from_html($formData['content']) as $k => $v){
+            //判断图片地址是否是本地的如果不是可能不是图片
+            if(stripos($v,"diziw.cn/backend/images/articleImages")!== false){
+                $img[$k] = $v;
+            }
+        }
         //把图片名字以字符串行式存到数组
-        $formData['thumb']= $this->getImgArr($formData['thumb']);
+        $formData['thumb']= $this->getImgArr($img);
         $result = $this->model->create($formData);
         if ($result) {
             flash('文章添加成功','success');
@@ -126,5 +134,20 @@ class ArticlesRepository extends Repository {
         //把图片名字以字符串行式存到数组
         return $img;
     }
+    //提取文章内容的图片
 
+    /**
+     * @param $content
+     * @return null
+     *  从HTML文本中提取所有图片
+     */
+    function get_images_from_html($content)
+    {
+        $pattern = "/<img.*?src=[\'|\"](.*?)[\'|\"].*?[\/]?>/";
+        preg_match_all($pattern, htmlspecialchars_decode($content), $match);
+        if (!empty($match[1])) {
+            return $match[1];
+        }
+        return null;
+    }
 }
