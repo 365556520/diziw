@@ -6,7 +6,6 @@
 @endsection
 @section('content')
     <div class="layui-row" style="padding: 2px 15px 2px 15px">
-        <br>
          @include('flash::message')
         <form class="layui-form layui-form-pane" lay-filter="add" method="post" action="{{url('admin/articles')}}">
             {{csrf_field()}}

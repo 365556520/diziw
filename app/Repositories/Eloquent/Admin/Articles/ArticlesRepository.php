@@ -113,12 +113,20 @@ class ArticlesRepository extends Repository {
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
         }
-        $attributes['thumb'] = $this->getImgArr($attributes['thumb']);
+        $img =[];
+        //提取出文章图片
+        foreach ($this->get_images_from_html($attributes['content']) as $k => $v){
+            //取出上传的图片
+            if(stripos($v,"diziw.cn/backend/images/articleImages")!== false){
+                $img[$k] = $v;
+            }
+        }
+        $attributes['thumb'] = $this->getImgArr($img);
         $result = $this->update($attributes,$id);
         if ($result) {
-            flash('班线修改成功','success');
+            flash('文章修改成功','success');
         }else{
-            flash('班线修改失败', 'error');
+            flash('文章修改失败', 'error');
         }
         return $result;
     }
@@ -126,7 +134,7 @@ class ArticlesRepository extends Repository {
     public function deImg($img){
         return Storage::delete('backend/images/articleImages/'.$img);
     }
-    //提取图片名字并转换成字符串
+    //获取图片名字，并转换成字符串
     public function getImgArr($imgs){
         $img ='';
         foreach ($imgs as $v){
