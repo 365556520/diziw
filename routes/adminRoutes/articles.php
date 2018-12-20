@@ -12,6 +12,8 @@ Route::group(['prefix' => 'articles'],function (){
     Route::post('calldel','ArticlesController@calldel');
     //批量删除文章
     Route::post('destroys/{id}','ArticlesController@destroys');
+    //文章审核
+    Route::post('state','ArticlesController@state');
 });
 Route::resource('articles','ArticlesController');
 //文章分类

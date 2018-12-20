@@ -43,10 +43,13 @@ class ArticlesRepository extends Repository {
     public function createArticle($formData){
         $img =[];
         //把文章中的图片提取出来
-        foreach ($this->get_images_from_html($formData['content']) as $k => $v){
-            //判断图片地址是否是本地的如果不是可能不是图片
-            if(stripos($v,"diziw.cn/backend/images/articleImages")!== false){
-                $img[$k] = $v;
+        $imgs = $this->get_images_from_html($formData['content']);
+        if($imgs != null){
+            foreach ($imgs as $k => $v){
+                //判断图片地址是否是本地的如果不是可能不是图片
+                if(stripos($v,"diziw.cn/backend/images/articleImages")!== false){
+                    $img[$k] = $v;
+                }
             }
         }
         //把图片名字以字符串行式存到数组
@@ -89,7 +92,6 @@ class ArticlesRepository extends Repository {
        }
        return $result;
     }
-
     // 修改文章视图数据
     public function editView($id)
     {
@@ -115,10 +117,13 @@ class ArticlesRepository extends Repository {
         }
         $img =[];
         //提取出文章图片
-        foreach ($this->get_images_from_html($attributes['content']) as $k => $v){
-            //取出上传的图片
-            if(stripos($v,"diziw.cn/backend/images/articleImages")!== false){
-                $img[$k] = $v;
+        $imgs = $this->get_images_from_html($attributes['content']);
+        if($imgs != null){
+            foreach ($imgs as $k => $v){
+                //取出上传的图片
+                if(stripos($v,"diziw.cn/backend/images/articleImages")!== false){
+                    $img[$k] = $v;
+                }
             }
         }
         $attributes['thumb'] = $this->getImgArr($img);
@@ -128,6 +133,11 @@ class ArticlesRepository extends Repository {
         }else{
             flash('文章修改失败', 'error');
         }
+        return $result;
+    }
+    //修改文章审核
+    public function setState($state,$id){
+        $result = $this->update($state,$id);
         return $result;
     }
     //删除服务器图片
