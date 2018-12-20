@@ -2,6 +2,7 @@
 
 namespace App\Models\UsersModel\Articles;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ActionButtonTrait;
 
@@ -25,4 +26,8 @@ class Articles extends Model
         'user_id',
         'content',
     ];
+    public function getUser(){
+        //反向关联
+        return $this->belongsTo(' App\User');
+    }
 }
