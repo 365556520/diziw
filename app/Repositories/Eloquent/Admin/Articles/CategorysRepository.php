@@ -37,8 +37,8 @@ class CategorysRepository extends Repository {
 
 
     //得到的分类这个只能迭代2层分类
-    public function getCategorysList(){
-        $date = $this->model->select('id','cate_name','cate_pid')->orderBy('cate_order','asc')->get();
+    public function getCategorysList($title = 'cate_name',$pid = "cate_pid"){
+        $date = $this->model->select('id','cate_name as '.$title.'','cate_pid as '.$pid .'')->orderBy('cate_order','asc')->get();
         $categorysTree = $this->getTree($date,'cate_pid',0);
         return $categorysTree;
     }

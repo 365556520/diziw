@@ -219,15 +219,11 @@
                     //多窗口模式，层叠置顶
                     layer.open({
                         type: 1 //1类型窗口 这里内容可以自己写
-                        ,title:'文章分类----'+data.cate_name
-                        ,area: ['390px', '260px']
+                        ,title:'<h3>'+data.title+'</h3>'
+                        ,area: ['800px', '100%']
                         ,shade: 0
                         ,maxmin: true
-                        ,content: '<div>分类id：'+data.id +'<br>' +
-                        '分类名称：'+data.cate_name +'<br>' +
-                        '分类关键词：'+data.cate_keywords +'<br>' +
-                        '分类描述：'+data.cate_description +'<br>' +
-                        '</div>'
+                        ,content: '<div >' + data.content +'</div>'
                     });
                 }
             });
@@ -236,7 +232,7 @@
                 elem: "#tree",  //绑定元素
                 initLevel:1,
                 //  url: "../json/case/tree.json"  //异步接口
-                data: [
+                data:[
                         @foreach($categorys as $v){
                         title:'{{$v->cate_name}}'
                         ,id:'{{$v->id}}'

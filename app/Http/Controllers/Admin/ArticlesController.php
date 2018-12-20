@@ -65,7 +65,7 @@ class ArticlesController extends CommonController
     public function index()
     {
         //得到树列表
-        $categorys= $this->categorys->getCategorysList();
+        $categorys=$this->categorys->getCategorysList();
         return view("admin.articles.articles.list")->with(compact('categorys','categorys'));
     }
     /**添加文章试图
@@ -101,7 +101,7 @@ class ArticlesController extends CommonController
      */
     public function show($id)
     {
-        //
+        //获取文章视图
     }
 
     /**
