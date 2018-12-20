@@ -32,7 +32,6 @@
                     </span>
                 </div>
             </script>
-
         </div>
     </div>
 @endsection
@@ -220,7 +219,7 @@
                     layer.open({
                         type: 1 //1类型窗口 这里内容可以自己写
                         ,title:'<h3>'+data.title+'</h3>'
-                        ,area: ['800px', '100%']
+                        ,area: ['800px', '90%']
                         ,shade: 0
                         ,maxmin: true
                         ,content: '<div >' + data.content +'</div>'
