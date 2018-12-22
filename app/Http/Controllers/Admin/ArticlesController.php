@@ -158,4 +158,15 @@ class ArticlesController extends CommonController
         $this->article->destroyArticles($thumb,$id);
         return redirect(url('admin/articles'));
     }
+
+    /*
+    * 文章审核
+    * */
+    public function state(Request $request){
+        $result = $this->article->setState($request->all(),$request->all()['id']);
+        if ($result) {
+            return ['code' => 0,'msg' => '文章审核成功'];
+        }
+        return ['code' => 1,'msg' => '文章审核失败'];
+    }
 }

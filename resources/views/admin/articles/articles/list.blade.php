@@ -32,6 +32,11 @@
                     </span>
                 </div>
             </script>
+
+            <script type="text/html" id="switchTpl">
+                <input type="checkbox" name="state" value="@{{d.state}}"  id="@{{d.id}}" lay-skin="switch" lay-text="已审核|未审核" lay-filter="state" @{{ d.state == 1 ? 'checked' : '' }}>
+            </script>
+
         </div>
     </div>
 @endsection
@@ -48,6 +53,7 @@
             var table = layui.table
                 , layer = layui.layer
                 ,dtree = layui.dtree
+                ,form = layui.form
                 , $ = layui.jquery;
 
             // 表格渲染
@@ -70,7 +76,8 @@
                     , {field: 'tag', title: '关键词', width: 120}
                     , {field: 'description', title: '描述', width: 120}
                     , {field: 'level', title: '级别', width: 100}
-                    , {field: 'state', title: '文章状态', width: 90}
+                   // , {field: 'state', title: '文章状态', width: 90}
+                     ,{field:'state', title:'文章状态', width:110, templet: '#switchTpl', unresize: true}
                     , {field: 'view', title: '浏览次数', width: 100 ,sort: true,}
                     , {field: 'user_id', title: '作者id', width: 100}
                     , {field: 'created_at', title: '创建时间', width: 180}
@@ -87,6 +94,28 @@
                     //得到数据总量
                     console.log(count);
                 }
+            });
+            //监听开启操作
+            form.on('switch(state)', function(obj){
+                $.ajax({
+                    type: "POST",
+                    url: "{{url('/admin/articles/state')}}",
+                    cache: false,
+                    data:{"id":this.id ,'state':obj.elem.checked?1:0},
+                    success: function (data) {
+                        if(obj.elem.checked){
+                            layer.tips('文章通过审核', obj.othis);
+                        }else{
+                            layer.tips('文章关闭审核', obj.othis);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        layer.tips('文章审核失败', obj.othis);
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
             });
             //头工具栏事件
             table.on('toolbar(dateTable)', function(obj){
