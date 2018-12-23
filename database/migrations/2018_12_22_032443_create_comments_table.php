@@ -16,10 +16,10 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('topic_id')->default(0)->comment('主题id');
-            $table->string('topic_type')->default("")->comment('主题type');
+            $table->string('topic_type')->default("")->nullable()->comment('主题type');
             $table->text('content')->comment('内容');
             $table->integer('from_uid')->default(0)->comment('评论用户id');
-            $table->integer('to_uid')->default(0)->comment('评论目标用户id');
+            $table->integer('to_uid')->default(0)->nullable()->comment('评论目标用户id');
             $table->timestamps();
         });
     }

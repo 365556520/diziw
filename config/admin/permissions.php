@@ -74,6 +74,13 @@ return [
         'delete' => 'categorys.delete',
         'show' => 'categorys.show',
     ],
+    'comments' => [
+        'list' => 'comments.list',
+        'add' => 'comments.add',
+        'edit' => 'comments.edit',
+        'delete' => 'comments.delete',
+        'show' => 'comments.show',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'

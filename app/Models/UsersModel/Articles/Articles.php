@@ -10,8 +10,6 @@ class Articles extends Model
 {
     //文章模型
     protected $table='articles';
-    //通过Traits获取查看删除修改按钮
-    use ActionButtonTrait;
     //这个表的路由的前缀
     private $action =  'articles';
     protected $fillable = [
@@ -26,8 +24,14 @@ class Articles extends Model
         'user_id',
         'content',
     ];
+    //获取文章作者
     public function getUser(){
         //反向关联
         return $this->belongsTo(' App\User');
     }
+    //获取文章评论
+    public function getComments(){
+        return $this->hasMany('App\Models\UsersModel\Articles\Comments', 'topic_id');
+    }
+
 }

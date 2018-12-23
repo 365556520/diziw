@@ -9,8 +9,6 @@ class Categorys extends Model
 {
     //文章分类模型
     protected $table='categorys';
-    //通过Traits获取查看删除修改按钮
-    use ActionButtonTrait;
     //这个表的路由的前缀
     private $action =  'categorys';
     protected $fillable = [

@@ -24,3 +24,11 @@ Route::group(['prefix' => 'categorys'],function (){
     Route::get('destroys/{data}','CategorysController@destroys');
 });
 Route::resource('categorys','CategorysController');
+//评论
+Route::group(['prefix' => 'comments'],function (){
+    //列表数据
+    Route::get('ajaxIndex','CommentsController@ajaxIndex');
+    //批量删除评论
+    Route::get('destroys/{id}','CommentsController@destroys');
+});
+Route::resource('comments','CommentsController');
