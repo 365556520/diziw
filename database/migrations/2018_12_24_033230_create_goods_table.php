@@ -35,7 +35,7 @@ class CreateGoodsTable extends Migration
             $table->string('aytype')->default('')->comment('商品计价单位');
             $table->integer('number')->default(0)->comment('商品规格');
             $table->integer('inventory')->default(0)->comment('商品库存');
-            $table->integer('sell ')->default(0)->comment('商品销量');
+            $table->integer('sell')->default(0)->comment('商品销量');
             $table->timestamps();
         });
         //进货表
