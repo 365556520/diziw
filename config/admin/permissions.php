@@ -81,6 +81,13 @@ return [
         'delete' => 'comments.delete',
         'show' => 'comments.show',
     ],
+    'goodscategorys' => [
+        'list' => 'goodscategorys.list',
+        'add' => 'goodscategorys.add',
+        'edit' => 'goodscategorys.edit',
+        'delete' => 'goodscategorys.delete',
+        'show' => 'goodscategorys.show',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'
