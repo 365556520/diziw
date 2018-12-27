@@ -77,10 +77,11 @@ class GoodsCategorysController extends CommonController
      */
     public function edit($id)
     {
-        $categorysEdit = $this->categorys->find($id);
+
+        $gcEdit = $this->goodscategorys->find($id);
         //得到所有商品分类
-        $categorys = $this->categorys->getCategorysList();
-        return view("admin.articles.categorys.edit")->with(compact('categorysEdit','categorys'));
+        $categorys= $this->goodscategorys->getGoodsCategorysList();
+        return view("admin.goods.goodscategorys.edit")->with(compact('gcEdit','categorys'));
     }
 
     /**
@@ -93,8 +94,8 @@ class GoodsCategorysController extends CommonController
     public function update(Request $request, $id)
     {
         //
-        $this->categorys->updateCategorys($request->all(),$id);
-        return redirect('admin/categorys/'.$id.'/edit');
+        $this->goodscategorys->updateGoodsCategorys($request->all(),$id);
+        return redirect('admin/goodscategorys/'.$id.'/edit');
     }
 
     /**
@@ -105,17 +106,8 @@ class GoodsCategorysController extends CommonController
      */
     public function destroy($id)
     {
-        $this->categorys->destroyCategorys($id);
-        return redirect(url('admin/categorys'));
+        $this->goodscategorys->destroyGoodsCategorys($id);
+        return redirect(url('admin/goodscategorys'));
     }
 
-    /*
-     * 批量删除
-     * */
-    public function destroys($data){
-        //把json转换成数组然后用数组函数支取id列
-        $id = array_column(json_decode($data),'id');
-        $this->categorys->destroyCategorys($id);
-        return redirect(url('admin/categorys'));
-    }
 }

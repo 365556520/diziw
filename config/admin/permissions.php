@@ -88,6 +88,13 @@ return [
         'delete' => 'goodscategorys.delete',
         'show' => 'goodscategorys.show',
     ],
+    'goods' => [
+        'list' => 'goods.list',
+        'add' => 'goods.add',
+        'edit' => 'goods.edit',
+        'delete' => 'goods.delete',
+        'show' => 'goods.show',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'

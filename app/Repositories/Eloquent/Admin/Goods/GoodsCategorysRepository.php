@@ -44,7 +44,7 @@ class GoodsCategorysRepository extends Repository {
         return $categorysTree;
     }
 
-    /*添加文章分类*/
+    /*添加商品分类*/
     public function createGoodsCategorys($formData){
         $result = $this->model->create($formData);
         if ($result) {
@@ -54,8 +54,8 @@ class GoodsCategorysRepository extends Repository {
         }
         return $result;
     }
-    /*删除文章分类*/
-    public function destroyCategorys($id){
+    /*删除商品分类*/
+    public function destroyGoodsCategorys($id){
         $result = $this->delete($id);
         if ($result) {
             flash('删除成功','success');
@@ -65,7 +65,7 @@ class GoodsCategorysRepository extends Repository {
         return $result;
     }
 
-    // 修改文章分类视图数据
+    // 修改商品分类视图数据
     public function editView($id)
     {
         $result = $this->find($id);
@@ -74,17 +74,17 @@ class GoodsCategorysRepository extends Repository {
         }
         abort(404);
     }
-    // 修改文章分类
-    public function updateCategorys($attributes,$id)
+    // 修改商品分类
+    public function updateGoodsCategorys($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
         }
         $result = $this->update($attributes,$id);
         if ($result) {
-            flash('文章分类修改成功','success');
+            flash('修改成功','success');
         }else{
-            flash('文章分类修改失败', 'error');
+            flash('修改失败', 'error');
         }
         return $result;
     }
