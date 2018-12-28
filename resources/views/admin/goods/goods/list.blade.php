@@ -5,23 +5,43 @@
 @section('css')
 @endsection
 @section('content')
-    <div style="background: #beff9f;color: #ec4e20;size: 18px">@include('flash::message')</div>
     <div class="layui-row">
-        <table class="layui-hide" id="dateTable" lay-filter="dateTable"></table>
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container my-btn-box">
-                <button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="isAll">刷新</button>
-                <button class="layui-btn layui-btn-sm" lay-event="add">添加分类</button>
-            </div>
-        </script>
+        <div class="layui-col-xs3 layui-col-sm2 layui-col-md2" style="height: 550px;overflow:scroll">
+            <!-- tree -->
+            {{--<ul id="tree" class="tree-table-tree-box"></ul>--}}
+            <ul id="tree" class="dtree" data-id="0"></ul>
+        </div>
+        <div class="layui-col-xs9 layui-col-sm10 layui-col-md10">
+            <!-- table -->
+            <table class="layui-hide" id="dateTable" lay-filter="dateTable"></table>
+            <br>
+            <!-- 工具集 -->
+            <script type="text/html" id="toolbarDemo">
+                <div class="my-btn-box">
+                    <span class="fl">
+                        <button class="layui-btn layui-btn-danger"  lay-event="delete-all">批量删除</button>
+                        <button class="layui-btn btn-default btn-add"  lay-event="add">发布文章</button>
+                    </span>
+                    <span class="fr">
+                        <div class="layui-input-inline">
+                            <input type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
+                        </div>
+                        <button class="layui-btn mgl-20">查询</button>
+                    </span>
+                </div>
+            </script>
 
+            <script type="text/html" id="switchTpl">
+                <input type="checkbox" name="state" value="@{{d.state}}"  id="@{{d.id}}" lay-skin="switch" lay-text="已审核|未审核" lay-filter="state" @{{ d.state == 1 ? 'checked' : '' }}>
+            </script>
+
+        </div>
     </div>
 @endsection
 @section('js')
     <script>
         layui.use('table', function(){
             var table = layui.table;
-
 
             // 表格渲染
             var tableIns = table.render({
@@ -40,8 +60,12 @@
                     {type: 'checkbox', fixed: 'left'}
                     , {field: 'id', title: 'ID', width: 60, sort: true,fixed: 'left'}
                     , {field: 'goods_name', title: '商品名字', width: 120 ,fixed: 'left'}
-                    , {field: 'goods_title', title: '商品标题', width: 120}
-                    , {field: 'created_at', title: '创建时间', width: 180}
+                    , {field: 'aytype', title: '商品单位', width: 100}
+                    , {field: 'cost_price', title: '进价', width: 80}
+                    , {field: 'shop_price', title: '售价', width: 80}
+                    , {field: 'number', title: '规格', width: 120}
+                    , {field: 'inventory', title: '库存', width: 120}
+                    , {field: 'sell', title: '销量', width: 120}
                     , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
                 ]]
                 , done: function (res, curr, count) {
