@@ -35,6 +35,17 @@ class GoodsController extends CommonController
         return response()->json($result);
     }
     /*
+     * 树形商品分类列表
+     * */
+    public function dtree(){
+        $result =  $this->categorys->getGoodsCategorysList();
+        $dtree = $this->goods->getDtree($result);
+        return response()->json([
+            "status" =>['code'=>200,'message'=>'操作成功'] ,
+            'data' => $dtree
+        ]);
+    }
+    /*
      * 上传图片
      * */
     public function upload(Request $request){

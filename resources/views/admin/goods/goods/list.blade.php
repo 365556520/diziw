@@ -3,6 +3,8 @@
     <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
+    <link href="{{ asset('/backend/myvebdors/layui/layui_ext/dtree/dtree.css')}}" rel="stylesheet">
+    <link href="{{ asset('/backend/myvebdors/layui/layui_ext/dtree/font/dtreefont.css')}}" rel="stylesheet">
 @endsection
 @section('content')
     <div class="layui-row">
@@ -40,9 +42,17 @@
 @endsection
 @section('js')
     <script>
-        layui.use('table', function(){
-            var table = layui.table;
-
+        // layui方法
+        layui.config({
+            base: '/backend/myvebdors/layui/layui_ext/dtree/'//配置 layui 第三方扩展组件存放的基础目录
+        }).extend({
+            dtree: 'dtree' //定义该组件模块名
+        }).use(['tree', 'table', 'layer', 'dtree'], function(){
+            var table = layui.table
+            , layer = layui.layer
+                ,dtree = layui.dtree
+                ,form = layui.form
+                , $ = layui.jquery;
             // 表格渲染
             var tableIns = table.render({
                 elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
@@ -187,6 +197,32 @@
                         ,content: '<div>分类id：'+data.id +'<br>' +
                              '分类名称：'+data.goods_name +'<br>' +
                              '</div>'
+                    });
+                }
+            });
+
+            //树
+            dtree.render({
+                elem: "#tree",  //绑定元素
+                initLevel:1,
+                url:'/admin/goods/dtree'  //异步接口
+
+            });
+            //单击节点 监听事件
+            dtree.on("node('tree')" ,function(param){
+                console.log('点击树节点的属性'+JSON.stringify(param.param));
+                if (param.param.parentId != 0) {
+                    newcategory_id = param.param.nodeId;
+                    // 加载中...
+                    var loadIndex = layer.load(2, {shade: false});
+                    // 关闭加载
+                    layer.close(loadIndex);
+                    // 刷新表格
+                    tableIns.reload({
+                        where: {'category_id': newcategory_id} //设定异步数据接口的额外参数
+                        , page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
                     });
                 }
             });
