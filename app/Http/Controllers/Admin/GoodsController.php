@@ -42,7 +42,7 @@ class GoodsController extends CommonController
         $dtree = $this->goods->getDtree($result);
         return response()->json([
             "status" =>['code'=>200,'message'=>'操作成功'] ,
-            'data' => $dtree
+            'data' =>$dtree
         ]);
     }
     /*
