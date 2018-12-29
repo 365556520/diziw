@@ -40,19 +40,6 @@ class GoodsRepository extends Repository {
             'data' => $articless,//数据
         ];
     }
-    /*获得树列表*/
-    public function getDtree($dtree){
-        $data = array();
-        foreach ($dtree as $k => $v){
-            $data[$k]['id'] = $v->id;
-            $data[$k]['title'] = $v->goodscategorys_name;
-            $data[$k]['parentId'] = $v->goodscategorys_pid;
-            if(!empty($v->children)){
-                $data[$k]['children']=$this->getDtree($v->children);
-            }
-        }
-        return $data;
-    }
 
     /*添加文章*/
     public function createArticle($formData){

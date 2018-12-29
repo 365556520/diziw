@@ -205,7 +205,25 @@
             dtree.render({
                 elem: "#tree",  //绑定元素
                 initLevel:1,
-                url:'/admin/goods/dtree'  //异步接口
+             //   url:'/admin/goods/dtree',  //异步接口
+                data:[
+                        @foreach($categorys as $v){
+                        title:'{{$v->goodscategorys_name}}'
+                        ,id:'{{$v->id}}'
+                        ,parentId : '{{$v->goodscategorys_pid}}'
+                        @if($v->children)
+                        ,children:[
+                            @foreach($v->children as $vs){
+                            title:'{{$vs->goodscategorys_name}}'
+                            ,id:'{{$vs->id}}'
+                            ,parentId : '{{$vs->goodscategorys_pid}}'
+                        },
+                        @endforeach
+                    ]
+                        @endif
+                    },
+                    @endforeach
+                ],
 
             });
             //单击节点 监听事件
@@ -219,7 +237,7 @@
                     layer.close(loadIndex);
                     // 刷新表格
                     tableIns.reload({
-                        where: {'category_id': newcategory_id} //设定异步数据接口的额外参数
+                        where: {'goodscategorys_id': newcategory_id} //设定异步数据接口的额外参数
                         , page: {
                             curr: 1 //重新从第 1 页开始
                         }

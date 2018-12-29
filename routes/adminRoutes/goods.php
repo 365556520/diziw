@@ -13,7 +13,7 @@ Route::group(['prefix' => 'goods'],function (){
     //列表数据
     Route::get('ajaxIndex','GoodsController@ajaxIndex');
     //树形列表
-    Route::get('dtree','GoodsController@dtree');
+    Route::post('dtree','GoodsController@dtree');
 
 });
 Route::resource('goods','GoodsController');
