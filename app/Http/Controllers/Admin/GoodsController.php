@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 class GoodsController extends CommonController
 {
     /**
-     * 文章路由
+     * 商品路由
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    //文章分类仓库
+    //商品分类仓库
     private $goods;
     private $categorys;
     function __construct(GoodsRepository $goods,GoodsCategorysRepository $categorys)
@@ -68,7 +68,7 @@ class GoodsController extends CommonController
         $categorys=$this->categorys->getGoodsCategorysList();
         return view("admin.goods.goods.list")->with(compact('categorys'));
     }
-    /**添加文章试图
+    /**添加商品试图
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -76,20 +76,20 @@ class GoodsController extends CommonController
     public function create()
     {
         //得到树分类
-        $categorys= $this->categorys->getCategorysList();
+        $categorys= $this->categorys->getGoodsCategorysList();
         return view("admin.goods.goods.add")->with(compact('categorys','categorys'));
     }
 
     /**
      * Store a newly created resource in storage.
-     *添加文章
+     *添加商品
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //把内容存放到数据库
-        $result = $this->goods->createArticle($request->all());
+        $result = $this->goods->createGoods($request->all());
         return redirect(url('admin/goods/create'));
     }
 
@@ -101,72 +101,60 @@ class GoodsController extends CommonController
      */
     public function show($id)
     {
-        //获取文章视图
+
     }
 
     /**
      * Show the form for editing the specified resource.
-     *修改文章视图
+     *修改商品视图
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //获取文章视图
+        //获取商品视图
         $goodsEdit = $this->goods->editView($id);
         //得到所有分类
-        $categorys = $this->categorys->getCategorysList();
+        $categorys = $this->categorys->getGoodsCategorysList();
         return view("admin.goods.goods.edit")->with(compact('goodsEdit','categorys'));
     }
 
     /**
      * Update the specified resource in storage.
-     *修改文章
+     *修改商品
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //修改文章
-        $this->goods->updateArticles($request->all(),$id);
+        //修改商品
+        $this->goods->updateGoods($request->all(),$id);
         return redirect('admin/goods/'.$id.'/edit');
     }
 
     /**
      * Remove the specified resource from storage.
-     *删除文章
+     *删除商品
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy($id)
     {
-        //得到图片
-        $thumb = $request->all()['thumb'];
-        $this->goods->destroyArticles($thumb,$id);
+        $this->goods->destroyGoods($id);
         return redirect(url('admin/goods'));
     }
 
-    /*
-     * 批量删除文章
-     * */
-    public function destroys(Request $request,$id){
-        //得到图片
-        $thumb = $request->all()['thumb'];
-        //把json转换成数组然后用数组函数支取id列
-        $id = array_column(json_decode($id),'id');
-        $this->goods->destroyArticles($thumb,$id);
-        return redirect(url('admin/goods'));
-    }
+
 
     /*
-    * 文章审核
+    * 商品审核
     * */
     public function state(Request $request){
         $result = $this->goods->setState($request->all(),$request->all()['id']);
         if ($result) {
-            return ['code' => 0,'msg' => '文章审核成功'];
+            return ['code' => 0,'msg' => '商品审核成功'];
         }
-        return ['code' => 1,'msg' => '文章审核失败'];
+        return ['code' => 1,'msg' => '商品审核失败'];
     }
 }

@@ -41,36 +41,19 @@ class GoodsRepository extends Repository {
         ];
     }
 
-    /*添加文章*/
-    public function createArticle($formData){
-        $img =[];
-        //把文章中的图片提取出来
-        $imgs = $this->get_images_from_html($formData['content']);
-        if($imgs != null){
-            foreach ($imgs as $k => $v){
-                //判断图片地址是否是本地的如果不是可能不是图片
-                if(stripos($v,"diziw.cn/backend/images/articleImages")!== false){
-                    $img[$k] = $v;
-                }
-            }
-        }
-        //把图片名字以字符串行式存到数组
-        $formData['thumb']= $this->getImgArr($img);
+    /*添加商品*/
+    public function createGoods($formData){
         $result = $this->model->create($formData);
         if ($result) {
-            flash('文章添加成功','success');
+            flash('商品添加成功','success');
         }else{
-            flash('文章添加失败','error');
+            flash('商品添加失败','error');
         }
         return $result;
     }
-    /*删除文章
-    参数 1、$thumb图片的名称
-         2、文章的id
+    /*删除商品
     */
-    public function destroyArticles($thumb,$id){
-        //删除图片
-        $this->getImg($thumb);
+    public function destroyGoods($id){
        //删除数据库数据
         $result = $this->delete($id);
         if ($result) {
@@ -94,46 +77,27 @@ class GoodsRepository extends Repository {
        }
        return $result;
     }
-    // 修改文章视图数据
+    // 修改商品视图数据
     public function editView($id)
     {
         //得到修改的数据
         $articlesEdit = $this->find($id);
-        $img = array_filter(explode("/", $articlesEdit->thumb)); //得到图片名字存到数组中
-        $imgs = [];
-        //图片加上路径
-        foreach ($img as $v){
-            array_push($imgs,'backend/images/articleImages/'.$v);
-        }
-        $articlesEdit->thumb=$imgs;
         if ($articlesEdit) {
             return $articlesEdit;
         }
         abort(404);
     }
-    // 修改文章
-    public function updateArticles($attributes,$id)
+    // 修改商品信息
+    public function updateGoods($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
         }
-        $img =[];
-        //提取出文章图片
-        $imgs = $this->get_images_from_html($attributes['content']);
-        if($imgs != null){
-            foreach ($imgs as $k => $v){
-                //取出上传的图片
-                if(stripos($v,"diziw.cn/backend/images/articleImages")!== false){
-                    $img[$k] = $v;
-                }
-            }
-        }
-        $attributes['thumb'] = $this->getImgArr($img);
         $result = $this->update($attributes,$id);
         if ($result) {
-            flash('文章修改成功','success');
+            flash('商品信息修改成功','success');
         }else{
-            flash('文章修改失败', 'error');
+            flash('商品信息修改失败', 'error');
         }
         return $result;
     }

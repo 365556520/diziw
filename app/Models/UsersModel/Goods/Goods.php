@@ -11,6 +11,7 @@ class Goods extends Model
     //这个表的路由的前缀
     private $action =  'goods';
     protected $fillable = [
+        'user_id',
         'goods_name',
         'goods_title',
         'discount',
@@ -20,9 +21,10 @@ class Goods extends Model
         'cost_price',
         'goods_status',
         'aytype',
-        'number',
+        'goods_number',
         'inventory',
         'sell',
+        'goods_img'
     ];
 
 }

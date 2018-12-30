@@ -21,14 +21,8 @@
             <script type="text/html" id="toolbarDemo">
                 <div class="my-btn-box">
                     <span class="fl">
-                        <button class="layui-btn layui-btn-danger"  lay-event="delete-all">批量删除</button>
-                        <button class="layui-btn btn-default btn-add"  lay-event="add">发布文章</button>
-                    </span>
-                    <span class="fr">
-                        <div class="layui-input-inline">
-                            <input type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
-                        </div>
-                        <button class="layui-btn mgl-20">查询</button>
+                        <button class="layui-btn layui-btn-warm " lay-event="isAll">显示全部商品</button>
+                        <button class="layui-btn btn-default btn-add"  lay-event="add">添加商品</button>
                     </span>
                 </div>
             </script>
@@ -73,7 +67,7 @@
                     , {field: 'aytype', title: '商品单位', width: 100}
                     , {field: 'cost_price', title: '进价', width: 80}
                     , {field: 'shop_price', title: '售价', width: 80}
-                    , {field: 'number', title: '规格', width: 120}
+                    , {field: 'goods_number', title: '规格', width: 120}
                     , {field: 'inventory', title: '库存', width: 120}
                     , {field: 'sell', title: '销量', width: 120}
                     , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
@@ -92,15 +86,16 @@
             });
 
             //头工具栏事件
-            table.on('toolbar(test)', function(obj){
+            table.on('toolbar(dateTable)', function(obj){
                 var checkStatus = table.checkStatus(obj.config.id);
                 switch(obj.event){
                     case 'isAll':
                         // 刷新表格
                         tableIns.reload({
-                            page: {
+                            where: {'goodscategorys_id': null} //设定异步数据接口的额外参数
+                            , page: {
                                 curr: 1 //重新从第 1 页开始
-                            }
+                            },
                         });
                         //layer.msg(checkStatus.isAll ? '全选': '未全选');
                         break;
@@ -112,15 +107,11 @@
                             shade: false,
                             anim: 2, //打开动画
                             maxmin: true, //开启最大化最小化按钮
-                            area: ['400px', '50%'],
+                            area: ['893px', '100%'],
                             content: '{{url("/admin/goods/create")}}',
                             cancel: function(index, layero){
                                 // 刷新表格
-                                tableIns.reload({
-                                    page: {
-                                        curr: 1 //重新从第 1 页开始
-                                    }
-                                });
+                                tableIns.reload();
                                 return true;
                             }
                         });
@@ -128,7 +119,7 @@
                 };
             });
             //监听行工具条事件
-            table.on('tool(test)', function(obj){
+            table.on('tool(dateTable)', function(obj){
                 var data = obj.data;
                 //console.log('kankan22222 '+obj.data);
                 if(obj.event === 'del'){
@@ -164,7 +155,7 @@
                         shade: false,
                         anim: 2, //打开动画
                         maxmin: true, //开启最大化最小化按钮
-                        area: ['400px', '50%'],
+                        area: ['893px', '100%'],
                         content: '{{url("/admin/goods")}}/'+ data.id + '/edit',
                        cancel: function(index, layero){
                            // 刷新表格
@@ -194,8 +185,10 @@
                         ,area: ['390px', '260px']
                         ,shade: 0
                         ,maxmin: true
-                        ,content: '<div>分类id：'+data.id +'<br>' +
-                             '分类名称：'+data.goods_name +'<br>' +
+                        ,content: '<div>id：'+data.id +'<br>' +
+                             '名称：'+data.goods_name +'<br>' +
+                             '标题：'+data.goods_title +'<br>' +
+                             '商品描述：'+data.inventory +'<br>' +
                              '</div>'
                     });
                 }
@@ -208,21 +201,21 @@
              //   url:'/admin/goods/dtree',  //异步接口
                 data:[
                         @foreach($categorys as $v){
-                        title:'{{$v->goodscategorys_name}}'
-                        ,id:'{{$v->id}}'
-                        ,parentId : '{{$v->goodscategorys_pid}}'
-                        @if($v->children)
-                        ,children:[
-                            @foreach($v->children as $vs){
-                            title:'{{$vs->goodscategorys_name}}'
-                            ,id:'{{$vs->id}}'
-                            ,parentId : '{{$vs->goodscategorys_pid}}'
-                        },
+                            title:'{{$v->goodscategorys_name}}'
+                            ,id:'{{$v->id}}'
+                            ,parentId : '{{$v->goodscategorys_pid}}'
+                            @if($v->children)
+                            ,children:[
+                                @foreach($v->children as $vs){
+                                title:'{{$vs->goodscategorys_name}}'
+                                ,id:'{{$vs->id}}'
+                                ,parentId : '{{$vs->goodscategorys_pid}}'
+                                 },
+                            @endforeach
+                            ]
+                            @endif
+                            },
                         @endforeach
-                    ]
-                        @endif
-                    },
-                    @endforeach
                 ],
 
             });

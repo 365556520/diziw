@@ -24,17 +24,18 @@ class CreateGoodsTable extends Migration
         //商品信息表
         Schema::create('goods', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->default(0)->comment('用户id');
             $table->string('goods_name')->default("")->comment('商品名字');
             $table->string('goods_title')->default("")->comment('商品标题');
             $table->string('goods_img')->default("")->nullable()->comment('商品图片');
             $table->string('discount')->default("")->nullable()->comment('优惠信息');
-            $table->string('information')->default("这家伙很懒什么都留！")->comment('商品信息');
+            $table->text('information')->default("这家伙很懒什么都留！")->comment('商品信息');
             $table->integer('goodscategorys_id')->default(0)->comment('商品分类id');
             $table->integer('shop_price')->default(0)->comment('商品零售价格');
             $table->integer('cost_price')->default(0)->comment('商品进价');
             $table->string('goods_status')->default('')->comment('商品状态如热销等');
             $table->string('aytype')->default('')->comment('商品计价单位');
-            $table->integer('number')->default(0)->comment('商品规格');
+            $table->integer('goods_number')->default(0)->comment('商品规格');
             $table->integer('inventory')->default(0)->comment('商品库存');
             $table->integer('sell')->default(0)->comment('商品销量');
             $table->timestamps();
