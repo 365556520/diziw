@@ -89,6 +89,15 @@ class GoodsRepository extends Repository {
     }
     //商品的数量增加
     public function upGoods($count,$id){
-        dd($count);
+        $result = $this->model->where('id', $id)->increment('inventory', $count);
+        return $result;
+    }
+    //商品的数量减少
+    public function delGoods($count,$id){
+        $result = $this->model->where([
+            ['id', '=', $id],
+            ['inventory', '>=',$count],
+        ])->decrement('inventory', $count);
+        return $result;
     }
 }

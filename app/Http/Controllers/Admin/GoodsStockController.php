@@ -59,10 +59,9 @@ class GoodsStockController extends CommonController
     public function store(Request $request)
     {
         $goodsData = $request->all();
-
+        $result =  $this->goodsstock->createGoodsStock($goodsData);
         //更新商品数量
         $this->goods->upGoods($goodsData['count'],$goodsData['goods_id']);
-        $result =  $this->goodsstock->createGoodsStock($goodsData);
         return redirect(url('admin/goodsstock/create'));
     }
     /**
@@ -85,10 +84,10 @@ class GoodsStockController extends CommonController
     public function edit($id)
     {
 
-        $gcEdit = $this->goodsstock->find($id);
-        //得到所有商品进货
-        $categorys= $this->goodsstock->getGoodsCategorysList();
-        return view("admin.goods.goodsstock.edit")->with(compact('gcEdit','categorys'));
+        $gsEdit = $this->goodsstock->find($id);
+        //得到所有商品
+        $goods=  $this->goods->all();
+        return view("admin.goods.goodsstock.edit")->with(compact('gsEdit','goods'));
     }
 
     /**
@@ -100,8 +99,13 @@ class GoodsStockController extends CommonController
      */
     public function update(Request $request, $id)
     {
-        //
-        $this->goodsstock->updateGoodsCategorys($request->all(),$id);
+        $goodsData = $request->all();
+        $goodsstock = $this->goodsstock->find($id);
+        //得到更新数量的差
+        $count = $goodsData['count']-$goodsstock['count'];
+        $this->goodsstock->updateGoodsStock($request->all(),$id);
+        //更新商品数量
+        $this->goods->upGoods($count,$goodsData['goods_id']);
         return redirect('admin/goodsstock/'.$id.'/edit');
     }
 
@@ -111,9 +115,12 @@ class GoodsStockController extends CommonController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $goodsData = $request->all();
         $this->goodsstock->destroyGoodsStock($id);
+        //更新商品数量
+        $this->goods->delGoods($goodsData['count'],$goodsData['goods_id']);
         return redirect(url('admin/goodsstock'));
     }
 

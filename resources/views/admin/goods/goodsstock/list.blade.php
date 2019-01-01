@@ -85,7 +85,7 @@
                             type: "POST",
                             url: "{{url('/admin/goodsstock')}}/"+data.id,
                             cache: false,
-                            data:{_method:"DELETE", _token: "{{csrf_token()}}"},
+                            data:{_method:"DELETE", _token: "{{csrf_token()}}","count":data.count,"goods_id":data.goods_id},
                             success: function (data) {
                                 layer.msg('删除成功', {
                                     time: 2000, //20s后自动关
@@ -113,14 +113,10 @@
                         anim: 2, //打开动画
                         maxmin: true, //开启最大化最小化按钮
                         area: ['893px', '100%'],
-                        content: '{{url("/admin/goodscategorys")}}/'+ data.id + '/edit',
+                        content: '{{url("/admin/goodsstock")}}/'+ data.id + '/edit',
                        cancel: function(index, layero){
                            // 刷新表格
-                           tableIns.reload({
-                               page: {
-                                   curr: 1 //重新从第 1 页开始
-                               }
-                           });
+                           tableIns.reload();
                            return true;
                        }
                     });
@@ -138,12 +134,12 @@
                     //多窗口模式，层叠置顶
                     layer.open({
                         type: 1 //1类型窗口 这里内容可以自己写
-                        ,title:'商品进货----'+data.goodscategorys_name
+                        ,title:'商品进货----'+data.goods_id
                         ,area: ['390px', '260px']
                         ,shade: 0
                         ,maxmin: true
-                        ,content: '<div>分类id：'+data.id +'<br>' +
-                             '分类名称：'+data.goodscategorys_name +'<br>' +
+                        ,content: '<div>进货单id：'+data.id +'<br>' +
+                             '进货备注：'+data.remark +'<br>' +
                              '</div>'
                     });
                 }
