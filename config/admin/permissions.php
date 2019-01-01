@@ -95,6 +95,13 @@ return [
         'delete' => 'goods.delete',
         'show' => 'goods.show',
     ],
+    'goodsstock' => [
+        'list' => 'goodsstock.list',
+        'add' => 'goodsstock.add',
+        'edit' => 'goodsstock.edit',
+        'delete' => 'goodsstock.delete',
+        'show' => 'goodsstock.show',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'

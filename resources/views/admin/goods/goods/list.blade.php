@@ -20,10 +20,8 @@
             <!-- 工具集 -->
             <script type="text/html" id="toolbarDemo">
                 <div class="my-btn-box">
-                    <span class="fl">
-                        <button class="layui-btn layui-btn-warm " lay-event="isAll">显示全部商品</button>
-                        <button class="layui-btn btn-default btn-add"  lay-event="add">添加商品</button>
-                    </span>
+                        <button class="layui-btn layui-btn-ms" lay-event="add"><i class="layui-icon"></i></button>
+                        <button class="layui-btn layui-btn-warm layui-btn-ms" lay-event="isAll"><i class="layui-icon">&#xe669;</i></button>
                 </div>
             </script>
 
@@ -167,16 +165,6 @@
                            return true;
                        }
                     });
-
-                 /*   layer.prompt({
-                        formType: 2
-                        ,value:data.id
-                    }, function(value, index){
-                        obj.update({
-                            cate_keywords: value
-                        });
-                        layer.close(index);
-                    });*/
                 } else if(obj.event === 'show'){
                     //多窗口模式，层叠置顶
                     layer.open({

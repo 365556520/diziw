@@ -41,7 +41,7 @@ class CreateGoodsTable extends Migration
             $table->timestamps();
         });
         //进货表
-        Schema::create('stock', function (Blueprint $table) {
+        Schema::create('goodsorder', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->default(0)->comment('用户id');
             $table->integer('goods_id')->default(0)->comment('商品id');
@@ -53,7 +53,7 @@ class CreateGoodsTable extends Migration
         });
 
         //订单信息表
-        Schema::create('order', function (Blueprint $table) {
+        Schema::create('goodsstock', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->default(0)->comment('用户id');
             $table->integer('goods_id')->default(0)->comment('商品id');

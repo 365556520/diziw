@@ -25,16 +25,19 @@
             var tableIns = table.render({
                 elem: '#test'
                 , height: $(window).height() - ( $('.my-btn-box').outerHeight(true) ? $('.my-btn-box').outerHeight(true) + 35 :  40 )    //获取高度容器高度
-                ,url:'/admin/goodscategorys/ajaxIndex'
+                ,url:'/admin/goodsstock/ajaxIndex'
                 ,toolbar: '#toolbarDemo'
-                ,title: '商品分类'
-                ,cellMinWidth: 180
+                ,title: '商品进货'
                 ,cols: [[
-                    {field:'id', title:'ID', fixed: 'left',width:70, unresize: true, sort: true}
-                    ,{field:'_goodscategorys_name', title:'商品分类'}
-                    ,{field:'created_at', title:'创建时间', sort: true}
-                    ,{field:'updated_at', title:'更新时间' }
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
+                    {field:'id', title:'ID', fixed: 'left',width:80, unresize: true, sort: true}
+                    ,{field:'goods_id', title:'商品名称',width:200}
+                    ,{field:'user_id', title:'用户id',width:120}
+                    ,{field:'type', title:'单位',width:80}
+                    ,{field:'count', title:'数量',width:80}
+                    ,{field:'price', title:'实付',width:80}
+                    ,{field:'remark', title:'备注',width:200}
+                    ,{field:'created_at', title:'创建时间',width:180, sort: true}
+                    ,{fixed: 'right', title:'操作',width:180, toolbar: '#barDemo'}
                 ]]
                 ,limit: 100 //默认采用100
                 ,loading: false
@@ -56,20 +59,16 @@
                     case 'add':
                         layer.open({
                             type: 2,//2类型窗口 这里内容是一个网址
-                            title: '添加商品分类',
+                            title: '添加商品进货',
                             shadeClose: true,
                             shade: false,
                             anim: 2, //打开动画
                             maxmin: true, //开启最大化最小化按钮
-                            area: ['400px', '50%'],
-                            content: '{{url("/admin/goodscategorys/create")}}',
+                            area: ['893px', '100%'],
+                            content: '{{url("/admin/goodsstock/create")}}',
                             cancel: function(index, layero){
                                 // 刷新表格
-                                tableIns.reload({
-                                    page: {
-                                        curr: 1 //重新从第 1 页开始
-                                    }
-                                });
+                                tableIns.reload();
                                 return true;
                             }
                         });
@@ -84,7 +83,7 @@
                     layer.confirm('真的删除此分类吗？', function(index){
                         $.ajax({
                             type: "POST",
-                            url: "{{url('/admin/goodscategorys')}}/"+data.id,
+                            url: "{{url('/admin/goodsstock')}}/"+data.id,
                             cache: false,
                             data:{_method:"DELETE", _token: "{{csrf_token()}}"},
                             success: function (data) {
@@ -108,12 +107,12 @@
                 } else if(obj.event === 'edit'){
                    layer.open({
                         type: 2,//2类型窗口 这里内容是一个网址
-                        title: '修改商品分类',
+                        title: '修改商品进货',
                         shadeClose: true,
                         shade: false,
                         anim: 2, //打开动画
                         maxmin: true, //开启最大化最小化按钮
-                        area: ['400px', '50%'],
+                        area: ['893px', '100%'],
                         content: '{{url("/admin/goodscategorys")}}/'+ data.id + '/edit',
                        cancel: function(index, layero){
                            // 刷新表格
@@ -139,7 +138,7 @@
                     //多窗口模式，层叠置顶
                     layer.open({
                         type: 1 //1类型窗口 这里内容可以自己写
-                        ,title:'商品分类----'+data.goodscategorys_name
+                        ,title:'商品进货----'+data.goodscategorys_name
                         ,area: ['390px', '260px']
                         ,shade: 0
                         ,maxmin: true
