@@ -62,21 +62,7 @@ class GoodsRepository extends Repository {
             flash('删除失败','error');
         }
     }
-    //得到图片删除图片
-    public function getImg($thumb){
-        $result =  false;
-        $thumbs = '';
-        if(is_array($thumb)){
-            $thumbs = implode($thumb); //把图片数组转换成字符串
-        } else {
-            $thumbs =  $thumb;
-        }
-       $imgs = array_filter(explode("/", $thumbs));//以/为分割符转换为数组    array_filter去掉数组中值为空的
-       foreach ($imgs as $v){
-           $result =  $this->deImg($v);
-       }
-       return $result;
-    }
+
     // 修改商品视图数据
     public function editView($id)
     {
@@ -101,37 +87,8 @@ class GoodsRepository extends Repository {
         }
         return $result;
     }
-    //修改文章审核
-    public function setState($state,$id){
-        $result = $this->update($state,$id);
-        return $result;
-    }
-    //删除服务器图片
-    public function deImg($img){
-        return Storage::delete('backend/images/articleImages/'.$img);
-    }
-    //获取图片名字，并转换成字符串
-    public function getImgArr($imgs){
-        $img ='';
-        foreach ($imgs as $v){
-            $img .= strrchr($v,'/'); //获取图片名字
-        }
-        //把图片名字以字符串行式存到数组
-        return $img;
-    }
-    /**
-     * 提取文章内容的图片
-     * @param $content
-     * @return null
-     *  从HTML文本中提取所有图片
-     */
-    function get_images_from_html($content)
-    {
-        $pattern = "/<img.*?src=[\'|\"](.*?)[\'|\"].*?[\/]?>/";
-        preg_match_all($pattern, htmlspecialchars_decode($content), $match);
-        if (!empty($match[1])) {
-            return $match[1];
-        }
-        return null;
+    //商品的数量增加
+    public function upGoods($count,$id){
+        dd($count);
     }
 }

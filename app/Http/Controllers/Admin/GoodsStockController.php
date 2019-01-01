@@ -58,7 +58,11 @@ class GoodsStockController extends CommonController
      */
     public function store(Request $request)
     {
-        $result =  $this->goodsstock->createGoodsStock($request->all());
+        $goodsData = $request->all();
+
+        //更新商品数量
+        $this->goods->upGoods($goodsData['count'],$goodsData['goods_id']);
+        $result =  $this->goodsstock->createGoodsStock($goodsData);
         return redirect(url('admin/goodsstock/create'));
     }
     /**

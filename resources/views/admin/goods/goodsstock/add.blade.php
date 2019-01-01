@@ -16,7 +16,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商品</label>
                     <div class="layui-input-block">
-                        <select name="goodscategorys_pid" lay-verify="" lay-search>
+                        <select name="goods_id" lay-verify="" lay-search>
                             @foreach($goods as $v)
                                     <option value="{{$v->id}}">{{$v->goods_name}}</option>
                             @endforeach
