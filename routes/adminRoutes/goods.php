@@ -17,10 +17,17 @@ Route::group(['prefix' => 'goods'],function (){
 
 });
 Route::resource('goods','GoodsController');
-//订单
+//进货
 Route::group(['prefix' => 'goodsstock'],function (){
     //列表数据
     Route::get('ajaxIndex','GoodsStockController@ajaxIndex');
 
 });
 Route::resource('goodsstock','GoodsStockController');
+
+//订单
+Route::group(['prefix' => 'goodsorder'],function (){
+    //列表数据
+    Route::get('ajaxIndex','GoodsOrderController@ajaxIndex');
+});
+Route::resource('goodsorder','GoodsOrderController');
