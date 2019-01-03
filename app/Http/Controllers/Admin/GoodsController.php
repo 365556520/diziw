@@ -154,11 +154,31 @@ class GoodsController extends CommonController
     //商品home
     public function goodshome(){
            $goods =  $this->goods->all();
+           //进货
            $goodsstock =  $this->goodsstock->all();
+           //订单
            $goodsorder =  $this->goodsorder->all();
             //得到树列表
            $categorys=$this->categorys->getGoodsCategorysList();
-        return view("admin.goods.goodshome")->with(compact('goods','goodsstock','goodsorder','categorys'));
+        //总例利润
+        $gosdsinfo= array("moneys"=>0,"buycount"=>0);
+        foreach ($goods as &$v){
+            $price=0;
+            if($v->sell!=0){
+                //获取实付价格和
+                foreach ($goodsorder as $vl){
+                    if($vl->goods_id == $v->id){
+                        $price += $vl->totalprices - $v->cost_price * $vl->buycount;
+                    }
+                }
+            }
+            $v->price = $price;
+            //总利润
+            $gosdsinfo["moneys"] = $gosdsinfo["moneys"] + $price;
+            //总销量
+            $gosdsinfo["buycount"] = $gosdsinfo["buycount"] +  $v->sell;
+        }
+        return view("admin.goods.goodshome")->with(compact('goods','goodsstock','goodsorder','categorys','gosdsinfo'));
     }
 
 }

@@ -115,6 +115,8 @@ class GoodsOrderController extends CommonController
                 //减少订单数量
                 $count = $goodsorder['buycount']-$goodsData['buycount'];
                 $result =$this->goods->delSell($count,$goodsData['goods_id']);
+            }else{
+                $result = true;
             }
         }else{
             //变更商品后删除商品销量数
