@@ -14,6 +14,8 @@ Route::group(['prefix' => 'goods'],function (){
     Route::get('ajaxIndex','GoodsController@ajaxIndex');
     //树形列表
     Route::post('dtree','GoodsController@dtree');
+    //商品信息统计
+    Route::get('goodshome','GoodsController@goodshome');
 
 });
 Route::resource('goods','GoodsController');

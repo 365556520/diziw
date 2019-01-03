@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Repositories\Eloquent\Admin\Goods\GoodsOrderRepository;
 use App\Repositories\Eloquent\Admin\Goods\GoodsRepository;
 use App\Repositories\Eloquent\Admin\Goods\GoodsCategorysRepository;
+use App\Repositories\Eloquent\Admin\Goods\GoodsStockRepository;
 use Illuminate\Http\Request;
 
 
@@ -18,13 +20,17 @@ class GoodsController extends CommonController
     //商品分类仓库
     private $goods;
     private $categorys;
-    function __construct(GoodsRepository $goods,GoodsCategorysRepository $categorys)
+    private $goodsorder;
+    private $goodsstock;
+    function __construct(GoodsRepository $goods,GoodsCategorysRepository $categorys,GoodsOrderRepository $goodsorder,GoodsStockRepository $goodsstock)
     {
 
         //调用父累的构造方法
         parent::__construct('goods');
         $this->goods = $goods;
         $this->categorys = $categorys;
+        $this->goodsstock = $goodsstock;
+        $this->goodsorder = $goodsorder;
 
     }
     /*
@@ -145,16 +151,14 @@ class GoodsController extends CommonController
         return redirect(url('admin/goods'));
     }
 
-
-
-    /*
-    * 商品审核
-    * */
-    public function state(Request $request){
-        $result = $this->goods->setState($request->all(),$request->all()['id']);
-        if ($result) {
-            return ['code' => 0,'msg' => '商品审核成功'];
-        }
-        return ['code' => 1,'msg' => '商品审核失败'];
+    //商品home
+    public function goodshome(){
+           $goods =  $this->goods->all();
+           $goodsstock =  $this->goodsstock->all();
+           $goodsorder =  $this->goodsorder->all();
+            //得到树列表
+           $categorys=$this->categorys->getGoodsCategorysList();
+        return view("admin.goods.goodshome")->with(compact('goods','goodsstock','goodsorder','categorys'));
     }
+
 }
