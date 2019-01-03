@@ -13,8 +13,8 @@
                     <div class="layui-col-md5">
                         <button class="layui-btn layui-btn-big layui-btn-danger layui-icon">&#xe756;</button>
                     </div>
-                    <div class="layui-col-md7">
-                        <p class="my-nav-text tc">40</p>
+                    <div class="layui-col-md7 tc">
+                        <p class="my-nav-text">40</p>
                         <p class="my-nav-text layui-elip"></p>
                     </div>
                 </div>
