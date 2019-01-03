@@ -60,7 +60,7 @@ class GoodsOrderController extends CommonController
     {
         $goodsData = $request->all();
         //更新商品数量
-        $result = $this->goods->delGoods($goodsData['buycount'],$goodsData['goods_id']);
+        $result = $this->goods->upSell($goodsData['buycount'],$goodsData['goods_id']);
         if ($result) {
             $this->goodsorder->createGoodsOrder($goodsData);
         }else{
@@ -106,25 +106,28 @@ class GoodsOrderController extends CommonController
         $result ='';
         $goodsorder = $this->goodsorder->find($id);
         if($goodsorder["goods_id"] == $goodsData['goods_id']){
+            //不变更商品
             if($goodsData['buycount']>$goodsorder['buycount']){
                 //增加订单数量
                 $count = $goodsData['buycount']-$goodsorder['buycount'];
-                $result =$this->goods->delGoods($count,$goodsData['goods_id']);
+                $result =$this->goods->upSell($count,$goodsData['goods_id']);
             }elseif ($goodsData['buycount']<$goodsorder['buycount']){
                 //减少订单数量
                 $count = $goodsorder['buycount']-$goodsData['buycount'];
-                $result =$this->goods->upGoods($count,$goodsData['goods_id']);
+                $result =$this->goods->delSell($count,$goodsData['goods_id']);
             }
         }else{
-            //如果更换商品恢复原商品数
-           $this->goods->upGoods($goodsorder['buycount'],$goodsorder['goods_id']);
-            //减少新商品数量
-            $result =$this->goods->delGoods($goodsData['buycount'],$goodsData['goods_id']);
+            //变更商品后删除商品销量数
+            $result = $this->goods->delSell($goodsorder['buycount'],$goodsorder['goods_id']);
+            if($result){
+                //减少新商品数量
+                $result =$this->goods->upSell($goodsData['buycount'],$goodsData['goods_id']);
+            }
         }
         if ($result) {
             $this->goodsorder->updateGoodsOrder($request->all(),$id);
         }else{
-            flash('订单修改成功', 'error');
+            flash('订单修改失败', 'error');
         }
         return redirect('admin/goodsorder/'.$id.'/edit');
     }
@@ -139,7 +142,7 @@ class GoodsOrderController extends CommonController
     {
         $goodsData = $request->all();
         //更新商品数量
-        $result = $this->goods->upGoods($goodsData['buycount'],$goodsData['goods_id']);
+        $result = $this->goods->delSell($goodsData['buycount'],$goodsData['goods_id']);
         if ($result) {
             $this->goodsorder->destroyGoodsOrder($id);
         }else{

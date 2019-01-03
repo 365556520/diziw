@@ -100,4 +100,25 @@ class GoodsRepository extends Repository {
         ])->decrement('inventory', $count);
         return $result;
     }
+    //销量增加
+    public function upSell($count,$id){
+        // 销量增加库存减少
+        $result = $this->delGoods($count,$id);
+        if($result){
+            $this->model->where('id', $id)->increment('sell', $count);
+        }
+        return $result;
+    }
+    //销量减少
+    public function delSell($count,$id){
+        $result = $this->model->where([
+            ['id', '=', $id],
+            ['sell', '>=',$count],
+        ])->decrement('sell', $count);
+        if($result){
+            // 销量减少库存增加
+            $this->upGoods($count,$id);
+        }
+        return $result;
+    }
 }
