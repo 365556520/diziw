@@ -7,7 +7,7 @@
     <div class="layui-header my-header">
         <a href="index.html">
             <!--<img class="my-header-logo" src="" alt="logo">-->
-            <div class="my-header-logo">后台模板 HTML</div>
+            <div class="my-header-logo">迪子网后台系统</div>
         </a>
 
         <!-- 顶部左侧添加选项卡监听 -->
@@ -29,7 +29,6 @@
 
         <!-- 顶部右侧添加选项卡监听 -->
         <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right">
-            <li class="layui-nav-item"><a href="javascript:;" class="pay" href-url="">支持作者</a></li>
             <li class="layui-nav-item">
                 <a class="name" href="javascript:;"><i class="layui-icon">&#xe629;</i>主题</a>
                 <dl class="layui-nav-child">
@@ -86,16 +85,12 @@
     </div>
     <!-- footer -->
     <div class="layui-footer my-footer">
-        <p><a href="http://vip-admin.com" target="_blank">vip-admin后台模板v1.8.0</a>&nbsp;&nbsp;&&nbsp;&nbsp;<a href="http://vip-admin.com/index/gather/index.html" target="_blank">vip-admin管理系统v1.2.0</a></p>
+        <p><a href="http://vip-admin.com" target="_blank">版权本站所有</a>&nbsp;&nbsp;&&nbsp;&nbsp;<a href="http://diziw.cn/admin/home" target="_blank">迪子网管理系统</a></p>
         <p>2017 © copyright 蜀ICP备17005881号</p>
     </div>
 </div>
 
-<!-- pay -->
-<div class="my-pay-box none">
-    <div><img src="" alt="支付宝"><p>支付宝</p></div>
-    <div><img src="" alt="微信"><p>微信</p></div>
-</div>
+
 <!-- 右键菜单 -->
 <div class="my-dblclick-box none"></div>
 
