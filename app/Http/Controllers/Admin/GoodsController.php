@@ -161,7 +161,7 @@ class GoodsController extends CommonController
             //得到树列表
            $categorys=$this->categorys->getGoodsCategorysList();
         //总例利润
-        $gosdsinfo= array("moneys"=>0,"buycount"=>0);
+        $gosdsinfo= array("moneys"=>0,"buycount"=>0,"gross"=>0,"prices"=>0,"counts"=>0);
         foreach ($goods as &$v){
             $price=0;
             if($v->sell!=0){
@@ -169,14 +169,20 @@ class GoodsController extends CommonController
                 foreach ($goodsorder as $vl){
                     if($vl->goods_id == $v->id){
                         $price += $vl->totalprices - $v->cost_price * $vl->buycount;
+                        //总营业额
+                        $gosdsinfo["gross"] += $vl->totalprices;
                     }
                 }
             }
             $v->price = $price;
             //总利润
-            $gosdsinfo["moneys"] = $gosdsinfo["moneys"] + $price;
+            $gosdsinfo["moneys"] += $price;
             //总销量
-            $gosdsinfo["buycount"] = $gosdsinfo["buycount"] +  $v->sell;
+            $gosdsinfo["buycount"] += $v->sell;
+        }
+        foreach ($goodsstock as $v){
+            $gosdsinfo["prices"] += $v->price;
+            $gosdsinfo["counts"] += $v->count;
         }
         return view("admin.goods.goodshome")->with(compact('goods','goodsstock','goodsorder','categorys','gosdsinfo'));
     }

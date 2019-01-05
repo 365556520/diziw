@@ -30,21 +30,21 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">数量</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="buycount" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" name="buycount" lay-verify="required|v_number" placeholder="请输入" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">支付</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="totalprices" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" name="totalprices" lay-verify="required|v_number" placeholder="请输入" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">元</div>
             </div>
             <div class="layui-form-item  layui-form-text">
                 <label class="layui-form-label">备注</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" name="remark" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入内容" lay-verify="required"  name="remark" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -80,7 +80,10 @@
                 })*/
                 return true;
             });
-
+            //自定义验证规则
+            form.verify({
+                v_number: [/^[0-9]{1,9}$/, '必须数字但不能大于9位']
+            });
 
         });
     </script>

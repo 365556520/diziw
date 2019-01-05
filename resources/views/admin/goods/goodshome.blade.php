@@ -15,7 +15,7 @@
                     </div>
                     <div class="layui-col-md7 tc">
                         <p class="my-nav-text">{{ $gosdsinfo["moneys"]}}元</p>
-                        <p class="my-nav-text layui-elip">纯利润</p>
+                        <p class="my-nav-text layui-elip">总纯利润</p>
                     </div>
                 </div>
             </div>
@@ -36,8 +36,8 @@
                         <button class="layui-btn layui-btn-big layui-icon">&#xe715;</button>
                     </div>
                     <div class="layui-col-md7 tc">
-                        <p class="my-nav-text">40</p>
-                        <p class="my-nav-text layui-elip">表格</p>
+                        <p class="my-nav-text">{{$gosdsinfo["gross"]}}元</p>
+                        <p class="my-nav-text layui-elip">总销售金额</p>
                     </div>
                 </div>
             </div>
@@ -47,8 +47,8 @@
                         <button class="layui-btn layui-btn-big layui-btn-normal layui-icon">&#xe705;</button>
                     </div>
                     <div class="layui-col-md7 tc">
-                        <p class="my-nav-text">40</p>
-                        <p class="my-nav-text layui-elip">选项卡</p>
+                        <p class="my-nav-text">{{$gosdsinfo["counts"]-$gosdsinfo["buycount"]}}</p>
+                        <p class="my-nav-text layui-elip">剩余总数</p>
                     </div>
                 </div>
             </div>
@@ -58,8 +58,8 @@
                         <button class="layui-btn layui-btn-big layui-bg-cyan layui-icon">&#xe6b2;</button>
                     </div>
                     <div class="layui-col-md7 tc">
-                        <p class="my-nav-text">40</p>
-                        <p class="my-nav-text layui-elip">进度条</p>
+                        <p class="my-nav-text">{{ $gosdsinfo["prices"]}}元</p>
+                        <p class="my-nav-text layui-elip">本钱</p>
                     </div>
                 </div>
             </div>
@@ -69,8 +69,8 @@
                         <button class="layui-btn layui-btn-big layui-bg-black layui-icon">&#xe698;</button>
                     </div>
                     <div class="layui-col-md7 tc">
-                        <p class="my-nav-text">40</p>
-                        <p class="my-nav-text layui-elip">折叠面板</p>
+                        <p class="my-nav-text">{{$gosdsinfo["counts"]}}</p>
+                        <p class="my-nav-text layui-elip">货物总数</p>
                     </div>
                 </div>
             </div>
@@ -114,11 +114,11 @@
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption({
                 title: {
-                    text: '销售图'
+                    text: '销售库存图'
                 },
                 tooltip: {},
                 legend: {
-                    data: ['销量']
+                    data: ['销量',"库存"]
                 },
                 xAxis: {
                     data: [
@@ -143,12 +143,20 @@
                         {{$v->sell}},
                         @endforeach
                     ]
-                }
+                    },
+                    {
+                        name: '库存',
+                        type: 'bar',
+                        data: [
+                            @foreach($goods as $v)
+                            {{$v->inventory}},
+                            @endforeach
+                        ]
+                    }
                 ]
             });
             //利润表
             lirunChart.setOption({
-
                 title: {
                     text: '总利润{{ $gosdsinfo["moneys"]}}元',
                     subtext: '纯利润',
@@ -160,7 +168,7 @@
                 },
                 legend: {
                     type: 'scroll',
-                    bottom: 3,
+                    bottom: 10,
                     data: [
                         @foreach($goods as $v)
                             "{{$v->goods_name}}",

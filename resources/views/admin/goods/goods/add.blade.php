@@ -56,13 +56,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">商品进价</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="cost_price" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="cost_price" lay-verify="required|v_number" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">商品零售价</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="shop_price" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="shop_price" lay-verify="required|v_number" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -72,13 +72,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">商品库存</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="inventory" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="inventory" lay-verify="required|v_number" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">销量</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="sell" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="sell" lay-verify="required|v_number" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">规格</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="goods_number" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="goods_number" lay-verify="required|v_number" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -146,8 +146,12 @@
                 "goods_title": '默认值可以不用输入',
                 "goods_status":'热销中',
                 "information":'这家伙很懒什么都没填写',
+                "goods_number":'0',
             });
-
+            //自定义验证规则
+            form.verify({
+                v_number: [/^[0-9]{1,9}$/, '必须数字但不能大于9位']
+            });
         });
     </script>
 @endsection
