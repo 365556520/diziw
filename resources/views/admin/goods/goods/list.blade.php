@@ -54,10 +54,6 @@
                 ,toolbar: '#toolbarDemo'
                 , where: {'goodscategorys_id': null} //设定异步数据接口的额外参数
                 , method: 'get'
-                , page: true
-                , limits: [15, 25, 50, 100]
-                , limit: 15 //默认采用30
-                , loading: false
                 , cols: [[                  //标题栏
                     {type: 'checkbox', fixed: 'left'}
                     , {field: 'id', title: 'ID', width: 60, sort: true,fixed: 'left'}
@@ -70,6 +66,10 @@
                     , {field: 'sell', title: '销量', width: 120}
                     , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
                 ]]
+                , page: true
+                , limits: [15, 25, 50, 100]
+                , limit: 15 //默认采用30
+                , loading: false
                 , done: function (res, curr, count) {
                     //如果是异步请求数据方式，res即为你接口返回的信息。
                     //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度

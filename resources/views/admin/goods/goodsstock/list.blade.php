@@ -39,8 +39,9 @@
                     ,{field:'created_at', title:'创建时间',width:180, sort: true}
                     ,{fixed: 'right', title:'操作',width:180, toolbar: '#barDemo'}
                 ]]
-                ,limit: 100 //默认采用100
-                ,loading: false
+                , page: true
+                , limits: [15, 25, 50, 100]
+                , limit: 15 //默认采用30
             });
 
             //头工具栏事件

@@ -48,7 +48,7 @@
                     </div>
                     <div class="layui-col-md7 tc">
                         <p class="my-nav-text">{{$gosdsinfo["counts"]-$gosdsinfo["buycount"]}}</p>
-                        <p class="my-nav-text layui-elip">剩余总数</p>
+                        <p class="my-nav-text layui-elip">剩余货物总数</p>
                     </div>
                 </div>
             </div>
