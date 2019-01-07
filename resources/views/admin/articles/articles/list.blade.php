@@ -21,14 +21,17 @@
             <script type="text/html" id="toolbarDemo">
                 <div class="my-btn-box">
                     <span class="fl">
-                        <button class="layui-btn layui-btn-danger"  lay-event="delete-all">批量删除</button>
-                        <button class="layui-btn btn-default btn-add"  lay-event="add">发布文章</button>
+                        <div class="layui-btn-group">
+                            <button class="layui-btn layui-btn-danger layui-btn-xs"  lay-event="delete-all">批量删除</button>
+                            <button class="layui-btn btn-default btn-add layui-btn-xs"  lay-event="add">发布文章</button>
+                        </div>
+
                     </span>
                         <span class="fr">
                         <div class="layui-input-inline">
                             <input type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
                         </div>
-                        <button class="layui-btn mgl-20">查询</button>
+                        <button class="layui-btn  mgl-20">查询</button>
                     </span>
                 </div>
             </script>

@@ -19,9 +19,9 @@
             <br>
             <!-- 工具集 -->
             <script type="text/html" id="toolbarDemo">
-                <div class="my-btn-box">
-                        <button class="layui-btn layui-btn-ms" lay-event="add"><i class="layui-icon"></i></button>
-                        <button class="layui-btn layui-btn-warm layui-btn-ms" lay-event="isAll"><i class="layui-icon">&#xe669;</i></button>
+                <div class="my-btn-box  layui-btn-group ">
+                        <button class="layui-btn layui-btn-xs" lay-event="add"><i class="layui-icon"></i></button>
+                        <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="isAll"><i class="layui-icon">&#xe669;</i></button>
                 </div>
             </script>
 
@@ -54,17 +54,18 @@
                 ,toolbar: '#toolbarDemo'
                 , where: {'goodscategorys_id': null} //设定异步数据接口的额外参数
                 , method: 'get'
+                ,totalRow: true
                 , cols: [[                  //标题栏
                     {type: 'checkbox', fixed: 'left'}
-                    , {field: 'id', title: 'ID', width: 60, sort: true,fixed: 'left'}
-                    , {field: 'goods_name', title: '商品名字', width: 120 ,fixed: 'left'}
+                    , {field: 'id', title: 'ID', width: 60, sort: true, fixed: 'left',totalRowText: '合计'}
+                    , {field: 'goods_name', title: '商品名字', width: 120 }
                     , {field: 'aytype', title: '商品单位', width: 100}
                     , {field: 'cost_price', title: '进价', width: 80}
                     , {field: 'shop_price', title: '售价', width: 80}
                     , {field: 'goods_number', title: '规格', width: 120}
                     , {field: 'inventory', title: '库存', width: 120}
-                    , {field: 'sell', title: '销量', width: 120}
-                    , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                    , {field: 'sell', title: '销量', width: 120,totalRow: true}
+                    , { title: '操作', width: 120, align: 'center', toolbar: '#barDemo' } //这里的toolbar值是模板元素的选择器
                 ]]
                 , page: true
                 , limits: [15, 25, 50, 100]

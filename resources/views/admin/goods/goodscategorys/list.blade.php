@@ -9,7 +9,7 @@
     <div class="layui-row">
         <table class="layui-hide" id="test" lay-filter="test"></table>
         <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container my-btn-box">
+            <div class="layui-btn-container my-btn-box  layui-btn-group ">
                 <button class="layui-btn layui-btn-xs" lay-event="add"><i class="layui-icon"></i></button>
                 <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="isAll"><i class="layui-icon">&#xe669;</i></button>
             </div>

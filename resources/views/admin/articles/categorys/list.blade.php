@@ -9,11 +9,11 @@
     <div class="layui-row">
         <table class="layui-hide" id="test" lay-filter="test"></table>
         <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container my-btn-box">
-                <button class="layui-btn layui-btn-danger  layui-btn-sm" lay-event="getCheckData">批量删除</button>
-                <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-                <button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="isAll">刷新</button>
-                <button class="layui-btn layui-btn-sm" lay-event="add">添加分类</button>
+            <div class="layui-btn-container layui-btn-group my-btn-box">
+                <button class="layui-btn layui-btn-danger  layui-btn-xs" lay-event="getCheckData">批量删除</button>
+                <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="getCheckLength">获取选中数目</button>
+                <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="isAll">刷新</button>
+                <button class="layui-btn layui-btn-xs" lay-event="add">添加分类</button>
             </div>
         </script>
 

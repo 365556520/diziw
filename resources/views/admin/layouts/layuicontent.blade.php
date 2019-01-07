@@ -19,9 +19,11 @@
                     @yield('content')
         {{--操作按钮--}}
         <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="show">查看</a>
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="show"><i class="layui-icon">&#xe705;</i></button>
+                <button class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
+                <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i></button>
+            </div>
         </script>
         <!-- jQuery -->
         <script src="{{ asset('/backend/vendors/jquery/dist/jquery.min.js')}}"></script>

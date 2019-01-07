@@ -9,7 +9,7 @@
     <div class="layui-row">
         <table class="layui-hide" id="test" lay-filter="test"></table>
         <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container my-btn-box">
+            <div class="layui-btn-container my-btn-box  layui-btn-group ">
                 <button class="layui-btn layui-btn-xs" lay-event="add"><i class="layui-icon"></i></button>
                 <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="isAll"><i class="layui-icon">&#xe669;</i></button>
             </div>
@@ -28,13 +28,14 @@
                 ,url:'/admin/goodsstock/ajaxIndex'
                 ,toolbar: '#toolbarDemo'
                 ,title: '商品进货'
+                ,totalRow: true
                 ,cols: [[
-                    {field:'id', title:'ID', fixed: 'left',width:80, unresize: true, sort: true}
+                    {field:'id', title:'ID', fixed: 'left',width:80, unresize: true, sort: true,totalRowText: '合计'}
                     ,{field:'goods_id', title:'商品名称',width:200}
                     ,{field:'user_id', title:'用户id',width:120}
                     ,{field:'type', title:'单位',width:80}
                     ,{field:'count', title:'数量',width:80}
-                    ,{field:'price', title:'实付',width:80}
+                    ,{field:'price', title:'实付',width:120,totalRow: true}
                     ,{field:'remark', title:'备注',width:200}
                     ,{field:'created_at', title:'创建时间',width:180, sort: true}
                     ,{fixed: 'right', title:'操作',width:180, toolbar: '#barDemo'}
