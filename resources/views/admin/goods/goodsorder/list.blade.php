@@ -38,7 +38,7 @@
                     ,{field:'totalprices', title:'支付金额',width:180,totalRow: true}
                     ,{field:'remark', title:'备注',width:80}
                     ,{field:'created_at', title:'创建时间',width:180, sort: true}
-                    ,{fixed: 'right', title:'操作',width:100, toolbar: '#barDemo'}
+                    ,{fixed: 'right', title:'操作',width:120, toolbar: '#barDemo'}
                 ]]
                 , page: true
                 , limits: [15, 25, 50, 100]
