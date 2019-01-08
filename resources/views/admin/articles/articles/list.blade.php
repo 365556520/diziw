@@ -27,11 +27,20 @@
                         </div>
 
                     </span>
-                        <span class="fr">
-                        <div class="layui-input-inline">
-                            <input type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
+                    <span class="fr">
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                    <select name="ifs" id="ifs" lay-verify="">
+                                          <option value="title">文章标题</option>
+                                          <option value="tag">关键词</option>
+                                          <option value="description">描述</option>
+                                    </select>
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" autocomplete="off" name="reload" id="reload" placeholder="请输入搜索条件" class="layui-input">
+                            </div>
                         </div>
-                        <button class="layui-btn  mgl-20">查询</button>
+                        <button class="layui-btn mgl-20">查询</button>
                     </span>
                 </div>
             </script>
@@ -51,14 +60,13 @@
             base: '/backend/myvebdors/layui/layui_ext/dtree/'//配置 layui 第三方扩展组件存放的基础目录
         }).extend({
             dtree: 'dtree' //定义该组件模块名
-        }).use(['tree', 'table', 'layer', 'dtree'], function () {
+        }).use(['tree' ,'table', 'layer', 'dtree'], function () {
             // 操作对象
             var table = layui.table
                 , layer = layui.layer
                 ,dtree = layui.dtree
                 ,form = layui.form
                 , $ = layui.jquery;
-
             // 表格渲染
             var tableIns = table.render({
                 elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
@@ -66,7 +74,7 @@
                 , id: 'dataCheck'
                 , url: '/admin/articles/ajaxIndex'
                  ,toolbar: '#toolbarDemo'
-                , where: {'category_id': null} //设定异步数据接口的额外参数
+                , where: {'category_id': null,'ifs':null,'reload':null} //设定异步数据接口的额外参数
                 , method: 'get'
                 , page: true
                 , limits: [15, 25, 50, 100]
@@ -98,6 +106,26 @@
                     console.log(count);
                 }
             });
+
+
+            //搜索按钮监听
+            $('.mgl-20').on('click', function(){
+                //搜索
+                var reload = $('#reload').val();
+                var ifs = $('#ifs').val();
+                //执行重载
+                tableIns.reload({
+                    where: {
+                        'category_id': null,
+                        'ifs': ifs,
+                        'reload': reload
+                    },
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                });
+            });
+
             //监听开启操作
             form.on('switch(state)', function(obj){
                 $.ajax({

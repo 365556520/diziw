@@ -24,12 +24,18 @@ class ArticlesRepository extends Repository {
         if ($start!=0){
             $start = $start*$length; //得到查询的开始的id
         }
-        if($data['category_id'] != null){
-            $articless = $articles->where('category_id',$data['category_id'])->offset($start)->limit($length)->get();//得到分页数据
-            $count = $articles->where('category_id',$data['category_id'])->count();//查出所有数据的条数
+        if ($data['reload']!= null) {
+                //模糊查找name、id列
+            $articless = $articles->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->offset($start)->limit($length)->get();
+            $count = $articles->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->count();//查出所有数据的条数
         }else{
-            $articless = $articles->offset($start)->limit($length)->get();//得到全部数据
-            $count = $articles->count();//查出所有数据的条数
+            if($data['category_id'] != null){
+                $articless = $articles->where('category_id',$data['category_id'])->offset($start)->limit($length)->get();//得到分页数据
+                $count = $articles->where('category_id',$data['category_id'])->count();//查出所有数据的条数
+            }else{
+                $articless = $articles->offset($start)->limit($length)->get();//得到全部数据
+                $count = $articles->count();//查出所有数据的条数
+            }
         }
         // datatables固定的返回格式
         return [
