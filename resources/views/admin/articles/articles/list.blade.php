@@ -40,7 +40,7 @@
                                 <input type="text" autocomplete="off" name="reload" id="reload" placeholder="请输入搜索条件" class="layui-input">
                             </div>
                         </div>
-                        <button class="layui-btn mgl-20" data-type="reload" lay-event="reload">查询</button>
+                        <button class="layui-btn mgl-20" data-type="reload" lay-event="reload"><i class="layui-icon layui-icon-search"></i>   </button>
                     </span>
                 </div>
             </script>
