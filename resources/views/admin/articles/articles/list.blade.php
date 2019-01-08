@@ -40,7 +40,7 @@
                                 <input type="text" autocomplete="off" name="reload" id="reload" placeholder="请输入搜索条件" class="layui-input">
                             </div>
                         </div>
-                        <button class="layui-btn mgl-20">查询</button>
+                        <button class="layui-btn mgl-20" data-type="reload" lay-event="reload">查询</button>
                     </span>
                 </div>
             </script>
@@ -106,25 +106,25 @@
                     console.log(count);
                 }
             });
+            var active = {
+                reload: function(){
+                    //搜索
+                    var reload = $('#reload').val();
+                    var ifs = $('#ifs').val();
+                    //执行重载
+                    tableIns.reload({
+                        where: {
+                            'category_id': null,
+                            'ifs': ifs,
+                            'reload': reload
+                        },
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+                }
+            };
 
-
-            //搜索按钮监听
-            $('.mgl-20').on('click', function(){
-                //搜索
-                var reload = $('#reload').val();
-                var ifs = $('#ifs').val();
-                //执行重载
-                tableIns.reload({
-                    where: {
-                        'category_id': null,
-                        'ifs': ifs,
-                        'reload': reload
-                    },
-                    page: {
-                        curr: 1 //重新从第 1 页开始
-                    }
-                });
-            });
 
             //监听开启操作
             form.on('switch(state)', function(obj){
@@ -209,6 +209,10 @@
                                 return true;
                             }
                         });
+                        break;
+                    case 'reload':
+                        var type = $(this).data('type');
+                        active[type] ? active[type].call(this) : '';
                         break;
                 };
             });
@@ -321,7 +325,7 @@
                     layer.close(loadIndex);
                     // 刷新表格
                     tableIns.reload({
-                        where: {'category_id': newcategory_id} //设定异步数据接口的额外参数
+                        where: {'category_id': newcategory_id,'ifs':null,'reload':null} //设定异步数据接口的额外参数
                         , page: {
                             curr: 1 //重新从第 1 页开始
                         }
