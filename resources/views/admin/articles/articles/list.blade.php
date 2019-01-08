@@ -106,6 +106,7 @@
                     console.log(count);
                 }
             });
+            //搜索方法
             var active = {
                 reload: function(){
                     //搜索
@@ -124,7 +125,6 @@
                     });
                 }
             };
-
 
             //监听开启操作
             form.on('switch(state)', function(obj){
@@ -297,19 +297,19 @@
                 //  url: "../json/case/tree.json"  //异步接口
                 data:[
                         @foreach($categorys as $v){
-                        title:'{{$v->cate_name}}'
-                        ,id:'{{$v->id}}'
-                        ,parentId : '{{$v->cate_pid}}'
-                        @if($v->children)
-                        ,children:[
-                            @foreach($v->children as $vs){
-                            title:'{{$vs->cate_name}}'
-                            ,id:'{{$vs->id}}'
-                            ,parentId : '{{$vs->cate_pid}}'
-                        },
-                        @endforeach
-                    ]
-                        @endif
+                            title:'{{$v->cate_name}}'
+                            ,id:'{{$v->id}}'
+                            ,parentId : '{{$v->cate_pid}}'
+                            @if($v->children)
+                                ,children:[
+                                    @foreach($v->children as $vs){
+                                    title:'{{$vs->cate_name}}'
+                                    ,id:'{{$vs->id}}'
+                                    ,parentId : '{{$vs->cate_pid}}'
+                                 },
+                                @endforeach
+                                ]
+                            @endif
                     },
                     @endforeach
                 ],
