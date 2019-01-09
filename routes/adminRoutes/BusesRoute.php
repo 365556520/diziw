@@ -22,6 +22,8 @@ Route::group(['prefix' => 'driver'],function (){
     Route::get('ajaxIndex','DriverController@ajaxIndex');
     //上传驾驶员照片图片
     Route::post('upload','DriverController@upload');
+    //批量删除
+    Route::post('destroys/{id}','DriverController@destroys');
 });
 Route::resource('driver','DriverController');
 

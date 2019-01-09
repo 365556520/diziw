@@ -1,285 +1,251 @@
-@extends('admin.layouts.bootstrapcontent')
+@extends('admin.layouts.layuicontent')
 @section('title')
     <title>{{ trans('admin/user.title')}}</title>
 @endsection
 @section('css')
-    {{--layui--}}
-    <link href="{{ asset('/backend/myvebdors/layui/layui/css/layui.css')}}" rel="stylesheet">
-    {{--datatables 插件--}}
-    <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
-    {{--bootstrap-tagsinput 插件 输入框带标签--}}
-    <link href="{{asset('backend/myvebdors/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css')}}" rel="stylesheet">
-    {{--导出excel插件cs--}}
-    <link href="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.min.css')}}" rel="stylesheet">
-    {{--导出excel插件csend--}}
-    <!--或者下载到本地，下面有下载地址-->
-    <style>
-        .layui-form-label{
-            padding: 9px 9px;
-        }
-    </style>
 @endsection
 @section('content')
-    <div class="">
-        <br>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>驾驶员<small>驾驶员管理页面</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-                            <ul class="layui-tab-title">
-                                <li class="layui-this">驾驶员列表</li>
-                                <li>添加驾驶员</li>
-                            </ul>
-                            {{--驾驶员列表--}}
-                            <div class="layui-tab-content" >
-                                @include('flash::message')
-                                <div class="layui-tab-item layui-show">
-                                    <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
-                                        <thead>
-                                        <tr>
-                                            <th>编号</th>
-                                            <th>驾驶员</th>
-                                            <th>年龄</th>
-                                            <th>准驾车型</th>
-                                            <th>驾驶证档案号</th>
-                                            <th>驾驶证号</th>
-                                            <th>从业资格证号</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                {{--添加驾驶员--}}
-                                <div class="layui-tab-item">
-                                    <form class="layui-form layui-form-pane" method="post" action="{{url('admin/driver')}}">
-                                        {{csrf_field()}}
-                                        <div class="layui-row">
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md8">
-                                                <div class="layui-row">
-                                                    {{--姓名--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">姓名</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_name" lay-verify="required" placeholder="请输入驾驶员姓名" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {{--电话--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">联系电话</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_phone" lay-verify="required|phone|number" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="layui-row">
-                                                    {{--年龄--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">年龄</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_age" lay-verify="required|number" placeholder="请输入年龄" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {{--性别--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">性别</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="radio" name="driver_sex" value="男" title="男" checked="">
-                                                                <input type="radio" name="driver_sex" value="女" title="女">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="layui-row">
-                                                    {{--驾驶证号--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">驾驶证号</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_card" lay-verify="required|identity" placeholder="请输入驾驶证号" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {{--初领日期--}}
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                        <div class="layui-form-item">
-                                                            <label class="layui-form-label">初领日期</label>
-                                                            <div class="layui-input-block">
-                                                                <input type="text" name="driver_card_firstdata" lay-verify="required" placeholder="请输入初领日期" autocomplete="off" class="layui-input">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
-                                                {{--上传图片--}}
-                                                <div class="layui-row" >
-                                                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" style="margin-left: 15% ;">
-                                                        <div class="layui-upload-drag" id="upload">
-                                                            <div id="uptitle">
-                                                                <i class="layui-icon"></i>
-                                                                <p>上传驾驶员头像</p>
-                                                                <p>点击或将图片拖拽到此处</p>
-                                                            </div>
-                                                            <img class="layui-upload-img  img-responsive col-md-4 col-sm-4 col-xs-8 " alt="" id="demo1"/>
-                                                            <input type="hidden" name="driver_photo"  id="uploadimg" >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="layui-row">
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
-                                                {{--驾驶证档案号--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label" style=" padding: 9px 3px;">驾驶证档案号</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_archive_number" lay-verify="required" placeholder="请输入证档案号" autocomplete="off" class="layui-input">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
-                                                {{--准驾车型--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label">准驾车型</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_permit" lay-verify="required" placeholder="准驾车型" autocomplete="off" class="layui-input">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md5">
-                                                {{--驾驶证审验有效时间--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label" style="width: 150px;padding:9px 2px;">驾驶证审验有效时间</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_card_date" lay-verify="required" placeholder="请输入驾驶证审验有效时间" autocomplete="off" class="layui-input" style="width: 67%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="layui-row">
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                {{--从业资格证号--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label" style=" padding: 9px 3px;">从业资格证号</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_qualification" lay-verify="required" placeholder="请输入从业资格证号" autocomplete="off" class="layui-input">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-                                                {{--从业资格证号--}}
-                                                <div class="layui-form-item">
-                                                    <label class="layui-form-label" style="width: 150px;padding:9px 2px;">资格证审验有效时间</label>
-                                                    <div class="layui-input-block">
-                                                        <input type="text" name="driver_qualification_date" lay-verify="required" placeholder="请输入资格证审验有效时间" autocomplete="off" class="layui-input" style="width: 67%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="layui-row">
-                                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                                                <div class="layui-form-item layui-form-text">
-                                                    <label class="layui-form-label">驾驶信息</label>
-                                                    <div class="layui-input-block">
-                                                        <textarea placeholder="驾驶信息" name="driver_info" class="layui-textarea"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="layui-form-item">
-                                            <button class="layui-btn" lay-submit="" lay-filter="demo2">添加驾驶员</button>
-                                        </div>
-                                    </form>
-                                </div>
+    <div class="layui-row">
+
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+            <!-- table -->
+            <table class="layui-hide" id="dateTable" lay-filter="dateTable"></table>
+            <br>
+            <!-- 工具集 -->
+            <script type="text/html" id="toolbarDemo">
+                <div class="my-btn-box">
+                    <span class="fl">
+                        <div class="layui-btn-group">
+                            <button class="layui-btn layui-btn-danger layui-btn-xs"  lay-event="delete-all">批量删除</button>
+                            <button class="layui-btn btn-default btn-add layui-btn-xs"  lay-event="add">添加驾驶员</button>
+                        </div>
+
+                    </span>
+                    <span class="fr">
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                    <select name="ifs" id="ifs" lay-verify="">
+                                          <option value="driver_name">名字</option>
+                                          <option value="driver_sex">性别</option>
+                                          <option value="driver_permit">准驾车型</option>
+                                          <option value="driver_age">年龄</option>
+                                    </select>
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" autocomplete="off" name="reload" id="reload" placeholder="请输入搜索条件" class="layui-input">
                             </div>
                         </div>
-                    </div>
+                        <button class="layui-btn mgl-20" data-type="reload" lay-event="reload"><i class="layui-icon layui-icon-search"></i>   </button>
+                    </span>
                 </div>
-            </div>
-    </div>
-
-    {{--查看模态框--}}
-    <div class="modal inmodal" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-                {{--内容在show.balde中--}}
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
+            </script>
+        </div>
     </div>
 @endsection
 @section('js')
-    {{--layui--}}
-    <script src="{{asset('/backend/myvebdors/layui/layui/layui.js')}}"></script>
-    {{--datatables 插件--}}
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>
-    {{--导出excel插件js--}}
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js')}}"></script>
-    <script src="{{asset('backend/js/permission/jszip.min.js')}}"></script>
-    {{--导出excel插件jsend--}}
-    {{--打印 js--}}
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js')}}"></script>
-    {{--打印 jsend--}}
-    {{--bootstrap-tagsinput 插件 输入框带标签js--}}
-    <script src="{{asset('backend/myvebdors/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.min.js')}}"></script>
-    {{--导入自己js--}}
-    <script src="{{asset('backend/js/buses/driver-list.js')}}"></script>
-    <script>
-        $(function () {
-            driverList.init();
-        });
-        layui.use(['element','upload','form'],function(){
-            var $ = layui.jquery,
-            form = layui.form,
-            element = layui.element,//Tab的切换功能，切换事件监听等，需要依赖element模块
-            upload = layui.upload;
-            //拖拽上传
-            upload.render({
-                elem: '#upload',
-                url: 'driver/upload',
-                data: {'_token':'{{csrf_token()}}'},
-                before: function(obj){
-                    layer.load(); //上传loading
-                    //预读本地文件示例，不支持ie8
-                    obj.preview(function(index, file, result){
-                        $('#uptitle').hide();
-                        $('#demo1').attr('src', result); //图片链接（base64）
-                    });
-                },
-                done: function(res){
-                    layer.closeAll('loading'); //关闭loading
-                    //status=0代表上传成功
-                    if(res.status == 0){
-                        $('#uploadimg').attr('value',res.path); //把连接放到隐藏输入框中
-                        $('#demo1').attr('value',res.path); //把连接放到隐藏输入框中
-                        layer.msg(res.message, {icon: 6});   //do something （比如将res返回的图片链接保存到表单的隐藏域）
-                    }else {
-                        layer.msg(res.message, {icon: 5});
-                    }
-                },
-                error: function(index, upload){
-                    layer.closeAll('loading'); //关闭loading
+    <script type="text/javascript">
+        // layui方法
+        layui.use(['table', 'layer'], function () {
+            // 操作对象
+            var table = layui.table
+                , layer = layui.layer
+                ,form = layui.form
+                , $ = layui.jquery;
+            // 表格渲染
+            var tableIns = table.render({
+                elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
+                , height: $(window).height() - ( $('.my-btn-box').outerHeight(true) ? $('.my-btn-box').outerHeight(true) + 35 :  40 )    //获取高度容器高度
+                , id: 'dataCheck'
+                , url: '/admin/driver/ajaxIndex'
+                ,toolbar: '#toolbarDemo'
+                , where: {'ifs':null,'reload':null} //设定异步数据接口的额外参数
+                , method: 'get'
+                , page: true
+                , limits: [15, 25, 50, 100]
+                , limit: 15 //默认采用30
+                , loading: false
+                , cols: [[                  //标题栏
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'id', title: 'ID', width: 60, sort: true,fixed: 'left'}
+                    , {field: 'driver_name', title: '名字', width: 100 ,fixed: 'left'}
+                    , {field: 'driver_age', title: '年龄', width: 70 ,sort: true}
+                    , {field: 'driver_sex', title: '性别', width: 70 }
+                    , {field: 'driver_phone', title: '联系电话', width: 150}
+                    , {field: 'driver_permit', title: '准驾车型', width: 100}
+                    , {field: 'driver_archive_number', title: '驾驶证档案编号', width: 160}
+                    // , {field: 'state', title: '文章状态', width: 90}
+                    ,{field:'driver_card', title:'驾驶证号', width:180, templet: '#switchTpl', unresize: true}
+                    , {field: 'driver_qualification', title: '资格证号', width: 190}
+                    , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                ]]
+                , done: function (res, curr, count) {
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    console.log(res);
+
+                    //得到当前页码
+                    console.log(curr);
+
+                    //得到数据总量
+                    console.log(count);
                 }
             });
+            //搜索方法
+            var active = {
+                reload: function(){
+                    //搜索
+                    var reload = $('#reload').val();
+                    var ifs = $('#ifs').val();
+                    //执行重载
+                    tableIns.reload({
+                        where: {
+                            'ifs': ifs,
+                            'reload': reload
+                        },
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+                }
+            };
+
+            //头工具栏事件
+            table.on('toolbar(dateTable)', function(obj){
+                var checkStatus = table.checkStatus(obj.config.id);
+                switch(obj.event){
+                    case 'delete-all':
+                        var data = checkStatus.data;  //得到选中数据的数组
+                        var ids = new Array(); //id变量
+                        var thumbs = new Array(); //图片变量
+                        //获取图片和id
+                        for (var k in data) {
+                            ids.push({
+                                'id' : data[k]['id'],
+                            });
+                            thumbs.push(data[k]['driver_photo']);
+                        }
+                        if(data.length>0){
+                            layer.confirm('真的删除这些分类吗？', function(index){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{url('/admin/driver/destroys')}}/"+ JSON.stringify(ids),
+                                    cache: false,
+                                    data:{"thumb":thumbs},
+                                    success: function (data) {
+                                        layer.msg('删除成功', {
+                                            time: 2000, //20s后自动关
+                                        });
+                                        //刷新表格
+                                        tableIns.reload();
+                                        //删除成功后删除缓存
+                                        layer.close(index);
+                                    },
+                                    error: function (xhr, status, error) {
+                                        layer.msg('删除失败', {
+                                            time: 2000, //20s后自动关
+                                        });
+                                        console.log(xhr);
+                                        console.log(status);
+                                        console.log(error);
+                                    }
+                                });
+                            });
+                        }else {
+                            layer.msg('最少选中一个');
+                        }
+                        break;
+                    case 'add':
+                        layer.open({
+                            type: 2,//2类型窗口 这里内容是一个网址
+                            title: '<div><i class="layui-icon layui-icon-edit" style="font-size: 22px; color: #ff2315;"></i>添加驾驶员</div>',
+                            shadeClose: true,
+                            shade: false,
+                            anim: 2, //打开动画
+                            maxmin: true, //开启最大化最小化按钮
+                            area: ['100%', '100%'],
+                            content: '{{url("/admin/driver/create")}}',
+                            cancel: function(index, layero){
+                                // 刷新表格
+                                tableIns.reload();
+                                return true;
+                            }
+                        });
+                        break;
+                    case 'reload':
+                        var type = $(this).data('type');
+                        active[type] ? active[type].call(this) : '';
+                        break;
+                };
+            });
+            //监听行工具条事件
+            table.on('tool(dateTable)', function(obj){
+                var data = obj.data;
+                //console.log('kankan22222 '+obj.data);
+                if(obj.event === 'del'){
+                    layer.confirm('真的删除此分类吗？', function(index){
+                        $.ajax({
+                            type: "POST",
+                            url: "{{url('/admin/driver')}}/"+data.id,
+                            cache: false,
+                            data:{_method:"DELETE", _token: "{{csrf_token()}}"},
+                            success: function (data) {
+                                layer.msg('删除成功', {
+                                    time: 2000, //20s后自动关
+                                });
+                                //删除成功后删除缓存
+                                obj.del();
+                                layer.close(index);
+                            },
+                            error: function (xhr, status, error) {
+                                layer.msg('删除失败', {
+                                    time: 2000, //20s后自动关
+                                });
+                                console.log(xhr);
+                                console.log(status);
+                                console.log(error);
+                            }
+                        });
+                    });
+                } else if(obj.event === 'edit'){
+                    layer.open({
+                        type: 2,//2类型窗口 这里内容是一个网址
+                        title: '修改驾驶员信息',
+                        shadeClose: true,
+                        shade: false,
+                        anim: 2, //打开动画
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['100%', '100%'],
+                        content: '{{url("/admin/driver")}}/'+ data.id + '/edit',
+                        cancel: function(index, layero){
+                            // 刷新表格
+                            tableIns.reload();
+                            return true;
+                        }
+                    });
+
+                    /*   layer.prompt({
+                     formType: 2
+                     ,value:data.id
+                     }, function(value, index){
+                     obj.update({
+                     cate_keywords: value
+                     });
+                     layer.close(index);
+                     });*/
+                } else if(obj.event === 'show'){
+                    //多窗口模式，层叠置顶
+                    layer.open({
+                        type: 2 //1类型窗口 这里内容可以自己写
+                        ,title:'<h3>'+data.driver_name+'</h3>'
+                        ,area: ['40%', '90%']
+                        ,shade: false
+                        ,anim: 2 //打开动画
+                        ,maxmin: true
+                        ,content:'{{url("/admin/driver")}}/'+ data.id
+                    });
+                }
+            });
+
         });
     </script>
     {{--提示代码--}}

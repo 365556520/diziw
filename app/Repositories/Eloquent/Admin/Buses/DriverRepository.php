@@ -15,52 +15,28 @@ class DriverRepository extends Repository {
         return Driver::class;
     }
     /*权限表显示数据*/
-    public function ajaxIndex(){
-        // datatables请求次数
-        $draw = request('draw', 1);
-        // 开始条数
-        $start = request('start',config('admin.globals.list.start'));
-        // 每页显示数目
-        $length = request('length',config('admin.globals.list.length'));
-        // 排序
-        $order['name'] = request('columns')[request('order')[0]['column']]['name']; //获取排序那一列name
-
-        $order['dir'] = request('order')[0]['dir']; //按什么排序
-        //得到permission模型
+    public function ajaxIndex($data){
+        //得到模型
         $driver = $this->model;
-        // datatables是否启用模糊搜索
-        $search['regex'] = request('search')['regex'];
-        // 搜索框中的值
-        $search['value'] = request('search')['value'];
-        // 搜索框中的值
-        if ($search['value']) {
-            if($search['regex'] == 'true'){
-                //模糊查找name、驾驶证号列
-                $driver = $driver->where('driver_card', 'like', "%{$search['value']}%")->orWhere('driver_name','like', "%{$search['value']}%");
-            }else{
-                //精确查找name、驾驶证号列
-                $driver = $driver->where('driver_card', $search['value'])->orWhere('driver_name', $search['value']);
-            }
+        $length = $data['limit']; //查询得条数
+        $start = $data['page'] -1;//查询的页数 开始查询数据从0开始所以要减去1
+        if ($start!=0){
+            $start = $start*$length; //得到查询的开始的id
         }
-        $count = $driver->count();//查出所有数据的条数
-        $driver = $driver->orderBy($order['name'],$order['dir']);//数据排序
-        $drivers = $driver->offset($start)->limit($length)->get();//得到分页数据
-        foreach ($drivers as $v){
-            $v->password;
-        }
-        $userPermissions =  $this->getUserPermissions('driver'); //获取当前用户对该表的权限
-        if($drivers){
-            foreach ($drivers as $v){
-                //这里需要传入2个权限第一个修改权限 第二个删除权限 第三个是查看权限
-                $v->actionButton = $v->getActionButtont($userPermissions['show'],$userPermissions['edit'],$userPermissions['delete'],false);
-            }
-        }
+        if ($data['reload']!= null) {
+            //模糊查找name、id列
+            $drivers = $driver->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->offset($start)->limit($length)->get();
+            $count = $driver->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->count();//查出所有数据的条数
+        }else{
+            $drivers = $driver->offset($start)->limit($length)->get();//得到全部数据
+            $count = $driver->count();//查出所有数据的条数
+    }
         // datatables固定的返回格式
         return [
-            'draw' => $draw,
-            'recordsTotal' => $count,
-            'recordsFiltered' => $count,
-            'data' => $drivers,
+            'code' => 0,
+            'msg' => '',//消息
+            'count' => $count,//总条数
+            'data' => $drivers,//数据
         ];
     }
     /*添加驾驶员*/
@@ -96,6 +72,20 @@ class DriverRepository extends Repository {
             $driver_photo = Storage::delete(config('admin.globals.img.driver_photo').$driver_photo);
         }
         return $driver_photo;
+    }
+    /*批量删除*/
+    public function destroyArticles($thumb,$id){
+        $result = false;
+        $driver_photo = true;
+        foreach ($thumb as $v){
+            $driver_photo = strrchr($v,'/');
+            if($driver_photo){
+                //删除视频图片
+                $driver_photo = Storage::delete(config('admin.globals.img.driver_photo').$driver_photo);
+            }
+        }
+        $result = $this->delete($id);
+        return $result;
     }
     // 修改驾驶员视图数据
     public function editView($id)

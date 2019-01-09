@@ -28,8 +28,8 @@ class DriverController extends CommonController
 
 
     //列表表DataTables
-    public function ajaxIndex(){
-        $result = $this->driver->ajaxIndex();
+    public function ajaxIndex(Request $request){
+        $result = $this->driver->ajaxIndex($request->all());
         return response()->json($result);
     }
     /*
@@ -61,7 +61,7 @@ class DriverController extends CommonController
      */
     public function create()
     {
-        //
+        return view("admin.buses.driver.add");
     }
 
     /**
@@ -114,7 +114,7 @@ class DriverController extends CommonController
 
     /**
      * Remove the specified resource from storage.
-     *
+     *单个删除
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -123,4 +123,16 @@ class DriverController extends CommonController
         $this->driver->destroyDriver($id);
         return redirect(url('admin/driver'));
     }
+    /*
+    * 批量删除
+    * */
+    public function destroys(Request $request,$id){
+        //得到图片
+        $thumb = $request->all()['thumb'];
+        //把json转换成数组然后用数组函数支取id列
+        $id = array_column(json_decode($id),'id');
+        $this->driver->destroyArticles($thumb,$id);
+        return redirect(url('admin/driver'));
+    }
+
 }
