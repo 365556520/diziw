@@ -41,8 +41,8 @@ class BusesController extends CommonController
 
 
     //列表表DataTables
-    public function ajaxIndex(){
-        $result = $this->buses->ajaxIndex();
+    public function ajaxIndex(Request $request){
+        $result = $this->buses->ajaxIndex($request->all());
         return response()->json($result);
     }
     /**
@@ -52,7 +52,11 @@ class BusesController extends CommonController
      */
     public function create()
     {
-        //
+        //得到所有驾驶员
+        $driver =   $this->driver;
+        //得到所有线路
+        $busesRoute = $this->busesRoute;
+        return view('admin.buses.buses.add')->with(compact('driver','busesRoute'));
     }
 
     /**
@@ -103,7 +107,8 @@ class BusesController extends CommonController
      */
     public function update(Request $request, $id)
     {
-        $this->buses->updateBusesRoute($request->all(),$id);
+
+        $this->buses->updateBuses($request->all(),$id);
         return redirect('admin/buses');
     }
 
@@ -115,7 +120,9 @@ class BusesController extends CommonController
      */
     public function destroy($id)
     {
-        $this->buses->destroyBusesRoute($id);
+            //把json转换成数组然后用数组函数支取id列
+        $id = array_column(json_decode($id),'id');
+        $this->buses->destroyBuses($id);
         return redirect(url('admin/buses'));
     }
 }

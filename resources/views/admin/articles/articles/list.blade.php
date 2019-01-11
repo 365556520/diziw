@@ -53,7 +53,6 @@
     </div>
 @endsection
 @section('js')
-
     <script type="text/javascript">
         // layui方法
         layui.config({
@@ -294,6 +293,8 @@
             dtree.render({
                 elem: "#tree",  //绑定元素
                 initLevel:1,
+                icon: "4",
+                dot: false,//隐藏小圆点
                 //  url: "../json/case/tree.json"  //异步接口
                 data:[
                         @foreach($categorys as $v){
@@ -334,6 +335,4 @@
             });
         });
     </script>
-
-
 @endsection

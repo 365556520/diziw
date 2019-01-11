@@ -15,52 +15,33 @@ class BusesRepository extends Repository {
     }
 
     /*权限表显示数据*/
-    public function ajaxIndex(){
-        // datatables请求次数
-        $draw = request('draw', 1);
-        // 开始条数
-        $start = request('start',config('admin.globals.list.start'));
-        // 每页显示数目
-        $length = request('length',config('admin.globals.list.length'));
-        // 排序
-        $order['name'] = request('columns')[request('order')[0]['column']]['name']; //获取排序那一列name
-
-        $order['dir'] = request('order')[0]['dir']; //按什么排序
-        //得到permission模型
+    public function ajaxIndex($data){
+        //得到模型
         $buses = $this->model;
-        // datatables是否启用模糊搜索
-        $search['regex'] = request('search')['regex'];
-        // 搜索框中的值
-        $search['value'] = request('search')['value'];
-        // 搜索框中的值
-        if ($search['value']) {
-            if($search['regex'] == 'true'){
-                //模糊查找name、id列
-                $buses = $buses->where('buses_name', 'like', "%{$search['value']}%")->orWhere('buses_boss','like', "%{$search['value']}%");
+        $length = $data['limit']; //查询得条数
+        $start = $data['page'] -1;//查询的页数 开始查询数据从0开始所以要减去1
+        if ($start!=0){
+            $start = $start*$length; //得到查询的开始的id
+        }
+        if ($data['reload']!= null) {
+            //模糊查找name、id列
+            $busess = $buses->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->offset($start)->limit($length)->get();
+            $count = $buses->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->count();//查出所有数据的条数
+        }else{
+            if($data['busesroute_id'] != null){
+                $busess = $buses->where('busesroute_id',$data['busesroute_id'])->offset($start)->limit($length)->get();//得到分页数据
+                $count = $buses->where('busesroute_id',$data['busesroute_id'])->count();//查出所有数据的条数
             }else{
-                //精确查找name、id列
-                $buses = $buses->where('buses_name', $search['value'])->orWhere('buses_boss', $search['value']);
-            }
-        }
-        $count = $buses->count();//查出所有数据的条数
-        $buses = $buses->orderBy($order['name'],$order['dir']);//数据排序
-        $busess = $buses->offset($start)->limit($length)->get();//得到分页数据
-        foreach ($busess as $v){
-            $v->password;
-        }
-        $userPermissions =  $this->getUserPermissions('buses'); //获取当前用户对该表的权限
-        if($busess){
-            foreach ($busess as $v){
-                //这里需要传入2个权限第一个修改权限 第二个删除权限 第三个是查看权限
-                $v->actionButton = $v->getActionButtont($userPermissions['show'],$userPermissions['edit'],$userPermissions['delete'],false);
+                $busess = $buses->offset($start)->limit($length)->get();//得到全部数据
+                $count = $buses->count();//查出所有数据的条数
             }
         }
         // datatables固定的返回格式
         return [
-            'draw' => $draw,
-            'recordsTotal' => $count,
-            'recordsFiltered' => $count,
-            'data' => $busess,
+            'code' => 0,
+            'msg' => '',//消息
+            'count' => $count,//总条数
+            'data' => $busess,//数据
         ];
     }
 
@@ -74,8 +55,8 @@ class BusesRepository extends Repository {
         }
         return $result;
     }
-    /*删除班车线路*/
-    public function destroyBusesRoute($id){
+    /*删除班车*/
+    public function destroyBuses($id){
         $result = $this->delete($id);
         if ($result) {
             flash('删除成功','success');
@@ -85,7 +66,7 @@ class BusesRepository extends Repository {
         return $result;
     }
 
-    // 修改班车线路视图数据
+    // 修改班车视图数据
     public function editView($id)
     {
         $result = $this->find($id);
@@ -95,7 +76,7 @@ class BusesRepository extends Repository {
         abort(404);
     }
     // 修改班车
-    public function updateBusesRoute($attributes,$id)
+    public function updateBuses($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
