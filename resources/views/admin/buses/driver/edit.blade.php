@@ -162,9 +162,6 @@
 @section('js')
 
     <script>
-        $(function () {
-            driverList.init();
-        });
         layui.use(['element','upload','form'],function(){
             var $ = layui.jquery,
                 form = layui.form,

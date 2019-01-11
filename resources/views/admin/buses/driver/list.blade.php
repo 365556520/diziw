@@ -162,7 +162,7 @@
                             shade: false,
                             anim: 2, //打开动画
                             maxmin: true, //开启最大化最小化按钮
-                            area: ['100%', '100%'],
+                            area: ['85%', '100%'],
                             content: '{{url("/admin/driver/create")}}',
                             cancel: function(index, layero){
                                 // 刷新表格
@@ -214,7 +214,7 @@
                         shade: false,
                         anim: 2, //打开动画
                         maxmin: true, //开启最大化最小化按钮
-                        area: ['100%', '100%'],
+                        area: ['85%', '100%'],
                         content: '{{url("/admin/driver")}}/'+ data.id + '/edit',
                         cancel: function(index, layero){
                             // 刷新表格

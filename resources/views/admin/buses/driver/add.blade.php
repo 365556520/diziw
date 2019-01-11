@@ -158,8 +158,6 @@
     </div>
 @endsection
 @section('js')
-   {{--查看本编辑中查看源码需要用到ace插件--}}
-    <script src="{{asset('/backend/myvebdors/layui/ace/ace.js')}}"></script>
     <script>
         layui.use(['element','upload','form'],function(){
             var $ = layui.jquery,
