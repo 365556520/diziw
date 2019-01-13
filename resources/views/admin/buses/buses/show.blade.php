@@ -110,7 +110,7 @@
                      @if(empty($buses->getDriver->driver_photo))
                      style ="background:  url({{url('/backend/images/default/default_zhaopian.jpg')}});background-size:100% 100%;"
                      @else
-                     style ="background: url({{url($buses->driver->driver_photo)}});background-size:100% 100%;"
+                     style ="background: url({{url($buses->getDriver->driver_photo)}});background-size:100% 100%;"
                         @endif >
                 </div>
             </div>
