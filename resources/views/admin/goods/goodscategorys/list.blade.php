@@ -36,7 +36,7 @@
                     ,{field:'updated_at', title:'更新时间' }
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
                 ]]
-                ,limit: 100 //默认采用100
+                ,limit: 1000 //默认采用100
                 ,loading: false
             });
 

@@ -23,7 +23,9 @@ class BusesRouteController extends CommonController
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('admin.buses.busesroute.list');
+        //得到所有线路
+        $pid = $this->busesroute->getpid();
+        return view('admin.buses.busesroute.list')->with(compact('pid'));
     }
 
 
@@ -72,7 +74,8 @@ class BusesRouteController extends CommonController
     public function edit($id)
     {
         $busesroute = $this->busesroute->editView($id);
-        return view('admin.buses.busesroute.edit')->with(compact('busesroute'));
+        $pid = $this->busesroute->getpid();
+        return view('admin.buses.busesroute.edit')->with(compact('busesroute','pid'));
     }
 
     /**

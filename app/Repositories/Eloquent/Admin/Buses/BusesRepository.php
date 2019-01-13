@@ -23,6 +23,7 @@ class BusesRepository extends Repository {
         if ($start!=0){
             $start = $start*$length; //得到查询的开始的id
         }
+
         if ($data['reload']!= null) {
             //模糊查找name、id列
             $busess = $buses->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->offset($start)->limit($length)->get();
@@ -31,6 +32,10 @@ class BusesRepository extends Repository {
             if($data['busesroute_id'] != null){
                 $busess = $buses->where('busesroute_id',$data['busesroute_id'])->offset($start)->limit($length)->get();//得到分页数据
                 $count = $buses->where('busesroute_id',$data['busesroute_id'])->count();//查出所有数据的条数
+            }elseif ($data["busesroute_ids"]!=null){
+               $ids = json_decode($data["busesroute_ids"],true);//转换数组
+                $busess = $buses->whereIn('busesroute_id',$ids)->offset($start)->limit($length)->get();//得到分页数据
+                $count = $buses->whereIn('busesroute_id',$ids)->count();//查出所有数据的条数
             }else{
                 $busess = $buses->offset($start)->limit($length)->get();//得到全部数据
                 $count = $buses->count();//查出所有数据的条数

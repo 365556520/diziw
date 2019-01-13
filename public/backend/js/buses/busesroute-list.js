@@ -17,7 +17,7 @@ var busesrouteList = function() {
             "scrollY": true,
             "scrollX": true,
             //设置浏览数据的条数
-            "lengthMenu": [[5, 10, 15, 20], [5,10, 15, 20]],
+            "lengthMenu": [[1000,10000], [1000,10000]],
             "ajax":{
                 //ajax请求
                 'url' : '/admin/busesroute/ajaxIndex',
@@ -38,9 +38,9 @@ var busesrouteList = function() {
                     "name":"id"
                 },
                 {
-                    "data": "buses_start",
-                    "name": "buses_start",
-                    "orderable" : true,
+                    "data": "_buses_start",
+                    "name": "_buses_start",
+                    "orderable" : false,
                 },
                 {
                     "data": "buses_midway",
@@ -91,7 +91,7 @@ var busesrouteList = function() {
                 }
             },
             //按钮顺序
-            dom: 'B<"clearfix"><"ln_solid"><lfrtip>',
+            dom: 'B<"clearfix"><"ln_solid"><lfrti>',
             "buttons": [
                 {
                     'extend': 'copy',

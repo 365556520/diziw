@@ -84,7 +84,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">驾驶员</label>
                     <div class="layui-input-inline">
-                        <select name="buses_driver_id">
+                        <select name="buses_driver_id" lay-verify="required" lay-search="">
                             <option value="">选择驾驶员</option>
                             @foreach($driver as $d)
                                 <option value="{{$d->id}}" @if($d->id == $buses->buses_driver_id) selected @endif>{{$d->driver_name}}</option>
@@ -96,7 +96,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">营运线路</label>
                 <div class="layui-input-block">
-                    <select name="busesroute_id">
+                    <select name="busesroute_id" lay-verify="required" lay-search="">
                         <option value="">选择营运线路</option>
                         @foreach($busesRoute as $routes)
                             <option value="{{$routes->id}}"  @if($routes->id == $buses->busesroute_id) selected @endif>{{$routes->buses_start}}-{{$routes->buses_midway}}-{{$routes->buses_end}}</option>

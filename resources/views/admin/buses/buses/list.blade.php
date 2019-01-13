@@ -69,7 +69,7 @@
                 , id: 'dataCheck'
                 , url: '/admin/buses/ajaxIndex'
                 ,toolbar: '#toolbarDemo'
-                , where: {'busesroute_id': null,'ifs':null,'reload':null} //设定异步数据接口的额外参数
+                , where: {'busesroute_ids':null,'busesroute_id': null,'ifs':null,'reload':null} //设定异步数据接口的额外参数
                 , method: 'get'
                 , page: true
                 , limits: [15, 25, 50, 100]
@@ -111,6 +111,7 @@
                     //执行重载
                     tableIns.reload({
                         where: {
+                            'busesroute_ids':null,
                             'busesroute_id': null,
                             'ifs': ifs,
                             'reload': reload
@@ -269,7 +270,7 @@
                 //  url: "../json/case/tree.json"  //异步接口
                 data:[
                     {
-                        title:'全部线路的车辆'
+                        title:'全部车辆'
                         ,id:0
                         ,parentId : 0
                     },
@@ -277,7 +278,20 @@
                     {
                         title:'{{$v->buses_start}}--{{$v->buses_midway}}--{{$v->buses_end}}'
                         ,id:'{{$v->id}}'
-                        ,parentId : '{{$v->id}}'
+                        ,parentId : '{{$v->buses_pid}}'
+                        @if($v->children)
+                        ,basicData: {
+                            @foreach($v->children as $k => $id)"{{$k}}":'{{$id->id}}',@endforeach
+                        }
+                            ,children:[
+                                @foreach($v->children as $vs){
+                                title:'{{$vs->buses_start}}--{{$vs->buses_midway}}--{{$vs->buses_end}}'
+                                ,id:'{{$vs->id}}'
+                                ,parentId : '{{$vs->buses_pid}}'
+                                },
+                                @endforeach
+                            ]
+                        @endif
                     },
                     @endforeach
                 ],
@@ -293,11 +307,25 @@
                     layer.close(loadIndex);
                     // 刷新表格
                     tableIns.reload({
-                        where: {'busesroute_id': newbusesroute_id==0?null:newbusesroute_id,'ifs':null,'reload':null} //设定异步数据接口的额外参数
+                        where: {'busesroute_id': newbusesroute_id==0?null:newbusesroute_id,'busesroute_ids':null,'ifs':null,'reload':null} //设定异步数据接口的额外参数
                         , page: {
                             curr: 1 //重新从第 1 页开始
                         }
                     });
+                }else {
+                    newbusesroute_ids = param.param.basicData;
+                    // 加载中...
+                    var loadIndex = layer.load(2, {shade: false});
+                    // 关闭加载
+                    layer.close(loadIndex);
+                    // 刷新表格
+                    tableIns.reload({
+                        where: {'busesroute_ids':newbusesroute_ids,'busesroute_id':null,'ifs':null,'reload':null} //设定异步数据接口的额外参数
+                        , page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+
                 }
             });
         });

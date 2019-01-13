@@ -58,6 +58,17 @@
                                     <form class="layui-form " method="post" action="{{url('admin/busesroute')}}">
                                         {{csrf_field()}}
                                         <div class="layui-form-item">
+                                            <label class="layui-form-label">线路类</label>
+                                            <div class="layui-input-block">
+                                                <select name="buses_pid" lay-verify="required" lay-search="">
+                                                    <option value="0">线路分类</option>
+                                                    @foreach($pid as $routes)
+                                                        <option value="{{$routes->id}}">{{$routes->buses_start}}-{{$routes->buses_midway}}-{{$routes->buses_end}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
                                             <label class="layui-form-label">起点</label>
                                             <div class="layui-input-block">
                                                 <input type="text" name="buses_start"  required="required" autocomplete="off" placeholder=""class="layui-input">
@@ -108,8 +119,9 @@
         $(function () {
             busesrouteList.init();
         });
-        layui.use('element', function(){
+        layui.use(['form','element'], function(){
             var $ = layui.jquery
+                ,form = layui.form
                 ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
         });
 

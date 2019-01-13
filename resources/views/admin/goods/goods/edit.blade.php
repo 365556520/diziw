@@ -33,7 +33,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">商品分类</label>
                     <div class="layui-input-inline">
-                        <select name="goodscategorys_id" >
+                        <select name="goodscategorys_id" lay-verify="required" lay-search="">
                             <option value="">请选择</option>
                             @foreach($categorys as $v)
                                 <optgroup label="{{$v->goodscategorys_name}}">

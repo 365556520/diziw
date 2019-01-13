@@ -45,9 +45,8 @@ class BusesRouteRepository extends Repository {
         $count = $busesroute->count();//查出所有数据的条数
         $busesroute = $busesroute->orderBy($order['name'],$order['dir']);//数据排序
         $busesroutes = $busesroute->offset($start)->limit($length)->get();//得到分页数据
-        foreach ($busesroutes as $v){
-            $v->password;
-        }
+        $busesroutes = $this->getTreeOne($busesroutes,'buses_start','id','buses_pid');
+
         $userPermissions =  $this->getUserPermissions('busesroute'); //获取当前用户对该表的权限
         if($busesroutes){
             foreach ($busesroutes as $v){
@@ -63,7 +62,12 @@ class BusesRouteRepository extends Repository {
             'data' => $busesroutes,
         ];
     }
-
+    //得到的分类这个只能迭代2层分类
+    public function getBusesRouteList(){
+        $date = $this->model->select('id','buses_start','buses_midway','buses_end','buses_pid')->get();
+        $categorysTree = $this->getTree($date,'buses_pid',0);
+        return $categorysTree;
+    }
     /*添加视频标签*/
     public function createBusesRoute($formData){
         $result = $this->model->create($formData);
@@ -107,5 +111,8 @@ class BusesRouteRepository extends Repository {
             flash('班线修改失败', 'error');
         }
         return $result;
+    }
+    public function getpid(){
+        return $this->model->where('buses_pid',0)->get();//返回父
     }
 }

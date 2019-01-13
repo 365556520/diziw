@@ -17,6 +17,7 @@ class BusesRoute extends Model
         'buses_start',
         'buses_midway',
         'buses_end',
+        'buses_pid',
     ];
     /**
      * 获取营运线路的车辆

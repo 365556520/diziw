@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\BusesRouteRequest;
-use App\Models\UsersModel\Buses\BusesRoute;
-use App\Models\UsersModel\Buses\Driver;
+
 use App\Repositories\Eloquent\Admin\Buses\BusesRepository;
+use App\Repositories\Eloquent\Admin\Buses\BusesRouteRepository;
+use App\Repositories\Eloquent\Admin\Buses\DriverRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+
 
 class BusesController extends CommonController
 {
@@ -16,13 +16,13 @@ class BusesController extends CommonController
     private $driver;
     //得到所有线路
     private $busesRoute;
-    function __construct(BusesRepository $buses)
+    function __construct(BusesRepository $buses,BusesRouteRepository $busesRoute,DriverRepository $driver)
     {
         //调用父累的构造方法
         parent::__construct('buses');
         $this->buses = $buses;
-        $this->driver = Driver::all();
-        $this->busesRoute = BusesRoute::all();
+        $this->driver =$driver;
+        $this->busesRoute = $busesRoute;
 
     }
 
@@ -33,9 +33,9 @@ class BusesController extends CommonController
      */
     public function index(){
         //得到所有驾驶员
-        $driver =   $this->driver;
+        $driver =   $this->driver->all();
         //得到所有线路
-        $busesRoute = $this->busesRoute;
+        $busesRoute = $this->busesRoute->getBusesRouteList();
         return view('admin.buses.buses.list')->with(compact('driver','busesRoute'));
     }
 
@@ -53,9 +53,9 @@ class BusesController extends CommonController
     public function create()
     {
         //得到所有驾驶员
-        $driver =   $this->driver;
+        $driver =   $this->driver->all();
         //得到所有线路
-        $busesRoute = $this->busesRoute;
+        $busesRoute = $this->busesRoute->all();
         return view('admin.buses.buses.add')->with(compact('driver','busesRoute'));
     }
 
@@ -91,9 +91,9 @@ class BusesController extends CommonController
     public function edit($id)
     {
         //得到所有驾驶员
-        $driver =   $this->driver;
+        $driver =   $this->driver->all();
         //得到所有线路
-        $busesRoute = $this->busesRoute;
+        $busesRoute = $this->busesRoute->all();
         $buses = $this->buses->editView($id);
         return view('admin.buses.buses.edit')->with(compact('buses','driver','busesRoute'));
     }
