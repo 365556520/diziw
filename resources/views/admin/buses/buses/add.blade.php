@@ -96,8 +96,12 @@
                 <div class="layui-input-block">
                     <select name="busesroute_id" lay-verify="required" lay-search="">
                         <option value="">选择营运线路</option>
-                        @foreach($busesRoute as $routes)
-                            <option value="{{$routes->id}}">{{$routes->buses_start}}-{{$routes->buses_midway}}-{{$routes->buses_end}}</option>
+                        @foreach($busesRoute as $v)
+                            <optgroup label="{{$v->buses_start}}-{{$v->buses_midway}}-{{$v->buses_end}}">
+                                @foreach($v->children as $vl)
+                                    <option value="{{$vl->id}}">{{$vl->buses_start}}-{{$vl->buses_midway}}-{{$vl->buses_end}}</option>
+                                @endforeach
+                            </optgroup>
                         @endforeach
                     </select>
                 </div>

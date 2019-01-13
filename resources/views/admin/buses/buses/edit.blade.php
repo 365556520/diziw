@@ -6,7 +6,7 @@
 @endsection
 @section('content')
     <div class="row">
-        <form class="layui-form layui-form-pane " method="post" action="{{url('admin/buses/'.$buses->id)}}">
+        <form class="layui-form layui-form-pane " lay-filter="edit" method="post" action="{{url('admin/buses/'.$buses->id)}}">
             {{csrf_field()}}
             {{method_field('PUT')}}
             <input type="hidden" value="{{$buses->id}}" name="id">
@@ -98,8 +98,12 @@
                 <div class="layui-input-block">
                     <select name="busesroute_id" lay-verify="required" lay-search="">
                         <option value="">选择营运线路</option>
-                        @foreach($busesRoute as $routes)
-                            <option value="{{$routes->id}}"  @if($routes->id == $buses->busesroute_id) selected @endif>{{$routes->buses_start}}-{{$routes->buses_midway}}-{{$routes->buses_end}}</option>
+                        @foreach($busesRoute as $v)
+                            <optgroup label="{{$v->buses_start}}-{{$v->buses_midway}}-{{$v->buses_end}}">
+                                @foreach($v->children as $vl)
+                                    <option value="{{$vl->id}}">{{$vl->buses_start}}-{{$vl->buses_midway}}-{{$vl->buses_end}}</option>
+                                @endforeach
+                            </optgroup>
                         @endforeach
                     </select>
                 </div>
@@ -116,6 +120,10 @@
             var $ = layui.jquery,
                 form = layui.form,
                 element = layui.element;//Tab的切换功能，切换事件监听等，需要依赖element模块
+            //表单初始值
+            form.val("edit", {
+                "busesroute_id": '{{$buses->busesroute_id}}',
+            });
         });
     </script>
     {{--提示代码--}}

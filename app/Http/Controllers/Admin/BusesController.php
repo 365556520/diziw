@@ -55,7 +55,7 @@ class BusesController extends CommonController
         //得到所有驾驶员
         $driver =   $this->driver->all();
         //得到所有线路
-        $busesRoute = $this->busesRoute->all();
+        $busesRoute = $this->busesRoute->getBusesRouteList();
         return view('admin.buses.buses.add')->with(compact('driver','busesRoute'));
     }
 
@@ -93,7 +93,7 @@ class BusesController extends CommonController
         //得到所有驾驶员
         $driver =   $this->driver->all();
         //得到所有线路
-        $busesRoute = $this->busesRoute->all();
+        $busesRoute = $this->busesRoute->getBusesRouteList();
         $buses = $this->buses->editView($id);
         return view('admin.buses.buses.edit')->with(compact('buses','driver','busesRoute'));
     }
