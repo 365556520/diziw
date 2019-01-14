@@ -42,7 +42,7 @@
                         <input type="text" name="buses_insurance_date" value="{{$buses->buses_insurance_date}}" lay-verify="required"  placeholder="请输入保险期限" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                {{--保险期限--}}
+                {{--车辆审验时间--}}
                 <div class="layui-inline">
                     <label class="layui-form-label" style="padding:9px 2px;">车辆审验时间</label>
                     <div class="layui-input-block">
