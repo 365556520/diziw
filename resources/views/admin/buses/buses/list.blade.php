@@ -262,11 +262,7 @@
             dtree.render({
                 elem: "#tree",  //绑定元素
                 initLevel:1,
-                dot: false,//隐藏小圆点
-                ficon: "-1",// 隐藏一级图标
-                nodeIconArray:{"1":{"open":"dtree-icon-pulldown","close":"dtree-icon-pullup"}},  // 自定扩展的二级非最后一级图标，从1开始
-                leafIconArray:{"8":"dtree-icon-shujudaping"},  // 自定义扩展的二级最后一级图标，从8开始
-                icon: ["1","8"], // 使用
+                icon: ["0","-1"], // 使用
                 //  url: "../json/case/tree.json"  //异步接口
                 data:[
                     {

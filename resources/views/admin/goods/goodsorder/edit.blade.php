@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <button class="layui-btn" lay-submit="" lay-filter="demo2">添加订单</button>
+                <button class="layui-btn" lay-submit="" lay-filter="demo2">确认修改</button>
             </div>
         </form>
 

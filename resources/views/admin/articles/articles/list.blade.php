@@ -73,7 +73,7 @@
                 , id: 'dataCheck'
                 , url: '/admin/articles/ajaxIndex'
                  ,toolbar: '#toolbarDemo'
-                , where: {'category_id': null,'ifs':null,'reload':null} //设定异步数据接口的额外参数
+                , where: {'articles_ids': null,'category_id': null,'ifs':null,'reload':null} //设定异步数据接口的额外参数
                 , method: 'get'
                 , page: true
                 , limits: [15, 25, 50, 100]
@@ -114,6 +114,7 @@
                     //执行重载
                     tableIns.reload({
                         where: {
+                            'articles_ids': null,
                             'category_id': null,
                             'ifs': ifs,
                             'reload': reload
@@ -293,15 +294,24 @@
             dtree.render({
                 elem: "#tree",  //绑定元素
                 initLevel:1,
-                icon: "4",
+                leafIconArray:{"8":"dtree-icon-xinxipilu"},  // 自定义扩展的二级最后一级图标，从8开始
+                icon: "8", // 使用
                 dot: false,//隐藏小圆点
                 //  url: "../json/case/tree.json"  //异步接口
                 data:[
+                        {
+                            title:'全部文章'
+                            ,id:0
+                            ,parentId : 0
+                        },
                         @foreach($categorys as $v){
                             title:'{{$v->cate_name}}'
                             ,id:'{{$v->id}}'
                             ,parentId : '{{$v->cate_pid}}'
                             @if($v->children)
+                            ,basicData: {
+                                @foreach($v->children as $k => $id)"{{$k}}":'{{$id->id}}',@endforeach
+                            }
                                 ,children:[
                                     @foreach($v->children as $vs){
                                     title:'{{$vs->cate_name}}'
@@ -326,11 +336,25 @@
                     layer.close(loadIndex);
                     // 刷新表格
                     tableIns.reload({
-                        where: {'category_id': newcategory_id,'ifs':null,'reload':null} //设定异步数据接口的额外参数
+                        where: {'articles_ids':null,'category_id': newcategory_id,'ifs':null,'reload':null} //设定异步数据接口的额外参数
                         , page: {
                             curr: 1 //重新从第 1 页开始
                         }
                     });
+                }else {
+                    ids = param.param.basicData;
+                    // 加载中...
+                    var loadIndex = layer.load(2, {shade: false});
+                    // 关闭加载
+                    layer.close(loadIndex);
+                    // 刷新表格
+                    tableIns.reload({
+                        where: {'articles_ids':ids,'category_id':null,'ifs':null,'reload':null} //设定异步数据接口的额外参数
+                        , page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    });
+
                 }
             });
         });

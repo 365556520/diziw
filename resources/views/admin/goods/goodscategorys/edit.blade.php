@@ -34,7 +34,7 @@
 
 
             <div class="layui-form-item">
-                <button class="layui-btn" lay-submit="" lay-filter="demo2">修改商品分类</button>
+                <button class="layui-btn" lay-submit="" lay-filter="demo2">确认修改</button>
             </div>
         </form>
 

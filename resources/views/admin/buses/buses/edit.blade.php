@@ -5,7 +5,7 @@
 @section('css')
 @endsection
 @section('content')
-    <div class="row">
+    <div class="row" style="padding: 2px 15px 2px 15px">
         <form class="layui-form layui-form-pane " lay-filter="edit" method="post" action="{{url('admin/buses/'.$buses->id)}}">
             {{csrf_field()}}
             {{method_field('PUT')}}
