@@ -1,100 +1,170 @@
-@extends('admin.layouts.bootstrapcontent')
+@extends('admin.layouts.layuicontent')
 @section('title')
-    <title>{{ trans('admin/role.title')}}</title>
+    <title>{{ trans('admin/menu.title')}}</title>
 @endsection
 @section('css')
-    {{--datatables 插件--}}
-    <link href="{{asset('backend/vendors/DataTables-1.10.15/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
-    {{--导出excel插件cs--}}
-    <link href="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.min.css')}}" rel="stylesheet">
-    {{--导出excel插件csend--}}
-    <!--或者下载到本地，下面有下载地址-->
 @endsection
 @section('content')
-    <div class="">
-        <br>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>{{ trans('admin/role.desc')}}<small>{{ trans('admin/role.action.createDescription')}}</small></h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li>
-                                    @permission(config('admin.permissions.role.add'))
-                                    <div class="title">
-                                        <div class="col-md-12 col-sm-12 col-xs-12  pull-left top_search">
-                                            <a class="btn btn-round btn-warning" data-toggle="modal" data-target="#createModal" href="{{url('admin/role/create')}}">
-                                                {!! trans('admin/role.action.create') !!}
-                                            </a>
-                                        </div>
-                                    </div>
-                                    @endpermission
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        @include('flash::message')
-                        <div class="x_content">
-                            <table id="datatable-responsive" class="table table-striped table-bordered display responsive no-wrap" cellspacing="0" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>{{trans('admin/role.model.id')}}</th>
-                                    <th>{{trans('admin/role.model.name')}}</th>
-                                    <th>{{trans('admin/role.model.display_name')}}</th>
-                                    <th>{{trans('admin/role.model.description')}}</th>
-                                    <th>{{trans('admin/role.model.operate')}}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-        {{--添加模态框--}}
-        <div class="modal inmodal" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content animated bounceInRight">
-                    {{--内容在show.balde中--}}
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-        </div>
-        {{--修改模态框--}}
-        <div class="modal inmodal" id="eidtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content animated bounceInRight">
-                    {{--内容在edit.balde中--}}
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-        </div>
-        {{--查看模态框--}}
-        <div class="modal inmodal" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content animated bounceInRight">
-                    {{--内容在show.balde中--}}
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-        </div>
+     @include('flash::message')
+    <div class="layui-row">
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container layui-btn-group my-btn-box">
+                <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="getCheckLength">获取选中数目</button>
+                <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="isAll">刷新</button>
+                <button class="layui-btn layui-btn-xs" lay-event="add">{{trans('admin/role.action.create')}}</button>
+            </div>
+        </script>
+        {{--操作按钮--}}
+        <script type="text/html" id="barbtn">
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="show">授权</button>
+                <button class="layui-btn layui-btn-xs" lay-event="edit">编辑</button>
+                <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</button>
+            </div>
+        </script>
     </div>
 @endsection
 @section('js')
+    <script>
+        layui.use('table', function(){
+            var table = layui.table;
+            // 表格渲染
+            var tableIns = table.render({
+                elem: '#test'
+                , height: $(window).height() - ( $('.my-btn-box').outerHeight(true) ? $('.my-btn-box').outerHeight(true) + 35 :  40 )    //获取高度容器高度
+                ,url:'/admin/role/ajaxIndex'
+                ,toolbar: '#toolbarDemo'
+                ,title: '{{trans('admin/role.desc')}}'
+                ,cols: [[
+                    {type: 'checkbox', fixed: 'left'}
+                    ,{field:'id', title:'{{trans('admin/role.model.id')}}', width:80, fixed: 'left', unresize: true, sort: true}
+                    ,{field:'name', title:'{{trans('admin/role.model.name')}}', width:120}
+                    ,{field:'display_name', title:'{{trans('admin/role.model.display_name')}}', width:120, edit: 'text',}
+                    ,{field:'description', title:'{{trans('admin/role.model.description')}}', width:200, edit: 'text',}
+                    ,{fixed:'right', title:'{{trans('admin/role.model.operate')}}', toolbar: '#barbtn', width:180}
+                ]]
+                , page: true
+                , limits: [15, 25, 50, 100]
+                , limit: 15 //默认采用30
+                ,loading: false
+            });
 
-    {{--datatables 插件--}}
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>
-    {{--导出excel插件js--}}
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js')}}"></script>
-    <script src="{{asset('backend/js/permission/jszip.min.js')}}"></script>
-    {{--导出excel插件jsend--}}
-    {{--打印 js--}}
-    <script src="{{asset('backend/vendors/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js')}}"></script>
-    {{--打印 jsend--}}
-    <script src="{{asset('backend/js/role/role-list.js')}}"></script>
-   {{--提示代码--}}
-    @include('component.errorsLayer')
-    <script >
-        $(function () {
-            RoleList.init();
+            //头工具栏事件
+            table.on('toolbar(test)', function(obj){
+                var checkStatus = table.checkStatus(obj.config.id);
+                switch(obj.event){
+                    case 'getCheckLength':
+                        var data = checkStatus.data;
+                        layer.msg('选中了：'+ data.length + ' 个');
+                        break;
+                    case 'isAll':
+                        // 刷新表格
+                        tableIns.reload({
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });
+                        //layer.msg(checkStatus.isAll ? '全选': '未全选');
+                        break;
+                    case 'add':
+                        layer.open({
+                            type: 2,//2类型窗口 这里内容是一个网址
+                            title: '{{trans('admin/role.create')}}',
+                            shadeClose: true,
+                            shade: false,
+                            anim: 2, //打开动画
+                            maxmin: true, //开启最大化最小化按钮
+                            area: ['893px', '100%'],
+                            content: '{{url("/admin/role/create")}}',
+                            cancel: function(index, layero){
+                                // 刷新表格
+                                tableIns.reload({
+                                    page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                });
+                                return true;
+                            }
+                        });
+                        break;
+                };
+            });
+            //监听行工具条事件
+            table.on('tool(test)', function(obj){
+                var data = obj.data;
+                //console.log('kankan22222 '+obj.data);
+                if(obj.event === 'del'){
+                    layer.confirm('真的删除此分类吗？', function(index){
+                        $.ajax({
+                            type: "POST",
+                            url: "{{url('/admin/role')}}/"+data.id,
+                            cache: false,
+                            data:{_method:"DELETE", _token: "{{csrf_token()}}"},
+                            success: function (data) {
+                                layer.msg('删除成功', {
+                                    time: 2000, //20s后自动关
+                                });
+                                // 刷新表格
+                                tableIns.reload({
+                                    page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                });
+                                //删除成功后删除缓存
+                                layer.close(index);
+                            },
+                            error: function (xhr, status, error) {
+                                layer.msg('删除失败', {
+                                    time: 2000, //20s后自动关
+                                });
+                                console.log(xhr);
+                                console.log(status);
+                                console.log(error);
+                            }
+                        });
+                    });
+                } else if(obj.event === 'edit'){
+                   layer.open({
+                        type: 2,//2类型窗口 这里内容是一个网址
+                        title: '{{trans('admin/permission.edit')}}',
+                        shadeClose: true,
+                        shade: false,
+                        anim: 2, //打开动画
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['893px', '100%'],
+                        content: '{{url("/admin/role")}}/'+ data.id + '/edit',
+                        cancel: function(index, layero){
+                           // 刷新表格
+                           tableIns.reload({
+                               page: {
+                                   curr: 1 //重新从第 1 页开始
+                               }
+                           });
+                           return true;
+                       }
+                    });
+                 /*   layer.prompt({
+                        formType: 2
+                        ,value:data.id
+                    }, function(value, index){
+                        obj.update({
+                            cate_keywords: value
+                        });
+                        layer.close(index);
+                    });*/
+                } else if(obj.event === 'show'){
+                    //多窗口模式，层叠置顶
+                    layer.open({
+                        type: 2 //1类型窗口 这里内容可以自己写
+                        ,title:'授权'
+                        ,area: ['893px', '100%']
+                        ,shade: 0
+                        ,maxmin: true
+                        ,content: '{{url("/admin/role")}}/'+ data.id
+                    });
+                }
+            });
         });
     </script>
 @endsection

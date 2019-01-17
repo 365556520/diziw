@@ -1,87 +1,67 @@
-{{--<!-- 添加全选模态框（Modal） -->--}}
-{{--下拉菜单--}}
-<link href="{{ asset('/backend/vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
-{{--下拉菜单js--}}
-<script src="{{ asset('/backend/vendors/select2/dist/js/select2.full.min.js')}}"></script>
+@extends('admin.layouts.layuicontent')
+@section('title')
+    <title>{{ trans('admin/menu.title')}}</title>
+@endsection
+@section('css')
+@endsection
+@section('content')
+    <div class="layui-row" style="padding: 2px 15px 2px 15px">
+        <br>
+        @include('flash::message')
+        <form class="layui-form layui-form-pane" lay-filter="edit" action="{{url('admin/role',[$role->id])}}" method="post">
+            {{csrf_field()}}
+            {{method_field('PUT')}}
+            <input type="hidden" name="id" value="{{$role->id}}">
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{trans('admin/role.model.name')}}</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
 
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-        &times;
-    </button>
-    <h4 class="modal-title" id="myModalLabel">{{trans('admin/permission.edit')}}</h4>
-</div>
-<form id="demo-form2" class="form-horizontal form-label-left"  action="{{url('admin/role',[$role->id])}}" method="post" >
-    {{csrf_field()}}
-    {{method_field('PUT')}}
-    <input type="hidden" name="id" value="{{$role->id}}">
-    <div class="modal-body">
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">{{trans('admin/role.model.name')}}<span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="first-name" required="required" name="name" class="form-control col-md-7 col-xs-12" value="{{$role->name}}">
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{trans('admin/role.model.display_name')}}</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="display_name" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">{{trans('admin/role.model.display_name')}}<span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="last-name" name="display_name" required="required" class="form-control col-md-7 col-xs-12" value="{{$role->display_name}}">
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('admin/role.model.permission')}}</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="select2_multiple form-control" name="permission[]" multiple="multiple" size="4">
-                    @foreach($permission as $v)
-                        <option value="{{$v->id}}">{{$v->display_name}}</option>
-                    @endforeach
-                </select>
+            <div class="layui-form-item  layui-form-text">
+                <label class="layui-form-label">{{trans('admin/role.model.description')}}</label>
+                <div class="layui-input-block">
+                    <textarea  name="description" class="layui-textarea"></textarea>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">{{trans('admin/role.model.description')}}</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea cols="30" rows="10" class="form-control col-md-7 col-xs-12" type="text" name="description">{{$role->description}}</textarea>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit="" lay-filter="demo2">{{trans('admin/role.edit')}}</button>
             </div>
-        </div>
+        </form>
+
     </div>
-    <div class="modal-footer">
-        <div class="form-group">
-            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="submit" class="btn btn-success">{{trans('admin/role.edit')}}</button>
-            </div>
-        </div>
-    </div>
-</form>
-
-
-<script>
-    /*   下拉菜单*/
-    $(document).ready(function() {
-        //得到权限的个数
-        var len ={{count($permission)}};
-
-        var v = [];
-        /*把权限数组遍历到js数据中*/
-        @foreach($role->permission as $k =>$v)
-            v['{{$k}}'] = '{{$v}}';
-        @endforeach
-        /*添加下拉列表所有的值*/
-        $('.select2_multiple').val(v).trigger('change');//这个就是select2的赋值方式。而val里的就是opt;
-        $(".select2_multiple").select2({
-            maximumSelectionLength:len,
-            placeholder: "请选择权限共有"+len+"个权限",
-            allowClear: true, //关闭符号
-            selectOnClose: true,//结果显示高亮
-            closeOnSelect: false,//select选中不关闭下拉框
-
+@endsection
+@section('js')
+    <script>
+        layui.use(['form', 'layedit', 'laydate'], function(){
+            var form = layui.form
+                ,layer = layui.layer;
+            //初始值
+            form.val("edit", {
+                "name": "{{$role->name}}"
+                ,"display_name": "{{$role->display_name}}"
+                ,"description": "{{$role->description}}"
+            })
+            //监听提交
+            form.on('submit(demo2)', function(data){
+                /*     layer.alert(JSON.stringify(data.field), {
+                 title: '最终的提交信息'
+                 })*/
+                return true;
+            });
         });
-    });
-</script>
+    </script>
+@endsection
+
+
 
 

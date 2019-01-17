@@ -28,8 +28,8 @@ class RoleController extends CommonController
         return view('admin.role.list');
     }
 //权限表DataTables
-    public function ajaxIndex(){
-        $result = $this->role->ajaxIndex();
+    public function ajaxIndex(Request $request){
+        $result = $this->role->ajaxIndex($request->all());
         return response()->json($result);
     }
 
@@ -39,8 +39,8 @@ class RoleController extends CommonController
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   $permission =  $this->role->getAllPermissionList();
-        return view('admin.role.create')->with(compact('permission'));
+    {
+        return view('admin.role.create');
     }
 
     /**
@@ -56,13 +56,14 @@ class RoleController extends CommonController
 
     /**
      * Display the specified resource.
-     *
+     *授权
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id){
         $role = $this->role->getRole($id);
-        return view('admin.role.show')->with(compact('role'));
+        $permissions = $this->role->getAllPermissionList();
+        return view('admin.role.show')->with(compact('role','permissions'));
     }
 
     /**
@@ -73,8 +74,7 @@ class RoleController extends CommonController
      */
     public function edit($id){
         $role = $this->role->editView($id);
-        $permission =  $this->role->getAllPermissionList();
-        return view('admin.role.edit')->with(compact('role','permission'));
+        return view('admin.role.edit')->with(compact('role'));
     }
 
     /**

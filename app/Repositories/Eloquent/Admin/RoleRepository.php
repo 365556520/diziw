@@ -20,51 +20,23 @@ class  RoleRepository extends Repository{
     }
 
     /*权限表显示数据*/
-    public function ajaxIndex(){
-        // datatables请求次数
-        $draw = request('draw', 1);
-        // 开始条数
-        $start = request('start',config('admin.globals.list.start'));
-        // 每页显示数目
-        $length = request('length',config('admin.globals.list.length'));
-        // 排序
-        $order['name'] = request('columns')[request('order')[0]['column']]['name']; //获取排序那一列name
-
-        $order['dir'] = request('order')[0]['dir']; //按什么排序
-        //得到permission模型
+    public function ajaxIndex($data){
+        //得到模型
         $role = $this->model;
-        // datatables是否启用模糊搜索
-        $search['regex'] = request('search')['regex'];
-        // 搜索框中的值
-        $search['value'] = request('search')['value'];
-        // 搜索框中的值
-        if ($search['value']) {
-            if($search['regex'] == 'true'){
-                //模糊查找name、display_name列
-                $role = $role->where('name', 'like', "%{$search['value']}%")->orWhere('display_name','like', "%{$search['value']}%");
-            }else{
-                //精确查找name、display_name列
-                $role = $role->where('name', $search['value'])->orWhere('display_name', $search['value']);
-            }
+        $length = $data['limit']; //查询得条数
+        $start = $data['page'] -1;//查询的页数 开始查询数据从0开始所以要减去1
+        if ($start!=0){
+            $start = $start*$length; //得到查询的开始的id
         }
         $count = $role->count();//查出所有数据的条数
-        $role = $role->orderBy($order['name'],$order['dir']);//数据排序
         $roles = $role->offset($start)->limit($length)->get();//得到分页数据
-        $userPermissions =  $this->getUserPermissions('role'); //获取当前用户对该表的权限
-        if($roles){
-            foreach ($roles as $v){
-                //这里需要传入2个权限第一个修改权限第二个删除权限第三个是查看权限
-                $v->actionButton = $v->getActionButtont($userPermissions['show'],$userPermissions['edit'],$userPermissions['delete']);
-            }
-        }
-        // datatables固定的返回格式
+        // 固定的返回格式
         return [
-            'draw' => $draw,
-            'recordsTotal' => $count,
-            'recordsFiltered' => $count,
-            'data' => $roles,
+            'code' => 0,
+            'msg' => '',//消息
+            'count' => $count,//总条数
+            'data' => $roles,//数据
         ];
-
     }
     //获取权限
     public function getAllPermissionList(){
@@ -89,13 +61,17 @@ class  RoleRepository extends Repository{
     }
     //删除角色
     public function destroyRole($id){
+        $result =false;
         //删除排除超级管理员
-        $this->isRoleAdmin($id);
-        $result = $this->delete($id);
-        if ($result) {
-            flash(trans('admin/alert.role.destroy_success'),'success');
-        } else {
-            flash(trans('admin/alert.role.destroy_error'), 'error');
+        if($this->isRoleAdmin($id)){
+            abort(500,trans('admin/errors.role_error'));
+        }else{
+            $result = $this->delete($id);
+            if ($result) {
+                flash(trans('admin/alert.role.destroy_success'),'success');
+            } else {
+                flash(trans('admin/alert.role.destroy_error'), 'error');
+            }
         }
         return $result;
     }
@@ -158,8 +134,6 @@ class  RoleRepository extends Repository{
     /*超级管理员拦截*/
     public function isRoleAdmin($id){
         //超级管理不能修改数据
-        if ($this->model->where('id',$id)->first()->is_admin()){
-            abort(500,trans('admin/errors.role_error'));
-        }
+        return $this->model->where('id',$id)->first()->is_admin();
     }
 }
