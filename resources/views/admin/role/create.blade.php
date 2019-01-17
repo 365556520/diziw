@@ -40,9 +40,9 @@
 @endsection
 @section('js')
     <script>
-        layui.use(['form', 'layedit', 'laydate'], function(){
+        layui.use(['form', 'layer',], function(){
             var form = layui.form
-                ,layer = layui.layer
+                ,layer = layui.layer;
             //监听提交
             form.on('submit(demo2)', function(data){
                 /*     layer.alert(JSON.stringify(data.field), {

@@ -89,22 +89,20 @@ class  RoleRepository extends Repository{
     // 修改角色的权限数据
     public function updateRole($attributes,$id){
         //修改排除超级管理员
-        $this->isRoleAdmin($id);
         // 防止用户恶意修改表单id，如果id不一致直接跳转500
-        if ($attributes['id'] != $id) {
+        if ($attributes['id'] != $id||$this->isRoleAdmin($id)) {
             abort(500,trans('admin/errors.role_error'));
         }
         $result = $this->update($attributes,$id);
         if ($result) {
-            /*获取角色*/
+           /* //获取角色修改权限
             $role =  Role::where('id',$id)->first();
-
             if (isset($attributes['permission'])) {
-                /*添加权限*/
+                //添加权限
                 $role->perms()->sync($attributes['permission']);
             }else{
                 $role->perms()->sync([]);
-            }
+            }*/
             flash(trans('admin/alert.role.edit_success'),'success');
         } else {
             flash(trans('admin/alert.role.edit_error'), 'error');

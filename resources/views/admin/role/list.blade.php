@@ -95,35 +95,41 @@
                 var data = obj.data;
                 //console.log('kankan22222 '+obj.data);
                 if(obj.event === 'del'){
-                    layer.confirm('真的删除此分类吗？', function(index){
-                        $.ajax({
-                            type: "POST",
-                            url: "{{url('/admin/role')}}/"+data.id,
-                            cache: false,
-                            data:{_method:"DELETE", _token: "{{csrf_token()}}"},
-                            success: function (data) {
-                                layer.msg('删除成功', {
-                                    time: 2000, //20s后自动关
-                                });
-                                // 刷新表格
-                                tableIns.reload({
-                                    page: {
-                                        curr: 1 //重新从第 1 页开始
-                                    }
-                                });
-                                //删除成功后删除缓存
-                                layer.close(index);
-                            },
-                            error: function (xhr, status, error) {
-                                layer.msg('删除失败', {
-                                    time: 2000, //20s后自动关
-                                });
-                                console.log(xhr);
-                                console.log(status);
-                                console.log(error);
-                            }
+                    if(data.name==="admin"){
+                        layer.msg('超级管理员不能删除！', {
+                            time: 2000, //20s后自动关
                         });
-                    });
+                    }else{
+                        layer.confirm('真的删除此分类吗？', function(index){
+                            $.ajax({
+                                type: "POST",
+                                url: "{{url('/admin/role')}}/"+data.id,
+                                cache: false,
+                                data:{_method:"DELETE", _token: "{{csrf_token()}}"},
+                                success: function (data) {
+                                    layer.msg('删除成功', {
+                                        time: 2000, //20s后自动关
+                                    });
+                                    // 刷新表格
+                                    tableIns.reload({
+                                        page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    });
+                                    //删除成功后删除缓存
+                                    layer.close(index);
+                                },
+                                error: function (xhr, status, error) {
+                                    layer.msg('删除失败', {
+                                        time: 2000, //20s后自动关
+                                    });
+                                    console.log(xhr);
+                                    console.log(status);
+                                    console.log(error);
+                                }
+                            });
+                        });
+                    }
                 } else if(obj.event === 'edit'){
                    layer.open({
                         type: 2,//2类型窗口 这里内容是一个网址
@@ -158,7 +164,7 @@
                     layer.open({
                         type: 2 //1类型窗口 这里内容可以自己写
                         ,title:'授权'
-                        ,area: ['893px', '100%']
+                        ,area: ['80%', '100%']
                         ,shade: 0
                         ,maxmin: true
                         ,content: '{{url("/admin/role")}}/'+ data.id
