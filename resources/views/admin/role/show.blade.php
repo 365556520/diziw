@@ -5,14 +5,12 @@
 @section('css')
 @endsection
 @section('content')
-    <div class="layui-container" style="margin-top: 20px;">
-        <div class="layui-btn-group">
-            <button class="layui-btn all">获取全部数据</button>
-            <button class="layui-btn left">获取左边数据</button>
-            <button class="layui-btn right">获取右边数据</button>
-        </div>
+    <div class="layui-container" style="margin-top: 15px;">
         <div id="root"></div>
-
+        <div class="layui-btn-group">
+            <button class="layui-btn right">确认授权</button>
+        </div>
+        @include('flash::message')
     </div>
 @endsection
 @section('js')
@@ -23,12 +21,12 @@
             var transfer = layui.transfer,
                 $ = layui.$;
             //数据源
-            var data1 = [{'id':'10001','name':'杜甫','sex':'男'},{'id':'10002','name':'李白','sex':'男'},{'id':'10003','name':'王勃','sex':'男'},{'id':'10004','name':'李清照','sex':'男'}];
-            var data2 = [{'id':'10005','name':'白居易','sex':'男'}];
+            var data1 =[@foreach($role->notpermission as $v){'id':'{{$v->id}}','display_name':'{{$v->display_name}}','name':'{{$v->name}}'},@endforeach];
+            var data2 = [@foreach($role->permission as $v){'id':'{{$v->id}}','display_name':'{{$v->display_name}}','name':'{{$v->name}}'},@endforeach];
             //表格列
-            var cols = [{type: 'checkbox', fixed: 'left'},{field: 'id', title: 'ID', width: 80, sort: true},{field: 'name', title: '用户名'},{field: 'sex', title: '性别'}]
+            var cols = [{type: 'checkbox', fixed: 'left'},{field: 'id', title: 'ID', width: 60, sort: true},{field: 'display_name', title: '权限名'},{field: 'name', title: '权限', width: 150}]
             //表格配置文件
-            var tabConfig = {'page':true,'limits':[10,50,100],'height':300}
+            var tabConfig = {'page':{groups: 1,first: false,last: false},'limits':[10,50,100],'height':400}
             var tb1 = transfer.render({
                 elem: "#root", //指定元素
                 cols: cols, //表格列  支持layui数据表格所有配置
@@ -47,8 +45,22 @@
                 layer.msg(JSON.stringify(data))
             });
             $('.right').on('click',function () {
-                var data = transfer.get(tb1,'r');
-                layer.msg(JSON.stringify(data))
+                var data = transfer.get(tb1,'r','id');
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/role/upPermission",
+                    cache: false,
+                    data:{permission:data,id:"{{$role->id}}"},
+                    success: function (data) {
+                       layer.msg('授权成功');
+                    },
+                    error: function (xhr, status, error) {
+                        layer.msg('授权失败');
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
             });
         })
     </script>

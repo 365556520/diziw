@@ -62,8 +62,7 @@ class RoleController extends CommonController
      */
     public function show($id){
         $role = $this->role->getRole($id);
-        $permissions = $this->role->getAllPermissionList();
-        return view('admin.role.show')->with(compact('role','permissions'));
+        return view('admin.role.show')->with(compact('role'));
     }
 
     /**
@@ -97,6 +96,14 @@ class RoleController extends CommonController
      */
     public function destroy($id){
         $this->role->destroyRole($id);
+        return redirect('admin/role');
+    }
+    /*
+     * 授权
+     * */
+    public function upPermission(Request $request){
+        $data = $request->all();
+        $this->role->setRolePermission(explode(",", $data["permission"]),$data["id"]);
         return redirect('admin/role');
     }
 }

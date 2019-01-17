@@ -164,7 +164,7 @@
                     layer.open({
                         type: 2 //1类型窗口 这里内容可以自己写
                         ,title:'授权'
-                        ,area: ['80%', '100%']
+                        ,area: ['97%', '100%']
                         ,shade: 0
                         ,maxmin: true
                         ,content: '{{url("/admin/role")}}/'+ data.id

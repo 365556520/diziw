@@ -95,19 +95,27 @@ class  RoleRepository extends Repository{
         }
         $result = $this->update($attributes,$id);
         if ($result) {
-           /* //获取角色修改权限
-            $role =  Role::where('id',$id)->first();
-            if (isset($attributes['permission'])) {
-                //添加权限
-                $role->perms()->sync($attributes['permission']);
-            }else{
-                $role->perms()->sync([]);
-            }*/
             flash(trans('admin/alert.role.edit_success'),'success');
         } else {
             flash(trans('admin/alert.role.edit_error'), 'error');
         }
         return $result;
+    }
+    /*角色授权*/
+    public function setRolePermission($permissions,$id){
+        $role =  Role::where('id',$id)->first();
+        if (isset($permissions)) {
+            //添加权限
+            $role = $role->perms()->sync($permissions);
+        }else{
+            $role =  $role->perms()->sync([]);
+        }
+        if ($role) {
+            flash("授权成功",'success');
+        } else {
+            flash("授权失败", 'error');
+        }
+        return $role;
     }
     /*获取角色数据*/
     public function getRole($id){
@@ -115,6 +123,7 @@ class  RoleRepository extends Repository{
         //根据id获取角色所有权限
         $rolePermission =  $this->getRolePermission($id);
         $role['permission'] = Permission::whereIn('id',$rolePermission)->get();
+        $role['notpermission'] = Permission::whereNotIn('id',$rolePermission)->get();
         return $role;
     }
     //获取角色权限
