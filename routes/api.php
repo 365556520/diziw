@@ -47,6 +47,8 @@ Route::group(['namespace'=>'Api'],function(){
         //起点和终点查出线路id
         Route::get('getBusesRouteId', 'BusesController@getBusesRouteId');
     });
+    //文章接口
+
     Route::group(['namespace'=>'Auth'],function() {
         //登录api
         Route::post('login', 'PassportController@login');
