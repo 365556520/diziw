@@ -16,7 +16,6 @@ class BusesController extends CommonController
     public function getBusesRouteall(){
         $data =  BusesRoute::get();
         $newdata = [];
-
         foreach ($data as $k=>$v){
             $newdata['buses_start'][$k] = $v->buses_start;
             $newdata['buses_midway'][$k] = $v->buses_midway;
@@ -26,6 +25,8 @@ class BusesController extends CommonController
         $newdata['buses_start'] = array_unique($newdata['buses_start']);
         //终点和途经合并去重 (array_filter()去除数组中的空，用implode把路径数组转换成以点分割的字符串，然后在用explode以点分割转换成数组最后用array_merge把2个数组合并)
         $newdata['buses_end'] = array_filter(array_unique(array_merge($newdata['buses_end'],explode(",", implode(",", $newdata['buses_midway'])))));
+        //所有地名
+        $newdata['buses_route_name'] = array_unique(array_merge($newdata['buses_start'],$newdata['buses_end']));
         return $this->response($newdata);
     }
     /*
@@ -45,6 +46,11 @@ class BusesController extends CommonController
         $data = BusesRoute::whereRaw('buses_start =? and buses_end = ?',[$buses_start,$buses_end])
                             ->orWhere([['buses_start','=',$buses_start],['buses_midway','like','%'.$buses_end.'%']])
                             ->get();
+        if($data->isEmpty()){
+            $data = BusesRoute::whereRaw('buses_end =? and buses_start = ?',[$buses_start,$buses_end])
+                ->orWhere([['buses_end','=',$buses_start],['buses_midway','like','%'.$buses_end.'%']])
+                ->get();
+        }
         foreach ( $data as $k=>$v){
             $data[$k]['buses'] = $v->getBuses;
         }
