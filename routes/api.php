@@ -48,7 +48,10 @@ Route::group(['namespace'=>'Api'],function(){
         Route::get('getBusesRouteId', 'BusesController@getBusesRouteId');
     });
     //文章接口
+    Route::group(['namespace'=>'articles'],function() {
+        Route::get('categorys','CategorysController@getCategorys');
 
+    });
     Route::group(['namespace'=>'Auth'],function() {
         //登录api
         Route::post('login', 'PassportController@login');
