@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api\Articles;
 
-
 use App\Repositories\Eloquent\Admin\Articles\CategorysRepository;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Api\CommonController;
 
 
-class CategorysController extends CommonController
+class ApiCategorysController extends CommonController
 {
     /**
      * 文章分类API
@@ -25,6 +23,13 @@ class CategorysController extends CommonController
     }
     public  function getCategorys(){
         $categorys = $this->categorys->getCategorysList();
-        return $this->response($categorys,'文章分类获取成功','200');
+        $getcategorys = array();
+        foreach ($categorys as $v){
+            if($v->children){
+                foreach ($v->children as $vl)
+                array_push($getcategorys,$vl);
+            }
+        }
+        return $this->response($getcategorys,'文章分类获取成功','200');
     }
 }
