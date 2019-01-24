@@ -49,7 +49,10 @@ Route::group(['namespace'=>'Api'],function(){
     });
     //文章接口
     Route::group(['namespace'=>'Articles'],function() {
+        //分类
         Route::get('getCategorys','ApiCategorysController@getCategorys');
+        //文章
+        Route::get('getArticles','ApiArticlesController@getArticles');
 
     });
     Route::group(['namespace'=>'Auth'],function() {
