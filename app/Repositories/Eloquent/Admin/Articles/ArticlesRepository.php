@@ -181,7 +181,7 @@ class ArticlesRepository extends Repository {
     //获取完整的图片地址数组
     public function getimgurl($imgs){
         foreach ($imgs as &$v){
-            $v->thumb = array_filter(explode("/", $v->thumb));
+            $v->thumb =explode("/", $v->thumb);
         }
         //把图片名字以字符串行式存到数组
         return $imgs;
