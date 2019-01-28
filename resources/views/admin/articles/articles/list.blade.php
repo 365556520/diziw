@@ -299,11 +299,6 @@
                 dot: false,//隐藏小圆点
                 //  url: "../json/case/tree.json"  //异步接口
                 data:[
-                        {
-                            title:'全部文章'
-                            ,id:0
-                            ,parentId : 0
-                        },
                         @foreach($categorys as $v){
                             title:'{{$v->cate_name}}'
                             ,id:'{{$v->id}}'
@@ -321,8 +316,8 @@
                                 @endforeach
                                 ]
                             @endif
-                    },
-                    @endforeach
+                        },
+                        @endforeach
                 ],
             });
             //单击节点 监听事件

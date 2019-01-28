@@ -193,7 +193,7 @@
                     }
                 }
                 //开发者模式 --默认为false
-                , devmode: true
+                , devmode: false
                 //插入代码设置 --hide:true 等同于不配置codeConfig
                 , codeConfig: {
                     hide: false,  //是否显示编码语言选择框
@@ -230,7 +230,7 @@
             });
             var ieditor = layedit.build('content');
             //设置编辑器内容
-            layedit.setContent(ieditor, '<div>{!! $articlesEdit->content !!}</div>', false);
+            layedit.setContent(ieditor, '{!! $articlesEdit->content !!}', false);
 
         });
     </script>
