@@ -26,21 +26,22 @@ class ArticlesRepository extends Repository {
         }
         if ($data['reload']!= null) {
                 //模糊查找name、id列
-            $articless = $articles->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->offset($start)->limit($length)->get();
+            $articless = $articles->with(['getUser','getComments'])->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->offset($start)->limit($length)->get();
             $count = $articles->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->count();//查出所有数据的条数
         }else{
             if($data['category_id'] != null){
-                $articless = $articles->where('category_id',$data['category_id'])->offset($start)->limit($length)->get();//得到分页数据
+                $articless = $articles->with(['getUser','getComments'])->where('category_id',$data['category_id'])->offset($start)->limit($length)->get();//得到分页数据
                 $count = $articles->where('category_id',$data['category_id'])->count();//查出所有数据的条数
             }elseif ($data["articles_ids"]!=null){
                 $ids = json_decode($data["articles_ids"],true);//转换数组
-                $articless = $articles->whereIn('category_id',$ids)->offset($start)->limit($length)->get();//得到分页数据
+                $articless = $articles->with(['getUser','getComments'])->whereIn('category_id',$ids)->offset($start)->limit($length)->get();//得到分页数据
                 $count = $articles->whereIn('category_id',$ids)->count();//查出所有数据的条数
             }else{
-                $articless = $articles->offset($start)->limit($length)->get();//得到全部数据
+                $articless = $articles->with(['getUser','getComments'])->offset($start)->limit($length)->get();//得到全部数据
                 $count = $articles->count();//查出所有数据的条数
             }
         }
+
         // datatables固定的返回格式
         return [
             'code' => 0,

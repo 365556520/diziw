@@ -230,7 +230,7 @@
             });
             var ieditor = layedit.build('content');
             //设置编辑器内容
-            layedit.setContent(ieditor, '{!! $articlesEdit->content !!}', false);
+            layedit.setContent(ieditor, '<div>{!! $articlesEdit->content !!}</div>', false);
 
         });
     </script>

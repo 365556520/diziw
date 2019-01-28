@@ -27,7 +27,7 @@ class Articles extends Model
     //获取文章作者
     public function getUser(){
         //反向关联
-        return $this->belongsTo(' App\User');
+        return $this->belongsTo('App\User','user_id');
     }
     //获取文章评论
     public function getComments(){
