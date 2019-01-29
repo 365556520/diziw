@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent\Admin\Articles;
 use App\Models\UsersModel\Articles\Articles;
 use App\Repositories\Eloquent\Repository;
 use Illuminate\Support\Facades\Storage;
+use Mews\Purifier\Facades\Purifier;
 
 
 /**
@@ -64,6 +65,8 @@ class ArticlesRepository extends Repository {
         }
         //把图片名字以字符串行式存到数组
         $formData['thumb']= $this->getImgArr($img);
+        //防止xxs攻击过滤
+        $formData['content'] =Purifier::clean($formData['content']);
         $result = $this->model->create($formData);
         if ($result) {
             flash('文章添加成功','success');
@@ -137,6 +140,8 @@ class ArticlesRepository extends Repository {
             }
         }
         $attributes['thumb'] = $this->getImgArr($img);
+        //防止xxs攻击过滤
+        $attributes['content'] =Purifier::clean($attributes['content']);
         $result = $this->update($attributes,$id);
         if ($result) {
             flash('文章修改成功','success');

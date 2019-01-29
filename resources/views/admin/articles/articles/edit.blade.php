@@ -199,6 +199,7 @@
                     hide: false,  //是否显示编码语言选择框
                     default: 'javascript' //hide为true时的默认语言格式
                 }
+                ,autoSync:true
                 //新增iframe外置样式和js
                 //, quote:{
                 //    style: ['/Content/Layui-KnifeZ/css/layui.css','/others'],
@@ -225,6 +226,7 @@
                     , '|'
                     , 'table','customlink'
                     , 'fullScreen'
+                    ,'preview'//预览
                 ]
                 , height: '90%'
             });

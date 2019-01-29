@@ -213,6 +213,7 @@
                     , '|'
                     , 'table','customlink'
                     , 'fullScreen'
+                    ,'preview'//预览
                 ]
                 , height: '90%'
             });

@@ -188,6 +188,8 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         //Debugbar优化调试工具
         Barryvdh\Debugbar\ServiceProvider::class,
+        // 防止xss攻击插件
+        Mews\Purifier\PurifierServiceProvider::class,
 
     ],
 
@@ -249,6 +251,7 @@ return [
         'CosFacade' => App\Facades\CosFacade::class,
         //Debugbar优化调试工具
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        // 防止xss攻击插件
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
     ],
-
 ];
