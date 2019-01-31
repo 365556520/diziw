@@ -41,7 +41,7 @@
             <div class="layui-form-item  layui-form-text">
                 <label class="layui-form-label">备注</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" lay-verify="required"  name="remark" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入内容" lay-verify="required"  name="remark" class="layui-textarea">这家伙很懒没有内容</textarea>
                 </div>
             </div>
             <div class="layui-form-item">
