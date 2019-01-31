@@ -42,9 +42,9 @@ class ArticlesController extends CommonController
         if ($upload->isValid()) {
             //把图片放到临时文件家下面
             $path =  $upload->store('backend/images/articleImages');
-            return ['code' => 0,'msg' =>'上传成功',  "data"=>["src"=> url($path)]];
+            return ['errno' => 0, "data"=>["src"=> url($path)]];
         }
-        return ['code' => 1,'msg' => '上传失败'];
+        return ['errno' => 1,'data' => ''];
     }
     /*
      * 删除图片
