@@ -223,16 +223,25 @@
                 }
                 , facePath:'http://knifez.gitee.io/kz.layedit/Content/Layui-KnifeZ/' //这个是表情地址
                 , tool: [
-                    'html', 'undo', 'redo', 'code', 'strong', 'italic', 'underline', 'del', 'addhr', '|', 'fontFomatt','fontfamily', 'fontBackColor', 'colorpicker', 'face'
-                    , '|', 'left', 'center', 'right', '|', 'link', 'unlink', 'images', 'image_alt','anchors'
-                    , '|'
-                    , 'table','customlink'
-                    , 'fullScreen'
+                    'html'//源码模式
+                    ,'undo','redo' //撤销重做--实验功能，不推荐使用
+                    ,'code', 'strong', 'italic', 'underline', 'del'
+                    ,'addhr' //添加水平线
+                    ,'|', 'fontFomatt','fontfamily','fontSize' //段落格式，字体样式，字体颜色
+                    , 'colorpicker', 'fontBackColor'//字体颜色,字体背景色
+                    , 'face', '|', 'left', 'center', 'right', '|', 'link', 'unlink'
+                    ,'images'//多图上传
+                    , 'image_alt'//上传图片拓展
+                    ,'anchors' //锚点
+                    , '|', 'table'//插入表格
+                    ,'customlink'//插入自定义链接
+                    ,'fullScreen'//全屏
                     ,'preview'//预览
                 ]
                 , height: '90%'
             });
             var ieditor = layedit.build('content');
+
         });
     </script>
 @endsection

@@ -201,7 +201,7 @@
                             shade: false,
                             anim: 2, //打开动画
                             maxmin: true, //开启最大化最小化按钮
-                            area: ['893px', '100%'],
+                            area: ['100%', '100%'],
                             content: '{{url("/admin/articles/create")}}',
                             cancel: function(index, layero){
                                 // 刷新表格
@@ -255,12 +255,12 @@
                 } else if(obj.event === 'edit'){
                     layer.open({
                         type: 2,//2类型窗口 这里内容是一个网址
-                        title: '修改文章分类',
+                        title: '修改文章',
                         shadeClose: true,
                         shade: false,
                         anim: 2, //打开动画
                         maxmin: true, //开启最大化最小化按钮
-                        area: ['893px', '100%'],
+                        area: ['100%', '100%'],
                         content: '{{url("/admin/articles")}}/'+ data.id + '/edit',
                         cancel: function(index, layero){
                             // 刷新表格
