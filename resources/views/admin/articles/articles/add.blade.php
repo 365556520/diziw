@@ -76,14 +76,12 @@
                         </div>
                     </div>
                 </div>
-                {{--写文章--}}
                 <div class="layui-colla-item">
                     <h2 class="layui-colla-title">文章内容</h2>
                     <div class="layui-colla-content layui-show">
                         <div class="layui-form-item layui-form-text">
                             <div class="layui-input-block">
-                                <div id="editor">
-                                </div>
+                                <textarea  name="content" id="content"></textarea>
                             </div>
                         </div>
                     </div>
@@ -98,20 +96,7 @@
 @section('js')
    {{--查看本编辑中查看源码需要用到ace插件--}}
     <script src="{{asset('/backend/myvebdors/layui/ace/ace.js')}}"></script>
-    <script src="{{asset('/backend/myvebdors/wangeditor/release/wangEditor.min.js')}}"></script>
     <script>
-        var E = window.wangEditor;
-        var editor = new E('#editor');
-        // 或者 var editor = new E( document.getElementById('editor') )
-        // 配置服务器端地址
-        editor.customConfig.uploadImgServer = '/admin/articles/upload';
-        editor.customConfig.uploadImgParams = {
-            '_token':'{{csrf_token()}}'
-        };
-        //上传文件名字
-        editor.customConfig.uploadFileName = 'file';
-        editor.create();
-
         layui.use(['form', 'layedit', 'laydate','element','layedit', 'layer', 'jquery'], function(){
             var $ = layui.jquery
                 ,form = layui.form

@@ -183,7 +183,7 @@ class ArticlesRepository extends Repository {
         }
         return null;
     }
-    //获取完整的图片地址数组
+    //获取完整的图片名字数组
     public function getimgurl($imgs){
         foreach ($imgs as &$v){
             $v->thumb =explode("/", $v->thumb);

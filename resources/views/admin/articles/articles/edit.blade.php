@@ -83,7 +83,9 @@
                     <div class="layui-colla-content layui-show">
                         <div class="layui-form-item layui-form-text">
                             <div class="layui-input-block">
-                                <textarea  name="content" id="content"></textarea>
+                                <textarea  name="content" id="content">
+                                    {!! $articlesEdit->content !!}
+                                </textarea>
                             </div>
                         </div>
                     </div>
@@ -231,9 +233,6 @@
                 , height: '90%'
             });
             var ieditor = layedit.build('content');
-            //设置编辑器内容
-            layedit.setContent(ieditor, '{!! $articlesEdit->content !!}', false);
-
         });
     </script>
 @endsection
