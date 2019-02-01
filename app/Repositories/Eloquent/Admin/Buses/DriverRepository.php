@@ -74,7 +74,7 @@ class DriverRepository extends Repository {
         return $driver_photo;
     }
     /*批量删除*/
-    public function destroyArticles($thumb,$id){
+    public function destroyDrivers($thumb,$id){
         $result = false;
         $driver_photo = true;
         foreach ($thumb as $v){

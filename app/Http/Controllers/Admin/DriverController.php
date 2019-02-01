@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Models\UsersModel\Buses\Buses;
 use Illuminate\Http\Request;
 use App\Repositories\Eloquent\Admin\Buses\DriverRepository;
 
@@ -73,7 +74,7 @@ class DriverController extends CommonController
     public function store(Request $request){
         //$request->except('_token')不获取_token的值，其他值正常获取
         $result = $this->driver->createDriver($request->except('_token','field'));
-        return redirect(url('admin/driver'));
+        return view("admin.buses.driver.add");
     }
 
     /**
@@ -109,7 +110,7 @@ class DriverController extends CommonController
     public function update(Request $request, $id)
     {
         $this->driver->updateDriver($request->all(),$id);
-        return redirect('admin/driver');
+        return redirect('admin/driver/'.$id.'/edit');
     }
 
     /**
@@ -120,19 +121,27 @@ class DriverController extends CommonController
      */
     public function destroy($id)
     {
-        $this->driver->destroyDriver($id);
-        return redirect(url('admin/driver'));
+        if(Buses::where('buses_driver_id',$id)->exists()){
+            return response()->json(['code' => 0,'msg'=>'删除失败，该驾驶员绑定有车辆！']);
+        }else{
+            $this->driver->destroyDriver($id);
+            return response()->json(['code' => 200,'msg'=>'删除成功']);
+        }
     }
     /*
     * 批量删除
     * */
     public function destroys(Request $request,$id){
-        //得到图片
-        $thumb = $request->all()['thumb'];
         //把json转换成数组然后用数组函数支取id列
-        $id = array_column(json_decode($id),'id');
-        $this->driver->destroyArticles($thumb,$id);
-        return redirect(url('admin/driver'));
+        $id = array_column(json_decode($id), 'id');
+        if(Buses::whereIn('buses_driver_id',$id)->exists()){
+            return response()->json(['code' => 0,'msg'=>'删除失败，有驾驶员绑定有车辆！']);
+        }else {
+            //得到图片
+            $thumb = $request->all()['thumb'];
+            $this->driver->destroyDrivers($thumb, $id);
+            return response()->json(['code' => 200, 'msg' => '删除成功']);
+        }
     }
 
 }
