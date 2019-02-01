@@ -58,17 +58,20 @@
                                     url: "{{url('/admin/categorys/destroys')}}/"+ JSON.stringify(data),
                                     cache: false,
                                     success: function (data) {
-                                        layer.msg('删除成功', {
+                                        layer.msg(data.msg, {
                                             time: 2000, //20s后自动关
                                         });
-                                        // 刷新表格
-                                        tableIns.reload({
-                                            page: {
-                                                curr: 1 //重新从第 1 页开始
-                                            }
-                                        });
-                                        //删除成功后删除缓存
-                                        layer.close(index);
+                                        console.log('kankan22222 '+data.code);
+                                        if(data.code === 200){
+                                            // 刷新表格
+                                            tableIns.reload({
+                                                page: {
+                                                    curr: 1 //重新从第 1 页开始
+                                                }
+                                            });
+                                            //删除成功后删除缓存
+                                            layer.close(index);
+                                        }
                                     },
                                     error: function (xhr, status, error) {
                                         layer.msg('删除失败', {
@@ -132,12 +135,14 @@
                             cache: false,
                             data:{_method:"DELETE", _token: "{{csrf_token()}}"},
                             success: function (data) {
-                                layer.msg('删除成功', {
+                                layer.msg(data.msg, {
                                     time: 2000, //20s后自动关
                                 });
-                                //删除成功后删除缓存
-                                obj.del();
-                                layer.close(index);
+                                if(data.code === 200){
+                                    //删除成功后删除缓存
+                                    obj.del();
+                                    layer.close(index);
+                                }
                             },
                             error: function (xhr, status, error) {
                                 layer.msg('删除失败', {

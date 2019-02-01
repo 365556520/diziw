@@ -92,7 +92,7 @@ class CategorysController extends CommonController
      */
     public function update(Request $request, $id)
     {
-        //
+        //修改分类
         $this->categorys->updateCategorys($request->all(),$id);
         return redirect('admin/categorys/'.$id.'/edit');
     }
@@ -105,8 +105,8 @@ class CategorysController extends CommonController
      */
     public function destroy($id)
     {
-        $this->categorys->destroyCategorys($id);
-        return redirect(url('admin/categorys'));
+        $msg = $this->categorys->destroyCategorys($id);
+        return response()->json($msg);
     }
 
     /*
@@ -115,7 +115,7 @@ class CategorysController extends CommonController
     public function destroys($data){
         //把json转换成数组然后用数组函数支取id列
         $id = array_column(json_decode($data),'id');
-        $this->categorys->destroyCategorys($id);
-        return redirect(url('admin/categorys'));
+        $msg = $this->categorys->destroyCategorys($id);
+        return response()->json($msg);
     }
 }

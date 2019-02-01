@@ -22,10 +22,10 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">分类关系</label>
                     <div class="layui-input-inline">
-                        <select name="cate_pid" lay-verify="" lay-search>
+                        <select name="cate_pid" lay-verify="" lay-search @if($categorysEdit->cate_pid == 0)disabled @endif>
                             <option value="0">顶级分类</option>
                             @foreach($categorys as $v)
-                                    <option value="{{$v->id}}">{{$v->cate_name}}</option>
+                                <option value="{{$v->id}}" >{{$v->cate_name}}</option>
                             @endforeach
                         </select>
                     </div>

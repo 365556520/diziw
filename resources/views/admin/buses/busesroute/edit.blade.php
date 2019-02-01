@@ -46,7 +46,7 @@
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">线路类</label>
                                             <div class="layui-input-block">
-                                                <select name="buses_pid" lay-verify="required" lay-search="">
+                                                <select name="buses_pid" lay-verify="required" lay-search="" @if($busesroute->buses_pid == 0)disabled @endif>
                                                     <option value="0">线路分类</option>
                                                     @foreach($pid as $routes)
                                                         <option value="{{$routes->id}}">{{$routes->buses_start}}-{{$routes->buses_midway}}-{{$routes->buses_end}}</option>

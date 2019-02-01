@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Eloquent\Admin\Articles;
 
+use App\Models\UsersModel\Articles\Articles;
 use App\Models\UsersModel\Articles\Categorys;
 use App\Repositories\Eloquent\Repository;
 
@@ -55,13 +56,21 @@ class CategorysRepository extends Repository {
     }
     /*删除文章分类*/
     public function destroyCategorys($id){
-        $result = $this->delete($id);
-        if ($result) {
-            flash('删除成功','success');
-        } else {
-            flash('删除失败','error');
+        $result = false;
+        if($this->model->where('cate_pid',$id)->exists()){
+            return ['code' => 0,'msg'=>'顶级分类下有子分类未删除！'];
+        }else{
+            if(Articles::where('category_id',$id)->exists()){
+                return ['code' => 0,'msg'=>'此分类下有文章须清理文章后删除次分类！'];
+            }else{
+                $result = $this->delete($id);
+            }
         }
-        return $result;
+        if ($result) {
+            return ['code' => 200,'msg'=>'删除成功'];
+        } else {
+            return ['code' => 0,'msg'=>'删除失败'];
+        }
     }
 
     // 修改文章分类视图数据
