@@ -56,4 +56,14 @@ class BusesController extends CommonController
         }
         return $this->response($data);
     }
+    /*
+     * 获取天气预报
+     * */
+    public function getWeatherForecast(Request $request){
+        $ch = curl_init($request->url) ;
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 获取数据返回
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true); // 在启用 CURLOPT_RETURNTRANSFER 时候将获取数据返回
+        $result = curl_exec($ch);
+        return $this->response($result);
+    }
 }

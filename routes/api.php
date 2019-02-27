@@ -46,6 +46,8 @@ Route::group(['namespace'=>'Api'],function(){
         Route::get('getBusesRouteall', 'BusesController@getBusesRouteall');
         //起点和终点查出线路id
         Route::get('getBusesRouteId', 'BusesController@getBusesRouteId');
+        //天气预报
+        Route::get('getWeatherForecast','BusesController@getWeatherForecast');
     });
     //文章接口
     Route::group(['namespace'=>'Articles'],function() {
@@ -53,8 +55,8 @@ Route::group(['namespace'=>'Api'],function(){
         Route::get('getCategorys','ApiCategorysController@getCategorys');
         //文章
         Route::get('getArticles','ApiArticlesController@getArticles');
-
     });
+
     Route::group(['namespace'=>'Auth'],function() {
         //登录api
         Route::post('login', 'PassportController@login');
