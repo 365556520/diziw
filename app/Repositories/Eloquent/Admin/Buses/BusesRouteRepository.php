@@ -85,7 +85,6 @@ class BusesRouteRepository extends Repository {
         if($this->model->where('buses_pid',$id)->exists()){
             flash('有子线路未删除,请先删除所有子线路！','success');
         }else{
-
             if(Buses::where('busesroute_id',$id)->exists()){
                 flash('此线路下有班车,须清理班车后删除此线路！','success');
             }else{
