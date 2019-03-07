@@ -16,7 +16,7 @@ class ArticlesRepository extends Repository {
         return Articles::class;
     }
 
-    /*权限表显示数据*/
+    /*后台文章显示数据*/
     public function ajaxIndex($data){
         //得到模型
         $articles = $this->model;
@@ -191,4 +191,46 @@ class ArticlesRepository extends Repository {
         //把图片名字以字符串行式存到数组
         return $imgs;
     }
+    //前台
+    /*前台文章列表*/
+    public function getArticles($data){
+        //得到模型
+        $articles = $this->model;
+        $length = $data['limit']; //查询得条数
+        $start = $data['page'] -1;//查询的页数 开始查询数据从0开始所以要减去1
+        if ($start!=0){
+            $start = $start*$length; //得到查询的开始的id
+        }
+        if ($data['reload']!= null) {
+            //模糊查找name、id列
+            //  $articless = $articles->with('getUser:id,name','getComments')->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到全部数据预先加载用户信息和评论with('getUser:id,name','getComments')
+            $articless = $articles->select('id','title','description','thumb','view','created_at')->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->orderBy('created_at','desc')->offset($start)->limit($length)->get();
+            $count = $articles->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->count();//查出所有数据的条数
+        }else{
+            if($data['category_id'] != null){
+                $articless = $articles->select('id','title','description','thumb','view','created_at')->where('category_id',$data['category_id'])->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到分页数据
+                $count = $articles->where('category_id',$data['category_id'])->count();//查出所有数据的条数
+            }elseif ($data["articles_ids"]!=null){
+                $ids = json_decode($data["articles_ids"],true);//转换数组
+                $articless = $articles->select('id','title','description','thumb','view','created_at')->whereIn('category_id',$ids)->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到分页数据
+                $count = $articles->whereIn('category_id',$ids)->count();//查出所有数据的条数
+            }else{
+                $articless = $articles->select('id','title','description','thumb','view','created_at')->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到全部数据
+                $count = $articles->count();//查出所有数据的条数
+            }
+        }
+        // datatables固定的返回格式
+        return [
+            'code' => 0,
+            'msg' => '',//消息
+            'count' => $count,//总条数
+            'data' => $articless,//数据
+        ];
+    }
+    /*获取文章内容*/
+    public function getArticlesContent($id){
+       $content = $this->model->select('tag','user_id','category_id','view','content','updated_at')->where('id',$id)->with('getUser:id,name','getComments')->orderBy('created_at','desc')->get();
+        return $content;
+    }
+
 }

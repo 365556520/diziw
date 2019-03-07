@@ -53,8 +53,10 @@ Route::group(['namespace'=>'Api'],function(){
     Route::group(['namespace'=>'Articles'],function() {
         //分类
         Route::get('getCategorys','ApiCategorysController@getCategorys');
-        //文章
+        //文章列表
         Route::get('getArticles','ApiArticlesController@getArticles');
+        //获取文章内容
+        Route::get('getArticlesContent/{id}','ApiArticlesController@getArticlesContent');
     });
 
     Route::group(['namespace'=>'Auth'],function() {

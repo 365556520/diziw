@@ -22,12 +22,18 @@ class ApiArticlesController extends CommonController
         $this->articles = $Articles;
 
     }
+    //获取文章列表
     public  function getArticles(Request $request){
         $data = $request->all();
         $data['limit']=(int)$data['limit'];
         $data['page']=(int)$data['page'];
-        $result = $this->articles->ajaxIndex($data);
+        $result = $this->articles->getArticles($data);
         $result['data'] = $this->articles->getimgurl($result['data']);
         return $this->response($result,'backend/images/articleImages/','200');
+    }
+    //获取文章内容
+    public function getArticlesContent($id){
+        $content = $this->articles->getArticlesContent($id);
+        return $this->response($content,'文章内容获取成功','200');
     }
 }
