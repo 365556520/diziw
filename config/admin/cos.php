@@ -13,7 +13,7 @@ return[
     'credentials'=> [
         //API密钥
         'appId' => '1251899486',
-        'secretId' => 'AKIDKYhkbIPLfnnaBb6obDielplkcIm32GED',
-        'secretKey' => 'ylLn370jIjx1v23sUxFLEwRmvDM7lFXd'
+        'secretId' => 'AKID8MK3Nr38JEsEPvuK9zZtxlPoxpZ3tFyQ',
+        'secretKey' => 'NhltoSnwpSt44KOHvyoSmqfKaS8YhgRw'
     ],
 ];

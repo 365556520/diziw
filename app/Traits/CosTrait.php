@@ -16,11 +16,11 @@ trait CosTrait{
         require(public_path().'/backend/myvebdors/cos-php-sdk-v5-master/cos-autoloader.php');*/
        $cosClient = new Client(
            array(
-               'region' => 'ap-beijing',
+               'region' =>config('admin.cos.region'),
                'credentials'=> array(
-                   'appId' => '1251899486',
-                   'secretId' => 'AKIDKYhkbIPLfnnaBb6obDielplkcIm32GED',
-                   'secretKey' => 'ylLn370jIjx1v23sUxFLEwRmvDM7lFXd'
+                   'appId' =>config('admin.cos.appId'),
+                   'secretId' =>config('admin.cos.credentials.secretId') ,
+                   'secretKey' =>config('admin.cos.credentials.secretKey'),
                )
            )
        );
