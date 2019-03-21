@@ -83,6 +83,20 @@ class HomeController extends CommonController{
     public function destroy($id){
 
     }
-
+    public function getobjkey(){
+        if(Auth::user()->can(config('admin.permissions.system.login'))){// 如果有后台权限就登录到后台
+            $data =  array(
+                'region' => config('admin.cos.region'),
+                'credentials'=> array(
+                    'appId' => config('admin.cos.credentials.appId'),
+                    'secretId' => config('admin.cos.credentials.secretId'),
+                    'secretKey' => config('admin.cos.credentials.secretKey')
+                )
+            );
+            return response()->json($data);
+        }else{ // 创建用户个人 token api
+            return '大爷你有不是管理员瞎搞个啥';
+        }
+    }
 }
 
