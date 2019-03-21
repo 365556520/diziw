@@ -18,5 +18,9 @@ class GoodsStock extends Model
         'type',
         'price',
     ];
-
+    //获取商品
+    public function getGoods(){
+        //反向关联
+        return $this->belongsTo('App\Models\UsersModel\Goods\Goods','goods_id');
+    }
 }

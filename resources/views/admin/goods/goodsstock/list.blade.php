@@ -31,7 +31,7 @@
                 ,totalRow: true
                 ,cols: [[
                     {field:'id', title:'ID', fixed: 'left',width:80, unresize: true, sort: true,totalRowText: '合计'}
-                    ,{field:'goods_id', title:'商品名称',width:200}
+                    ,{field:'goods_name', title:'商品名',width:200}
                     ,{field:'user_id', title:'用户id',width:120}
                     ,{field:'type', title:'单位',width:80}
                     ,{field:'count', title:'数量',width:80}

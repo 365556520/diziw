@@ -42,6 +42,9 @@ class ArticlesRepository extends Repository {
                 $count = $articles->count();//查出所有数据的条数
             }
         }
+        foreach ($articless as &$v){ //把名字添加到内容对象里
+           $v->user_name = $v->getUser->name;
+        }
         // datatables固定的返回格式
         return [
             'code' => 0,

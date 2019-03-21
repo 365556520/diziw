@@ -25,7 +25,10 @@ class GoodsStockRepository extends Repository {
             $start = $start*$length; //得到查询的开始的id
         }
         $count = $goodsstock->count();//查出所有数据的条数
-        $goodsstocks = $goodsstock->offset($start)->limit($length)->get();//得到分页数据
+        $goodsstocks = $goodsstock->with('getGoods:id,goods_name')->offset($start)->limit($length)->get();//得到分页数据
+        foreach ($goodsstocks as &$v){ //把名字添加到内容对象里
+            $v->goods_name = $v->getGoods->goods_name;
+        }
         // datatables固定的返回格式
         return [
             'code' => 0,

@@ -89,7 +89,7 @@
                    // , {field: 'state', title: '文章状态', width: 90}
                      ,{field:'state', title:'文章状态', width:110, templet: '#switchTpl', unresize: true}
                     , {field: 'view', title: '浏览次数', width: 100 ,sort: true,}
-                    , {field: 'user_id', title: '作者id', width: 100}
+                    , {field: 'user_name', title: '作者', width: 100}
                     , {field: 'created_at', title: '创建时间', width: 180}
                     , {fixed: 'right', title: '操作', width: 160, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
                 ]]
