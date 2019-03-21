@@ -7,6 +7,7 @@ use App\Models\UsersModel\User_Data;
 use App\Repositories\Eloquent\Admin\HomeRepository;
 use App\Repositories\Eloquent\Admin\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends CommonController{
 

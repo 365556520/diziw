@@ -18,7 +18,6 @@ var util = {
 };
 
 var getAuthorization = function (options, callback) {
-
     // 方法一、后端通过获取临时密钥，计算签名给到前端（适用于前端调试）
   /*  var method = (options.Method || 'get').toLowerCase();
     var key = options.Key || '';
@@ -47,13 +46,13 @@ var getAuthorization = function (options, callback) {
         });
     }; xhr.send(JSON.stringify(data));*/
     // 方法二、后端计算签名（推荐）
-/*      var method = (options.Method || 'get').toLowerCase();
+/*    var method = (options.Method || 'get').toLowerCase();
     var key = options.Key || '';
     var query = options.Query || {};
     var headers = options.Headers || {};
     var pathname = key.indexOf('/') === 0 ? key : '/' + key;
-    // var url = 'http://127.0.0.1:3000/auth';
-    var url = '../server/auth.php';
+
+    //var url = '../server/auth.php';
     var xhr = new XMLHttpRequest();
     var data = {
         method: method,
@@ -64,18 +63,27 @@ var getAuthorization = function (options, callback) {
     xhr.open('POST', url, true);
     xhr.setRequestHeader('content-type', 'application/json');
     xhr.onload = function (e) {
+        console.log('晚上好'+e);
         callback(e.target.responseText);
     };
-    xhr.send(JSON.stringify(data));
-*/
-    // 方法三、前端计算签名（适用于前端调试）
-    var authorization = COS.getAuthorization({
-        SecretId: 'AKIDKYhkbIPLfnnaBb6obDielplkcIm32GED',
-        SecretKey: 'ylLn370jIjx1v23sUxFLEwRmvDM7lFXd',
-        Method: options.Method,
-        Key: options.Key,
+    xhr.send(JSON.stringify(data));*/
+    var url = 'http://www.diziw.cn/admin/getobjkey'
+    $.ajax({
+        type:"POST",
+        url:url,
+        dataType:"json",
+        success:function(data){
+            // 方法三、前端计算签名（适用于前端调试）
+            var authorization = COS.getAuthorization({
+                SecretId: data.credentials.secretId,
+                SecretKey: data.credentials.secretKey,
+            });
+            callback(authorization);
+        },
+        error:function(jqXHR){
+            console.log("Error: "+jqXHR.status);
+        }
     });
-    callback(authorization);
 };
 
 var cos = new COS({

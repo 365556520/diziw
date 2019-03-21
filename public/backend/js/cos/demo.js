@@ -70,8 +70,8 @@ var getAuthorization = function (options, callback) {
 */
     // // 方法三、前端计算签名（适用于前端调试）
     var authorization = COS.getAuthorization({
-        SecretId: 'AKIDKYhkbIPLfnnaBb6obDielplkcIm32GED',
-        SecretKey: 'ylLn370jIjx1v23sUxFLEwRmvDM7lFXd',
+        SecretId: '',
+        SecretKey: '',
         Method: options.Method,
         Key: options.Key,
     });
