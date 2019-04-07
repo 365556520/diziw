@@ -87,4 +87,12 @@ class CommentsRepository extends Repository {
         }
         return $result;
     }
+    //得到文章评论数
+    public function getCommentsNumber($topic_id){
+        $commentsNumber = 0;
+        if(isset($topic_id)){
+            $commentsNumber =  $this->model->where('topic_id',$topic_id)->count();
+        }
+        return $commentsNumber;
+    }
 }

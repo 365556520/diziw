@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Articles;
 
 use App\Repositories\Eloquent\Admin\Articles\ArticlesRepository;
 use App\Http\Controllers\Api\CommonController;
+use App\Repositories\Eloquent\Admin\Articles\CommentsRepository;
 use Illuminate\Http\Request;
 
 
@@ -17,10 +18,12 @@ class ApiArticlesController extends CommonController
      */
     //文章仓库
     private $articles;
-    function __construct(ArticlesRepository $Articles)
+    //评论
+    private $comments;
+    function __construct(ArticlesRepository $Articles,CommentsRepository $Comments)
     {
         $this->articles = $Articles;
-
+        $this->comments = $Comments;
     }
     //获取文章列表
     public  function getArticles(Request $request){
@@ -34,6 +37,7 @@ class ApiArticlesController extends CommonController
     //获取文章内容
     public function getArticlesContent($id){
         $content = $this->articles->getArticlesContent($id);
+        $content['commentsnumber'] = $this->comments->getCommentsNumber($id);
         return $this->response($content,'文章内容获取成功','200');
     }
 }

@@ -232,8 +232,9 @@ class ArticlesRepository extends Repository {
     }
     /*获取文章内容*/
     public function getArticlesContent($id){
-       $content = $this->model->select('tag','user_id','category_id','view','content','updated_at')->where('id',$id)->with('getUser:id,name','getComments')->orderBy('created_at','desc')->get();
-        return $content;
+       $content = $this->model->select('tag','user_id','category_id','view','content','updated_at')->where('id',$id)->with('getUser:id,name')->orderBy('created_at','desc')->get();
+        //因为结果是个2维数组所以只需要0键的内容
+       return $content['0'];
     }
 
 }
