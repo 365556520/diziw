@@ -57,6 +57,11 @@ Route::group(['namespace'=>'Api'],function(){
         Route::get('getArticles','ApiArticlesController@getArticles');
         //获取文章内容
         Route::get('getArticlesContent/{id}','ApiArticlesController@getArticlesContent');
+        //用户令牌认证过滤
+        Route::group(['middleware' => 'auth:api'], function() {
+            //评论信息
+            Route::post('inputComments', 'ApiArticlesController@inputComments');
+        });
     });
 
     Route::group(['namespace'=>'Auth'],function() {

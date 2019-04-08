@@ -6,6 +6,7 @@ use App\Repositories\Eloquent\Admin\Articles\ArticlesRepository;
 use App\Http\Controllers\Api\CommonController;
 use App\Repositories\Eloquent\Admin\Articles\CommentsRepository;
 use Illuminate\Http\Request;
+use Auth;
 
 
 class ApiArticlesController extends CommonController
@@ -39,5 +40,17 @@ class ApiArticlesController extends CommonController
         $content = $this->articles->getArticlesContent($id);
         $content['commentsnumber'] = $this->comments->getCommentsNumber($id);
         return $this->response($content,'文章内容获取成功','200');
+    }
+
+    //添加评论
+    public function inputComments(Request $request){
+        $data = $request->all();
+        $data['data']['from_uid'] = Auth::user()->id;
+        $result = $this->comments->createComments($data['data']);
+        if($result){
+            return $this->response('','评论成功','200');
+        }else{
+            return $this->response('','评论失败','0');
+        }
     }
 }

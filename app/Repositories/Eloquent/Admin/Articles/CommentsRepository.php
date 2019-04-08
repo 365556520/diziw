@@ -3,6 +3,7 @@ namespace App\Repositories\Eloquent\Admin\Articles;
 
 use App\Models\UsersModel\Articles\Comments;
 use App\Repositories\Eloquent\Repository;
+use Mews\Purifier\Facades\Purifier;
 
 
 /**
@@ -45,6 +46,8 @@ class CommentsRepository extends Repository {
 
     /*添加评论*/
     public function createComments($formData){
+        //防止xxs攻击过滤
+        $formData['content'] = Purifier::clean($formData['content']);
         $result = $this->model->create($formData);
         if ($result) {
             flash('评论添加成功','success');
@@ -79,6 +82,8 @@ class CommentsRepository extends Repository {
         if ($attributes['id'] != $id) {
             abort(500,trans('admin/errors.user_error'));
         }
+        //防止xxs攻击过滤
+        $attributes['content'] =Purifier::clean($attributes['content']);
         $result = $this->update($attributes,$id);
         if ($result) {
             flash('评论修改成功','success');
