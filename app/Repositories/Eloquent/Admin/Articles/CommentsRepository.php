@@ -100,4 +100,12 @@ class CommentsRepository extends Repository {
         }
         return $commentsNumber;
     }
+    //获取该文章所有评论
+    public function getComments($topic_id){
+        if(isset($topic_id)){
+            return $this->model->where('topic_id',$topic_id)->with('getFrom_uid:id,name')->get();
+        }else{
+            return false;
+        }
+    }
 }

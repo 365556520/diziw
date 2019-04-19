@@ -53,4 +53,13 @@ class ApiArticlesController extends CommonController
             return $this->response('','评论失败','0');
         }
     }
+    //获取该文章所有评论 id为文章id
+    public function getComments($id){
+        $result = $this->comments->getComments($id);
+        if($result){
+            return $this->response($result,'获取成功','200');
+        }else{
+            return $this->response($result,'评论获取失败','0');
+        }
+    }
 }

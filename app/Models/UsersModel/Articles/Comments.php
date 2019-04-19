@@ -22,4 +22,10 @@ class Comments extends Model
         //反向关联
         return $this->belongsTo('App\Models\UsersModel\Articles\Articles','topic_id');
     }
+    //获取评论用户
+    public function getFrom_uid(){
+        //反向关联
+        return $this->belongsTo('App\User','from_uid');
+    }
+
 }

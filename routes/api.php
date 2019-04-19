@@ -57,6 +57,8 @@ Route::group(['namespace'=>'Api'],function(){
         Route::get('getArticles','ApiArticlesController@getArticles');
         //获取文章内容
         Route::get('getArticlesContent/{id}','ApiArticlesController@getArticlesContent');
+        //获取文章的所有评论
+        Route::get('getComments/{id}','ApiArticlesController@getComments');
         //用户令牌认证过滤
         Route::group(['middleware' => 'auth:api'], function() {
             //评论信息
