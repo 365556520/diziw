@@ -30,4 +30,8 @@ class Articles extends Model
         //反向关联
         return $this->belongsTo('App\User','user_id');
     }
+    //获取文章评论
+    public function getComments(){
+        return $this->hasMany('App\Models\UsersModel\Articles\Comments', 'topic_id');
+    }
 }
