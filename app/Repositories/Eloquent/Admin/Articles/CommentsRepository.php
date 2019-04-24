@@ -103,7 +103,7 @@ class CommentsRepository extends Repository {
     //获取该文章所有评论
     public function getComments($topic_id){
         if(isset($topic_id)){
-            return $this->model->where('topic_id',$topic_id)->with('getFrom_uid:id,name')->get();
+            return $this->model->where('topic_id',$topic_id)->with('getFrom_uid:id,name','getTo_uid:id,name')->orderBy('created_at','desc')->get();
         }else{
             return false;
         }
