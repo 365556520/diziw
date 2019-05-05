@@ -47,7 +47,7 @@ class CommentsRepository extends Repository {
     /*添加评论*/
     public function createComments($formData){
         //防止xxs攻击过滤
-        $formData['content'] = Purifier::clean($formData['content']);
+        $formData['content'] = Purifier::clean($formData['content'],array('Attr.EnableID' => true));
         $result = $this->model->create($formData);
         if ($result) {
             flash('评论添加成功','success');

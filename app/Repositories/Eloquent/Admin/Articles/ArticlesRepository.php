@@ -69,7 +69,7 @@ class ArticlesRepository extends Repository {
         //把图片名字以字符串行式存到数组
         $formData['thumb']= $this->getImgArr($img);
         //防止xxs攻击过滤
-        $formData['content'] =Purifier::clean($formData['content']);
+        $formData['content'] =Purifier::clean($formData['content'],array('Attr.EnableID' => true));
         $result = $this->model->create($formData);
         if ($result) {
             flash('文章添加成功','success');
@@ -144,7 +144,7 @@ class ArticlesRepository extends Repository {
         }
         $attributes['thumb'] = $this->getImgArr($img);
         //防止xxs攻击过滤
-        $attributes['content'] =Purifier::clean($attributes['content']);
+        $attributes['content'] =Purifier::clean($attributes['content'],array('Attr.EnableID' => true));
         $result = $this->update($attributes,$id);
         if ($result) {
             flash('文章修改成功','success');
