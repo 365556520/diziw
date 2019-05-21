@@ -189,7 +189,7 @@ class ArticlesRepository extends Repository {
     //获取完整的图片名字数组
     public function getimgurl($imgs){
         foreach ($imgs as &$v){
-            $v->thumb =explode("/", $v->thumb);
+            $v->thumb =explode("/",ltrim($v->thumb, "/"));
         }
         //把图片名字以字符串行式存到数组
         return $imgs;
@@ -207,18 +207,18 @@ class ArticlesRepository extends Repository {
         if ($data['reload']!= null) {
             //模糊查找name、id列
             //  $articless = $articles->with('getUser:id,name','getComments')->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到全部数据预先加载用户信息和评论with('getUser:id,name','getComments')
-            $articless = $articles->select('id','title','description','thumb','view','created_at')->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->orderBy('created_at','desc')->offset($start)->limit($length)->get();
+            $articless = $articles->select('id','title','description','thumb','user_id','view','created_at')->with('getUser:id,name')->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->orderBy('created_at','desc')->offset($start)->limit($length)->get();
             $count = $articles->where($data["ifs"], 'like', "%{$data['reload']}%")->orWhere($data["ifs"],'like', "%{$data['reload']}%")->count();//查出所有数据的条数
         }else{
             if($data['category_id'] != null){
-                $articless = $articles->select('id','title','description','thumb','view','created_at')->where('category_id',$data['category_id'])->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到分页数据
+                $articless = $articles->select('id','title','description','thumb','user_id','view','created_at')->with('getUser:id,name')->where('category_id',$data['category_id'])->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到分页数据
                 $count = $articles->where('category_id',$data['category_id'])->count();//查出所有数据的条数
             }elseif ($data["articles_ids"]!=null){
                 $ids = json_decode($data["articles_ids"],true);//转换数组
-                $articless = $articles->select('id','title','description','thumb','view','created_at')->whereIn('category_id',$ids)->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到分页数据
+                $articless = $articles->select('id','title','description','thumb','user_id','view','created_at')->with('getUser:id,name')->whereIn('category_id',$ids)->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到分页数据
                 $count = $articles->whereIn('category_id',$ids)->count();//查出所有数据的条数
             }else{
-                $articless = $articles->select('id','title','description','thumb','view','created_at')->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到全部数据
+                $articless = $articles->select('id','title','description','thumb','user_id','view','created_at')->with('getUser:id,name')->orderBy('created_at','desc')->offset($start)->limit($length)->get();//得到全部数据
                 $count = $articles->count();//查出所有数据的条数
             }
         }
