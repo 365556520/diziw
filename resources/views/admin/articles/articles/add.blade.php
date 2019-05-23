@@ -227,7 +227,7 @@
             });
             var ieditor = layedit.build('content');
             //设置编辑器内容
-            layedit.setContent(ieditor, '<font color="#fe5824">美好的一天，就这样开始了！ <img src="http://knifez.gitee.io/kz.layedit/Content/Layui-KnifeZ/images/face/1.gif" alt="[嘻嘻]"></font>', false);
+            layedit.setContent(ieditor, '美好的一天，就这样开始了！ <img src="http://knifez.gitee.io/kz.layedit/Content/Layui-KnifeZ/images/face/1.gif" alt="[嘻嘻]">', false);
 
         });
     </script>
