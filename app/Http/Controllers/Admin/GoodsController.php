@@ -168,7 +168,8 @@ class GoodsController extends CommonController
                 //获取实付价格和
                 foreach ($goodsorder as $vl){
                     if($vl->goods_id == $v->id){
-                        $price += $vl->totalprices - $v->cost_price * $vl->buycount;
+                        $zcost=  $v->cost_price * $vl->buycount;//购买的进价
+                        $price += $vl->totalprices - $zcost; //获取的利润
                         //总营业额
                         $gosdsinfo["gross"] += $vl->totalprices;
                     }
