@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\usersdata;
 
 
+use App\Models\UsersModel\Buses\Buses;
 use App\Models\UsersModel\Buses\BusesRoute;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\CommonController;
@@ -54,6 +55,13 @@ class BusesController extends CommonController
         foreach ( $data as $k=>$v){
             $data[$k]['buses'] = $v->getBuses;
         }
+        return $this->response($data);
+    }
+    /*
+     * 获取该车信息
+     * */
+    public function busesInfo($busesname){
+        $data = Buses::where('buses_name',$busesname)->with('getDriver','getBusesRoute')->get();
         return $this->response($data);
     }
     /*

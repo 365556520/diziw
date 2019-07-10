@@ -42,6 +42,8 @@ Route::group(['namespace'=>'Api'],function(){
     Route::group(['namespace'=>'usersdata'],function() {
         //获取该线路汽车
         Route::get('buses/{id}', 'BusesController@getBuses');
+        //获取该线路汽车
+        Route::get('busesInfo/{busesname}', 'BusesController@busesInfo');
         //获取所有线路
         Route::get('getBusesRouteall', 'BusesController@getBusesRouteall');
         //起点和终点查出线路id
