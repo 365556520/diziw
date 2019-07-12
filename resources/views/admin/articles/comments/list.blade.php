@@ -13,7 +13,7 @@
                 <button class="layui-btn layui-btn-danger  layui-btn-xs" lay-event="getCheckData">批量删除</button>
                 <button class="layui-btn layui-btn-normal layui-btn-xs" lay-event="getCheckLength">获取选中数目</button>
                 <button class="layui-btn layui-btn-warm layui-btn-xs" lay-event="isAll">刷新</button>
-                <button class="layui-btn layui-btn-xs" lay-event="add">添加分类</button>
+                <button class="layui-btn layui-btn-xs" lay-event="add">添加评论</button>
             </div>
         </script>
     </div>

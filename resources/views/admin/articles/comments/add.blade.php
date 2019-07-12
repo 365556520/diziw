@@ -31,12 +31,18 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">评论目标用户id</label>
+                <label class="layui-form-label">目标用户id</label>
                 <div class="layui-input-block">
                     <input type="text" name="to_uid"  placeholder="请输入" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
+            <div class="layui-form-item">
+                <label class="layui-form-label">父子关系</label>
+                <div class="layui-input-block">
+                    <input type="text" name="comments_pid"  placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">评论内容</label>
                 <div class="layui-input-block">

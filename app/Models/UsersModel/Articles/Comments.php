@@ -16,6 +16,7 @@ class Comments extends Model
         'content',
         'from_uid',
         'to_uid',
+        'comments_pid',
     ];
     //得到评论的文章
     public function getArticles(){
