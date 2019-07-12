@@ -58,11 +58,32 @@ class CommentsRepository extends Repository {
     }
     /*删除评论*/
     public function destroyComments($id){
-        $result = $this->delete($id);
+        $result = '';
+        //删除子id
+        if(is_array($id)){
+
+           $arr = $this->model->select('id','comments_pid')->whereIn('id',$id)->get();
+           foreach ($arr as $v){
+              $this->delpid($v->id,$v->comments_pid );
+           }
+        }else{
+
+            $vl = $this->find($id);
+            $this->delpid($vl->id,$vl->comments_pid );
+        }
+        $result =  $this->delete($id);
         if ($result) {
             flash('删除成功','success');
         } else {
             flash('删除失败','error');
+        }
+        return $result;
+    }
+    //删除子类评论
+    public function delpid($id ,$pid){
+        $result = '';
+        if($pid == 0){
+            $result = $this->model->where('comments_pid',$id)->delete();
         }
         return $result;
     }
@@ -103,7 +124,10 @@ class CommentsRepository extends Repository {
     //获取该文章所有评论
     public function getComments($topic_id){
         if(isset($topic_id)){
-            return $this->model->where('topic_id',$topic_id)->with('getFrom_uid:id,name','getTo_uid:id,name')->orderBy('created_at','desc')->get();
+            $commnets = $this->model->where('topic_id',$topic_id)->with('getFrom_uid:id,name','getTo_uid:id,name')->orderBy('created_at','desc')->get();
+            $commnets =  $this->getTree($commnets,'comments_pid',0);
+            return $commnets;
+
         }else{
             return false;
         }
