@@ -38,25 +38,20 @@ class PassportController extends CommonController
     public function register(Request $request)
     {   //验证注册数据
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'username' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
+            'name' =>'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'email' =>'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
         ]);
         //验证失败返回失败信息
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['error'=>$validator->errors(),'code'=>401]);
         }
         //验证成功
         $input = $request->all();
         $input['password'] = bcrypt($input['password']); //密码加密后存储
         $user = User::create($input); //在数据库中创建该用户
-        //下面是注册成功会返回的信息
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['username'] =  $user->username;
-        $success['name'] =  $user->name;
-        return response()->json(['success'=>$success], $this->successStatus);
+        return response()->json(['success'=>$user], $this->successStatus);
     }
 
     //返回用户信息
