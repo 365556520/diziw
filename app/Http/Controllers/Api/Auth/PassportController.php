@@ -62,7 +62,8 @@ class PassportController extends CommonController
     //返回用户信息
     public function passport()
     {
-        return response()->json(['user' => Auth::user()],$this->successStatus);
+        $userdata = User::select('id','name')->where('id',Auth::user()->id)->with('getUserData')->get();
+        return response()->json(['user' => $userdata],$this->successStatus);
     }
 
     /**
