@@ -11,4 +11,5 @@ interface UserInterface
 {
 
     public function findBy($id);
+    public function userLogin($username,$password);
 }

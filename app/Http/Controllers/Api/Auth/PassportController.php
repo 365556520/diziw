@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Facades\UserFacade;
 use App\Http\Controllers\Api\CommonController;
+use App\Models\Role;
+use App\Models\UsersModel\User_Data;
 use App\User;
 use Validator;
 use Illuminate\Http\Request;
@@ -18,14 +21,11 @@ class PassportController extends CommonController
     //登录
     public function login(){
         //判断用户存在不
-        if(Auth::attempt(['username' => request('username'), 'password' => request('password')]))
+        $this->content =  UserFacade::userLogin(request('username'),request('password'));
+        if($this->content['code'] == 200)
         {
-            $user = Auth::user();
-            $this->content['token'] =  $user->createToken('Pi App')->accessToken; //创建令牌
-            $this->content['message'] =  '登录成功';
             $this->successStatus = 200;
         } else {
-            $this->content['error'] = "未授权";
             $this->successStatus = 401;
         }
         return response()->json($this->content, $this->successStatus);
@@ -49,9 +49,26 @@ class PassportController extends CommonController
         }
         //验证成功
         $input = $request->all();
+        $pasd = $input['password'];
         $input['password'] = bcrypt($input['password']); //密码加密后存储
         $user = User::create($input); //在数据库中创建该用户
-        return response()->json(['success'=>$user,'code'=> $this->successStatus]);
+        if($user){
+            //判断用户存在不
+            $this->content =  UserFacade::userLogin($input['username'],$pasd);
+            if($this->content['code']== 200)
+            {
+                //默认添加普通用户的权限
+                $userRole = Role::where('name','user')->first();
+                $user = Auth::user();
+                $user->roles()->attach($userRole->id);
+                //关联用户数据
+                $user->getUserData()->save(new User_Data(['user_id' => $user->id]));
+                $this->successStatus = 200;
+            } else {
+                $this->successStatus = 401;
+            }
+        }
+        return response()->json(['data'=>$this->content,'code'=> $this->successStatus]);
     }
 
     //返回用户信息
