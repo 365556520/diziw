@@ -51,7 +51,7 @@ class PassportController extends CommonController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']); //密码加密后存储
         $user = User::create($input); //在数据库中创建该用户
-        return response()->json(['success'=>$user], $this->successStatus);
+        return response()->json(['success'=>$user,'code'=> $this->successStatus]);
     }
 
     //返回用户信息
