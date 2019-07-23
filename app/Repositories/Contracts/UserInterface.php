@@ -12,4 +12,5 @@ interface UserInterface
 
     public function findBy($id);
     public function userLogin($username,$password);
+    public function isUser($lname,$data);
 }

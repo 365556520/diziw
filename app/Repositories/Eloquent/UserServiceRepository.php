@@ -14,4 +14,14 @@ class UserServiceRepository implements UserInterface {
         {
             return User::find($id);
         }
+
+
+    public function userLogin($username,$password){
+
+
+    }
+
+    public function isUser($lname,$data){
+
+    }
 }

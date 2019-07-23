@@ -73,6 +73,10 @@ Route::group(['namespace'=>'Api'],function(){
         Route::post('login', 'PassportController@login');
         // 注册
         Route::post('register', 'PassportController@register');
+        //用户和邮箱验证
+        Route::post('isUser', 'PassportController@isUser');
+        //给邮箱发送重置密码
+        Route::post('resetEmail', 'PassportController@resetEmail');
         //用户令牌认证过滤
         Route::group(['middleware' => 'auth:api'], function() {
             //获取用户信息

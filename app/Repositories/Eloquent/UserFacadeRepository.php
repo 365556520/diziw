@@ -34,5 +34,10 @@ class UserFacadeRepository implements UserInterface {
         }
         return $content;
     }
-
+    /*
+     * 判断用户是否存在
+     * */
+    public function isUser($lname,$data){
+       return User::where($lname, $data)->exists();
+    }
 }

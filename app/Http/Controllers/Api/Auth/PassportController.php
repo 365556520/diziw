@@ -10,6 +10,7 @@ use App\User;
 use Validator;
 use Illuminate\Http\Request;
 use Auth;
+use \Illuminate\Auth\Passwords\PasswordBroker;
 
 class PassportController extends CommonController
 {
@@ -88,4 +89,32 @@ class PassportController extends CommonController
         }
         return response()->json(['message' => '登出成功', 'status_code' =>  $this->successStatus, 'data' => null]);
     }
+    /*
+     * 判断邮箱或者用户是否存在
+     * */
+    public function isUser(Request $request){
+        $data = $request->all();
+        $mes = '';
+        if (UserFacade::isUser($data['lname'],$data['data'])){
+            $mes = '存在';
+        }else{
+            $mes = '数据不存在';
+            $this->successStatus = 401;
+        }
+        return response()->json(['message' => $mes,'code'=>$this->successStatus]);
+    }
+    //发送重置密码邮件
+    public function resetEmail(Request $request){
+        $user = User::where('email', $request->email)->first();
+        //实例化一个PasswordBroker类
+        //发邮件实际使用的是sendResetLink函数，该函数就在PasswordBroker里
+        $password_broker = app(PasswordBroker::class);
+        //生成token
+        $token = $password_broker->createToken($user);
+
+        //调用User模型中的sendPasswordResetNotification方法发送邮件
+        $user->sendPasswordResetNotification($token);
+    }
+
+
 }
