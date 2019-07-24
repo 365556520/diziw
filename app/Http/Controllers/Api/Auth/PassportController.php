@@ -111,9 +111,9 @@ class PassportController extends CommonController
         $password_broker = app(PasswordBroker::class);
         //生成token
         $token = $password_broker->createToken($user);
-
         //调用User模型中的sendPasswordResetNotification方法发送邮件
         $user->sendPasswordResetNotification($token);
+        return response()->json(['message' => '邮件发送成功','code'=>$this->successStatus]);
     }
 
 
