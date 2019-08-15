@@ -32,3 +32,11 @@ Route::group(['prefix' => 'comments'],function (){
     Route::get('destroys/{id}','CommentsController@destroys');
 });
 Route::resource('comments','CommentsController');
+//便签
+Route::group(['prefix' => 'note'],function (){
+    //列表数据
+    Route::get('ajaxIndex','NoteController@ajaxIndex');
+    //批量删除评论
+    Route::get('destroys/{id}','NoteController@destroys');
+});
+Route::resource('note','NoteController');

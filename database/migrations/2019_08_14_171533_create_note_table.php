@@ -15,9 +15,9 @@ class CreateNoteTable extends Migration
     {
         Schema::create('note', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title')->default("")->comment('主题');
+            $table->string('title')->default("")->comment('标题');
             $table->text('content')->comment('内容');
-            $table->integer('user_id')->default(0)->comment('评论用户id');
+            $table->integer('user_id')->default(0)->comment('用户id');
             $table->timestamps();
         });
     }

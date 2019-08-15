@@ -109,6 +109,13 @@ return [
         'delete' => 'goodsorder.delete',
         'show' => 'goodsorder.show',
     ],
+    'note' => [
+        'list' => 'note.list',
+        'add' => 'note.add',
+        'edit' => 'note.edit',
+        'delete' => 'note.delete',
+        'show' => 'note.show',
+    ],
     'system' => [
         'list' => 'system.index',
         'login' => 'system.login'
