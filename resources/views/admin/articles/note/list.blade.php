@@ -29,7 +29,7 @@
                 ,url:'/admin/note/ajaxIndex'
                 ,method: 'get'
                 ,toolbar: '#toolbarDemo'
-                ,title: '评论数据表'
+                ,title: '备忘录数据表'
                 ,cols: [[
                     {type: 'checkbox', fixed: 'left'}
                     ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
@@ -97,7 +97,7 @@
                     case 'add':
                         layer.open({
                             type: 2,//2类型窗口 这里内容是一个网址
-                            title: '添加评论',
+                            title: '添加备忘录',
                             shadeClose: true,
                             shade: false,
                             anim: 2, //打开动画
@@ -118,7 +118,7 @@
                 var data = obj.data;
                 //console.log('kankan22222 '+obj.data);
                 if(obj.event === 'del'){
-                    layer.confirm('真的删除此评论吗？', function(index){
+                    layer.confirm('真的删除此备忘录吗？', function(index){
                         $.ajax({
                             type: "POST",
                             url: "{{url('/admin/note')}}/"+data.id,
@@ -176,7 +176,7 @@
                     //多窗口模式，层叠置顶
                     layer.open({
                         type: 1 //1类型窗口 这里内容可以自己写
-                        ,title:'评论'
+                        ,title:'备忘录'
                         ,area: ['390px', '260px']
                         ,shade: 0
                         ,maxmin: true

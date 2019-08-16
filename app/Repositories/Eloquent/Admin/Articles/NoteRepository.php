@@ -88,5 +88,11 @@ class NoteRepository extends Repository {
         return $result;
     }
 
+    //api
+    //获取某月的备忘录date_format(datetime,'%Y-%m-%d')
+    public function getMonthNote($year,$month){
+        $result = $this->model->select('title as price','content as data','created_at as date')->whereYear('created_at',$year)->whereMonth('created_at',$month)->get();
+        return $result;
+    }
 
 }
