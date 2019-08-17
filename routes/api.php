@@ -62,7 +62,7 @@ Route::group(['namespace'=>'Api'],function(){
         //获取文章的所有评论
         Route::get('getComments/{id}','ApiArticlesController@getComments');
         //获取当前月份备忘录
-        Route::get('getNote/{year}/{month}','ApiNoteController@getNote');
+        Route::get('getNote/{date}','ApiNoteController@getNote');
         //用户令牌认证过滤
         Route::group(['middleware' => 'auth:api'], function() {
             //评论信息

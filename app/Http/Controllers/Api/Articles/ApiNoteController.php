@@ -21,8 +21,8 @@ class ApiNoteController extends CommonController
         $this->note = $note;
 
     }
-    public  function getNote($year,$month){
-        $data = $this->note->getMonthNote($year,$month);
+    public  function getNote($date){
+        $data = $this->note->getMonthNote($date);
         return $this->response($data,'获取成功','200');
     }
 }
