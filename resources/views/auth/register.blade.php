@@ -1,92 +1,119 @@
+@extends('admin.layouts.layuicontent')
+@section('title')
+    <title>{{trans('auth/login.register.title')}}</title>
+@endsection
+@section('css')
+    {{--注册页面css--}}
+    <link href="{{ asset('/backend/css/Auth/login.css')}}" rel="stylesheet">
 
-    {{--添加模态框--}}
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-        &times;
-    </button>
-    <h4 class="modal-title" id="myModalLabel">{{trans('auth/login.register.title')}}</h4>
-</div>
-<form id="demo-form2" class="form-horizontal form-label-left "  method="post" action="{{ route('register') }}">
-    {{csrf_field()}}
-    <div class="modal-body">
-        <div class="form-group">
-            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('name') ? ' has-error' : '' }}">
-                <input  id="name" type="text" class="form-control has-feedback-left"  name="name" value="{{ old('name') }}"  placeholder="{{trans('auth/login.register.name')}}" required autofocus>
-                <span class="fa fa-user form-control-feedback left" ></span>
-                @if ($errors->has('name'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('name') }}</strong>
-                    </span>
-                @endif
-            </div>
+@endsection
+@section('content')
+    <div>
+        <div class="layadmin-user-login-main" style="margin-top: 30px">
+            <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                {{ csrf_field() }}
+                <div class="layadmin-user-login-box layadmin-user-login-header">
+                    <h2>{{trans('auth/login.register.title')}}</h2>
+                </div>
+                <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+                    {{--用户名--}}
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+                        <input type="text"  name="name" value="{{ old('name') }}"  placeholder="{{trans('auth/login.register.name')}}"   lay-verify="required"  class="layui-input">
+                        @if ($errors->has('name'))
+                            <span class="help-block">
+                                <i class="layui-icon">&#xe69c;</i> {{ $errors->first('name') }}
+                            </span>
+                        @endif
+                    </div>
+                    {{--账号--}}
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-user" for="LAY-user-login-username"></label>
+                        <input id="username" type="text" name="username" value="{{ old('username') }}" placeholder="{{trans('auth/login.register.username')}}"  lay-verify="required"  class="layui-input">
+                        @if ($errors->has('username'))
+                            <span class="help-block">
+                                <i class="layui-icon">&#xe69c;</i> {{ $errors->first('username') }}
+                            </span>
+                        @endif
+                    </div>
+                    {{--邮箱--}}
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-chat" for="LAY-user-login-username"></label>
+                        <input id="email" type="email"  name="email" value="{{ old('email') }}"  placeholder="{{trans('auth/login.register.email')}}"  lay-verify="required"  class="layui-input">
+                        @if ($errors->has('email'))
+                            <span class="help-block">
+                               <i class="layui-icon">&#xe69c;</i> {{ $errors->first('email') }}
+                            </span>
+                        @endif
+                    </div>
+                    {{--密码--}}
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                        <input  id="password" type="password"  name="password"  placeholder="{{trans('auth/login.register.password')}}" lay-verify="required"  class="layui-input">
+                        @if ($errors->has('password'))
+                            <span class="help-block">
+                                <i class="layui-icon">&#xe69c;</i> {{ $errors->first('password') }}
+                            </span>
+                        @endif
+                    </div>
+                    {{--确认密码--}}
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                        <input  id="password-confirm" type="password"  placeholder="{{trans('auth/login.register.confirmPassword')}}"  name="password_confirmation" lay-verify="required"  class="layui-input">
+                    </div>
+                    {{--验证码--}}
+                    <div class="layui-form-item">
+                        <div class="layui-row">
+                            <div class="layui-col-xs7">
+                                <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
+                                <input type="text" id="captcha"   placeholder="{{trans('auth/login.captcha')}}"  name="captcha"  lay-verify="required"   class="layui-input">
+                                @if ($errors->has('captcha'))
+                                    <span class="help-block">
+                                         <i class="layui-icon">&#xe69c;</i> {{ $errors->first('captcha') }}
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="layui-col-xs5">
+                                <div style="margin-left: 10px;">
+                                    <img class="layadmin-user-login-codeimg" src="{{captcha_src('flat')}}" style="cursor: pointer;" onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="LAY-user-login-submit">{{trans('auth/login.register.submit')}}</button>
+                    </div>
+                </div>
+            </form>
         </div>
+        <div>
 
-        <div class="form-group">
-            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('username') ? ' has-error' : '' }}">
-                <input id="username" type="text" class="form-control has-feedback-left" name="username" value="{{ old('username') }}" placeholder="{{trans('auth/login.register.username')}}" required  >
-                <span class="fa fa-user-secret form-control-feedback left" ></span>
-                @if ($errors->has('username'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('username') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                <input id="email" type="email" class="form-control has-feedback-left" name="email" value="{{ old('email') }}"  placeholder="{{trans('auth/login.register.email')}}" required  >
-                <span class="fa fa-envelope form-control-feedback left" ></span>
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
-                <input id="password" type="password" class="form-control has-feedback-left" name="password"  placeholder="{{trans('auth/login.register.password')}}" required>
-                <span class="fa fa-lock form-control-feedback left" ></span>
-                @if ($errors->has('password'))
-                    <span class="help-block">
-                 <strong>{{ $errors->first('password') }}</strong>
-                </span>
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-12 col-sm-12 col-xs-12  has-feedback">
-                <input id="password-confirm" type="password" class="form-control has-feedback-left"  placeholder="{{trans('auth/login.register.confirmPassword')}}"  name="password_confirmation" required>
-                <span class="fa fa fa-unlock-alt form-control-feedback left" ></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-6 col-sm-6 col-xs-6 {{ $errors->has('captcha') ? ' has-error' : '' }} ">
-                <input type="text" id="captcha" class="form-control "  placeholder="{{trans('auth/login.captcha')}}"  name="captcha" >
-                @if ($errors->has('captcha'))
-                    <span class="help-block">
-                            <strong>{{ $errors->first('captcha') }}</strong>
-                    </span>
-                @endif
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <img src="{{captcha_src('flat')}}" style="cursor: pointer;" onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
-            </div>
         </div>
     </div>
-
-    <div class="modal-footer">
-        <div class="form-group">
-            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button type="submit" class="btn btn-success">{{trans('auth/login.register.submit')}}</button>
+    {{--注册密码modal--}}
+    <div class="modal inmodal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
             </div>
-        </div>
+        </div><!-- /.modal -->
     </div>
-</form>
+    {{--忘记密码modal--}}
+    <div class="modal inmodal" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+            </div>
+        </div><!-- /.modal -->
+    </div>
+@endsection
+@section('js')
+    <script>
+        //form提交
+        layui.use('form', function(){
+            var form = layui.form;
+        });
+    </script>
+@endsection
+
 
 
 

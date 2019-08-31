@@ -18,19 +18,35 @@
                     <p>笛子网后台管理系统</p>
                 </div>
                <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+                   {{--账号--}}
                     <div class="layui-form-item">
                         <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
                         <input type="text" id="config('admin.globals.username')" placeholder="{{trans('auth/login.loginform.username')}}"  name="{{config('admin.globals.username')}}" value="{{ old(config('admin.globals.username')) }}" lay-verify="required"  class="layui-input">
+                        @if ($errors->has('username'))
+                            <span class="help-block">
+                                <i class="layui-icon">&#xe69c;</i> {{ $errors->first('username') }}
+                            </span>
+                        @endif
                     </div>
                     <div class="layui-form-item">
                         <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
                         <input type="password" name="password" id="password" lay-verify="required" placeholder="{{trans('auth/login.loginform.password')}}"  class="layui-input">
+                        @if ($errors->has('password'))
+                            <span class="help-block">
+                                <i class="layui-icon">&#xe69c;</i> {{ $errors->first('password') }}
+                            </span>
+                        @endif
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-row">
                             <div class="layui-col-xs7">
                                 <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
                                 <input type="text" id="captcha" lay-verify="required"  placeholder="{{trans('auth/login.captcha')}}"  name="captcha" class="layui-input">
+                                @if ($errors->has('captcha'))
+                                    <span class="help-block">
+                                        <i class="layui-icon">&#xe69c;</i> {{ $errors->first('captcha') }}
+                                    </span>
+                                @endif
                             </div>
                             <div class="layui-col-xs5">
                                 <div style="margin-left: 10px;">
@@ -56,11 +72,7 @@
                </div>
             </form>
         </div>
-        <div>
-            {{ $errors->has(config('admin.globals.username')) ? '用户名错误' : '' }}
-            {{ $errors->has('password') ? '密码错误' : '' }}
-            {{ $errors->has('captcha') ? '验证码错误' : '' }}
-        </div>
+
     </div>
 {{--注册密码modal--}}
     <div class="modal inmodal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

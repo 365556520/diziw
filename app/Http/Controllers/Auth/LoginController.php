@@ -31,6 +31,8 @@ class LoginController extends Controller
 //        如果有后台权限就登录到后台没有就登录到前台
         if(Auth::user()->can(config('admin.permissions.system.login'))){
             return 'admin/home';
+        }else{
+            return 'login';
         }
     }
     /**
