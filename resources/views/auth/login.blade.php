@@ -1,76 +1,65 @@
-@extends('layouts.auth')
+@extends('admin.layouts.layuicontent')
 @section('title')
     <title>{{trans('auth/login.title.admin')}}</title>
+@endsection
+@section('css')
+    {{--登录页面css--}}
+    <link href="{{ asset('/backend/css/Auth/login.css')}}" rel="stylesheet">
 @endsection
 @section('content')
     <div>
         <a class="hiddenanchor" id="signup"></a>
         <a class="hiddenanchor" id="signin"></a>
-        <div class="login_wrapper">
-            <div class="animate form login_form">
-                 <section class="login_content">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-                        <h1>{{trans('auth/login.title.admin')}}</h1>
-
-                            <div>
-                                {{--帐号密码和ciook--}}
-                                <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has(config('admin.globals.username')) ? ' has-error' : '' }}">
-                                    <input type="text" id="config('admin.globals.username')" class="form-control has-feedback-left "  placeholder="{{trans('auth/login.loginform.username')}}" required name="{{config('admin.globals.username')}}" value="{{ old(config('admin.globals.username')) }}">
-                                    <span class="fa fa-user form-control-feedback left" ></span>
-
+        <div class="layadmin-user-login-main" style="margin-top: 30px">
+            <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                {{ csrf_field() }}
+               <div class="layadmin-user-login-box layadmin-user-login-header">
+                    <h2>{{trans('auth/login.title.admin')}}</h2>
+                    <p>笛子网后台管理系统</p>
+                </div>
+               <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+                        <input type="text" id="config('admin.globals.username')" placeholder="{{trans('auth/login.loginform.username')}}"  name="{{config('admin.globals.username')}}" value="{{ old(config('admin.globals.username')) }}" lay-verify="required"  class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                        <input type="password" name="password" id="password" lay-verify="required" placeholder="{{trans('auth/login.loginform.password')}}"  class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-row">
+                            <div class="layui-col-xs7">
+                                <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
+                                <input type="text" id="captcha" lay-verify="required"  placeholder="{{trans('auth/login.captcha')}}"  name="captcha" class="layui-input">
+                            </div>
+                            <div class="layui-col-xs5">
+                                <div style="margin-left: 10px;">
+                                    <img class="layadmin-user-login-codeimg" src="{{captcha_src('flat')}}" style="cursor: pointer;" onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
                                 </div>
                             </div>
-
-                            <div>
-                                <div class="col-md-12 col-sm-12 col-xs-12  has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
-                                    <input type="password" id="password" class="form-control has-feedback-left "  placeholder="{{trans('auth/login.loginform.password')}}"  name="password" >
-                                    <span class="fa fa-lock form-control-feedback left" ></span>
-
-                                </div>
-                            </div>
-
-                        <div class="form-group">
-                            <div class="col-md-7 col-sm-7 col-xs-7 {{ $errors->has('captcha') ? ' has-error' : '' }} ">
-                                <input type="text" id="captcha" class="form-control "  placeholder="{{trans('auth/login.captcha')}}"  name="captcha" >
-                            </div>
-                            <div class="col-md-5 col-sm-5 col-xs-5">
-                                <img src="{{captcha_src('flat')}}" style="cursor: pointer;" onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
-                            </div>
-                            <div class=" col-md-12 col-sm-12 col-xs-12 ">
-                                <div class="heckbox">
-                                    <label class=" pull-left">
-                                        <input type="checkbox"  name="remember"  {{ old('remember') ? 'checked' : '' }}> {{trans('auth/login.loginform.rememberPassword')}}
-                                    </label>
-                                </div>
-                            </div>
-
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-12 col-sm-12 col-xs-12 ">
-                                <button class="btn btn-dar btn-sm col-md-7 col-sm-7 col-xs-7 " type="submit" >{{trans('auth/login.loginform.submit')}}</button>
-                                <a class="reset_pass" data-toggle="modal" data-target="#resetModal" href="{{ route('password.request') }}">
-                                    {{trans('auth/login.loginform.Lost_your_password')}}
-                                </a>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="separator">
-                            <p class="change_link">
-                                <a class="to_register"  data-toggle="modal"   data-target="#registerModal" href="{{ route('register') }}"> {!! trans('auth/login.loginform.createAccount') !!}</a>
-                            </p>
-
-                            <div class="clearfix"></div>
-                            <br/>
-
-                            <div>
-                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </div>
+                    </div>
+                    <div class="layui-form-item" style="margin-bottom: 20px;">
+                        <input type="checkbox"  name="remember"  {{ old('remember') ? 'checked' : '' }} lay-skin="primary" title="记住密码">
+                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><span>{{trans('auth/login.loginform.rememberPassword')}}</span><i class="layui-icon layui-icon-ok"></i></div>
+                        <a href="{{ route('password.request') }}"  class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">{{trans('auth/login.loginform.Lost_your_password')}}</a>
+                    </div>
+                    <div class="layui-form-item">
+                        <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="LAY-user-login-submit">{{trans('auth/login.loginform.submit')}}</button>
+                    </div>
+                    <div class="layui-trans layui-form-item layadmin-user-login-other">
+                        <label>社交账号登入</label>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
+                        <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
+                        <a href="{{ route('register') }}" class="layadmin-user-jump-change layadmin-link">{!! trans('auth/login.loginform.createAccount') !!}</a>
+                    </div>
+               </div>
+            </form>
+        </div>
+        <div>
+            {{ $errors->has(config('admin.globals.username')) ? '用户名错误' : '' }}
+            {{ $errors->has('password') ? '密码错误' : '' }}
+            {{ $errors->has('captcha') ? '验证码错误' : '' }}
         </div>
     </div>
 {{--注册密码modal--}}
@@ -102,5 +91,14 @@
             // 关闭后这里操作
          });
     @endif
+
+    //form提交
+    layui.use('form', function(){
+        var form = layui.form;
+
+    });
+
+
+
     </script>
 @endsection
