@@ -5,12 +5,11 @@
 @section('css')
     {{--注册页面css--}}
     <link href="{{ asset('/backend/css/Auth/login.css')}}" rel="stylesheet">
-
 @endsection
 @section('content')
     <div>
         <div class="layadmin-user-login-main" style="margin-top: 30px">
-            <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+             <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                 {{ csrf_field() }}
                 <div class="layadmin-user-login-box layadmin-user-login-header">
                     <h2>{{trans('auth/login.register.title')}}</h2>
@@ -86,23 +85,7 @@
                 </div>
             </form>
         </div>
-        <div>
 
-        </div>
-    </div>
-    {{--注册密码modal--}}
-    <div class="modal inmodal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-            </div>
-        </div><!-- /.modal -->
-    </div>
-    {{--忘记密码modal--}}
-    <div class="modal inmodal" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-            </div>
-        </div><!-- /.modal -->
     </div>
 @endsection
 @section('js')

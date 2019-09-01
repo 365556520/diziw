@@ -8,8 +8,6 @@
 @endsection
 @section('content')
     <div>
-        <a class="hiddenanchor" id="signup"></a>
-        <a class="hiddenanchor" id="signin"></a>
         <div class="layadmin-user-login-main" style="margin-top: 30px">
             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
@@ -74,43 +72,15 @@
         </div>
 
     </div>
-{{--注册密码modal--}}
-    <div class="modal inmodal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-            </div>
-        </div><!-- /.modal -->
-    </div>
-{{--忘记密码modal--}}
-    <div class="modal inmodal" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-            </div>
-        </div><!-- /.modal -->
-    </div>
 @endsection
 @section('js')
     <script>
-    {{--找回密码信息--}}
-    @if (session('status'))
-        layer.msg('{{ session('status') }}',function () {
-            // 关闭后这里操作
-        });
-     @endif
-    {{--登录和注册账号信息--}}
-    @if (count($errors) > 0)
-         layer.msg('@foreach ($errors->all() as $error){{ $error }}<br> @endforeach',function () {
-            // 关闭后这里操作
-         });
-    @endif
 
     //form提交
     layui.use('form', function(){
         var form = layui.form;
 
     });
-
-
 
     </script>
 @endsection

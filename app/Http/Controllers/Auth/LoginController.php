@@ -32,7 +32,11 @@ class LoginController extends Controller
         if(Auth::user()->can(config('admin.permissions.system.login'))){
             return 'admin/home';
         }else{
-            return 'login';
+            if (Auth::check()) {
+                // 用户已经登录了...
+                Auth::logout();//不是管理员就退出登录
+                return 'register';
+            }
         }
     }
     /**
@@ -80,6 +84,14 @@ class LoginController extends Controller
             'captcha.required' => trans('validation.required'),
             'captcha.captcha' => trans('validation.captcha'),
         ]);
-
     }
+    /*重写退出方法*/
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        //退出登录后返回后台登录页面
+        return redirect('login');
+    }
+
 }

@@ -44,7 +44,11 @@ class RegisterController extends Controller
         if(Auth::user()->can(config('admin.permissions.system.login'))){
             return 'admin/home';
         }else{
-            return 'login';
+            if (Auth::check()) {
+                 // 用户已经登录了...
+                Auth::logout();
+                return 'admin/home';
+            }
         }
 
     }
