@@ -56,7 +56,7 @@
                     <div class="layui-form-item" style="margin-bottom: 20px;">
                         <input type="checkbox"  name="remember"  {{ old('remember') ? 'checked' : '' }} lay-skin="primary" title="记住密码">
                         <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><span>{{trans('auth/login.loginform.rememberPassword')}}</span><i class="layui-icon layui-icon-ok"></i></div>
-                        <a href="{{ route('password.request') }}"  class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">{{trans('auth/login.loginform.Lost_your_password')}}</a>
+                        <a href="javascript:;lostyourpassword()"  class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">{{trans('auth/login.loginform.Lost_your_password')}}</a>
                     </div>
                     <div class="layui-form-item">
                         <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="LAY-user-login-submit">{{trans('auth/login.loginform.submit')}}</button>
@@ -65,22 +65,44 @@
                         <label>社交账号登入</label>
                         <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
                         <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
-                        <a href="{{ route('register') }}" class="layadmin-user-jump-change layadmin-link">{!! trans('auth/login.loginform.createAccount') !!}</a>
+                        <a  href="javascript:;createAccount()" class="layadmin-user-jump-change layadmin-link">{!! trans('auth/login.loginform.createAccount') !!}</a>
                     </div>
                </div>
             </form>
         </div>
-
     </div>
 @endsection
 @section('js')
     <script>
+        function lostyourpassword() {
+            layer.open({
+                type: 2,//2类型窗口 这里内容是一个网址
+                title: '找回密码',
+                shadeClose: true,
+                shade: false,
+                anim: 2, //打开动画
+                maxmin: true, //开启最大化最小化按钮
+                area: ['390px', '260px'],
+                content: '{{url("/password/reset")}}',
+            });
+        }
+        function createAccount() {
+            layer.open({
+                type: 2,//2类型窗口 这里内容是一个网址
+                title: '注册账号',
+                shadeClose: true,
+                shade: false,
+                anim: 2, //打开动画
+                maxmin: true, //开启最大化最小化按钮
+                area: ['60%', '95%'],
+                content: '{{url("/register")}}',
+            });
+        }
+        //form提交
+        layui.use('form', function(){
+            var form = layui.form;
 
-    //form提交
-    layui.use('form', function(){
-        var form = layui.form;
-
-    });
+        });
 
     </script>
 @endsection

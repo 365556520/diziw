@@ -10,7 +10,7 @@
 
 @section('content')
     <div>
-        <div class="layadmin-user-login-main" style="margin-top: 30px">
+        <div class="layadmin-user-login-main">
            @if (session('status'))
                 <div  style="font-size: 30px">
                     <i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"> {{session('status')}}</i>

@@ -47,7 +47,7 @@ class RegisterController extends Controller
             if (Auth::check()) {
                  // 用户已经登录了...
                 Auth::logout();
-                return 'admin/home';
+                return 'login';
             }
         }
 

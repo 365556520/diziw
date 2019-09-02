@@ -1,10 +1,11 @@
 <?php
 namespace App\Repositories\Eloquent\Admin;
+use App\Models\Permission_Role;
 use App\Models\Role;
 use App\Models\Role_User;
 use App\Repositories\Eloquent\Repository;
 use App\User;
-
+use App\Models\Permission;
 /**
  * 仓库模式继承抽象类
  */
@@ -128,6 +129,16 @@ class UserRepository extends Repository {
     /*得到用户角色*/
     public function getRole($id){
         return Role_User::where('user_id',$id)->pluck('role_id');
+    }
+    /*
+    * 获取id用户的所有权限
+     * $id  当前角色的id
+     * $name 表列名
+   */
+    public function getPermissions($id,$name='*'){
+        $role_id = $this->getRole($id); //获取当前用户角色id
+        $permission_id =  Permission_Role::where('role_id',$role_id)->pluck('permission_id'); //获取当前用户权限id
+        return Permission::select($name)->whereIn('id',$permission_id)->get();
     }
 
 }

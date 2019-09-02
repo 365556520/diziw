@@ -35,7 +35,7 @@ class LoginController extends Controller
             if (Auth::check()) {
                 // 用户已经登录了...
                 Auth::logout();//不是管理员就退出登录
-                return 'register';
+                return 'login';
             }
         }
     }

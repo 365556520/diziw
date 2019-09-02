@@ -8,7 +8,7 @@
 @endsection
 @section('content')
     <div>
-        <div class="layadmin-user-login-main" style="margin-top: 30px">
+        <div class="layadmin-user-login-main">
              <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                 {{ csrf_field() }}
                 <div class="layadmin-user-login-box layadmin-user-login-header">

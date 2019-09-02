@@ -1,5 +1,7 @@
 <?php
 namespace App\Repositories\Presenter;
+use App\Repositories\Eloquent\Admin\UserRepository;
+use Illuminate\Support\Facades\Auth;
 /**
  * Presenter 模式辅助 View
  * User: 小强
@@ -8,6 +10,12 @@ namespace App\Repositories\Presenter;
  * 说明：
  */
 class AdminMenuPresenter {
+    protected $user;  //用户
+    protected $isUserPermissions; //用户所有权限
+    /*注入仓库*/
+    public function __construct(UserRepository $user){
+        $this->user = $user;
+    }
 //   添加菜单下拉列表渲染
     public function getMenu($menus){
         if ($menus){
@@ -126,10 +134,13 @@ class AdminMenuPresenter {
      * @return [type]            [description]
      */
     public function sidebarMenus($menus){
+        $arr = $this->user->getPermissions(Auth::user()->id,'name')->toArray(); //获取该用户权限
+        //把二维数组转换一位数组
+        $this->isUserPermissions = array_column($arr, 'name');
         $html = '';
         if ($menus) {
             foreach ($menus as $v) {
-               if (auth()->user()->can($v['slug'])) {
+               if (in_array($v['slug'],$this->isUserPermissions)) {  //优化方该用户的全部权限后进行判断 老判断权限auth()->user()->can($v['slug'])
                     $html .= '<li class="layui-nav-item ">';
                         if ($v['child']) {
                             $html .= '
@@ -158,7 +169,9 @@ class AdminMenuPresenter {
         $html = '';
         if ($childMenu) {
             foreach ($childMenu as $v) {
-                $html .= '<dd><a href="javascript:;" href-url="'.url($v['url']).'"><i class="layui-icon"></i>'.$v['name'].'</a></dd>';
+                if (in_array($v['slug'],$this->isUserPermissions)) {
+                    $html .= '<dd><a href="javascript:;" href-url="' . url($v['url']) . '"><i class="layui-icon"></i>' . $v['name'] . '</a></dd>';
+                }
             }
         }
         return $html;
