@@ -47,7 +47,8 @@ class RegisterController extends Controller
             if (Auth::check()) {
                  // 用户已经登录了...
                 Auth::logout();
-                return 'login';
+                $massage = '恭喜注册成功！';
+                return 'auth/success/'.$massage;
             }
         }
 

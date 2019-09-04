@@ -24,5 +24,8 @@ class UserResetPasswordController extends Controller{
         }
         return redirect()->back();
     }
-
+    //注册成功页面
+    public function success($massage){
+        return view('auth.success')->with(compact('massage','massage'));
+    }
 }

@@ -38,7 +38,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">{{$exception->getMessage()}}</div>
-                    <div><h3><a href="{{url('admin')}}">返回后台</a></h3></div>
+                    <div><h3><a href="{{url('/login')}}">返回登录页面</a></h3></div>
             </div>
         </div>
     </body>

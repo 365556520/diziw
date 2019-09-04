@@ -19,11 +19,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//修改密码视图
-Route::get('resetPas','Auth\UserResetPasswordController@resetPas')->middleware(['auth'])->name('resetPas');
-//修改密码逻辑
-Route::post('resetPas','Auth\UserResetPasswordController@reset')->middleware(['auth'])->name('resetPas');
+Route::group(['namespace'=>'Auth'],function () {
 
+//修改密码视图
+    Route::get('resetPas','UserResetPasswordController@resetPas')->middleware(['auth'])->name('resetPas');
+//修改密码逻辑
+    Route::post('resetPas','UserResetPasswordController@reset')->middleware(['auth'])->name('resetPas');
+//成功页面
+    Route::get('auth/success/{massage}', 'UserResetPasswordController@success');
+});
 Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => ['auth']],function (){
         //后台页面__DIR__表示当前目录
         require(__DIR__.'/adminRoutes/HomeRoute.php');
