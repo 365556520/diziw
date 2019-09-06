@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="LAY-user-login-submit">{{trans('auth/login.register.submit')}}</button>
+                        <button class="layui-btn layui-btn-fluid " style="background-color:#ec706b;" lay-submit="" lay-filter="LAY-user-login-submit">{{trans('auth/login.register.submit')}}</button>
                     </div>
                 </div>
             </form>
