@@ -65,8 +65,10 @@ Route::group(['namespace'=>'Api'],function(){
         Route::group(['middleware' => 'auth:api'], function() {
             //评论信息
             Route::post('inputComments', 'ApiArticlesController@inputComments');
-            //获取当前月份备忘录
+            //获取当前日份备忘录
             Route::post('getNote/{date}','ApiNoteController@getNote');
+            //获取当前月份哪些日有备份
+            Route::post('getMonthNote/{year}/{month}','ApiNoteController@getMonthNote');
         });
     });
 

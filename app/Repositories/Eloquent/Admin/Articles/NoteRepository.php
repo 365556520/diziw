@@ -89,9 +89,14 @@ class NoteRepository extends Repository {
     }
 
     //api
-    //获取某月的备忘录date_format(datetime,'%Y-%m-%d')
-    public function getMonthNote($date){
+    //获取某日的备忘录date_format(datetime,'%Y-%m-%d')
+    public function getDayNote($date){
         $result = $this->model->select('title as price','content as data','created_at as date')->where('user_id',Auth::user()->id)->whereDate('created_at',$date)->get();
+        return $result;
+    }
+ //获取某月的备忘录
+    public function getMonthNote($year,$month){
+        $result = $this->model->select('created_at as date')->where('user_id',Auth::user()->id)->whereYear('created_at', $year)->whereMonth('created_at',$month)->get();
         return $result;
     }
 
