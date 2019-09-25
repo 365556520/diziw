@@ -14,7 +14,7 @@ class NoteController extends CommonController
      * 便签
      * @return \Illuminate\Http\Response
      */
-    private $note;    //评论仓库
+    private $note;    //日记仓库
     function __construct( NoteRepository $note)
     {
         //调用父累的构造方法
@@ -51,7 +51,7 @@ class NoteController extends CommonController
 
     /**
      * Store a newly created resource in storage.
-     *添加评论逻辑
+     *添加日记逻辑
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -86,7 +86,7 @@ class NoteController extends CommonController
 
     /**
      * Update the specified resource in storage.
-     *修改评论逻辑
+     *修改日记逻辑
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response

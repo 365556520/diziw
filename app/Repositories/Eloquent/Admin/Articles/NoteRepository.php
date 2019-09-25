@@ -37,21 +37,21 @@ class NoteRepository extends Repository {
     }
 
 
-    /*添加备忘录*/
+    /*添加日记*/
     public function createNote($formData){
         //防止xxs攻击过滤
         $formData['content'] = Purifier::clean($formData['content'],array('Attr.EnableID' => true));
         $result = $this->model->create($formData);
         if ($result) {
-            flash('评论添加成功','success');
+            flash('日记添加成功','success');
         }else{
-            flash('评论添加失败','error');
+            flash('日记添加失败','error');
         }
         return $result;
     }
-    /*删除备忘录*/
+    /*删除日记*/
     public function destroyNote($id){
-        //删除备忘录
+        //删除日记
         $result =  $this->delete($id);
         if ($result) {
             flash('删除成功','success');
@@ -62,7 +62,7 @@ class NoteRepository extends Repository {
     }
 
 
-    // 修改备忘录视图数据
+    // 修改日记视图数据
     public function editView($id)
     {
         $result = $this->find($id);
@@ -71,7 +71,7 @@ class NoteRepository extends Repository {
         }
         abort(404);
     }
-    // 修改备忘录
+    // 修改日记
     public function updateNote($attributes,$id)
     {    // 防止用户恶意修改表单id，如果id不一致直接跳转500
         if ($attributes['id'] != $id) {
@@ -89,15 +89,16 @@ class NoteRepository extends Repository {
     }
 
     //api
-    //获取某日的备忘录date_format(datetime,'%Y-%m-%d')
+    //获取某日的日记date_format(datetime,'%Y-%m-%d')
     public function getDayNote($date){
         $result = $this->model->select('title as price','content as data','created_at as date')->where('user_id',Auth::user()->id)->whereDate('created_at',$date)->get();
         return $result;
     }
- //获取某月的备忘录
+ //获取某月的日记
     public function getMonthNote($year,$month){
         $result = $this->model->select('created_at as date')->where('user_id',Auth::user()->id)->whereYear('created_at', $year)->whereMonth('created_at',$month)->get();
         return $result;
     }
+
 
 }

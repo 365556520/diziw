@@ -63,12 +63,14 @@ Route::group(['namespace'=>'Api'],function(){
         Route::get('getComments/{id}','ApiArticlesController@getComments');
         //用户令牌认证过滤
         Route::group(['middleware' => 'auth:api'], function() {
-            //评论信息
+            //添加评论信息
             Route::post('inputComments', 'ApiArticlesController@inputComments');
-            //获取当前日份备忘录
+            //获取当前日份日记
             Route::post('getNote/{date}','ApiNoteController@getNote');
-            //获取当前月份哪些日有备份
+            //获取当前月份哪些日有日记
             Route::post('getMonthNote/{year}/{month}','ApiNoteController@getMonthNote');
+            //添加日记
+            Route::post('addNote','ApiNoteController@addNote');
         });
     });
 
