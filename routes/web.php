@@ -27,6 +27,10 @@ Route::group(['namespace'=>'Auth'],function () {
     Route::post('resetPas','UserResetPasswordController@reset')->middleware(['auth'])->name('resetPas');
 //成功页面
     Route::get('auth/success/{massage}', 'UserResetPasswordController@success');
+    // 引导用户到新浪微博的登录授权页面
+    Route::get('auth/weibo', 'LoginController@weibo');
+// 用户授权后新浪微博回调的页面
+    Route::get('auth/weibocallback', 'LoginController@weibocallback');
 });
 Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => ['auth']],function (){
         //后台页面__DIR__表示当前目录

@@ -93,5 +93,33 @@ class LoginController extends Controller
         //退出登录后返回后台登录页面
         return redirect('login');
     }
+    /*微博登录*/
+    //获取微博登录页面
+    public function weibo() {
+        try {
+            return \Socialite::with('weibo')->redirect();
+        } catch (\InvalidArgumentException $e) {
+            return redirect('/login');
+        }
+
+        // return \Socialite::with('weibo')->scopes(array('email'))->redirect();
+    }
+    //获取登录用户信息
+    public function weibocallback() {
+        $oauthUser = \Socialite::with('weibo')->user();
+        dd($oauthUser);
+        $token = $oauthUser->token;
+        echo $token;
+        $refreshToken = $oauthUser->refreshToken; // not always provided
+        echo $refreshToken;
+        $expiresIn = $oauthUser->expiresIn;
+        echo $expiresIn;
+
+        var_dump($oauthUser->getId());
+        var_dump($oauthUser->getNickname());
+        var_dump($oauthUser->getName());
+        var_dump($oauthUser->getEmail());
+        var_dump($oauthUser->getAvatar());
+    }
 
 }
