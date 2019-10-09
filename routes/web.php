@@ -28,9 +28,10 @@ Route::group(['namespace'=>'Auth'],function () {
 //成功页面
     Route::get('auth/success/{massage}', 'UserResetPasswordController@success');
     // 引导用户到新浪微博的登录授权页面
-    Route::get('auth/weibo', 'LoginController@weibo');
+  /*  guest 中间件，该中间件的用途是登录用户访问该路由会跳转到指定认证后页面，而非登录用户访问才会显示登录页面*/
+    Route::get('auth/{social}', 'LoginController@getSocialRedirect')->middleware('guest');
 // 用户授权后新浪微博回调的页面
-    Route::get('auth/weibocallback', 'LoginController@weibocallback');
+    Route::get('auth/{social}/callback', 'LoginController@getSocialCallback')->middleware('guest');
 });
 Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => ['auth']],function (){
         //后台页面__DIR__表示当前目录

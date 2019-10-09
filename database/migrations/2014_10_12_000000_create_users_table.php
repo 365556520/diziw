@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration{
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
+            //第三方登录
+            $table->string('provider')->nullable();  //第三方登录服务商
+            $table->string('provider_id')->nullable(); //第三方登录id
             $table->timestamps();
         });
         //用户信息表

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
+use App\Models\UsersModel\User_Data;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -95,9 +97,9 @@ class LoginController extends Controller
     }
     /*微博登录*/
     //获取微博登录页面
-    public function weibo() {
+    public function getSocialRedirect($account) {
         try {
-            return \Socialite::with('weibo')->redirect();
+            return \Socialite::with($account)->redirect();
         } catch (\InvalidArgumentException $e) {
             return redirect('/login');
         }
@@ -105,21 +107,40 @@ class LoginController extends Controller
         // return \Socialite::with('weibo')->scopes(array('email'))->redirect();
     }
     //获取登录用户信息
-    public function weibocallback() {
-        $oauthUser = \Socialite::with('weibo')->user();
-        dd($oauthUser);
-        $token = $oauthUser->token;
-        echo $token;
-        $refreshToken = $oauthUser->refreshToken; // not always provided
-        echo $refreshToken;
-        $expiresIn = $oauthUser->expiresIn;
-        echo $expiresIn;
+    public function getSocialCallback($account) {
+        $socialUser = \Socialite::with($account)->user();
+        // 在本地 users 表中查询该用户来判断是否已存在
+        $user = User::where( 'provider_id', '=', $socialUser->id )
+            ->where( 'provider', '=', $account )
+            ->first();
 
-        var_dump($oauthUser->getId());
-        var_dump($oauthUser->getNickname());
-        var_dump($oauthUser->getName());
-        var_dump($oauthUser->getEmail());
-        var_dump($oauthUser->getAvatar());
+        if ($user == null) {
+            // 如果该用户不存在则将其保存到 users 表
+            $newUser = new User();
+            $newUser->name  = $socialUser->getNickname();
+            $newUser->username = $socialUser->getId();
+            $newUser->email  = $socialUser->getEmail() == '' ? '' : $socialUser->getEmail();
+            $newUser->password  = '';
+            $newUser->provider  = $account;
+            $newUser->provider_id = $socialUser->getId();
+            $newUser->save();
+            //关联用户数据
+            $newUser->getUserData()->save(new User_Data(['user_id' => $newUser->id,'nickname'=>$socialUser->getNickname(),'headimg' => $socialUser->getAvatar()]));
+            $user = $newUser;
+        }
+
+        // 手动登录该用户
+        Auth::login( $user );
+
+        // 登录成功后将用户重定向到首页
+            //判断登录用户是否有后台权限没有权限就退出登录
+        if(Auth::user()->can(config('admin.permissions.system.login'))){
+            return redirect('/admin/home');
+        }else{
+            // 用户已经登录了...
+            Auth::logout();//不是管理员就退出登录
+            abort(500,trans('admin/errors.permissions'));
+        }
     }
 
 }
