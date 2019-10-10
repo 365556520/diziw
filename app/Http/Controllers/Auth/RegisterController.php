@@ -31,6 +31,7 @@ class RegisterController extends Controller
      * @var string
      */
  //   protected $redirectTo = '/home';
+    protected $headimg = ''; //用户图片地址
     //返回主页逻辑 这里优先级大于变量
     protected function redirectTo(){
         /*添加权限和关联用户数据*/
@@ -39,7 +40,7 @@ class RegisterController extends Controller
         Auth::user()->roles()->attach($userRole->id);
         //关联用户数据
         $auth =  Auth::user();
-        $auth->getUserData()->save( new User_Data(['user_id' => Auth::user()->id]));
+        $auth->getUserData()->save( new User_Data(['user_id' => Auth::user()->id,'headimg'=>$this->headimg]));
 //        如果有后台权限就登录到后台没有就登录到前台
         if(Auth::user()->can(config('admin.permissions.system.login'))){
             return 'admin/home';
@@ -94,12 +95,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $this->headimg = isset($data['headimg'])?$data['headimg']:''; //第三方用户图片地址
         return User::create([
             'name' => $data['name'],
             //这里是添加自定义字段
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            //这里第三方登录字段
+            'provider_id' => isset($data['provider_id'])?$data['provider_id']:'',
+            'provider' => isset($data['provider'])?$data['provider']:'',
         ]);
     }
 }

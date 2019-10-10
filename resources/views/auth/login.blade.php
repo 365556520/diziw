@@ -63,8 +63,8 @@
                     </div>
                     <div class="layui-trans layui-form-item layadmin-user-login-other">
                         <label>社交账号登入</label>
-                        <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
-                        <a href="{{url('auth/weibo')}}"><i class="layui-icon layui-icon-login-wechat"></i></a>
+                        <a href="{{url('auth/qq')}}"><i class="layui-icon layui-icon-login-qq"></i></a>
+                        <a href="{{url('auth/weibo')}}"><i class="layui-icon layui-icon-login-weibo"  style="color: #ff3a4d;"></i></a>
                         <a  href="javascript:;createAccount()" class="layadmin-user-jump-change layadmin-link">{!! trans('auth/login.loginform.createAccount') !!}</a>
                     </div>
                </div>

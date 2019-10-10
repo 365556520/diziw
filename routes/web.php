@@ -32,6 +32,8 @@ Route::group(['namespace'=>'Auth'],function () {
     Route::get('auth/{social}', 'LoginController@getSocialRedirect')->middleware('guest');
 // 用户授权后新浪微博回调的页面
     Route::get('auth/{social}/callback', 'LoginController@getSocialCallback')->middleware('guest');
+    //第三方绑定本网用户页面
+    Route::get('auth/correlation', 'LoginController@correlation');
 });
 Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => ['auth']],function (){
         //后台页面__DIR__表示当前目录

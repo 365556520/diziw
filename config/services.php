@@ -39,5 +39,10 @@ return [
         'client_secret' => env('WEIBO_SECRET'),
         'redirect' => env('WEIBO_REDIRECT_URI', '授权回调页'),
     ],
+    'qq' => [
+        'client_id' => env('QQ_KEY'),
+        'client_secret' => env('QQ_SECRET'),
+        'redirect' => env('QQ_REDIRECT_URI', '授权回调页'),
+    ],
 
 ];

@@ -190,7 +190,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         // 防止xss攻击插件
         Mews\Purifier\PurifierServiceProvider::class,
-        //微博第三方登录
+        //微博和qq第三方登录
         SocialiteProviders\Manager\ServiceProvider::class, // add
 
     ],
@@ -255,7 +255,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         // 防止xss攻击插件
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
-        //微博第三方登录
+        //微博 和qq第三方登录
         'Socialite' => Laravel\Socialite\Facades\Socialite::class, // add
     ],
 ];
