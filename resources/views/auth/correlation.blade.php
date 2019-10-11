@@ -18,7 +18,7 @@
                 <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                     {{--图片--}}
                     <div class="layui-form-item">
-                        <img src="{{$socialUser->avatar}}" class="layui-circle layui-nav-img">
+                        <img src="{{$socialUser->avatar}}" class="layui-circle layui-nav-img"><span>{{$socialUser->nickname}}</span>
                     </div>
                     {{--隐藏表单第三方表单内容--}}
                     <input type="hidden" name="provider_id" value='{{$socialUser->id}}'>{{--第三方登录id--}}

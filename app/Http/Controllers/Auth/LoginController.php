@@ -110,7 +110,7 @@ class LoginController extends Controller
         $socialUser = \Socialite::with($account)->user();
         // 在本地 users 表中查询该用户来判断是否已存在
         $user = User::where('provider_id', $socialUser->id)
-            ->orWhere('provider', $account)
+            ->where('provider', $account)
             ->first();
         if ($user == null) {
             $socialUser->provider=$account;
