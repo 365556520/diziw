@@ -116,5 +116,17 @@ class PassportController extends CommonController
         return response()->json(['message' => '邮件发送成功','code'=>$this->successStatus]);
     }
 
+    //第三方登录
+    public function socialLogin(Request $request){
+         //判断用户存在不
+        $this->content =  UserFacade::socialLogin(request('provider_id'),request('provider'));
+        if($this->content['code'] == 200)
+        {
+            $this->successStatus = 200;
+        } else {
+            $this->successStatus = 401;
+        }
+        return response()->json($this->content, $this->successStatus);
+    }
 
 }

@@ -34,6 +34,24 @@ class UserFacadeRepository implements UserInterface {
         }
         return $content;
     }
+    /*api第三方登录*/
+    public function socialLogin($provider_id,$provider){
+        $content = array();
+        $user = User::where('app_provider_id', $provider_id)
+            ->where('provider', $provider)
+            ->first();
+        if ($user == null){ //不存在
+            $content['message'] =  '数据不存在';
+            $content['code'] = 401;
+        }else{
+            Auth::login($user); //如果存在就手动登录然后签发令牌
+            $user = Auth::user();
+            $content['token'] =  $user->createToken('Pi App')->accessToken; //创建令牌
+            $content['message'] =  '登录成功';
+            $content['code'] = 200;
+        };
+        return $content;
+    }
     /*
      * 判断用户是否存在
      * */

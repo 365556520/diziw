@@ -83,6 +83,8 @@ Route::group(['namespace'=>'Api'],function(){
         Route::post('isUser', 'PassportController@isUser');
         //给邮箱发送重置密码
         Route::post('resetEmail', 'PassportController@resetEmail');
+        //app第三方登录
+        Route::post('social/login', 'PassportController@socialLogin');
         //用户令牌认证过滤
         Route::group(['middleware' => 'auth:api'], function() {
             //获取用户信息
