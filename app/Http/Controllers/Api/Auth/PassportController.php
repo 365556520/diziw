@@ -128,5 +128,16 @@ class PassportController extends CommonController
         }
         return response()->json($this->content, $this->successStatus);
     }
-
+    //第三方用户关联
+    public function correlation(){
+        //判断用户存在不
+        $this->content =  UserFacade::correlation(request('username'),request('password'),json_decode(request('correlationData')));
+        if($this->content['code'] == 200)
+        {
+            $this->successStatus = 200;
+        } else {
+            $this->successStatus = 401;
+        }
+        return response()->json($this->content, $this->successStatus);
+    }
 }

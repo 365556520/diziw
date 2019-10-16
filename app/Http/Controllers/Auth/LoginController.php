@@ -96,7 +96,7 @@ class LoginController extends Controller
         return redirect('login');
     }
     /*第三方登录登录*/
-    //获取微博登录页面
+    //获取登录页面
     public function getSocialRedirect($account) {
         try {
             return \Socialite::with($account)->redirect();

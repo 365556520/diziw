@@ -7,6 +7,7 @@ namespace App\Repositories\Eloquent;
  * Time: 9:43
  */
 use App\Models\Role;
+use App\Models\UsersModel\User_Data;
 use App\User;
 use App\Repositories\Contracts\UserInterface;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,29 @@ class UserFacadeRepository implements UserInterface {
             $content['message'] =  '登录成功';
             $content['code'] = 200;
         };
+        return $content;
+    }
+    /*
+     * api管理第三方用户
+     * $username  $password账号密码
+     * $correlationData 关联信息
+    */
+    public function correlation($username,$password,$correlationData){
+        $content = array();
+        //判断用户存在不
+        if(Auth::attempt(['username' => $username, 'password' =>$password]))
+        {
+            $user = Auth::user();
+            //绑定用户
+            User::where('id',$user->id)->update(['app_provider_id' => $correlationData->provider_id,'provider' => $correlationData->provider]);
+            $user->getUserData()->save(new User_Data(['user_id' => $user->id,'headimg'=>$correlationData->avatarUrl])); //添加图片
+            $content['token'] =  $user->createToken('Pi App')->accessToken; //创建令牌
+            $content['message'] =  '登录成功';
+            $content['code'] = 200;
+        } else {
+            $content['error'] = "未授权";
+            $content['code'] = 401;
+        }
         return $content;
     }
     /*
