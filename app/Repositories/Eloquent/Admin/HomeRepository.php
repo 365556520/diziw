@@ -45,7 +45,7 @@ class HomeRepository extends Repository {
                         flash("上传成功",'success');
                     }
                     //保存成功返回这个相对路径和图片名字
-                    return '/backend/images/uploads/'.$imgname;
+                    return url('/backend/images/uploads/'.$imgname);
                 }else{
                     return 'false';
                 }
