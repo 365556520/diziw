@@ -66,7 +66,9 @@ class UserFacadeRepository implements UserInterface {
             $user = Auth::user();
             //绑定用户
             User::where('id',$user->id)->update(['app_provider_id' => $correlationData->provider_id,'provider' => $correlationData->provider]);
-            $user->getUserData()->save(new User_Data(['user_id' => $user->id,'headimg'=>$correlationData->avatarUrl])); //添加图片
+            if(User_Data::where('user_id',$user->id)->first()==null){
+                $user->getUserData()->save(new User_Data(['user_id' => $user->id,'headimg'=>$correlationData->avatarUrl])); //添加图片
+            }
             $content['token'] =  $user->createToken('Pi App')->accessToken; //创建令牌
             $content['message'] =  '登录成功';
             $content['code'] = 200;
