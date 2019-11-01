@@ -103,6 +103,5 @@
             var form = layui.form;
 
         });
-
     </script>
 @endsection
