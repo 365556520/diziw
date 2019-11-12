@@ -11,12 +11,12 @@
         <div class="layadmin-user-login-main" style="margin-top: 30px">
             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
-               <div class="layadmin-user-login-box layadmin-user-login-header">
+                <div class="layadmin-user-login-box layadmin-user-login-header">
                     <h2>{{trans('auth/login.title.admin')}}</h2>
                     <p>笛子网后台管理系统</p>
                 </div>
-               <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
-                   {{--账号--}}
+                <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+                    {{--账号--}}
                     <div class="layui-form-item">
                         <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
                         <input type="text" id="config('admin.globals.username')" placeholder="{{trans('auth/login.loginform.username')}}"  name="{{config('admin.globals.username')}}" value="{{ old(config('admin.globals.username')) }}" lay-verify="required"  class="layui-input">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-row">
-                            <div class="layui-col-xs7">
+                            <div class="layui-col-xs5">
                                 <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
                                 <input type="text" id="captcha" lay-verify="required"  placeholder="{{trans('auth/login.captcha')}}"  name="captcha" class="layui-input">
                                 @if ($errors->has('captcha'))
@@ -46,9 +46,9 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="layui-col-xs5">
+                            <div class="layui-col-xs7">
                                 <div style="margin-left: 10px;">
-                                    <img class="layadmin-user-login-codeimg" src="{{captcha_src('flat')}}" style="cursor: pointer;" onclick="this.src='{{captcha_src('flat')}}'+Math.random()">
+                                    <img class="layadmin-user-login-codeimg" src="{{captcha_src('math')}}" style="cursor: pointer;" onclick="this.src='{{captcha_src('math')}}'+Math.random()">
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                         <a href="{{url('auth/weibo')}}"><i class="layui-icon layui-icon-login-weibo"  style="color: #ff3a4d;"></i></a>
                         <a  href="javascript:;createAccount()" class="layadmin-user-jump-change layadmin-link">{!! trans('auth/login.loginform.createAccount') !!}</a>
                     </div>
-               </div>
+                </div>
             </form>
         </div>
     </div>
@@ -103,5 +103,6 @@
             var form = layui.form;
 
         });
+
     </script>
 @endsection
