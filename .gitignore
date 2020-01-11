@@ -12,3 +12,4 @@ yarn-error.log
 .env
 /public/backend/vendors
 /config/admin/cos.php
+/.vscode/sftp.json
