@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://www.diziw.cn'),
+    'url' => env('APP_URL', 'http://server.diziw.cn'),
 
     /*
     |--------------------------------------------------------------------------
